@@ -47,8 +47,13 @@ menggunakan `library(ggplot2)` tanpa melupakan keterkaitannya dengan
 
 #### Data dan *R Markdown* yang Digunakan
 
-Data `USvideos.csv` dan *R Markdown* `Materi Data Viz Day 1.Rmd` (*file*
-`.Rmd` ini akan selalu *update*).
+Selama training ini, ada tiga komponen yang harus masuk ke dalam
+*working directory*:
+
+1.  Data `USvideos.csv`.
+2.  *R Markdown* `Materi Data Viz Day 1.Rmd` (*file* `.Rmd` ini akan
+    selalu *update*).
+3.  *Folder* `asset`.
 
 ### Sesi 3
 
