@@ -1,52 +1,61 @@
 ---
 title: "The State of Trending Videos"
-author: "Jupiter Night B"
-date: "1/17/2020"
+subtitle: "Materi Training in Class"
+author: "@nutrifood"
+date: "Agustus 11, 2020"
 output: 
   html_document:
     toc: true
     toc_depth: 2
     toc_float: 
         collapsed: false
-    number_sections: false
+    number_sections: true
     theme: flatly
     highlight: tango
   fig_caption: yes
-editor_options: 
-  chunk_output_type: inline
 ---
 
-# Libraries and Setup
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-options(scipen = 99)
-```
+options(scipen = 99) 
 
-```{r message=FALSE, warning=FALSE}
+# membersihkan global environment
 rm(list = ls())
+
+# set working directory
+# perhatikan bahwa working directory rekan-rekan akan berbeda dengan saya
+# tolong disesuaikan terlebih dahulu
+setwd("~/Training-R---Data-Viz")
+
+# pastikan semua libraries dipanggil
+# for data reshaping
+library(dplyr)
+library(tidyr)
 # for working with dates
 library(lubridate)
-# for data reshaping
-library(tidyr)
 # for visualization
 library(ggplot2)
 library(plotly)
 library(glue)
 ```
 
+
 # Abstract
 
 The data we're working is `USvideos.csv`, a dataset scraped from Youtube's US Trending Videos. By analizing this Trending Videos data, we will uncover how these videos were able to reach such massive audience. We'll also take a look and see if there were any similarities between the videos that did well on the platform. 
 
+# Memanggil _Dataset_
+
+Langkah pertama yang harus dilakukan adalah memanggil _dataset_ dan memastikan _dataset_ tersebut sudah masuk ke dalam _Global Environment_.
+
 ```{r}
-#read csv
-vids<- read.csv("data/USvideos.csv")
-#see column headers
+# membaca file csv
+vids = read.csv("USvideos.csv")
+
+# melihat seluruh nama variabel dalam dataset vids
 names(vids)
-
 ```
-
 
 In this session, we will use visualization techniques to gain such insights from the trending videos data:
 1. Does the video publishing time affect its popularity? If so, when is the best time to publish a video?
@@ -57,13 +66,16 @@ We will use two plotting systems for our task:
 - Base plot for a quick and simple exploratory visualization
 - `ggplot2` for uncovering more complex pattern & for producing explanatory visualization
 
+## Mengecek struktur data
+
+Langkah berikutnya adalah mengecek struktur dari data. Hal ini wajib dilakukan untuk mengetahui apakah variabel dalam data tersebut sudah memiliki tipe yang tepat atau belum.
 
 ```{r}
-#see data structure
+# melihat struktur data
 str(vids)
 ```
 
-Recall what you've learned in P4DS. Do the column `trending_date` & `publish_time` have stored in the correct class?
+Do the column `trending_date` & `publish_time` have stored in the correct class?
 
 # Data Pre-Processing
 
@@ -94,8 +106,15 @@ Let's start with `trending_date`. Previously, we learnt to convert a date variab
 But now, we'll use an easier alternative to work with date-time data, and that is through the use of `lubridate`.
 `lubridate` provides tools that make it easier to parse and manipulate dates:
 
+Kesimpulan:
+
+Ada dua cara mengkonversi data tipe `character` menjadi bentuk waktu (tanggal dan jam), yakni dengan:
+
+1. `base` __R__ dengan _function_ `as.Date()`
+2. `library(lubridate)`
+
 ```{r}
-# example:
+# Contoh:
 a <- "08/03/19"
 b <- "8-March-2019"
 c <- "Thursday, 09-05-2019"
@@ -103,59 +122,74 @@ d <- "2019/05/09, 1:42PM"
 
 # convert date using as.Date:
 a <- as.Date(a, "%d/%m/%y")
+a
 
 # convert date using lubridate:
 b <- dmy(b)
 c <- dmy(c)
 d <- ymd_hm(d)
+
+b
+c
+d
 ```
 
-Let's apply this method to convert the datetime related column's data types in `vids`;
+[Time-zone reference](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List)
+
+Sekarang kita akan melakukan konversi terhadap dua variabel yang ada, yakni `trending_date` dan `publish_time` menggunakan fungsi dari `library(lubridate)` dengan memanfaatkan prinsip _pipe_ ( `%>%` ) sebagai berikut:
+
 ```{r}
-#see 5 last data
-tail(vids$trending_date)
-#convert trending date
-vids$trending_date=ydm(vids$trending_date)
-#convert publish time
-vids$publish_time=ymd_hms(vids$publish_time,tz = "America/New_York")
-#see 5 first data
+vids = 
+  vids %>% 
+  mutate(trending_date = ydm(trending_date), # convert trending date
+         publish_time = ymd_hms(publish_time,tz = "America/New_York") # convert publish time
+         )
+
+# melihat hasil konversi
+# 5 data pertama
 head(vids)
 ```
 
-[Time-zone reference](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones#List )
-
 ### Date-Time Extraction
 
-```{r}
-# get time components from trending date
-
-# day of week
-vids$trending_dow=wday(vids$trending_date,label = T,abbr = T, week_start = 1)
-
-# month
-vids$trending_month=month(vids$trending_date,label=T)
-```
+Sekarang kita akan lanjutkan ekstraksi informasi tanggal dan waktu dengan memanfaatkan prinsip _pipe_ ( `%>%` ) sebagai berikut: 
 
 ```{r}
-# get time components from publish time
+vids = 
+  vids %>% 
+  mutate(
+    # get time components from trending date
+    trending_dow = wday(trending_date,label = T,abbr = T, week_start = 1), # day of week
+    trending_month = month(trending_date,label=T), # month
+    
+    # get time components from publish time
+    publish_wday = wday(publish_time,label = T,abbr = F,week_start = 1),
+    publish_hour = hour(publish_time)
+        ) 
 
-# day of week
-vids$publish_wday=wday(vids$publish_time,
-                       label = T,
-                       abbr = F, 
-                       week_start = 1)
-
-
-# hour
-vids$publish_hour=hour(vids$publish_time)
+# melihat hasil konversi
+# 5 data terakhir
+tail(vids)
 ```
 
 ### Categorizing hour
 
-```{r}
-unique(vids$publish_hour)
+Sekarang kita akan membuat kategori dari variabel `publish_hour`. Pertama-tama, kita perhatikan ada data apa saja dari variabel tersebut:
 
-# create function for categorizing
+```{r}
+sort(unique(vids$publish_hour))
+```
+
+Masih ingat terkait materi _function_ ?
+
+Kita sekarang akan membuat _function_ yang bertujuan untuk mengkategorikan `publish_hour` ke tiga kelompok:
+
+1. `12AM to 7AM`
+1. `8AM to 3PM`
+1. `4PM to 11PM`
+
+```{r}
+# membuat function untuk melakukan kategorisasi
 pw <- function(x){
     if(x < 8){
       x <- "12AM to 7AM"
@@ -167,25 +201,30 @@ pw <- function(x){
 }
 ```
 
+Setelah itu, kita akan aplikasikan _function_ tersebut ke data yang ada dengan menggunakan:
 
 `sapply(x, FUN)`
+
 Arguments: 
--`x`: A vector or an object
--`FUN`: Function applied to each element of x
+
+- `x`: A vector or an object
+- `FUN`: Function applied to each element of x
 
 ```{r}
 # apply function
-vids$publish_when<-as.factor(sapply(vids$publish_hour,pw))
+vids$publish_when = as.factor(sapply(vids$publish_hour,pw))
 # see unique data in column publish_when
 unique(vids$publish_when)
 ```
 
+Variabel `publish_when` memiliki tipe `factor` dan masih tidak berurutan. Oleh karena itu, kita akan urutkan sesuai dengan waktu sebagai berikut:
+
 ```{r}
-# reorder category level
-vids$publish_when=ordered(vids$publish_when,
-                          levels=c("12AM to 7AM",
-                                   "8AM to 3PM",
-                                   "4PM to 11PM"))
+# mengurutkan kategory dengan level
+vids$publish_when = ordered(vids$publish_when,
+                            levels=c("12AM to 7AM",
+                                     "8AM to 3PM",
+                                     "4PM to 11PM"))
 # see 5 first data of publish_when
 head(vids$publish_when)
 ```
@@ -203,9 +242,9 @@ switch(1,
 
 # e.g. 2
 data <- 1:3
-#wrong answer
-## will throw error:
-#switch(data,
+# wrong answer
+# will throw error:
+# switch(data,
 #        "1" = "Low",
 #        "2" = "Medium",
 #        "3" = "High")
@@ -243,14 +282,20 @@ vids$category_id <- as.factor(vids$category_id)
 ## Select unique videos
 
 ```{r}
-#see total of title
+# see total of title
 length(vids$title)
-#see total of title without any duplicates
+
+# see total of title without any duplicates
 length(unique(vids$title))
-#create data frame of titles without duplicates
-title=unique(vids$title)
-#eliminate all duplicates of title in vids data
-vids.u=vids[match(title,vids$title),]
+
+# create data frame of titles without duplicates
+title = unique(vids$title)
+
+# eliminate all duplicates of title in vids data
+vids.u =
+  vids %>% 
+  group_by(title) %>% 
+  filter(trending_date == max(trending_date))
 ```
 
 # Quick Exploration with R's Base plot
