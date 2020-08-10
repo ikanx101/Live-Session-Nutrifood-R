@@ -45,6 +45,11 @@ Fokus bahasan dari sesi ini adalah melakukan visualisasi data dengan
 menggunakan `library(ggplot2)` tanpa melupakan keterkaitannya dengan
 *function pipe*: `%>%`.
 
+#### Data dan *R Markdown* yang Digunakan
+
+Data `USvideos.csv` dan *R Markdown* `Materi Data Viz Day 1.Rmd` (*file*
+`.Rmd` ini akan selalu *update*).
+
 ### Sesi 3
 
 Pada sesi ini kita akan membuat visualisasi data interaktif dengan cara
@@ -64,36 +69,437 @@ session* kali ini akan ada beberapa peraturan, yakni:
 2.  Jika ada permasalahan terkait *R markdown*, rekan-rekan bisa
     memanfaatkan grup **QnA** untuk menyelesaikannya dengan cara
     bertanya dan mengirimkan *file* `.Rmd` ke grup masing-masing.
+    *Trainer fasilitator* akan mengecek file `.Rmd` rekan-rekan dan
+    menginformasikan letak kesalahan yang terjadi.
 3.  Jangan takut tertinggal materi, *file* `.Rmd` secara live akan
     terupdate di halaman *github* ini.
 
 ### Pembagian Kelompok
 
-| id | trainee  | fasilitator |
-| -: | :------- | :---------- |
-|  1 | Evelyn   | Lenny       |
-|  2 | May      | Lenny       |
-|  3 | Novita   | Lenny       |
-|  4 | Albert   | Lenny       |
-|  5 | Novia    | Lenny       |
-|  6 | Tikadewi | Lenny       |
+<table>
+
+<caption>
 
 Kelompok I
 
-| id | trainee | fasilitator |
-| -: | :------ | :---------- |
-|  1 | Davin   | Teguh       |
-|  2 | Andrew  | Teguh       |
-|  3 | Vianna  | Teguh       |
-|  4 | Luthfan | Teguh       |
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:right;">
+
+id
+
+</th>
+
+<th style="text-align:left;">
+
+trainee
+
+</th>
+
+<th style="text-align:left;">
+
+fasilitator
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:left;">
+
+Evelyn
+
+</td>
+
+<td style="text-align:left;">
+
+Lenny
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:left;">
+
+May
+
+</td>
+
+<td style="text-align:left;">
+
+Lenny
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:left;">
+
+Novita
+
+</td>
+
+<td style="text-align:left;">
+
+Lenny
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4
+
+</td>
+
+<td style="text-align:left;">
+
+Albert
+
+</td>
+
+<td style="text-align:left;">
+
+Lenny
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+5
+
+</td>
+
+<td style="text-align:left;">
+
+Novia
+
+</td>
+
+<td style="text-align:left;">
+
+Lenny
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+6
+
+</td>
+
+<td style="text-align:left;">
+
+Tikadewi
+
+</td>
+
+<td style="text-align:left;">
+
+Lenny
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
 
 Kelompok II
 
-| id | trainee  | fasilitator |
-| -: | :------- | :---------- |
-|  1 | Didit    | Fahmi       |
-|  2 | Yulius   | Fahmi       |
-|  3 | Eko      | Fahmi       |
-|  4 | Patricia | Fahmi       |
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:right;">
+
+id
+
+</th>
+
+<th style="text-align:left;">
+
+trainee
+
+</th>
+
+<th style="text-align:left;">
+
+fasilitator
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:left;">
+
+Davin
+
+</td>
+
+<td style="text-align:left;">
+
+Teguh
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:left;">
+
+Andrew
+
+</td>
+
+<td style="text-align:left;">
+
+Teguh
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:left;">
+
+Vianna
+
+</td>
+
+<td style="text-align:left;">
+
+Teguh
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4
+
+</td>
+
+<td style="text-align:left;">
+
+Luthfan
+
+</td>
+
+<td style="text-align:left;">
+
+Teguh
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table>
+
+<caption>
 
 Kelompok III
+
+</caption>
+
+<thead>
+
+<tr>
+
+<th style="text-align:right;">
+
+id
+
+</th>
+
+<th style="text-align:left;">
+
+trainee
+
+</th>
+
+<th style="text-align:left;">
+
+fasilitator
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td style="text-align:right;">
+
+1
+
+</td>
+
+<td style="text-align:left;">
+
+Didit
+
+</td>
+
+<td style="text-align:left;">
+
+Fahmi
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+2
+
+</td>
+
+<td style="text-align:left;">
+
+Yulius
+
+</td>
+
+<td style="text-align:left;">
+
+Fahmi
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+3
+
+</td>
+
+<td style="text-align:left;">
+
+Eko
+
+</td>
+
+<td style="text-align:left;">
+
+Fahmi
+
+</td>
+
+</tr>
+
+<tr>
+
+<td style="text-align:right;">
+
+4
+
+</td>
+
+<td style="text-align:left;">
+
+Patricia
+
+</td>
+
+<td style="text-align:left;">
+
+Fahmi
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
