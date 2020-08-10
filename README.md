@@ -508,3 +508,13 @@ Fahmi
 </tbody>
 
 </table>
+
+## Bagaimana cara mengambil *file* `.Rmd` yang updated di *github*?
+
+Ada dua cara:
+
+1.  [Direct
+    link](https://raw.githubusercontent.com/ikanx101/Training-R---Data-Viz/master/Materi%20Data%20Viz%20Day%201.Rmd)
+    dan melakukan *copy paste* ke **R Studio** masing-masing.
+2.  Melalui halaman ini dan memilih *file* `Materi Data Viz Day 1.Rmd`
+    dan melakukan *copy paste* ke **R Studio** masing-masing.
