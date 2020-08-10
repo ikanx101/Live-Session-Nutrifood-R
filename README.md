@@ -66,3 +66,34 @@ session* kali ini akan ada beberapa peraturan, yakni:
     bertanya dan mengirimkan *file* `.Rmd` ke grup masing-masing.
 3.  Jangan takut tertinggal materi, *file* `.Rmd` secara live akan
     terupdate di halaman *github* ini.
+
+### Pembagian Kelompok
+
+| id | trainee  | fasilitator |
+| -: | :------- | :---------- |
+|  1 | Evelyn   | Lenny       |
+|  2 | May      | Lenny       |
+|  3 | Novita   | Lenny       |
+|  4 | Albert   | Lenny       |
+|  5 | Novia    | Lenny       |
+|  6 | Tikadewi | Lenny       |
+
+Kelompok I
+
+| id | trainee | fasilitator |
+| -: | :------ | :---------- |
+|  1 | Davin   | Teguh       |
+|  2 | Andrew  | Teguh       |
+|  3 | Vianna  | Teguh       |
+|  4 | Luthfan | Teguh       |
+
+Kelompok II
+
+| id | trainee  | fasilitator |
+| -: | :------- | :---------- |
+|  1 | Didit    | Fahmi       |
+|  2 | Yulius   | Fahmi       |
+|  3 | Eko      | Fahmi       |
+|  4 | Patricia | Fahmi       |
+
+Kelompok III
