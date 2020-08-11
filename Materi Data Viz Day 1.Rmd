@@ -315,7 +315,7 @@ vids.u =
   mutate(
     likesratio = likes/views * 100,
     dislikeratio = dislikes/views * 100,
-    commentration = comment_count/views * 100
+    commentratio = comment_count/views * 100
   )
 ```
 
@@ -399,40 +399,54 @@ Problem statements:
   1. Amongst Automotive, Gaming & Travel, which category shows highest likeability (likesperviews)?
   2. Does the publish time affect likeability? 
 
-Untuk menjawab ini
+Untuk menjawab ini mari kita buat grafik berbentuk _boxplot_ dengan bantuan `library(ggplot2)`
+
+Bagaimana cara kerja `ggplot`?
+
+1. Buat kanvas.
+1. Masukkan jenis plot yang diinginkan. Berikan fitur (_aesthetic_) untuk masing-masing plot.
+1. Tambah fitur pada plot seperti _title_, _subtitle_, _label_, _caption_, dll
+1. Berikan tema (jika mau).
 
 ```{r}
 # 1. create the base canvas
-ggplot(vids.camp,aes(publish_when,likesratio))
+vids.camp %>% 
+  ggplot(aes(x = publish_when,
+             y = likesratio))
 ```
   
 ```{r}
 # 2. add the geom element
-ggplot(vids.camp,aes(publish_when,likesratio))+
+vids.camp %>% 
+  ggplot(aes(x = publish_when,
+             y = likesratio)) +
   geom_boxplot()
 ```
 
 ```{r}
 # add another geom element
-ggplot(vids.camp,aes(publish_when,likesratio))+
-  geom_boxplot()+
+vids.camp %>% 
+  ggplot(aes(x = publish_when,
+             y = likesratio)) +
+  geom_boxplot() +
   geom_jitter()
 ```
 
 ```{r}
 # add more visual cues
-ggplot(vids.camp,aes(publish_when,likesratio))+
+vids.camp %>% 
+  ggplot(aes(x = publish_when,
+             y = likesratio)) +
   geom_boxplot(outlier.shape = NA)+
   geom_jitter(aes(color=category_id,size=comment_count),alpha=0.5)+
   labs(title = "Pre-Campaign Analysis: Automotive, Gaming & Travel",
-       subtitle="Gaming shows higher user engagement",
-       x="Publish Time",
-       y="Likes per Views Ratio",
-       size="Comment Count",
-       color="Category")
+       subtitle = "Gaming shows higher user engagement",
+       x = "Publish Time",
+       y = "Likes per Views Ratio",
+       size = "Comment Count",
+       color = "Category",
+       caption = "Training Data Viz @nutrifood")
 ```
-
-
 
 ## Visualizing comparison with barchart
 ### Who were the most prolific producers of trending videos in recent weeks?
@@ -441,25 +455,33 @@ Since we’re concerned about the quantity of videos (talking about being prolif
 
 ```{r}
 # take only the channels that have at least 10 videos being trending
-top=as.data.frame(table(Channel=vids.u$channel_title))
-top=top[top$Freq>=10,]
-top=top[order(top$Freq,decreasing = T),]
-# get top 15 videos
-top=head(top,15)
+top = 
+  vids.u %>% 
+  group_by(channel_title) %>% 
+  summarise(Freq = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(Freq)) %>% 
+  filter(Freq >= 10) %>% 
+  rename(Channel = channel_title)
 
+top 
 ```
 
 Let's turn the table to a barchart visualization:
 
 ```{r}
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = Channel,
+             y = Freq)) +
   geom_col()
 ```
 
 Notice that the axis labels were too "tight". There are two approaches on handling this problem:
 ```{r}
 # first approach: rotate the axis
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = Channel,
+             y = Freq)) +
   geom_col()+
   theme(axis.text.x = element_text(angle = 45,hjust=1))
 
@@ -467,7 +489,9 @@ ggplot(top,aes(Channel, Freq))+
 
 ```{r}
 # second approach: flip the coordinate with `coord_flip`
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = Channel,
+             y = Freq)) +
   geom_col()+
   coord_flip()
 ```
@@ -475,11 +499,10 @@ ggplot(top,aes(Channel, Freq))+
 Make your barchart more efficient by ordering the bars based on the value you want to show:
 
 ```{r}
-# reorder the bars based on value
-top$Channel=reorder(top$Channel,top$Freq)
-
 # rerun the code above
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = reorder(Channel,Freq),
+             y = Freq)) +
   geom_col()+
   coord_flip()
 ```
@@ -492,7 +515,9 @@ ggplot(top,aes(Channel, Freq))+
 
 ```{r}
 # add general color 
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = reorder(Channel,Freq),
+             y = Freq)) +
   geom_col(fill="red")+
   coord_flip()
 ```
@@ -500,14 +525,18 @@ ggplot(top,aes(Channel, Freq))+
 
 ```{r}
 # use aes to give visual aesthetic by variable in data
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = reorder(Channel,Freq),
+             y = Freq)) +
   geom_col(aes(fill=Freq))+
   coord_flip()
 ```
 
 ```{r}
 # adjust color with `scale_fill_*`/`scale_color_*`
-ggplot(top,aes(Channel, Freq))+
+top %>% 
+  ggplot(aes(x = reorder(Channel,Freq),
+             y = Freq)) +
   geom_col(aes(fill=Freq))+
   coord_flip()+
   scale_fill_gradient(low="green",high="purple")
@@ -519,7 +548,13 @@ ggplot(top,aes(Channel, Freq))+
 #### Data transformation
 ```{r}
 # subset `vids.u` based on channel in `top`
-vids.top=vids.u[vids.u$channel_title %in% top$Channel,]
+target_channel = top$Channel
+
+# filtering
+vids.top = 
+  vids.u %>% 
+  filter(channel_title %in% target_channel)
+
 head(vids.top)
 ```
 
@@ -529,15 +564,13 @@ Aggregate data with `aggregate.data.frame()`:
 
 ```{r}
 # aggregate data
-#vids.top.agg=aggregate.data.frame(x=list(likesratio=vids.top$likesratio,
-#                                         dislikesratio=vids.top$dislikesratio),
-#                                  by=list(channel=vids.top$channel_title),
-#                                  mean)
+vids.top.agg = 
+  vids.top %>% 
+  group_by(channel_title) %>% 
+  summarise(likesratio = mean(likesratio),
+            dislikeratio = mean(dislikeratio))
 
-# arrange channel levels by likes vs dislikes ratio
-#vids.top.agg$channel=reorder(vids.top.agg$channel, (vids.top.agg$likesratio/vids.top.agg$dislikesratio))
-
-#head(vids.top.agg)
+head(vids.top.agg)
 ```
 
 #### Data Reshaping
