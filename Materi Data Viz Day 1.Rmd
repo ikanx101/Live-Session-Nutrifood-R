@@ -348,6 +348,18 @@ vids.camp =
   filter(category_id %in% campaign)
 
 head(vids.camp,5)
+
+# Pertanyaan tambahan
+# sorting berdasarkan rules tertentu
+# urutannya: Gaming, Travel, Auto
+vids_new = 
+  vids.camp %>% 
+  mutate(category_id = factor(category_id,
+                              levels = c('Gaming',
+                                         'Travel and Events',
+                                         'Autos and Vehicles'))
+         ) %>% 
+  arrange(category_id)
 ```
 
 _____________
