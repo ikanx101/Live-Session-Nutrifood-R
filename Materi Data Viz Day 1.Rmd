@@ -364,7 +364,6 @@ vids_new =
 
 _____________
 
-
 # Membuat Grafik Menggunakan `base` __R__
 
 Sebelum kita membahas mengenai `library(ggplot2)`, sebenarnya __R__ memiliki `base` untuk membuat grafik yang sederhana dan mudah.
@@ -385,14 +384,14 @@ _Scatterplot_ dari `base`:
 plot(vids.camp$comment_count,
      vids.camp$views,
      col = vids.camp$category_id,
-     pch = 2)
+     pch = 12)
 ```
 
 ### QUIZ:
 
 Apa fungsi dari `col = ` dan `pch = `?
 
-## Fitur Lain pada Scatterplot Memanfaatkan `base`
+## Fitur Lain pada _Scatterplot_ Memanfaatkan `base`
 
 Kita bisa menambahkan _trendline_, dengan membuat rumus regresi dari: $views = a*comment + C$
 
@@ -401,7 +400,7 @@ plot(vids.camp$comment_count,
      vids.camp$views,
      col = vids.camp$category_id,
      pch = 2)
-abline(lm(vids.camp$views ~vids.camp$comment_count))
+abline(lm(vids.camp$views ~ vids.camp$comment_count))
 legend("topright",legend=levels(vids.camp$category_id),fill=1:6)
 ```
 
@@ -439,7 +438,7 @@ vids.camp %>%
 ```
   
 ```{r}
-# 2. add the geom element
+# 2. add the geom element / jenis plot
 vids.camp %>% 
   ggplot(aes(x = publish_when,
              y = likesratio)) +
@@ -460,8 +459,8 @@ vids.camp %>%
 vids.camp %>% 
   ggplot(aes(x = publish_when,
              y = likesratio)) +
-  geom_boxplot(outlier.shape = NA)+
-  geom_jitter(aes(color=category_id,size=comment_count),alpha=0.5)+
+  geom_boxplot(color = 'magenta',size = .75,fill = 'cyan')+
+  geom_jitter(aes(color=category_id,size=comment_count),alpha=0.75)+
   labs(title = "Pre-Campaign Analysis: Automotive, Gaming & Travel",
        subtitle = "Gaming shows higher user engagement",
        x = "Publish Time",
@@ -582,8 +581,8 @@ head(vids.top)
 ```
 
 ##### Data Aggregation
-Aggregate data with `aggregate.data.frame()`: 
-- `aggregate.data.frame(x = list(), by= list(), FUN)`
+
+Kita buat data agregat dulu untuk ini:
 
 ```{r}
 # aggregate data
