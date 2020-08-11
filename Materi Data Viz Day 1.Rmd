@@ -138,7 +138,7 @@ d
 
 Sekarang kita akan melakukan konversi terhadap dua variabel yang ada, yakni `trending_date` dan `publish_time` menggunakan fungsi dari `library(lubridate)` dengan memanfaatkan prinsip _pipe_ ( `%>%` ) sebagai berikut:
 
-```{r}
+```{r,message=FALSE}
 vids = 
   vids %>% 
   mutate(trending_date = ydm(trending_date), # convert trending date
@@ -169,7 +169,7 @@ vids =
 
 # melihat hasil konversi
 # 5 data terakhir
-tail(vids)
+tail(vids,5)
 ```
 
 ### Categorizing hour
@@ -190,7 +190,7 @@ Kita sekarang akan membuat _function_ yang bertujuan untuk mengkategorikan `publ
 
 ```{r}
 # membuat function untuk melakukan kategorisasi
-pw <- function(x){
+pw = function(x){
     if(x < 8){
       x <- "12AM to 7AM"
     }else if(x >= 8 & x < 16){
@@ -201,7 +201,7 @@ pw <- function(x){
 }
 ```
 
-Setelah itu, kita akan aplikasikan _function_ tersebut ke data yang ada dengan menggunakan:
+Setelah itu, kita akan aplikasikan _function_ tersebut ke dataframe yang ada dengan menggunakan:
 
 `sapply(x, FUN)`
 
@@ -215,6 +215,8 @@ Arguments:
 vids$publish_when = as.factor(sapply(vids$publish_hour,pw))
 # see unique data in column publish_when
 unique(vids$publish_when)
+
+head(vids)
 ```
 
 Variabel `publish_when` memiliki tipe `factor` dan masih tidak berurutan. Oleh karena itu, kita akan urutkan sesuai dengan waktu sebagai berikut:
@@ -277,6 +279,8 @@ vids$category_id <- sapply(as.character(vids$category_id), switch,
                            "43" = "Shows")
 
 vids$category_id <- as.factor(vids$category_id)
+
+head(vids,5)
 ```
 
 ## Select unique videos
