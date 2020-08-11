@@ -302,12 +302,15 @@ Kalau kita perhatikan bersama, ada beberapa `title` yang berulang muncul pada da
 vids.u =
   vids %>% 
   group_by(title) %>% 
-  filter(trending_date == max(trending_date))
+  filter(trending_date == max(trending_date)) %>% 
+  ungroup()
+
+head(vids.u)
 ```
 
 ## How Popular is Your Video?
 
-Mari kita buat analisa mengenai seberapa populer vide tersebut di Youtube! Setidaknya, kita akan menghitung `3` parameter baru, yakni:
+Mari kita buat analisa mengenai seberapa populer video tersebut di Youtube! Setidaknya, kita akan menghitung `3` __parameter__ baru, yakni:
 
 1. `likesratio`: seberapa banyak orang yang _hit_ `likes` dari total `views`.
 1. `dislikesratio`: seberapa banyak orang yang _hit_ `dislikes` dari total `views`.
@@ -321,6 +324,8 @@ vids.u =
     dislikeratio = dislikes/views * 100,
     commentratio = comment_count/views * 100
   )
+
+head(vids.u,5)
 ```
 
 ## How High is the Engagement?
@@ -341,6 +346,8 @@ campaign = c("Autos and Vehicles", "Gaming","Travel and Events")
 vids.camp = 
   vids.u %>% 
   filter(category_id %in% campaign)
+
+head(vids.camp,5)
 ```
 
 _____________
