@@ -574,6 +574,9 @@ top %>%
 #### How positive is the engagement?
 
 #### Data transformation
+
+Tujuan: kita akan membuat data baru berisi top channel lalu kita akan hitung 3 parameter utama: likes, dislikes, comment.
+
 ```{r}
 # subset `vids.u` based on channel in `top`
 target_channel = top$Channel
@@ -596,13 +599,16 @@ vids.top.agg =
   vids.top %>% 
   group_by(channel_title) %>% 
   summarise(likesratio = mean(likesratio),
-            dislikeratio = mean(dislikeratio))
+            dislikeratio = mean(dislikeratio)) %>% 
+  ungroup()
 
 head(vids.top.agg)
 ```
 
 #### Data Reshaping
 ![](assets/long_vs_wide_data_format.png)
+
+Simpel pakai `library(reshape2)` untuk mengubah data wide ke bentuk tabular
 
 ```{r}
 library(reshape2)
@@ -611,10 +617,17 @@ vids.long =
   vids.top.agg %>% 
   melt(id.vars = 'channel_title') %>% 
   rename(name = variable)
+
 head(vids.long)
 ```
 
 #### Visualization: Positions in `geom_col`
+
+Biasanya ada dua cara utk membuat barchart di `ggplot2`:
+
+- `geom_bar`
+- `geom_col`
+
 
 1. Stacked bars (default position):  
   - subgroups are just displayed on top of each other, not beside  
@@ -625,16 +638,21 @@ head(vids.long)
 vids.long %>% 
   ggplot(aes(x = channel_title,
              y = value)) +
-  geom_col(aes(fill = name),position = 'dodge')
+  geom_col(aes(fill = name),position = 'stack')
 ```
 
 2. Percent stacked barchart (`position="fill"`):  
   - percentage of each subgroup is represented, allowing to study the evolution of their proportion in the whole  
   - the x axis is the range of 0-100% 
 
+Tujuan: membuat bar chart 100% stacked bar
+
 ```{r}
 # `position=`fill` to `
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = name),position = 'fill')
 ```
 
 3. Grouped barchart (`position="dodge"`):  
@@ -643,7 +661,13 @@ vids.long %>%
   
 ```{r}
 # `position=`fill` to `
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = name),position = 'dodge') +
+  labs(title = 'Top Channel',
+       fill = 'Jenis Parameter') +
+  coord_flip()
 ```  
 
 ***End of Day 1***
