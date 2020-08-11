@@ -593,7 +593,10 @@ head(vids.long)
   
 ```{r}
 # default position: `position="stack"`
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = variable),position = 'dodge')
 ```
 
 2. Percent stacked barchart (`position="fill"`):  
