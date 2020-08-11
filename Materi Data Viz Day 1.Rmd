@@ -581,7 +581,8 @@ library(reshape2)
 
 vids.long =
   vids.top.agg %>% 
-  melt(id.vars = 'channel_title')
+  melt(id.vars = 'channel_title') %>% 
+  rename(name = variable)
 head(vids.long)
 ```
 
@@ -596,7 +597,7 @@ head(vids.long)
 vids.long %>% 
   ggplot(aes(x = channel_title,
              y = value)) +
-  geom_col(aes(fill = variable),position = 'dodge')
+  geom_col(aes(fill = name),position = 'dodge')
 ```
 
 2. Percent stacked barchart (`position="fill"`):  
