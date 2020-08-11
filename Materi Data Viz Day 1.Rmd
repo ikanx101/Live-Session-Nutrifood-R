@@ -26,7 +26,7 @@ rm(list = ls())
 # set working directory
 # perhatikan bahwa working directory rekan-rekan akan berbeda dengan saya
 # tolong disesuaikan terlebih dahulu
-setwd("~/Training-R---Data-Viz")
+setwd("~/Documents/Training-R---Data-Viz")
 
 # pastikan semua libraries dipanggil
 # for data reshaping
@@ -281,16 +281,19 @@ vids$category_id <- as.factor(vids$category_id)
 
 ## Select unique videos
 
+Perhatikan data sebagai berikut:
+
 ```{r}
 # see total of title
 length(vids$title)
 
 # see total of title without any duplicates
 length(unique(vids$title))
+```
 
-# create data frame of titles without duplicates
-title = unique(vids$title)
+Kalau kita perhatikan bersama, ada beberapa `title` yang berulang muncul pada dataset `vids`. Pembedanya adalah `trending_date`. Oleh karena itu, kita hanya akan mengambil data dari masing-masing `title` dari `trending_date` terbaru.
 
+```{r}
 # eliminate all duplicates of title in vids data
 vids.u =
   vids %>% 
@@ -298,81 +301,106 @@ vids.u =
   filter(trending_date == max(trending_date))
 ```
 
-# Quick Exploration with R's Base plot
-
-```{r}
-#see 5 first data of vids
-head(vids)
-```
-
 ## How Popular is Your Video?
 
-A like on a Youtube video is a lot more than just a simple number: in addition to emphasizing quality, creativity and the hidden idea behind the video, it also means popularity. In this case, the perfect ratio between likes and views is: likes: views = 4%. 
+Mari kita buat analisa mengenai seberapa populer vide tersebut di Youtube! Setidaknya, kita akan menghitung `3` parameter baru, yakni:
 
-In simpler terms, at least 4 like every 100 views.
-Visitors, but especially your channel’s subscribers, by investing their time leaving a like will indirectly say that the video is qualitatively valid, from the point of view of entertainment and originality, to the point that it deserves a nice thumb up. 
+1. `likesratio`: seberapa banyak orang yang _hit_ `likes` dari total `views`.
+1. `dislikesratio`: seberapa banyak orang yang _hit_ `dislikes` dari total `views`.
+1. `commentratio`: seberapa banyak orang yang menulis `comment` dari total `views`.
 
 ```{r}
-#create engagement ratios
-
-#create likesratio
-vids.u$likesratio=vids.u$likes/vids.u$views
-#create dislikesratio
-vids.u$dislikesratio=vids.u$dislikes/vids.u$views
-#create commentsratio
-vids.u$commentsratio=vids.u$comment_count/vids.u$views
+vids.u = 
+  vids.u %>% 
+  mutate(
+    likesratio = likes/views * 100,
+    dislikeratio = dislikes/views * 100,
+    commentration = comment_count/views * 100
+  )
 ```
 
 ## How High is the Engagement?
 
-Say, one of the content we want to publish have people who interested in "Autos and Vehicles", "Gaming", and "Travel and Events" as our target audience. So let's subset our data based on these particular categories:
+Misalkan kita hendak melakukan analisa terhadap kategori video:
+
+1. "Autos and Vehicles",
+1. "Gaming",
+1. "Travel and Events" 
+
+Mari kita _subset_ datanya dengan prinsip _pipe_ (`%>%`) sebagai berikut:
 
 ```{r}
-#make group of 'campaign'
-campaign=c("Autos and Vehicles", "Gaming","Travel and Events")
-#extract data only in 'campaign' group
-vids.camp=vids.u[vids.u$category_id %in% campaign,]
-vids.camp$category_id=droplevels(vids.camp$category_id)
+# kita buat dulu target campaign yang akan menjadi filter
+campaign = c("Autos and Vehicles", "Gaming","Travel and Events")
+
+# extract data only in 'campaign' group
+vids.camp = 
+  vids.u %>% 
+  filter(category_id %in% campaign)
 ```
 
-- Scatterplot digunakan untuk membandingkan/melihat hubungan dua variabel numerik
+_____________
 
-![](assets/scatterplot.png)
 
-- positive: nilai x naik, nilai y naik (dan sebaliknya)  
-- negative: nilai x naik, nilai y turun (dan sebaliknya)  
-- weak/no correlation: kedua variabel tidak menunjukan hubungan  
+# Membuat Grafik Menggunakan `base` __R__
+
+Sebelum kita membahas mengenai `library(ggplot2)`, sebenarnya __R__ memiliki `base` untuk membuat grafik yang sederhana dan mudah.
+
+Jenis plot yang dihasilkan juga berubah sesuai tipe data yang dimasukkan, jika:  
+* 1 variabel, x kategori: **bar chart**  
+* 1 variabel, x numerik: **scatter plot**  
+* 2 variabel, x dan y adalah numerik: **scatter plot**  
+* 2 variabel, x kategori, y numerik: **boxplot** 
+
+## Contoh grafik _Scatterplot_
+
+_Scatterplot_ digunakan untuk membandingkan/melihat hubungan dua variabel numerik. Kemudian biasanya analisa lanjutan yang sering digunakan adalah korelasi.
+
+_Scatterplot_ dari `base`:
 
 ```{r}
-plot(vids.camp$comment_count,vids.camp$views,col=vids.camp$category_id,pch=19)
+plot(vids.camp$comment_count,
+     vids.camp$views,
+     col = vids.camp$category_id,
+     pch = 2)
+```
+
+### QUIZ:
+
+Apa fungsi dari `col = ` dan `pch = `?
+
+## Fitur Lain pada Scatterplot Memanfaatkan `base`
+
+Kita bisa menambahkan _trendline_, dengan membuat rumus regresi dari: $views = a*comment + C$
+
+```{r}
+plot(vids.camp$comment_count,
+     vids.camp$views,
+     col = vids.camp$category_id,
+     pch = 2)
 abline(lm(vids.camp$views ~vids.camp$comment_count))
-legend("topright",legend=levels(vids.camp$category_id),fill=1:3)
+legend("topright",legend=levels(vids.camp$category_id),fill=1:6)
 ```
 
 - Semakin tinggi jumlah `views` pada sebuah video, semakin tinggi juga jumlah `comment_count` pada video tersebut
 - Kategori "Gaming" memiliki `views` dan `comment_count` tertinggi  
 - Dari kategori Gaming, ada beberapa video dangan `views` yang tinggi namun `comment_count` yang sedikit, dan sebaliknya
 
----
 
-Jenis plot yang dihasilkan berubah sesuai tipe data yang dimasukkan, jika:  
-* 1 variabel, x kategori: **bar chart**  
-* 1 variabel, x numerik: **scatter plot**  
-* 2 variabel, x dan y adalah numerik: **scatter plot**  
-* 2 variabel, x kategori, y numerik: **boxplot** 
+____
 
+# `library(ggplot2)`
 
 ## Simple Exploratory
+
 ### Pre-Campaign Analysis
+
+Problem statements:
   1. Amongst Automotive, Gaming & Travel, which category shows highest likeability (likesperviews)?
   2. Does the publish time affect likeability? 
-  
-```{r}
-head(vids.camp)
-vids.camp$publish_when=as.factor(vids.camp$publish_when)
-```
-  
-  
+
+Untuk menjawab ini
+
 ```{r}
 # 1. create the base canvas
 ggplot(vids.camp,aes(publish_when,likesratio))
@@ -501,15 +529,15 @@ Aggregate data with `aggregate.data.frame()`:
 
 ```{r}
 # aggregate data
-vids.top.agg=aggregate.data.frame(x=list(likesratio=vids.top$likesratio,
-                                         dislikesratio=vids.top$dislikesratio),
-                                  by=list(channel=vids.top$channel_title),
-                                  mean)
+#vids.top.agg=aggregate.data.frame(x=list(likesratio=vids.top$likesratio,
+#                                         dislikesratio=vids.top$dislikesratio),
+#                                  by=list(channel=vids.top$channel_title),
+#                                  mean)
 
 # arrange channel levels by likes vs dislikes ratio
-vids.top.agg$channel=reorder(vids.top.agg$channel, (vids.top.agg$likesratio/vids.top.agg$dislikesratio))
+#vids.top.agg$channel=reorder(vids.top.agg$channel, (vids.top.agg$likesratio/vids.top.agg$dislikesratio))
 
-head(vids.top.agg)
+#head(vids.top.agg)
 ```
 
 #### Data Reshaping
