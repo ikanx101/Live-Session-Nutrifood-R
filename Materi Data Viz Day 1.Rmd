@@ -473,7 +473,11 @@ vids.camp %>%
 ## Visualizing comparison with barchart
 ### Who were the most prolific producers of trending videos in recent weeks?
 
-Since we’re concerned about the quantity of videos (talking about being prolific!) we will create another subset of the full dataframe, but take only the channels that have at least 10 videos being trending!
+Tujuan kita adalah: 
+
+Take only the channels that have at least 10 videos being trending!
+
+Kita akan mengambil base data frame dari `vids.u` yang tidak ada _duplicate_.
 
 ```{r}
 # take only the channels that have at least 10 videos being trending
@@ -482,8 +486,8 @@ top =
   group_by(channel_title) %>% 
   summarise(Freq = n()) %>% 
   ungroup() %>% 
-  arrange(desc(Freq)) %>% 
   filter(Freq >= 10) %>% 
+  arrange(desc(Freq)) %>% 
   rename(Channel = channel_title)
 
 top 
@@ -514,7 +518,7 @@ top %>%
 top %>% 
   ggplot(aes(x = Channel,
              y = Freq)) +
-  geom_col()+
+  geom_col() +
   coord_flip()
 ```
 
@@ -523,9 +527,9 @@ Make your barchart more efficient by ordering the bars based on the value you wa
 ```{r}
 # rerun the code above
 top %>% 
-  ggplot(aes(x = reorder(Channel,Freq),
+  ggplot(aes(x = reorder(Channel,Freq), # kalau mau kebalikannya, bisa tambah - di depan Freq
              y = Freq)) +
-  geom_col()+
+  geom_col() +
   coord_flip()
 ```
 
@@ -540,7 +544,7 @@ top %>%
 top %>% 
   ggplot(aes(x = reorder(Channel,Freq),
              y = Freq)) +
-  geom_col(fill="red")+
+  geom_col(fill="blue") +
   coord_flip()
 ```
 
@@ -550,7 +554,7 @@ top %>%
 top %>% 
   ggplot(aes(x = reorder(Channel,Freq),
              y = Freq)) +
-  geom_col(aes(fill=Freq))+
+  geom_col(aes(fill = Freq))+
   coord_flip()
 ```
 
@@ -559,9 +563,11 @@ top %>%
 top %>% 
   ggplot(aes(x = reorder(Channel,Freq),
              y = Freq)) +
-  geom_col(aes(fill=Freq))+
+  geom_col(aes(fill = Freq))+
   coord_flip()+
-  scale_fill_gradient(low="green",high="purple")
+  scale_fill_gradient(low="lightblue",high="darkred") +
+  theme(axis.text.y = element_text(size = 8,face='bold.italic'),
+        axis.text.x = element_text(size = 15,face='bold.italic')) # digunakan utk ganti2
 ```
 
 ### Multivariate Barchart
