@@ -577,15 +577,12 @@ head(vids.top.agg)
 ![](assets/long_vs_wide_data_format.png)
 
 ```{r}
-# use `pivot_longer` to convert wide to long
-vids.long=pivot_longer(data=vids.top.agg,cols=-channel)
-head(vids.long)
-```
+library(reshape2)
 
-```{r}
-# example on how to use `pivot_wider`
-vids.wide=pivot_wider(data=vids.long,names_from = name,values_from = value)
-head(vids.wide)
+vids.long =
+  vids.top.agg %>% 
+  melt(id.vars = 'channel_title')
+head(vids.long)
 ```
 
 #### Visualization: Positions in `geom_col`
