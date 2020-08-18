@@ -1026,11 +1026,29 @@ ggplotly(plot1, tooltip = "text")
 - ungroup
 
 ```{r}
+vids2 = 
+  vids %>% 
+  filter(category_id %in% c("Education", "Science and Technology")) %>% 
+  group_by(category_id, trending_date) %>% 
+  summarise(views_n = n()) %>% 
+  ungroup() %>% 
+  mutate(text = paste0("Category: ",category_id,"\nJumlah Video: ",views_n))
 
+vids2
 ```
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
+plot2 =
+  vids2 %>% 
+  ggplot(aes(x = trending_date,
+             y = views_n)) +
+  geom_point(aes(color = category_id, text = text), show.legend = F) +
+  geom_line(aes(color = category_id))+
+  labs(title = "Trend Total Video Trending Based on Category",
+       y = NULL,
+       x = "Category")
 
+ggplotly(plot2, tooltip = "text")
 ```
 
 3. Tim marketing Algoritma juga sudah memperoleh informasi category video yang lebih berpeluang untuk trending. Selanjutnya, mereka ingin mengetahui apakah channel-channel dan category tersebut juga memiliki kesan yang positif (jumlah likes tinggi). Buatlah sebuah visualisasi yang menggambarkan informasi tersebut.
@@ -1038,12 +1056,30 @@ ggplotly(plot1, tooltip = "text")
 - filter category `Education` & `Scinece and Technology`
 
 ```{r}
+vids3 = 
+  vids %>% 
+  filter(category_id %in% c("Education", "Science and Technology")) %>% 
+  mutate(text = glue(
+    "Channel: {channel_title}
+     Category: {category_id}
+     Likes: {likes}
+     Views: {views}"
+    )
+  )
 
+vids3
 ```
 
 
 ```{r}
+plot3 =
+  vids3 %>% 
+  ggplot(aes(x =views, 
+             y = likes)) +
+  geom_point(aes(color = category_id, text = text), show.legend = F) +
+  geom_smooth(method = "lm")
 
+ggplotly(plot3, tooltip = "text")
 ```
 
 **References:**  
