@@ -929,7 +929,7 @@ plot+
 
 # Dive Deeper
 
-1. Tim marketing Algoritma berenca untuk melakukan campaign (iklan) pada 5 channel youtube yang memiliki likes ratio tertinggi. Karena Algoritma bergerak di bidang edukasi dan data science maka, hanya channel-channel yang memiliki video dengan kategori `Education` dan `Science and Technology` yang akan dipilih untuk melakukan campaign. Buatlah sebuah visualisasi yang menggambarkan informasi tersebut.
+1. Tim marketing Algoritma berencana untuk melakukan campaign (iklan) pada 5 channel youtube yang memiliki likes ratio tertinggi. Karena Algoritma bergerak di bidang edukasi dan data science maka, hanya channel-channel yang memiliki video dengan kategori `Education` dan `Science and Technology` yang akan dipilih untuk melakukan campaign. Buatlah sebuah visualisasi yang menggambarkan informasi tersebut.
 
 - filter category `Education` & `Science and Technology`
 - mutate kolom baru yang isinya likes/views
@@ -940,7 +940,14 @@ plot+
 - head(5)
 
 ```{r}
-
+vids %>% 
+  filter(category_id %in% c("Education", "Science and Technology")) %>% 
+  mutate(likesr = likes/views) %>% 
+  group_by(channel_title, category_id) %>% 
+  summarise(mean.likesr = round(mean(likesr)*100, 2)) %>% 
+  ungroup() %>% 
+  arrange(desc(mean.likesr)) %>% 
+  head(5)
 ```
 
 # Interactive Visualization
