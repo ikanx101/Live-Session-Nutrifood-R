@@ -939,7 +939,7 @@ plot+
 - arrange likes ratio besar -> kecil
 - head(5)
 
-```{r}
+```{r,warning=FALSE,message=FALSE}
 vids %>% 
   filter(category_id %in% c("Education", "Science and Technology")) %>% 
   mutate(likesr = likes/views) %>% 
@@ -947,7 +947,20 @@ vids %>%
   summarise(mean.likesr = round(mean(likesr)*100, 2)) %>% 
   ungroup() %>% 
   arrange(desc(mean.likesr)) %>% 
-  head(5)
+  head(5) %>% 
+  ggplot(aes(x = reorder(channel_title,-mean.likesr),
+             y = mean.likesr)) +
+  geom_col(aes(fill = category_id)) +
+  geom_text(aes(label = mean.likesr)) +
+  theme_economist() +
+  labs(title = "Lebih baik kita beriklan di mana?",
+       subtitle = "Channel Title dari Kategori yang Diinginkan",
+       x = "Channel Title",
+       y = "Rata-rata Likes Ratio",
+       fill = "Kategori",
+       caption = "Training R\n@nutrifood") +
+  theme(axis.text.y = element_blank(),
+        legend.position = "bottom")
 ```
 
 # Interactive Visualization
