@@ -794,25 +794,35 @@ ggplot(aes(x = channel, y= value))+
 **Opt 1:** pre-process with `dplyr` count:
 
 ```{r message=FALSE, warning=FALSE}
+vids.camp2 =
+  vids %>% 
+  filter(category_id %in% c("Entertainment", "Music", "Gaming")) %>% 
+  group_by(trending_date,category_id) %>% 
+  summarise(n = n()) %>% 
+  ungroup()
 
-
+head(vids.camp2)
 ```
 
-```{r}
-
-```
 
 **Customize the x axis (date)**: https://ggplot2.tidyverse.org/reference/scale_date.html
 
 ```{r}
-
+vids.camp2 %>% 
+  ggplot(aes(x = trending_date , y = n))+
+  geom_line(aes(color = category_id))+
+  geom_point(aes(color = category_id))
 ```
 
 - Double axis in `ggplot2`: https://rpubs.com/MarkusLoew/226759
 - Why not to use two axes, and what to use instead: https://blog.datawrapper.de/dualaxis/  
 
 ```{r}
-
+vids.camp2 %>% 
+  ggplot(aes(x = trending_date , y = n)) +
+  geom_line(aes(color = category_id)) +
+  geom_point(aes(color = category_id)) +
+  scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")
 ```
 
 ### Group in Line chart
