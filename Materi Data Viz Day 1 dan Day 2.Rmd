@@ -887,7 +887,7 @@ plot =
          label_new = paste0(label_new,"%")) %>%  # ini kita buat agar ada tulisan persennya 
   ggplot(aes(x = channel_title, y= value))+
   geom_col(aes(fill = name), position = "dodge")+
-  geom_text(aes(label = label_new), hjust = 1, size = 2.8, color = "white")+ # add enhancement on geom_text()
+  geom_text(aes(label = label_new), size = 2.1, color = "steelblue")+ # add enhancement on geom_text()
   coord_flip()+
   labs(title = "Likeability Analysis on Popular Channels",
        x = NULL,
