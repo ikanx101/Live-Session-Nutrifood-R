@@ -682,32 +682,60 @@ Say, we want to split our previous grouped barcharts into multiple panels, based
 
 ```{r}
 ## same code as above + `facet_wrap()`
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = name)) +
+  labs(title = 'Top Channel',
+       fill = 'Jenis Parameter') +
+  coord_flip() +
+  facet_wrap(~name)
 ```
 
 #### Adjust the scales in facet with `scales = "free_*"`
 
 ```{r}
 # `scales = "free"` gives each facet individual axis
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = name)) +
+  labs(title = 'Top Channel',
+       fill = 'Jenis Parameter') +
+  coord_flip() +
+  facet_wrap(~name,scales = 'free')
 ```
 
 ```{r}
 # `scales = "free_y"` gives each facet individual y axis
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = name)) +
+  labs(title = 'Top Channel',
+       fill = 'Jenis Parameter') +
+  coord_flip() +
+  facet_wrap(~name,scales = 'free_y')
 ```
 
 ```{r}
 # `scales = "free_x"` gives each facet individual x axis
-
+vids.long %>% 
+  ggplot(aes(x = channel_title,
+             y = value)) +
+  geom_col(aes(fill = name)) +
+  labs(title = 'Top Channel',
+       fill = 'Jenis Parameter') +
+  coord_flip() +
+  facet_wrap(~name,scales = 'free_x')
 ```
 
 ### Add text/labels on your chart with `geom_text()`:
 
+Sekarang kita akan masukkan label ke dalam chart menggunakan prinsip `%>%`, sebagai berikut:
+
 ```{r}
 # prepare text for label in `geom_text()`
-
-
 # add geom text
 
 ```
