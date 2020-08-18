@@ -742,7 +742,7 @@ vids.long %>%
          label_new = paste0(label_new,"%")) %>%  # ini kita buat agar ada tulisan persennya 
   ggplot(aes(x = channel_title, y= value))+
   geom_col(aes(fill = name), position = "dodge")+
-  geom_text(aes(label = label_new), size = 2)+ # add geom_text to plot
+  geom_text(aes(label = label_new))+ # add geom_text to plot
   coord_flip()+
   labs(title = "Likeability Analysis on Popular Channels",
        x = NULL,
@@ -754,17 +754,38 @@ vids.long %>%
 
 #### Enhancing the aesthetic of `geom_text`
 
+Tulisan textnya berantakan yah gaes... kita rapihkan dengan beberapa _custom setting_ sbb:
+
 - `hjust` (horizontal justification)/ `vjust` (vertical justification): adjust the text position
 - `size`: adjust the text size
 
 ```{r}
-
+vids.long %>% 
+  mutate(label_new = round(value*100,1), # satu angka di belakang koma
+         label_new = paste0(label_new,"%")) %>%  # ini kita buat agar ada tulisan persennya 
+  ggplot(aes(x = channel_title, y= value))+
+  geom_col(aes(fill = name), position = "dodge")+
+  geom_text(aes(label = label_new), hjust = 1, size = 2.1)+ # add geom_text to plot
+  coord_flip()+
+  labs(title = "Likeability Analysis on Popular Channels",
+       x = NULL,
+       y = NULL,
+       fill = "Ratios in (%):")+
+  facet_wrap(~name, scales = "free_x")
 ```
 
 **Customize the x axis (continuous)**: https://ggplot2.tidyverse.org/reference/scale_continuous.html
 
 ```{r}
-
+ggplot(aes(x = channel, y= value))+
+  geom_col(aes(fill = name), position = "dodge")+
+  geom_text(aes(label = value), hjust = 1, size = 2.8)+ # add enhancement on geom_text()
+  coord_flip()+
+  labs(title = "Likeability Analysis on Popular Channels",
+       x = NULL,
+       y = NULL,
+       fill = "Ratios in (%):")+
+  facet_wrap(~name, scales = "free_x")
 ```
 
 ## Visualizing trend with line chart
