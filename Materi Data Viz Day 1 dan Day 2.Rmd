@@ -737,6 +737,18 @@ Sekarang kita akan masukkan label ke dalam chart menggunakan prinsip `%>%`, seba
 ```{r}
 # prepare text for label in `geom_text()`
 # add geom text
+vids.long %>% 
+  mutate(label_new = round(value*100,1), # satu angka di belakang koma
+         label_new = paste0(label_new,"%")) %>%  # ini kita buat agar ada tulisan persennya 
+  ggplot(aes(x = channel_title, y= value))+
+  geom_col(aes(fill = name), position = "dodge")+
+  geom_text(aes(label = label_new), size = 2)+ # add geom_text to plot
+  coord_flip()+
+  labs(title = "Likeability Analysis on Popular Channels",
+       x = NULL,
+       y = NULL,
+       fill = "Ratios in (%):")+
+  facet_wrap(~name, scales = "free_x")
 
 ```
 
