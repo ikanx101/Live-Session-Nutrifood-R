@@ -998,7 +998,7 @@ vids1 =
   ungroup() %>% 
   arrange(desc(mean.likesr)) %>% 
   head(5) %>% 
-  mutate(text = paste0("Category:",category_id,"\nLikes Ratio:",mean.likesr,"%")) # penambahan \n berfungsi agar nanti saat dirender tulisan akan turun ke bawah
+  mutate(text = paste0("Category: ",category_id,"\nLikes Ratio: ",mean.likesr,"%")) # penambahan \n berfungsi agar nanti saat dirender tulisan akan turun ke bawah
 
 vids1
 ```
