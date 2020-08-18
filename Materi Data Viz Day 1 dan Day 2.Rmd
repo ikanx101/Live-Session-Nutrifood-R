@@ -825,23 +825,45 @@ vids.camp2 %>%
   scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")
 ```
 
+```{r}
+vids.camp2 %>% 
+  ggplot(aes(x = trending_date , y = n, group = category_id))+
+  geom_line(aes(color = category_id))+
+  geom_point(aes(color = category_id))+
+  facet_wrap(~category_id, scales = "free_y", ncol = 1)+
+  labs(title = "Trend Analysis on Entertainment, Gaming & Music",
+       x = "Trending Date",
+       y = "Total Videos",
+       color = "Category")
+```
+
+
 ### Group in Line chart
 
 - Visualizing day of week trend 
 ```{r}
+vids.camp2 = 
+  vids.camp2 %>% 
+  mutate(trending_dow = wday(trending_date, label = T))
 
+day.agg = 
+  vids.camp2 %>% 
+  group_by(trending_dow,category_id) %>% 
+  summarise(n = mean(n)) %>% 
+  ungroup() %>% 
+  arrange(category_id,trending_dow)
+
+day.agg
 ```
 
-Warning: `geom_path: Each group consists of only one observation. Do you need to adjust the group aesthetic?`
-
 ```{r}
-
+ggplot(day.agg, aes(trending_dow, n))+
+  geom_line(aes(color = category_id))
 ```
 
-Solution: add `group = [grouping category]`
-
 ```{r}
-
+ggplot(day.agg, aes(trending_dow, n))+
+  geom_line(aes(color = category_id, group = category_id))
 ```
 
 ## Visualizing relationships with scatterplot
