@@ -774,20 +774,6 @@ vids.long %>%
   facet_wrap(~name, scales = "free_x")
 ```
 
-**Customize the x axis (continuous)**: https://ggplot2.tidyverse.org/reference/scale_continuous.html
-
-```{r}
-ggplot(aes(x = channel, y= value))+
-  geom_col(aes(fill = name), position = "dodge")+
-  geom_text(aes(label = value), hjust = 1, size = 2.8)+ # add enhancement on geom_text()
-  coord_flip()+
-  labs(title = "Likeability Analysis on Popular Channels",
-       x = NULL,
-       y = NULL,
-       fill = "Ratios in (%):")+
-  facet_wrap(~name, scales = "free_x")
-```
-
 ## Visualizing trend with line chart
 
 **Dive Deeper**: Pre-Campaign Analysis; Entertainment, Music & Gaming 
@@ -871,20 +857,42 @@ ggplot(day.agg, aes(trending_dow, n))+
 Pre-Campaign Analysis; Likes vs. Dislikes Ratio in Refinery29
 
 ```{r}
+refinery = 
+  vids.u %>% 
+  filter(channel_title == "Refinery29")
 
+refinery %>% 
+  ggplot(aes(x = likesratio,
+             y = dislikeratio)) +
+  geom_point(aes(size = commentratio))
 ```
 
 Jika pola hubungan/korelasi kurang terlihat jelas pada scatterplot, kita bisa menambahkan `geom_smooth(method = "lm")` untuk menampilkan model linier dari kedua nilai:
 
 
 ```{r}
-
+refinery %>% 
+  ggplot(aes(x = likesratio,
+             y = dislikeratio)) +
+  geom_point(aes(size = commentratio)) +
+  geom_smooth(method = "lm")
 ```
 
 # Enhance your Visualization
 
 ```{r}
-
+vids.long %>% 
+  mutate(label_new = round(value*100,1), # satu angka di belakang koma
+         label_new = paste0(label_new,"%")) %>%  # ini kita buat agar ada tulisan persennya 
+  ggplot(aes(x = channel_title, y= value))+
+  geom_col(aes(fill = name), position = "dodge")+
+  geom_text(aes(label = label_new), hjust = 1, size = 2.8, color = "white")+ # add enhancement on geom_text()
+  coord_flip()+
+  labs(title = "Likeability Analysis on Popular Channels",
+       x = NULL,
+       y = NULL,
+       fill = "Ratios in (%):")+
+  facet_wrap(~name, scales = "free_x")
 ```
 
 
