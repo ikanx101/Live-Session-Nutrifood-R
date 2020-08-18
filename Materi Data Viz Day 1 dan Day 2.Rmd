@@ -881,7 +881,8 @@ refinery %>%
 # Enhance your Visualization
 
 ```{r}
-vids.long %>% 
+plot = 
+  vids.long %>% 
   mutate(label_new = round(value*100,1), # satu angka di belakang koma
          label_new = paste0(label_new,"%")) %>%  # ini kita buat agar ada tulisan persennya 
   ggplot(aes(x = channel_title, y= value))+
@@ -893,6 +894,8 @@ vids.long %>%
        y = NULL,
        fill = "Ratios in (%):")+
   facet_wrap(~name, scales = "free_x")
+
+plot
 ```
 
 
@@ -903,17 +906,23 @@ vids.long %>%
 References: https://ggplot2.tidyverse.org/reference/ggtheme.html
 
 ```{r}
-
+plot+
+  theme_minimal()
 ```
 
 #### Using themes library
 
 ```{r}
+library(ggthemes)
 
+plot+
+  ggthemes::theme_economist()
 ```
 
 ```{r}
-
+plot+
+  theme_economist()+
+  scale_fill_economist()
 ```
 
 # Interactive Visualization
