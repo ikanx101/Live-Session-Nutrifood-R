@@ -677,6 +677,3 @@ vids.long %>%
 - *Full documentations of ggplot2*: https://ggplot2.tidyverse.org/  
 - *Top 50 ggplot2 visualizations*: http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html  
 - *Documentations of ggplot2 extensions library*: https://www.ggplot2-exts.org/  
-
-
-**End of Training**
