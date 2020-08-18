@@ -940,14 +940,17 @@ plot+
 - head(5)
 
 ```{r,warning=FALSE,message=FALSE}
-vids %>% 
+vids1 = 
+  vids %>% 
   filter(category_id %in% c("Education", "Science and Technology")) %>% 
   mutate(likesr = likes/views) %>% 
   group_by(channel_title, category_id) %>% 
   summarise(mean.likesr = round(mean(likesr)*100, 2)) %>% 
   ungroup() %>% 
   arrange(desc(mean.likesr)) %>% 
-  head(5) %>% 
+  head(5) 
+
+vids1 %>% 
   ggplot(aes(x = reorder(channel_title,-mean.likesr),
              y = mean.likesr)) +
   geom_col(aes(fill = category_id)) +
@@ -960,7 +963,8 @@ vids %>%
        fill = "Kategori",
        caption = "Training R\n@nutrifood") +
   theme(axis.text.y = element_blank(),
-        legend.position = "bottom")
+        legend.position = "bottom",
+        legend.text = element_text(size=10))
 ```
 
 # Interactive Visualization
@@ -968,17 +972,50 @@ vids %>%
 ## From `ggplot` to `plotly`
 
 ```{r}
+plot1 =
+  vids1 %>% 
+  ggplot(aes(x = reorder(channel_title, mean.likesr), 
+             y = mean.likesr)) +
+  geom_col(aes(fill = mean.likesr), show.legend = F) +
+  labs(title = "Top 5 Channel based on Likes Ratio",
+       subtitle = "Category: Education & Science and Technology",
+       y = NULL,
+       x = "Channel")
+plot1
 
+ggplotly(plot1)
 ```
 
 ## Hovering text
 
 ```{r}
+vids1 = 
+  vids %>% 
+  filter(category_id %in% c("Education", "Science and Technology")) %>% 
+  mutate(likesr = likes/views) %>% 
+  group_by(channel_title, category_id) %>% 
+  summarise(mean.likesr = round(mean(likesr)*100, 2)) %>% 
+  ungroup() %>% 
+  arrange(desc(mean.likesr)) %>% 
+  head(5) %>% 
+  mutate(text = paste0("Category:",category_id,"\nLikes Ratio:",mean.likesr,"%")) # penambahan \n berfungsi agar nanti saat dirender tulisan akan turun ke bawah
 
+vids1
 ```
 
 ```{r}
+plot1 = 
+  vids1 %>% 
+  ggplot(aes(x = reorder(channel_title, mean.likesr), 
+             y = mean.likesr,
+             text = text)) +
+  geom_col(aes(fill = mean.likesr), show.legend = F) +
+  labs(title = "Top 5 Channel based on Likes Ratio",
+       subtitle = "Category: Education & Science and Technology",
+       y = NULL,
+       x = "Channel")
 
+ggplotly(plot1, tooltip = "text")
 ```
 
 2. Tim marketing Algoritma sudah memperoleh informasi channel-channel youtube yang memiliki likes ratio tertinggi. Selanjutnya, mereka harus menentukan category `Education` atau `Science and Technology` yang lebih berpeluang untuk trending (jumlah views tinggi). Buatlah sebuah visualisasi yang menggambarkan informasi tersebut.
