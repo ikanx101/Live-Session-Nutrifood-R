@@ -107,6 +107,7 @@ ggcorr(crime, hjust = 1, label = T)
 ```{r}
 model_crime1 = lm(inequality~gdp, crime)
 
+# lihat bentuk modelnya
 summary(model_crime1)
 ```
 
@@ -126,50 +127,63 @@ Nilai _p-value_ sebesar $<0.05$.
 
 Predict nilai inequality menggunakan fungsi predict()
 ```{r}
-#pred1 <- 
+pred1 = predict(model_crime1, newdata = data.frame(gdp = crime$gdp)) 
+summary(pred1)
 ```
 
 2. Buat model linear untuk memprediksi inequality berdasarkan gdp dan mean education
 
 ```{r}
-#model_crime2 <- 
+model_crime2 <- lm(inequality ~ gdp + mean_education, crime) 
+
+# lihat bentuk modelnya
+summary(model_crime2)
 ```
+
+Untuk kasus ini, jika multiple linear regression yang perlu dilihat adalah `Adjusted R-Squared`.
 
 Predict nilai inequality menggunakan fungsi predict()
 ```{r}
-#pred2 <- 
+pred2 = predict(model_crime2, 
+                newdata = data.frame(gdp = crime$gdp,
+                                     mean_education = crime$mean_education)) 
+summary(pred2)
 ```
 
 3. Bandingkan nilai r.squared, adj.r.squared, dan MSE-nya dari kedua model tersebut
 
 R-squared
 ```{r}
-
+summary(model_crime1)$r.squared
+summary(model_crime2)$r.squared
 ```
 
 Adjusted R-squared
 ```{r}
-
+summary(model_crime1)$adj.r.squared
+summary(model_crime2)$adj.r.squared
 ```
-> Dari nilai adj R squared, yang memiliki nilai adj r-squared terbesar ...
+
+> Dari nilai adj R squared, yang memiliki nilai adj r-squared terbesar adalah `model_crime2`.
 
 
 Nilai MSE dari ketiga model tersebut
 ```{r}
-
+MSE(model_crime1$fitted.values,crime$inequality)
+MSE(model_crime2$fitted.values,crime$inequality)
 ```
-> Dari nilai MSE, yang memiliki nilai lebih kecil ...
+> Dari nilai MSE, yang memiliki nilai lebih kecil adalah `model_crime2`.
 
 
 Melihat summary dari model yang lebih baik
 ```{r}
-
+summary(model_crime2)
 ```
 
 
 5. Manakah model yang terbaik?
 
-Model ... karena ...
+Model `model_crime2` karena R-squared terbaik dan MSE terkecil.
 
 
 
@@ -189,27 +203,26 @@ Model ... karena ...
   
 Dari data crime, pertama-tama cek terlebih dahulu sebaran errornya dengan menggunakan histogram
 ```{r}
-
+hist(model_crime2$residuals)
 ```
 
 Uji kenormalan errornya dengan uji statistik `shapiro.test`
 ```{r}
 # pengujian statistik untuk normality
-
+shapiro.test(model_crime2$residuals)
 ```
 
 Kesimpulan : 
 
+> Residual dari `model_crime2` berdistribusi normal.
 
 ## linearity check
 
-plot korelasi antar variabelnya
+Cek linearity dengan plot 
+
 ```{r}
-# buat tampilan korelasi antar variabel dengan ggcor
-
-
 # melihat plot residual dan fitted values dari model
-
+plot(model_crime2,1)
 ```
 
 Uji asumsi untuk linearity
@@ -219,13 +232,16 @@ Mencari p-value < 0.05 agar tolak H0, sehingga kesimpulannya adalah linear
 
 Notes: Bisa cek cor.test untuk variabel-variabel prediktor yang korelasinya mendekati 0 saja
 ```{r}
-
+cor.test(crime$gdp,crime$inequality)
+cor.test(crime$mean_education,crime$inequality)
 ```
 
 Note:
 ketika salah satu variabel prediktor *tidak terpenuhi(p-value > 0.05)*, maka kesimpulannya model yg kita buat tidak linear.
 
-Kesimpulan : 
+Kesimpulan: 
+
+> Lolos uji linearity!
 
 
 ## uji homoscedascity
@@ -242,32 +258,29 @@ Kalau terdapat heteroscedasticity, kemungkinan ada outlier yang harus dibuang
 
 Plot error dan nilai aktualnya
 ```{r}
-
+plot(model_crime2$residuals,crime$inequality)
 ```
 
 Uji statistiknya dengan fungsi bptest() dari library lmtest
 
 ```{r}
 # test statistik untuk cek homoscedasticity
-
+bptest(model_crime2)
 ```
   
-kesimpulan : p-value > 0.05 maka gagal tolak H0, artinya lolos uji Homoscedasticity
+kesimpulan: 
+
+> p-value > 0.05 maka gagal tolak H0, artinya lolos uji Homoscedasticity
 
 
 ## Uji multicollinearity
 
-Kita gamau kalau variabel prediktor di model kita itu saling berpengaruh (dependen). Ujinya menggunakan nilai *vif*.
+Kita tidak mau kalau variabel prediktor di model kita itu saling berpengaruh (dependen). Ujinya menggunakan nilai *vif*.
 Syaratnya harus < 10.
-
-Cek korelasi tiap variabel dengan function `ggcor`
-```{r}
-
-```
 
 Cek dengan fungsi `vif()` dari library car untuk mengetahui variabel-variabel mana yang tidak bisa ditoleransi menjadi sebuah prediktor
 ```{r}
-
+vif(model_crime2)
 ```
 
 Kesimpulan : no multicollinearity
