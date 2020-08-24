@@ -87,7 +87,12 @@ variabel target yang diamati adalah `inequality`
 Lihat nilai sebaran data `inequality` yang menjadi target variabel dalam pembahasan kali ini.
 ```{r}
 # buat histogram untuk melihat sebaran data
+hist(crime$inequality)
 
+# bisa juga dengan ggplot2
+crime %>% 
+  ggplot(aes(inequality)) +
+  geom_histogram()
 ```
 
 
