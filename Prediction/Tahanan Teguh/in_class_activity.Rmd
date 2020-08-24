@@ -17,7 +17,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Documents/Training-R---Data-Viz/Prediction/Tahanan Teguh");knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Pendahuluan
@@ -38,8 +38,8 @@ Load data -> merapikan freetext (menyeragamkan, menghapus kata-kata yang tidak p
 
 Install package katadasaR jika belum ada, silakan hapus tanda # pada masing-masing line di chunk di bawah
 ```{r}
-#install.packages("devtools")
-#devtools::install_github("nurandi/katadasaR")
+# install.packages("devtools")
+# devtools::install_github("nurandi/katadasaR")
 ```
 
 Load library yang dibutuhkan
@@ -79,7 +79,7 @@ head(tahanan)
 ```{r}
 summary(tahanan)
 ```
-Dikethaui bahwa data tahanan terdiri atas 3 kolom yaitu:
+Diketahui bahwa data tahanan terdiri atas 3 kolom yaitu:
 1. Alasan = alasan penahanan berupa freetext
 2. Evaluasi = hasil evaluasi tahanan oleh RD berupa freetext
 3. Status tahanan = keputusan tahanan yang terdiri atas 3 macam, yaitu :bersyarat, OK, dan tolak.

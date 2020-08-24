@@ -3,12 +3,8 @@ title: "Materi Regresi Linear"
 author: "Lenny M. Wibisana"
 date: "24 Agustus 2020"
 output: 
-  html_document:
-    highlight: tango
-    df_print: paged
-    toc: true
-    toc_depth: 3
-    toc_float: true
+  github_document:
+    pandoc_args: --webtex
 ---
 
 ```{r setup, include=FALSE}
@@ -92,7 +88,8 @@ hist(crime$inequality)
 # bisa juga dengan ggplot2
 crime %>% 
   ggplot(aes(inequality)) +
-  geom_histogram()
+  geom_histogram() +
+  labs(title = "Histogram dengan ggplot2")
 ```
 
 
@@ -108,23 +105,39 @@ ggcorr(crime, hjust = 1, label = T)
 
 1. Buat model linear untuk memprediksi inequality berdasarkan gdp
 ```{r}
-model_crime1 <- 
+model_crime1 = lm(inequality~gdp, crime)
+
+summary(model_crime1)
 ```
+
+Maka formulanya adalah:
+
+$$inequality=-0.36551*gdp+386.03058$$
+
+> Setiap kenaikan 1 gdp akan memberikan kontribusi pengurangan 0.36551 terhadap inequality.
+
+Nilai _R-Squared_ sebesar 78.15%.
+
+> Artinya `gpd` mampu menjelaskan 78.15% dari informasi variabel `inequality`.
+
+Nilai _p-value_ sebesar $<0.05$.
+
+> Model menunjukkan pengaruh signifikan dari variabel prediktor terhadap variabel target.
 
 Predict nilai inequality menggunakan fungsi predict()
 ```{r}
-pred1 <- 
+#pred1 <- 
 ```
 
 2. Buat model linear untuk memprediksi inequality berdasarkan gdp dan mean education
 
 ```{r}
-model_crime2 <- 
+#model_crime2 <- 
 ```
 
 Predict nilai inequality menggunakan fungsi predict()
 ```{r}
-pred2 <- 
+#pred2 <- 
 ```
 
 3. Bandingkan nilai r.squared, adj.r.squared, dan MSE-nya dari kedua model tersebut
