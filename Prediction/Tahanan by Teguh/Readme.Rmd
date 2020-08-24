@@ -1,23 +1,16 @@
 ---
 title: "Text prediction tahanan"
-author: "teguh"
-date: "8/19/2020"
+subtitle: "Training R Nutrifood"
+author: "Teguh Prasetia"
+date: "24 Agustus 2020"
 output: 
-  html_document:
-    toc: true
-    toc_depth: 2
-    toc_float: 
-        collapsed: false
-    number_sections: false
-    theme: flatly
-    highlight: tango
-  fig_caption: yes
-editor_options: 
-  chunk_output_type: inline
+  github_document:
+    pandoc_args: --webtex
 ---
 
 ```{r setup, include=FALSE}
-setwd("~/Documents/Training-R---Data-Viz/Prediction/Tahanan Teguh");knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Documents/Training-R---Data-Viz/Prediction/Tahanan by Teguh")
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Pendahuluan
