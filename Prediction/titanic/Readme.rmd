@@ -1,8 +1,11 @@
 ---
-title: "titanic1"
-author: "teguh"
-date: "5/5/2020"
-output: html_document
+title: "Titanic Prediction Model"
+subtitle: "Training R Nutrifood"
+author: "Teguh Prasetia"
+date: "24 Agustus 2020"
+output: 
+  github_document:
+    pandoc_args: --webtex
 ---
 
 ```{r setup, include=FALSE}
@@ -106,8 +109,6 @@ head(titanic)
 ```
 Tampak dari data titanic yang baru, sudah masuk kolom `salutation` yang akan kita gunakan sebagai variabel untuk memprediksi `survival`
 
-
-
 Menghapus kolom yang tidak digunakan untuk prediksi
 ```{r}
 titanic.pred <- titanic [,-c(3,8,14)]
@@ -119,6 +120,9 @@ head(titanic.pred)
 
 ```{r}
 titanic.pred$Survived <- as.factor(titanic.pred$Survived)
+titanic.pred$Sex <- as.factor(titanic.pred$Sex)
+titanic.pred$Embarked <- as.factor(titanic.pred$Embarked)
+titanic.pred$salutation <- as.factor(titanic.pred$salutation)
 ```
 
 
