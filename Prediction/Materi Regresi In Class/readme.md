@@ -376,12 +376,6 @@ Kesimpulan :
 
 ## linearity check
 
-plot korelasi antar variabelnya
-
-``` r
-# buat tampilan korelasi antar variabel dengan ggcor
-```
-
 Cek linearity dengan plot
 
 ``` r
@@ -389,7 +383,7 @@ Cek linearity dengan plot
 plot(model_crime2,1)
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 Uji asumsi untuk linearity H0 : Tidak Linear H1 : Linear Mencari p-value
 \< 0.05 agar tolak H0, sehingga kesimpulannya adalah linear
@@ -449,25 +443,46 @@ dibuang
 
 Plot error dan nilai aktualnya
 
+``` r
+plot(model_crime2$residuals,crime$inequality)
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
 Uji statistiknya dengan fungsi bptest() dari library lmtest
 
 ``` r
 # test statistik untuk cek homoscedasticity
+bptest(model_crime2)
 ```
 
-kesimpulan : p-value \> 0.05 maka gagal tolak H0, artinya lolos uji
-Homoscedasticity
+    ## 
+    ##  studentized Breusch-Pagan test
+    ## 
+    ## data:  model_crime2
+    ## BP = 0.20073, df = 2, p-value = 0.9045
+
+kesimpulan:
+
+> p-value \> 0.05 maka gagal tolak H0, artinya lolos uji
+> Homoscedasticity
 
 ## Uji multicollinearity
 
-Kita gamau kalau variabel prediktor di model kita itu saling berpengaruh
-(dependen). Ujinya menggunakan nilai *vif*. Syaratnya harus \< 10.
-
-Cek korelasi tiap variabel dengan function `ggcor`
+Kita tidak mau kalau variabel prediktor di model kita itu saling
+berpengaruh (dependen). Ujinya menggunakan nilai *vif*. Syaratnya harus
+\< 10.
 
 Cek dengan fungsi `vif()` dari library car untuk mengetahui
 variabel-variabel mana yang tidak bisa ditoleransi menjadi sebuah
 prediktor
+
+``` r
+vif(model_crime2)
+```
+
+    ##            gdp mean_education 
+    ##       2.181937       2.181937
 
 Kesimpulan : no multicollinearity
 
