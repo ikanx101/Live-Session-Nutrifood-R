@@ -351,13 +351,28 @@ Kita ingin pvalue \> 0.05 agar error berdistribusi normal
 Dari data crime, pertama-tama cek terlebih dahulu sebaran errornya
 dengan menggunakan histogram
 
+``` r
+hist(model_crime2$residuals)
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
 Uji kenormalan errornya dengan uji statistik `shapiro.test`
 
 ``` r
 # pengujian statistik untuk normality
+shapiro.test(model_crime2$residuals)
 ```
 
+    ## 
+    ##  Shapiro-Wilk normality test
+    ## 
+    ## data:  model_crime2$residuals
+    ## W = 0.95735, p-value = 0.08442
+
 Kesimpulan :
+
+> Residual dari `model_crime2` berdistribusi normal.
 
 ## linearity check
 
@@ -365,10 +380,16 @@ plot korelasi antar variabelnya
 
 ``` r
 # buat tampilan korelasi antar variabel dengan ggcor
-
-
-# melihat plot residual dan fitted values dari model
 ```
+
+Cek linearity dengan plot
+
+``` r
+# melihat plot residual dan fitted values dari model
+plot(model_crime2,1)
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
 Uji asumsi untuk linearity H0 : Tidak Linear H1 : Linear Mencari p-value
 \< 0.05 agar tolak H0, sehingga kesimpulannya adalah linear
@@ -376,10 +397,44 @@ Uji asumsi untuk linearity H0 : Tidak Linear H1 : Linear Mencari p-value
 Notes: Bisa cek cor.test untuk variabel-variabel prediktor yang
 korelasinya mendekati 0 saja
 
+``` r
+cor.test(crime$gdp,crime$inequality)
+```
+
+    ## 
+    ##  Pearson's product-moment correlation
+    ## 
+    ## data:  crime$gdp and crime$inequality
+    ## t = -12.685, df = 45, p-value < 2.2e-16
+    ## alternative hypothesis: true correlation is not equal to 0
+    ## 95 percent confidence interval:
+    ##  -0.9340509 -0.7998850
+    ## sample estimates:
+    ##        cor 
+    ## -0.8839973
+
+``` r
+cor.test(crime$mean_education,crime$inequality)
+```
+
+    ## 
+    ##  Pearson's product-moment correlation
+    ## 
+    ## data:  crime$mean_education and crime$inequality
+    ## t = -8.061, df = 45, p-value = 2.81e-10
+    ## alternative hypothesis: true correlation is not equal to 0
+    ## 95 percent confidence interval:
+    ##  -0.8649104 -0.6178769
+    ## sample estimates:
+    ##        cor 
+    ## -0.7686579
+
 Note: ketika salah satu variabel prediktor *tidak terpenuhi(p-value \>
 0.05)*, maka kesimpulannya model yg kita buat tidak linear.
 
-Kesimpulan :
+Kesimpulan:
+
+> Lolos uji linearity\!
 
 ## uji homoscedascity
 
