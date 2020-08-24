@@ -155,6 +155,7 @@ ggcorr(crime, hjust = 1, label = T)
 ``` r
 model_crime1 = lm(inequality~gdp, crime)
 
+# lihat bentuk modelnya
 summary(model_crime1)
 ```
 
@@ -200,8 +201,12 @@ Nilai *p-value* sebesar
 Predict nilai inequality menggunakan fungsi predict()
 
 ``` r
-#pred1 <- 
+pred1 = predict(model_crime1, newdata = data.frame(gdp = crime$gdp)) 
+summary(pred1)
 ```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   134.2   169.8   189.8   194.0   218.1   280.8
 
 2.  Buat model linear untuk memprediksi inequality berdasarkan gdp dan
     mean education
@@ -209,33 +214,126 @@ Predict nilai inequality menggunakan fungsi predict()
 <!-- end list -->
 
 ``` r
-#model_crime2 <- 
+model_crime2 <- lm(inequality ~ gdp + mean_education, crime) 
+
+# lihat bentuk modelnya
+summary(model_crime2)
 ```
+
+    ## 
+    ## Call:
+    ## lm(formula = inequality ~ gdp + mean_education, data = crime)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -40.824  -7.585   0.672  13.344  30.179 
+    ## 
+    ## Coefficients:
+    ##                 Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)    441.88243   25.44031  17.369  < 2e-16 ***
+    ## gdp             -0.28713    0.03994  -7.189 6.04e-09 ***
+    ## mean_education  -0.91851    0.34448  -2.666   0.0107 *  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 17.69 on 44 degrees of freedom
+    ## Multiple R-squared:  0.8119, Adjusted R-squared:  0.8033 
+    ## F-statistic: 94.93 on 2 and 44 DF,  p-value: < 2.2e-16
+
+Untuk kasus ini, jika multiple linear regression yang perlu dilihat
+adalah `Adjusted R-Squared`.
 
 Predict nilai inequality menggunakan fungsi predict()
 
 ``` r
-#pred2 <- 
+pred2 = predict(model_crime2, 
+                newdata = data.frame(gdp = crime$gdp,
+                                     mean_education = crime$mean_education)) 
+summary(pred2)
 ```
+
+    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    ##   137.2   164.5   184.0   194.0   219.0   277.4
 
 3.  Bandingkan nilai r.squared, adj.r.squared, dan MSE-nya dari kedua
     model tersebut
 
 R-squared
 
+``` r
+summary(model_crime1)$r.squared
+```
+
+    ## [1] 0.7814512
+
+``` r
+summary(model_crime2)$r.squared
+```
+
+    ## [1] 0.8118523
+
 Adjusted R-squared
 
-> Dari nilai adj R squared, yang memiliki nilai adj r-squared terbesar …
+``` r
+summary(model_crime1)$adj.r.squared
+```
+
+    ## [1] 0.7765945
+
+``` r
+summary(model_crime2)$adj.r.squared
+```
+
+    ## [1] 0.8033001
+
+> Dari nilai adj R squared, yang memiliki nilai adj r-squared terbesar
+> adalah `model_crime2`.
 
 Nilai MSE dari ketiga model tersebut
 
-> Dari nilai MSE, yang memiliki nilai lebih kecil …
+``` r
+MSE(model_crime1$fitted.values,crime$inequality)
+```
+
+    ## [1] 340.4619
+
+``` r
+MSE(model_crime2$fitted.values,crime$inequality)
+```
+
+    ## [1] 293.1021
+
+> Dari nilai MSE, yang memiliki nilai lebih kecil adalah `model_crime2`.
 
 Melihat summary dari model yang lebih baik
 
+``` r
+summary(model_crime2)
+```
+
+    ## 
+    ## Call:
+    ## lm(formula = inequality ~ gdp + mean_education, data = crime)
+    ## 
+    ## Residuals:
+    ##     Min      1Q  Median      3Q     Max 
+    ## -40.824  -7.585   0.672  13.344  30.179 
+    ## 
+    ## Coefficients:
+    ##                 Estimate Std. Error t value Pr(>|t|)    
+    ## (Intercept)    441.88243   25.44031  17.369  < 2e-16 ***
+    ## gdp             -0.28713    0.03994  -7.189 6.04e-09 ***
+    ## mean_education  -0.91851    0.34448  -2.666   0.0107 *  
+    ## ---
+    ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+    ## 
+    ## Residual standard error: 17.69 on 44 degrees of freedom
+    ## Multiple R-squared:  0.8119, Adjusted R-squared:  0.8033 
+    ## F-statistic: 94.93 on 2 and 44 DF,  p-value: < 2.2e-16
+
 5.  Manakah model yang terbaik?
 
-Model … karena …
+Model `model_crime2` karena R-squared terbaik dan MSE terkecil.
 
 # Cek asumsi
 
