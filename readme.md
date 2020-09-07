@@ -172,13 +172,12 @@ agar *function* *pipe* bisa digunakan:
 2.  `library(dplyr)` –\> *prefer* pakai ini saja.
 3.  `library(magrittr)`
 
-Saya akan gunakan `library(dplyr)` saja *ya*.
+Saya akan gunakan `library(dplyr)` saja *ya*. Mari kita panggil
+*library*-nya.
 
 ``` r
 library(dplyr)
 ```
-
-Pesan di atas bukan pesan *error*.
 
 Oh iya, kita akan ubah bulan agar urut yah. Caranya adalah dengan
 mengubah `character` menjadi `factor`.
@@ -232,11 +231,7 @@ belanja_per_bulan =
   group_by(bulan) %>% 
   summarise(omset = sum(omset)) %>% 
   ungroup()
-```
 
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 belanja_per_bulan
 ```
 
@@ -247,6 +242,8 @@ belanja_per_bulan
     ## 2 Feb    205257406.
     ## 3 Mar    407702688.
     ## 4 Apr   4585053420.
+
+Berikut adalah contoh visualisasi dari data di atas:
 
 <img src="readme_files/figure-gfm/unnamed-chunk-10-1.png" width="672" />
 
@@ -269,11 +266,7 @@ analisa_konsumen =
             banyak_item = sum(qty),
             omset = sum(omset)) %>% 
   ungroup()
-```
-
-    ## `summarise()` regrouping output by 'bulan' (override with `.groups` argument)
-
-``` r
+  
 analisa_konsumen
 ```
 
@@ -306,11 +299,7 @@ analisa_new =
             mean_item = mean(banyak_item),
             mean_omset = mean(omset)) %>% 
   ungroup()
-```
 
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 analisa_new
 ```
 
