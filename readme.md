@@ -116,6 +116,8 @@ Untuk mengambil data berupa file excel, kita memerlukan
 Tapi ingat lagi *yah* `setwd` menjadi penting.
 
 ``` r
+rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
+
 library(readxl)
 data = read_excel("~/Documents/Training-R---Data-Viz/DATA LATIHAN.xlsx")
 ```
