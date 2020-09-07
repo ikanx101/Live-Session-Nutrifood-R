@@ -261,7 +261,7 @@ Kita akan hitung beberapa parameter, yakni:
 
 1.  Berapa banyak *jenis item* yang dibelanjakan konsumen.
 2.  Berapa banyak *item* yang dibelanjakan konsumen.
-3.  omset per konsumen.
+3.  Omset per konsumen.
 
 Semua dihitung per bulan
 
