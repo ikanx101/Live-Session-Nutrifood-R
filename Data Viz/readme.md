@@ -58,8 +58,9 @@ names(vids)
     ##  [7] "likes"                  "dislikes"               "comment_count"         
     ## [10] "comments_disabled"      "ratings_disabled"       "video_error_or_removed"
 
-In this session, we will use visualization techniques to gain such
-insights from the trending videos data:
+### Tujuan kita hari ini adalah:
+
+Mendapatkan *insights* menggunakan visualisasi `ggplot`:
 
 1.  Does the video publishing time affect its popularity? If so, when is
     the best time to publish a video?
@@ -102,6 +103,8 @@ str(vids)
 Do the column `trending_date` & `publish_time` have stored in the
 correct class?
 
+-----
+
 # Data Pre-Processing
 
 ## Working with date/time
@@ -139,9 +142,7 @@ But now, we’ll use an easier alternative to work with date-time data,
 and that is through the use of `lubridate`. `lubridate` provides tools
 that make it easier to parse and manipulate dates:
 
-Kesimpulan:
-
-Ada dua cara mengkonversi data tipe `character` menjadi bentuk waktu
+Ada `2` cara mengkonversi data tipe `character` menjadi bentuk waktu
 (tanggal dan jam), yakni dengan:
 
 1.  `base` **R** dengan *function* `as.Date()`
@@ -769,11 +770,7 @@ top =
   filter(Freq >= 10) %>% 
   arrange(desc(Freq)) %>% 
   rename(Channel = channel_title)
-```
 
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 top 
 ```
 
@@ -934,11 +931,7 @@ vids.top.agg =
   summarise(likesratio = mean(likesratio),
             dislikeratio = mean(dislikeratio)) %>% 
   ungroup()
-```
 
-    ## `summarise()` ungrouping output (override with `.groups` argument)
-
-``` r
 head(vids.top.agg)
 ```
 
@@ -959,16 +952,7 @@ tabular
 
 ``` r
 library(reshape2)
-```
 
-    ## 
-    ## Attaching package: 'reshape2'
-
-    ## The following object is masked from 'package:tidyr':
-    ## 
-    ##     smiths
-
-``` r
 vids.long =
   vids.top.agg %>% 
   melt(id.vars = 'channel_title') %>% 
@@ -1174,3 +1158,121 @@ vids.long %>%
 ```
 
 ![](readme_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
+
+## Visualizing trend with line chart
+
+**Dive Deeper**: Pre-Campaign Analysis; Entertainment, Music & Gaming
+**Opt 1:** pre-process with `dplyr` count:
+
+``` r
+vids.camp2 =
+  vids %>% 
+  filter(category_id %in% c("Entertainment", "Music", "Gaming")) %>% 
+  group_by(trending_date,category_id) %>% 
+  summarise(n = n()) %>% 
+  ungroup()
+
+head(vids.camp2)
+```
+
+    ## # A tibble: 6 x 3
+    ##   trending_date category_id       n
+    ##   <date>        <fct>         <int>
+    ## 1 2017-11-14    Entertainment    45
+    ## 2 2017-11-14    Gaming            1
+    ## 3 2017-11-14    Music            45
+    ## 4 2017-11-15    Entertainment    45
+    ## 5 2017-11-15    Gaming            1
+    ## 6 2017-11-15    Music            37
+
+**Customize the x axis (date)**:
+<https://ggplot2.tidyverse.org/reference/scale_date.html>
+
+``` r
+vids.camp2 %>% 
+  ggplot(aes(x = trending_date , y = n))+
+  geom_line(aes(color = category_id))+
+  geom_point(aes(color = category_id))
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-44-1.png)<!-- -->
+
+  - Double axis in `ggplot2`: <https://rpubs.com/MarkusLoew/226759>
+  - Why not to use two axes, and what to use instead:
+    <https://blog.datawrapper.de/dualaxis/>
+
+<!-- end list -->
+
+``` r
+vids.camp2 %>% 
+  ggplot(aes(x = trending_date , y = n)) +
+  geom_line(aes(color = category_id)) +
+  geom_point(aes(color = category_id)) +
+  scale_x_date(date_breaks = "1 week", date_labels = "%m-%d")
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-45-1.png)<!-- -->
+
+``` r
+vids.camp2 %>% 
+  ggplot(aes(x = trending_date , y = n, group = category_id))+
+  geom_line(aes(color = category_id))+
+  geom_point(aes(color = category_id))+
+  facet_wrap(~category_id, scales = "free_y", ncol = 1)+
+  labs(title = "Trend Analysis on Entertainment, Gaming & Music",
+       x = "Trending Date",
+       y = "Total Videos",
+       color = "Category")
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-46-1.png)<!-- -->
+
+### Group in Line chart
+
+  - Visualizing day of week trend
+
+<!-- end list -->
+
+``` r
+vids.camp2 = 
+  vids.camp2 %>% 
+  mutate(trending_dow = wday(trending_date, label = T))
+
+day.agg = 
+  vids.camp2 %>% 
+  group_by(trending_dow,category_id) %>% 
+  summarise(n = mean(n)) %>% 
+  ungroup() %>% 
+  arrange(category_id,trending_dow)
+
+day.agg
+```
+
+    ## # A tibble: 21 x 3
+    ##    trending_dow category_id       n
+    ##    <ord>        <fct>         <dbl>
+    ##  1 Min          Entertainment 47   
+    ##  2 Sen          Entertainment 48.7 
+    ##  3 Sel          Entertainment 47.3 
+    ##  4 Rab          Entertainment 47.4 
+    ##  5 Kam          Entertainment 47   
+    ##  6 Jum          Entertainment 48.7 
+    ##  7 Sab          Entertainment 46.7 
+    ##  8 Min          Gaming         3.12
+    ##  9 Sen          Gaming         3   
+    ## 10 Sel          Gaming         2.62
+    ## # … with 11 more rows
+
+``` r
+ggplot(day.agg, aes(trending_dow, n))+
+  geom_line(aes(color = category_id))
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
+
+``` r
+ggplot(day.agg, aes(trending_dow, n))+
+  geom_line(aes(color = category_id, group = category_id))
+```
+
+![](readme_files/figure-gfm/unnamed-chunk-49-1.png)<!-- -->
