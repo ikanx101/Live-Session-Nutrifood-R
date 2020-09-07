@@ -41,9 +41,9 @@ library(glue)
 ```
 
 
-# Abstract
+# PENTING!
 
-The data we're working is `USvideos.csv`, a dataset scraped from Youtube's US Trending Videos. By analizing this Trending Videos data, we will uncover how these videos were able to reach such massive audience. We'll also take a look and see if there were any similarities between the videos that did well on the platform. 
+Ada banyak cara dalam mengolah data di __R__. Teman-teman bisa menggunakan prinsip `tidyverse`, `data.table`, dan lainnya. Kali ini saya akan memodifikasi materi training `Sigit` dengan menggunakan `%>%` sehingga memberikan gambaran bagaimana _pipe_ __sangat amat powerful__ digunakan untuk memanipulasi _rows_ dan _columns_ dari suatu data. 
 
 # Memanggil _Dataset_
 
@@ -606,7 +606,6 @@ head(vids.top.agg)
 ```
 
 #### Data Reshaping
-![](assets/long_vs_wide_data_format.png)
 
 Simpel pakai `library(reshape2)` untuk mengubah data wide ke bentuk tabular
 
