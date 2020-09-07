@@ -121,7 +121,7 @@ Tapi ingat lagi *yah*:
 Bagaimana jika data tidak ada di *working directory*? Artinya kita harus
 menuliskan *full path* dari file data kita.
 
-Kali ini, saya akan menuliskan *full path* data saya yah.
+Kali ini, saya akan menuliskan *full path* data saya *yah*.
 
 ``` r
 rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
@@ -318,3 +318,6 @@ analisa_new
     ## 2 Feb              2992            2.45      3.32     68602.
     ## 3 Mar              3479            2.59      3.86    117190.
     ## 4 Apr              2894            2.66      5.46   1584331.
+
+Kunci jawaban dari tugas `perubahan habit belanja` ada di
+[*link*](https://ikanx101.com/blog/minimarket-bekasi/) berikut.
