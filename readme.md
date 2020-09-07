@@ -113,7 +113,15 @@ Untuk mengambil data berupa file excel, kita memerlukan
 1.  `library(readxl)` atau
 2.  `readxl::nama_function`.
 
-Tapi ingat lagi *yah* `setwd` menjadi penting.
+Tapi ingat lagi *yah*:
+
+> Pastikan bahwa data yang mau kita ambil ada di *working directory*
+> kita\!
+
+Bagaimana jika data tidak ada di *working directory*? Artinya kita harus
+menuliskan *full path* dari file data kita.
+
+Kali ini, saya akan coba membuat `setwd` saya ke tempat data berada.
 
 ``` r
 rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
