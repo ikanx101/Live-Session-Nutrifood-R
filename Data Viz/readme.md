@@ -1161,8 +1161,14 @@ vids.long %>%
 
 ## Visualizing trend with line chart
 
-**Dive Deeper**: Pre-Campaign Analysis; Entertainment, Music & Gaming
-**Opt 1:** pre-process with `dplyr` count:
+Sekarang kita akan melakukan *dive deeper* dengan menganalisa
+*Pre-Campaign Analysis* pada kategori:
+
+  - Entertainment,
+  - Music
+  - Gaming
+
+Kita akan lakukan *pre-processing* dengan `dplyr` sebagai berikut:
 
 ``` r
 vids.camp2 =
@@ -1264,14 +1270,14 @@ day.agg
     ## # … with 11 more rows
 
 ``` r
-ggplot(day.agg, aes(trending_dow, n))+
+ggplot(day.agg, aes(trending_dow, n)) +
   geom_line(aes(color = category_id))
 ```
 
 ![](readme_files/figure-gfm/unnamed-chunk-48-1.png)<!-- -->
 
 ``` r
-ggplot(day.agg, aes(trending_dow, n))+
+ggplot(day.agg, aes(trending_dow, n)) +
   geom_line(aes(color = category_id, group = category_id))
 ```
 
