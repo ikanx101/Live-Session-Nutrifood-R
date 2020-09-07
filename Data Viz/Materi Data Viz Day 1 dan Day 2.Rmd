@@ -2,7 +2,7 @@
 title: "The State of Trending Videos"
 subtitle: "Materi Training in Class"
 author: "@nutrifood"
-date: "Agustus 11, 2020"
+date: "September 7, 2020"
 output: 
   html_document:
     toc: true
@@ -26,7 +26,7 @@ rm(list = ls())
 # set working directory
 # perhatikan bahwa working directory rekan-rekan akan berbeda dengan saya
 # tolong disesuaikan terlebih dahulu
-setwd("~/Documents/Training-R---Data-Viz")
+setwd("~/Documents/Training-R---Data-Viz/Data Viz")
 
 # pastikan semua libraries dipanggil
 # for data reshaping
