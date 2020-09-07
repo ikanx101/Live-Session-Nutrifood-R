@@ -26,13 +26,19 @@ setwd("~/Documents/Training-R---Data-Viz/Data Viz")
 # for data reshaping
 library(dplyr)
 library(tidyr)
+
 # for working with dates
 library(lubridate)
+
 # for visualization
 library(ggplot2)
 library(plotly)
 library(glue)
 ```
+
+Kalau teman-teman menemukan pesan *error* pada *chunk* ini, bisa jadi
+karena ada satu atau lebih *library* yang belum ter-*install*. Jadi
+pastikan semua sudah ter-*install* dulu\!
 
 # Memanggil *Dataset*
 
