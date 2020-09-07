@@ -669,8 +669,6 @@ vids.long %>%
   coord_flip()
 ```  
 
-***End of Day 1***
-
 ---
 
 ## `ggplot2` features: facet & label
