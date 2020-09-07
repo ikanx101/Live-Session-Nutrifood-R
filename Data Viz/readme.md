@@ -25,68 +25,25 @@ setwd("~/Documents/Training-R---Data-Viz/Data Viz")
 # pastikan semua libraries dipanggil
 # for data reshaping
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(tidyr)
 # for working with dates
 library(lubridate)
-```
-
-    ## 
-    ## Attaching package: 'lubridate'
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     date, intersect, setdiff, union
-
-``` r
 # for visualization
 library(ggplot2)
 library(plotly)
-```
-
-    ## 
-    ## Attaching package: 'plotly'
-
-    ## The following object is masked from 'package:ggplot2':
-    ## 
-    ##     last_plot
-
-    ## The following object is masked from 'package:stats':
-    ## 
-    ##     filter
-
-    ## The following object is masked from 'package:graphics':
-    ## 
-    ##     layout
-
-``` r
 library(glue)
 ```
-
-    ## 
-    ## Attaching package: 'glue'
-
-    ## The following object is masked from 'package:dplyr':
-    ## 
-    ##     collapse
 
 # Memanggil *Dataset*
 
 Langkah pertama yang harus dilakukan adalah memanggil *dataset* dan
 memastikan *dataset* tersebut sudah masuk ke dalam *Global Environment*.
+
+Ingat kembali bahwa *file* dataset **sudah ada di WORKING DIRECTORY**.
+
+**Ingat yah\!**
+
+Banyak *trainees* yang sering *error* sejak awal ini soalnya.
 
 ``` r
 # membaca file csv
