@@ -84,17 +84,20 @@ session* kali ini akan ada beberapa peraturan, yakni:
 
 Berikut adalah pembagian kelompok untuk hari ini:
 
-| No | Trainee | Fasilitator |
-| -: | ------: | ----------: |
-|  1 |       1 |           1 |
-|  2 |       2 |           2 |
-|  3 |       3 |           3 |
-|  4 |       4 |           4 |
-|  5 |       5 |           5 |
-|  6 |       6 |           6 |
-|  7 |       7 |           7 |
-|  8 |       8 |           8 |
-|  9 |       9 |           9 |
-| 10 |      10 |          10 |
+| No | Trainee                  | Fasilitator   |
+| -: | :----------------------- | :------------ |
+|  1 | Andre Kurniawan          | Ikang - Sigit |
+|  2 | Dimas Dwi Santoso        | Ikang - Sigit |
+|  3 | David Auw                | Ikang - Sigit |
+|  4 | Harinto Anggoro          | Ikang - Sigit |
+|  5 | Muhammad Rizqi           | Teguh         |
+|  6 | Widio Widodo             | Teguh         |
+|  7 | Mochammad Miftahul Fahmi | Teguh         |
+|  8 | Willianto                | Teguh         |
+|  9 | Claireta                 | Lenny         |
+| 10 | Rendy                    | Lenny         |
+| 11 | Lince                    | Lenny         |
 
 Kelompok Live Session
+
+-----
