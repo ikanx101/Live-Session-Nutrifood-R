@@ -121,7 +121,7 @@ Tapi ingat lagi *yah*:
 Bagaimana jika data tidak ada di *working directory*? Artinya kita harus
 menuliskan *full path* dari file data kita.
 
-Kali ini, saya akan coba membuat `setwd` saya ke tempat data berada.
+Kali ini, saya akan menuliskan *full path* data saya yah.
 
 ``` r
 rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
