@@ -1056,8 +1056,6 @@ vids.long %>%
 
 ![](readme_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
-***End of Day 1***
-
 -----
 
 ## `ggplot2` features: facet & label
