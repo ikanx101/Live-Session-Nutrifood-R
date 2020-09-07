@@ -9,6 +9,80 @@ saya akan memodifikasi materi training `Sigit` dengan menggunakan `%>%`
 sehingga memberikan gambaran bagaimana *pipe* **sangat amat powerful**
 digunakan untuk memanipulasi *rows* dan *columns* dari suatu data.
 
+# Memanggil *libraries*
+
+``` r
+options(scipen = 99) 
+
+# membersihkan global environment
+rm(list = ls())
+
+# set working directory
+# perhatikan bahwa working directory rekan-rekan akan berbeda dengan saya
+# tolong disesuaikan terlebih dahulu
+setwd("~/Documents/Training-R---Data-Viz/Data Viz")
+
+# pastikan semua libraries dipanggil
+# for data reshaping
+library(dplyr)
+```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(tidyr)
+# for working with dates
+library(lubridate)
+```
+
+    ## 
+    ## Attaching package: 'lubridate'
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     date, intersect, setdiff, union
+
+``` r
+# for visualization
+library(ggplot2)
+library(plotly)
+```
+
+    ## 
+    ## Attaching package: 'plotly'
+
+    ## The following object is masked from 'package:ggplot2':
+    ## 
+    ##     last_plot
+
+    ## The following object is masked from 'package:stats':
+    ## 
+    ##     filter
+
+    ## The following object is masked from 'package:graphics':
+    ## 
+    ##     layout
+
+``` r
+library(glue)
+```
+
+    ## 
+    ## Attaching package: 'glue'
+
+    ## The following object is masked from 'package:dplyr':
+    ## 
+    ##     collapse
+
 # Memanggil *Dataset*
 
 Langkah pertama yang harus dilakukan adalah memanggil *dataset* dan
@@ -28,16 +102,20 @@ names(vids)
     ## [10] "comments_disabled"      "ratings_disabled"       "video_error_or_removed"
 
 In this session, we will use visualization techniques to gain such
-insights from the trending videos data: 1. Does the video publishing
-time affect its popularity? If so, when is the best time to publish a
-video? 2. Does user engagement relate to video’s popularity? If so, does
-it tend to has a positive or negative engagement? 3. Who were the most
-prolific producers of trending videos in recent weeks?
+insights from the trending videos data:
 
-We will use two plotting systems for our task:  
-\- Base plot for a quick and simple exploratory visualization -
-`ggplot2` for uncovering more complex pattern & for producing
-explanatory visualization
+1.  Does the video publishing time affect its popularity? If so, when is
+    the best time to publish a video?
+2.  Does user engagement relate to video’s popularity? If so, does it
+    tend to has a positive or negative engagement?
+3.  Who were the most prolific producers of trending videos in recent
+    weeks?
+
+We will use two plotting systems for our task:
+
+  - Base plot for a quick and simple exploratory visualization
+  - `ggplot2` for uncovering more complex pattern & for producing
+    explanatory visualization
 
 ## Mengecek struktur data
 
@@ -611,7 +689,7 @@ plot(vids.camp$comment_count,
      pch = 12)
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
 
 ### QUIZ:
 
@@ -631,7 +709,7 @@ abline(lm(vids.camp$views ~ vids.camp$comment_count))
 legend("topright",legend=levels(vids.camp$category_id),fill=1:6)
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
 
   - Semakin tinggi jumlah `views` pada sebuah video, semakin tinggi juga
     jumlah `comment_count` pada video tersebut
@@ -672,7 +750,7 @@ vids.camp %>%
              y = likesratio))
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 ``` r
 # 2. add the geom element / jenis plot
@@ -682,7 +760,7 @@ vids.camp %>%
   geom_boxplot()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
 
 ``` r
 # add another geom element
@@ -693,7 +771,7 @@ vids.camp %>%
   geom_jitter()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
 ``` r
 # add more visual cues
@@ -711,7 +789,7 @@ vids.camp %>%
        caption = "Training Data Viz @nutrifood")
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
 ## Visualizing comparison with barchart
 
@@ -766,7 +844,7 @@ top %>%
   geom_col()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 Notice that the axis labels were too “tight”. There are two approaches
 on handling this problem:
@@ -780,7 +858,7 @@ top %>%
   theme(axis.text.x = element_text(angle = 45,hjust=1))
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
 ``` r
 # second approach: flip the coordinate with `coord_flip`
@@ -791,7 +869,7 @@ top %>%
   coord_flip()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 Make your barchart more efficient by ordering the bars based on the
 value you want to show:
@@ -805,7 +883,7 @@ top %>%
   coord_flip()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
 #### Colors in ggplot
 
@@ -824,7 +902,7 @@ top %>%
   coord_flip()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 ``` r
 # use aes to give visual aesthetic by variable in data
@@ -835,7 +913,7 @@ top %>%
   coord_flip()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 ``` r
 # adjust color with `scale_fill_*`/`scale_color_*`
@@ -849,7 +927,7 @@ top %>%
         axis.text.x = element_text(size = 15,face='bold.italic')) # digunakan utk ganti2
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
 
 ### Multivariate Barchart
 
@@ -976,7 +1054,7 @@ vids.long %>%
   geom_col(aes(fill = name),position = 'stack')
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-33-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
 
 2.  Percent stacked barchart (`position="fill"`):  
 
@@ -996,7 +1074,7 @@ vids.long %>%
   geom_col(aes(fill = name),position = 'fill')
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-34-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
 
 3.  Grouped barchart (`position="dodge"`):  
 
@@ -1019,7 +1097,7 @@ vids.long %>%
   coord_flip()
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-35-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
 
 ***End of Day 1***
 
@@ -1044,7 +1122,7 @@ vids.long %>%
   facet_wrap(~name)
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-36-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
 
 #### Adjust the scales in facet with `scales = "free_*"`
 
@@ -1060,7 +1138,7 @@ vids.long %>%
   facet_wrap(~name,scales = 'free')
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-37-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
 
 ``` r
 # `scales = "free_y"` gives each facet individual y axis
@@ -1074,7 +1152,7 @@ vids.long %>%
   facet_wrap(~name,scales = 'free_y')
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-38-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
 
 ``` r
 # `scales = "free_x"` gives each facet individual x axis
@@ -1088,7 +1166,7 @@ vids.long %>%
   facet_wrap(~name,scales = 'free_x')
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-39-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
 
 ### Add text/labels on your chart with `geom_text()`:
 
@@ -1112,7 +1190,7 @@ vids.long %>%
   facet_wrap(~name, scales = "free_x")
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-40-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
 
 #### Enhancing the aesthetic of `geom_text`
 
@@ -1140,4 +1218,4 @@ vids.long %>%
   facet_wrap(~name, scales = "free_x")
 ```
 
-![](readme_files/figure-gfm/unnamed-chunk-41-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-42-1.png)<!-- -->
