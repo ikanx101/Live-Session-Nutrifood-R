@@ -102,7 +102,7 @@ Kelompok Live Session
 
 -----
 
-# Review Sebentar Materi `Tidyverse`
+# Review Sebentar Materi yang ada di `pdf`
 
 ## Review Materi `importing data`
 
@@ -113,11 +113,11 @@ Untuk mengambil data berupa file excel, kita memerlukan
 1.  `library(readxl)` atau
 2.  `readxl::nama_function`.
 
-<!-- end list -->
+Tapi ingat lagi *yah* `setwd` menjadi penting.
 
 ``` r
 library(readxl)
-data = read_excel("DATA LATIHAN.xlsx")
+data = read_excel("~/Documents/Training-R---Data-Viz/DATA LATIHAN.xlsx")
 ```
 
 Sekarang, kita coba tampilkan 5 data teratas dengan cara:
@@ -160,12 +160,14 @@ str(data)
 
 ## Review Materi *Pipe* `%>%`
 
+`%>%` berguna untuk melakukan *data manipulation*: data carpentry.
+
 Untuk menggunakan *function* *pipe* `%>%`, kita harus memanggil
 *library* terlebih dahulu. Ada beberapa *Libraries* yang bisa digunakan
 agar *function* *pipe* bisa digunakan:
 
-1.  `library(tidyverse)`
-2.  `library(dplyr)`
+1.  `library(tidyverse)` –\> analogi mirip bom atom.
+2.  `library(dplyr)` –\> *prefer* pakai ini saja.
 3.  `library(magrittr)`
 
 Saya akan gunakan `library(dplyr)` saja *ya*.
@@ -174,25 +176,47 @@ Saya akan gunakan `library(dplyr)` saja *ya*.
 library(dplyr)
 ```
 
-Oh iya, kita akan ubah bulan agar urut yah.
+Pesan di atas bukan pesan *error*.
+
+Oh iya, kita akan ubah bulan agar urut yah. Caranya adalah dengan
+mengubah `character` menjadi `factor`.
 
 ``` r
 data = 
   data %>% 
   mutate(bulan = factor(bulan,levels = c("Jan","Feb","Mar","Apr")))
+
+str(data)
 ```
+
+    ## tibble [33,833 × 13] (S3: tbl_df/tbl/data.frame)
+    ##  $ id_transaksi: chr [1:33833] "00001/MANUTD/0120" "00001/MANUTD/0120" "00001/MANUTD/0120" "00010/MANUTD/0120" ...
+    ##  $ tanggal     : POSIXct[1:33833], format: "2020-01-02" "2020-01-02" ...
+    ##  $ jam         : num [1:33833] 8 8 8 9 9 9 9 9 9 9 ...
+    ##  $ sku         : chr [1:33833] "KOPIKO COFFE LATTE 240 ML" "INDOMIE GORENG 85G" "INDOMIE GORENG SPECIAL JUMBO 125 GR" "212 AIR MINERAL 48 X 240 ML" ...
+    ##  $ qty         : num [1:33833] 1 1 1 4 4 1 1 1 2 1 ...
+    ##  $ unit        : chr [1:33833] "PCS" "PCS" "PCS" "DUS" ...
+    ##  $ harga       : num [1:33833] 5400 2500 3500 22000 64000 11200 10600 6700 3700 11300 ...
+    ##  $ diskon      : num [1:33833] 0 0 0 0 3.44 ...
+    ##  $ total_harga : num [1:33833] 5400 2500 3500 88000 247200 ...
+    ##  $ id_pelanggan: chr [1:33833] "umum" "umum" "umum" "member" ...
+    ##  $ hari        : chr [1:33833] "4 Kamis" "4 Kamis" "4 Kamis" "4 Kamis" ...
+    ##  $ ampm        : chr [1:33833] "1 pagi" "1 pagi" "1 pagi" "1 pagi" ...
+    ##  $ bulan       : Factor w/ 4 levels "Jan","Feb","Mar",..: 1 1 1 1 1 1 1 1 1 1 ...
 
 Oke sekarang kita akan coba oprek informasi apa saja yang bisa kita
 ambil dari data tersebut *yah*.
 
-### Apakah ada perubahan *habit* belanja?
+-----
+
+### Apakah Ada Perubahan *Habit* Belanja?
 
 Ingat untuk menghapus `PLAS TIK` dari data belanjaan ini dulu *yah*\!
 
 ``` r
 data = 
   data %>% 
-  filter(sku != "PLAS TIK   ") 
+  filter(sku != "PLAS TIK") 
 ```
 
 Mari kita jawab pertanyaan di atas dengan menghitung:
@@ -219,8 +243,8 @@ belanja_per_bulan
     ##   <fct>       <dbl>
     ## 1 Jan    286305187.
     ## 2 Feb    205257406.
-    ## 3 Mar    407853288.
-    ## 4 Apr   4587878620.
+    ## 3 Mar    407702688.
+    ## 4 Apr   4585053420.
 
 <img src="readme_files/figure-gfm/unnamed-chunk-10-1.png" width="672" />
 
@@ -228,9 +252,9 @@ belanja_per_bulan
 
 Kita akan hitung beberapa parameter, yakni:
 
-1.  Berapa banyak *jenis item* yang dibelanjakan konsumen. Berapa banyak
-    *item* yang dibelanjakan konsumen.
-2.  omset per konsumen.
+1.  Berapa banyak *jenis item* yang dibelanjakan konsumen.
+2.  Berapa banyak *item* yang dibelanjakan konsumen.
+3.  omset per konsumen.
 
 Semua dihitung per bulan
 
@@ -251,7 +275,7 @@ analisa_konsumen =
 analisa_konsumen
 ```
 
-    ## # A tibble: 12,825 x 5
+    ## # A tibble: 12,746 x 5
     ##    bulan id_transaksi      banyak_jenis_item banyak_item   omset
     ##    <fct> <chr>                         <int>       <dbl>   <dbl>
     ##  1 Jan   00001/MANUTD/0120                 3           3   11400
@@ -264,7 +288,7 @@ analisa_konsumen
     ##  8 Jan   00008/MANUTD/0120                14          18  265200
     ##  9 Jan   00009/MANUTD/0120                 2           2   34000
     ## 10 Jan   00010/MANUTD/0120                11          19 1623500
-    ## # … with 12,815 more rows
+    ## # … with 12,736 more rows
 
 Dari data di atas, kita akan hitung kembali pada setiap bulannya:
 
@@ -293,5 +317,5 @@ analisa_new
     ##   <fct>           <int>           <dbl>     <dbl>      <dbl>
     ## 1 Jan              3381            2.49      3.37     84681.
     ## 2 Feb              2992            2.45      3.32     68602.
-    ## 3 Mar              3521            2.74      4.00    115835.
-    ## 4 Apr              2931            2.88      5.74   1565295.
+    ## 3 Mar              3479            2.59      3.86    117190.
+    ## 4 Apr              2894            2.66      5.46   1584331.
