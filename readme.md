@@ -130,3 +130,5 @@ Sekarang, kita akan mencoba menganalisa beberapa hal berikut:
     terbanyak?
 2.  Kemasan apa yang paling banyak digunakan?
 3.  Di Jawa Barat, kota mana yang paling sering muncul?
+
+## Bagaimana caranya? Nantikan pada saat *live session\!*
