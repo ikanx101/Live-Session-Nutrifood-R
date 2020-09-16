@@ -199,9 +199,8 @@ nomnoml::nomnoml("#direction: down,
 
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
-knitr::opts_chunk$set(echo = TRUE)
 setwd("~/Documents/Live-Session-Nutrifood-R")
 ```
 
@@ -215,12 +214,21 @@ Sekarang, kita akan mencoba melakukan prinsip _data carpentry_ dari data hasil _
 knitr::include_graphics("bpom.png")
 ```
 
-Data sudah saya _scrape_ pada tanggal 15 September 2020 sore. Data mentah hasil _scrape_ bisa diunduh di sini. 
+Data sudah saya _scrape_ pada tanggal `15 September 2020` sore. Data mentah hasil _scrape_ bisa diunduh di [sini](https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/hasil%20scrape%20BPOM.csv). 
 
+Berikut adalah contoh `head(data)`:
 
+```{r,echo=FALSE}
+data = read.csv("hasil scrape BPOM.csv")
 
+knitr::kable(head(data))
+```
 
+Sekarang, kita akan mencoba menganalisa beberapa hal berikut:
 
+1. Provinsi mana yang paling banyak menyumbang _listing_ produk terbanyak?
+1. Kemasan apa yang paling banyak digunakan?
+1. Di Jawa Barat, kota mana yang paling sering muncul?
 
 
 

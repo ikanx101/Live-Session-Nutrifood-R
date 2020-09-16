@@ -103,8 +103,30 @@ langkah-langkah standar yang biasa dilakukan:
 
 ##### *by Ikang*
 
-Sekarang, kita akan mencoba melakukan prinsip data carpentry dari data
-hasil scrape di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori
-**produk pangan** berikut ini:
+Sekarang, kita akan mencoba melakukan prinsip *data carpentry* dari data
+hasil *scrape* di situs [BPOM](https://cekbpom.pom.go.id/) untuk
+kategori **produk pangan** berikut ini:
 
 <img src="bpom.png" width="1366" />
+
+Data sudah saya *scrape* pada tanggal `15 September 2020` sore. Data
+mentah hasil *scrape* bisa diunduh di
+[sini](https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/hasil%20scrape%20BPOM.csv).
+
+Berikut adalah contoh `head(data)`:
+
+| X | ket                                                                                                | md              | pt                                                          |
+| -: | :------------------------------------------------------------------------------------------------- | :-------------- | :---------------------------------------------------------- |
+| 1 | Makanan Ringan Ekstrudat Rasa KejuMerk: EJHKemasan: Aluminium Foil (14 g, 50 g, 60 g, 180 g)       | ML 673709824060 | PT. INTERFOOD SUKSES JASINDOKota Jakarta Pusat, DKI Jakarta |
+| 2 | Gula PasirMerk: -Kemasan: Plastik ( 250 g, 500 g, 1 kg, 2 kg )                                     | MD 251409029038 | PT SURYA UTAMA SENTOSAKota Jakarta Barat, DKI Jakarta       |
+| 3 | Air minum dalam kemasan (air mineral)Merk: Q-BicKemasan: Galon Plastik (19 Liter)                  | MD 265217003010 | PT DIFUSI GOLDEN UTAMAKota Balikpapan, Kalimantan Timur     |
+| 4 | Air minum dalam kemasan (air mineral)Merk: Q-BicKemasan: Gelas Plastik (240 ml)                    | MD 265217002010 | PT DIFUSI GOLDEN UTAMAKota Balikpapan, Kalimantan Timur     |
+| 5 | Daging Ikan, Ayam, Udang, Jamur, dan Sayuran Olahan (Tom Yum)Merk: BernardiKemasan: Plastik (300g) | MD 243213103133 | PT. ELODA MITRAKab. Sidoarjo, Jawa Timur                    |
+| 6 | Makanan Ringan Ekstrudat PedasMerk: O-MACKemasan: Plastik (9 g)                                    | MD 273713043011 | PT. RUKUN BERSAMA SENTOSAKab. Kediri, Jawa Timur            |
+
+Sekarang, kita akan mencoba menganalisa beberapa hal berikut:
+
+1.  Provinsi mana yang paling banyak menyumbang *listing* produk
+    terbanyak?
+2.  Kemasan apa yang paling banyak digunakan?
+3.  Di Jawa Barat, kota mana yang paling sering muncul?
