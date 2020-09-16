@@ -110,8 +110,9 @@ Setiap kita bekerja dengan menggunakan __R__, berikut adalah langkah-langkah sta
 nomnoml::nomnoml("#direction: down,
                  [Panggil Libraries] -> [Set working directory]
                  [Set working directory] -> [Panggil Data]
-                 [Panggil Data] -> [Bebersih Data]
-                 [Bebersih Data] -> [Data Processing]
+                 [Panggil Data] -> [Data Preparation]
+                 [Data Preparation] -> [Data Cleaning]
+                 [Data Cleaning] -> [Data Processing]
                  [Data Processing] -> [Visualisasi]
                  
                  [Panggil Libraries|
@@ -137,10 +138,12 @@ nomnoml::nomnoml("#direction: down,
                     [format lain] -> [Gunakan library lain]
                     ]
                     
-                 [Bebersih Data|
-                    [Cek Struktur Data] -> [Vector]
-                    [Cek Struktur Data] -> [Data frame]
+                 [Data Preparation|
+                    [Cek Struktur Data] -> [str()]
+                    [Cek Struktur Data] -> [str()]
                     [Cek Tipe Data] -> [str()]
+                    [str()] -> [Vector]
+                    [str()] -> [Data frame]
                     [str()] -> [Tipe Data]
                     [Tipe Data] -> [Apakah ada yang perlu diubah?]
                     [Apakah ada yang perlu diubah?] -> [Ya]
@@ -148,16 +151,96 @@ nomnoml::nomnoml("#direction: down,
                     [Ya] -> [Ubah ke tanggal]
                     [Ya] -> [Ubah ke factor]
                     [Ya] -> [Ubah ke numerik]
+                    
+                    [Apakah data konsisten?] -> [Ya, konsisten]
+                    [Apakah data konsisten?] -> [Tidak konsisten]
+                    [Tidak konsisten] -> [Buat konsisten!]
+                    ]
+                 
+                 
+                 [Data Cleaning|
+                    [Apakah ada kolom NA?] -> [Ya]
+                    [Apakah ada kolom NA?] -> [Tidak]
+                    [Ya] -> [Hapus baris NA]
+                    [Ya] -> [Isi baris NA]
+                    [Isi baris NA] -> [Tipe data apa?]
+                    [Tipe data apa?] -> [Kualitatif]
+                    [Tipe data apa?] -> [Kuantitatif]
+                    [Kualitatif] -> [Modus]
+                    [Kuantitatif] -> [Modus]
+                    [Kuantitatif] -> [Mean]
+                    [Kuantitatif] -> [Median]
+                    
                     ]
                     
                  [Data Processing|
-                    [Analisa] -> [Menggunakan %>%]
-                    [Menggunakan %>%] -> [group_by()]
-                    [Menggunakan %>%] -> [mutate()]
-                    [Menggunakan %>%] -> [filter()]
-                    [Menggunakan %>%] -> [summarise()]
+                    [Menggunakan %>%] -> [dplyr]
+                    [Menggunakan %>%] -> [tidyr]
+                    [Menggunakan %>%] -> [reshape2]
+                    [Menggunakan %>%] -> [tidytext]
+                    [dplyr] -> [group_by()]
+                    [dplyr] -> [mutate()]
+                    [dplyr] -> [filter()]
+                    [dplyr] -> [summarise()]
+                    [tidyr] -> [separate()]
+                    [reshape2] -> [melt()]
+                    [tidytext] -> [unnest_tokens()]
+                    
                     ]
                     
-                 [Visualisasi|Menggunakan library(ggplot2)]
+                 [Visualisasi|
+                    [Statis] -> [ggplot2]
+                    [ggplot2] -> [Custom themes|dengan ggthemes atau ggpubr]
+                    [Dinamis] -> [plotly]
+                    [Web app] -> [Shiny]
+                    ]
                  ")
 ```
+
+---
+
+```{r setup, include=FALSE}
+rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Documents/Live-Session-Nutrifood-R")
+```
+
+
+# Review Materi dari `.pdf`
+##### _by Ikang_
+
+Sekarang, kita akan mencoba melakukan prinsip _data carpentry_ dari data hasil _scrape_ di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori __produk pangan__ berikut ini:
+
+```{r,echo=FALSE}
+knitr::include_graphics("bpom.png")
+```
+
+Data sudah saya _scrape_ pada tanggal 15 September 2020 sore. Data mentah hasil _scrape_ bisa diunduh di sini. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -96,3 +96,15 @@ Setiap kita bekerja dengan menggunakan **R**, berikut adalah
 langkah-langkah standar yang biasa dilakukan:
 
 ![](readme_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+-----
+
+# Review Materi dari `.pdf`
+
+##### *by Ikang*
+
+Sekarang, kita akan mencoba melakukan prinsip data carpentry dari data
+hasil scrape di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori
+**produk pangan** berikut ini:
+
+<img src="bpom.png" width="1366" />
