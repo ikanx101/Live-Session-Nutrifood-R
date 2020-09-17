@@ -103,17 +103,39 @@ langkah-langkah standar yang biasa dilakukan:
 
 ##### *by Ikang*
 
-Sekarang, kita akan mencoba melakukan prinsip *data carpentry* dari data
-hasil *scrape* di situs [BPOM](https://cekbpom.pom.go.id/) untuk
-kategori **produk pangan** berikut ini:
+**R** sangat berguna saat kita berhadapan dengan dta dalam bentuk
+*unstructured* atau *semi-unstructured*. Data yang sepertinya tidak
+mungkin dianalisa bisa saja dianalisa setelah kita lakukan *data
+carpentry* atau *data manipulation*.
+
+Sekarang, kita akan mencoba melakukan *data carpentry* menggunakan
+prinsip `tidy` dari data yang ada di situs
+[BPOM](https://cekbpom.pom.go.id/) untuk kategori **produk pangan**
+berikut ini:
 
 <img src="bpom.png" width="1366" />
 
-Data sudah saya *scrape* pada tanggal `15 September 2020` sore. Data
-mentah hasil *scrape* bisa diunduh di
+Data dari website di atas sudah saya *scrape* pada tanggal `15
+September 2020` sore. Scrape dilakukan menggunakan **R** dengan
+memanfaatkan `library(rvest)`. Jika teman-teman mau belajar *web
+scrape*, berikut *function* yang saya buat untuk *scrape* data dari
+situs tersebut:
+
+``` r
+# url = 'nama url di sini'
+# data = read_html(url) %>% {
+#   tibble(
+#     ket = html_nodes(.,'td:nth-child(2)') %>% html_text(),
+#     md = html_nodes(.,'td:nth-child(1)') %>% html_text(),
+#     pt = html_nodes(.,'td~ td+ td') %>% html_text()
+#   )
+# }
+```
+
+Data mentah hasil *scrape* bisa diunduh di
 [sini](https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/hasil%20scrape%20BPOM.csv).
 
-Berikut adalah contoh `head(data)`:
+Berikut adalah contoh `head(data)` dari data mentah tersebut:
 
 | X | ket                                                                                                | md              | pt                                                          |
 | -: | :------------------------------------------------------------------------------------------------- | :-------------- | :---------------------------------------------------------- |
@@ -124,7 +146,7 @@ Berikut adalah contoh `head(data)`:
 | 5 | Daging Ikan, Ayam, Udang, Jamur, dan Sayuran Olahan (Tom Yum)Merk: BernardiKemasan: Plastik (300g) | MD 243213103133 | PT. ELODA MITRAKab. Sidoarjo, Jawa Timur                    |
 | 6 | Makanan Ringan Ekstrudat PedasMerk: O-MACKemasan: Plastik (9 g)                                    | MD 273713043011 | PT. RUKUN BERSAMA SENTOSAKab. Kediri, Jawa Timur            |
 
-Sekarang, kita akan mencoba menganalisa beberapa hal berikut:
+Sekarang, kita akan mencoba menjawab beberapa hal berikut:
 
 1.  Provinsi mana yang paling banyak menyumbang *listing* produk
     terbanyak?

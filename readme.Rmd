@@ -208,15 +208,30 @@ setwd("~/Documents/Live-Session-Nutrifood-R")
 # Review Materi dari `.pdf`
 ##### _by Ikang_
 
-Sekarang, kita akan mencoba melakukan prinsip _data carpentry_ dari data hasil _scrape_ di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori __produk pangan__ berikut ini:
+__R__ sangat berguna saat kita berhadapan dengan dta dalam bentuk _unstructured_ atau _semi-unstructured_. Data yang sepertinya tidak mungkin dianalisa bisa saja dianalisa setelah kita lakukan _data carpentry_ atau _data manipulation_.
+
+Sekarang, kita akan mencoba melakukan _data carpentry_ menggunakan prinsip `tidy` dari data yang ada di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori __produk pangan__ berikut ini:
 
 ```{r,echo=FALSE}
 knitr::include_graphics("bpom.png")
 ```
 
-Data sudah saya _scrape_ pada tanggal `15 September 2020` sore. Data mentah hasil _scrape_ bisa diunduh di [sini](https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/hasil%20scrape%20BPOM.csv). 
+Data dari website di atas sudah saya _scrape_ pada tanggal `15 September 2020` sore. Scrape dilakukan menggunakan __R__ dengan memanfaatkan `library(rvest)`. Jika teman-teman mau belajar _web scrape_, berikut _function_ yang saya buat untuk _scrape_ data dari situs tersebut:
 
-Berikut adalah contoh `head(data)`:
+```{r}
+# url = 'nama url di sini'
+# data = read_html(url) %>% {
+#   tibble(
+#     ket = html_nodes(.,'td:nth-child(2)') %>% html_text(),
+#     md = html_nodes(.,'td:nth-child(1)') %>% html_text(),
+#     pt = html_nodes(.,'td~ td+ td') %>% html_text()
+#   )
+# }
+```
+
+Data mentah hasil _scrape_ bisa diunduh di [sini](https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/hasil%20scrape%20BPOM.csv). 
+
+Berikut adalah contoh `head(data)` dari data mentah tersebut:
 
 ```{r,echo=FALSE}
 data = read.csv("hasil scrape BPOM.csv")
@@ -224,12 +239,11 @@ data = read.csv("hasil scrape BPOM.csv")
 knitr::kable(head(data))
 ```
 
-Sekarang, kita akan mencoba menganalisa beberapa hal berikut:
+Sekarang, kita akan mencoba menjawab beberapa hal berikut:
 
 1. Provinsi mana yang paling banyak menyumbang _listing_ produk terbanyak?
 1. Kemasan apa yang paling banyak digunakan?
 1. Di Jawa Barat, kota mana yang paling sering muncul?
-
 
 ## Bagaimana caranya? Nantikan pada saat _live session!_
 
