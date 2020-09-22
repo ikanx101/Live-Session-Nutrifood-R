@@ -195,6 +195,7 @@ nomnoml::nomnoml("#direction: down,
                     ]
                     
                  [Data Processing|
+                    [Exploratory Data Analyis] -> [Menggunakan %>%]
                     [Menggunakan %>%] -> [dplyr]
                     [Menggunakan %>%] -> [tidyr]
                     [Menggunakan %>%] -> [reshape2]
