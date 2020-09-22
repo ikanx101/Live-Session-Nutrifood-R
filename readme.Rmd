@@ -155,6 +155,20 @@ nomnoml::nomnoml("#direction: down,
                     [Apakah data konsisten?] -> [Ya, konsisten]
                     [Apakah data konsisten?] -> [Tidak konsisten]
                     [Tidak konsisten] -> [Buat konsisten!]
+                    
+                    [Perlu pengecekan\nasumsi statistik?] -> [Ya, Perlu]
+                    [Perlu pengecekan\nasumsi statistik?] -> [Tidak Perlu]
+                    [Ya, Perlu] -> [Normality check]
+                    [Normality check] -> [n < 50]
+                    [Normality check] -> [n > 50]
+                    [n < 50] -> [Shapiro Wilk]
+                    [n > 50] -> [Kolmogorov Smirnov]
+                    [Shapiro Wilk] -> [Normal]
+                    [Kolmogorov Smirnov] -> [Normal]
+                    [Shapiro Wilk] -> [Tidak Normal]
+                    [Kolmogorov Smirnov] -> [Tidak Normal]
+                    [Normal] -> [Parametrik]
+                    [Tidak Normal] -> [Non Parametrik]
                     ]
                  
                  
@@ -170,6 +184,13 @@ nomnoml::nomnoml("#direction: down,
                     [Kuantitatif] -> [Modus]
                     [Kuantitatif] -> [Mean]
                     [Kuantitatif] -> [Median]
+                    
+                    [Ada pencilan?|Gunakan boxplot] -> [Ya, ada]
+                    [Ada pencilan?] -> [Tidak ada]
+                    [Ya, ada] -> [Solusi]
+                    [Solusi] -> [Perbanyak baris data]
+                    [Solusi] -> [Hapus baris data]
+                    [Solusi] -> [Transformasi data]
                     
                     ]
                     
