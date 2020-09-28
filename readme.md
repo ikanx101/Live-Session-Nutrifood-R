@@ -38,6 +38,9 @@ tersebut adalah penggunaan `library(tidyverse)` yakni *function pipe*:
 Selain itu, konsep dasar *importing* data dan *setting working
 directory* juga akan diingatkan kembali.
 
+Oh iya, mengenai jawaban terkait perubahan *habit* belanja, kalian bisa
+melihatnya di [sini](https://ikanx101.com/blog/minimarket-bekasi/).
+
 ### Sesi 2
 
 Pada sesi ini kita akan melakukan praktek langsung melanjutkan video
@@ -81,6 +84,37 @@ session* kali ini akan ada beberapa peraturan, yakni:
 
 Berikut adalah pembagian kelompok untuk hari ini:
 
+#### Kelompok I
+
+Fasilitator: Ikang - Lenny
+
+  - <rindy.agassi@nutrifood.co.id>
+  - <ganis.ginanjar@nutrifood.co.id>
+  - <rosariani@nutrifood.co.id>
+  - <awyatno@nutrifood.co.id>
+  - <Edia@nutrifood.co.id>
+
+#### Kelompok II
+
+Fasilitator: Teguh
+
+  - <geovano.satria@nutrifood.co.id>
+  - <michael.lopolisa@nutrifood.co.id>
+  - <riangga.sujatmiko@nutrifood.co.id>
+  - <iman.budiman@nutrifood.co.id>
+  - <nevvi.wibella@nutrifood.co.id>
+  - <titik.kurniawati@nutrifood.co.id>
+
+#### Kelompok II
+
+Fasilitator: Sigit - Fahmi
+
+  - <arga.putra@nutrifood.co.id>
+  - <yulianus.dengi@nutrifood.co.id>
+  - <nicolas.orlando@nutrifood.co.id>
+  - <audy.fathia@nutrifood.co.id>
+  - <caesar.rifa@nutrifood.co.id>
+
 -----
 
 # PENTING\!
@@ -95,7 +129,7 @@ dipahami.
 Setiap kita bekerja dengan menggunakan **R**, berikut adalah
 langkah-langkah standar yang biasa dilakukan:
 
-![](readme_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+![](readme_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 -----
 
@@ -116,41 +150,16 @@ berikut ini:
 <img src="bpom.png" width="1366" />
 
 Data dari website di atas sudah saya *scrape* pada tanggal `15
-September 2020` sore. Scrape dilakukan menggunakan **R** dengan
+September 2020` sore. *Scrape* dilakukan menggunakan **R** dengan
 memanfaatkan `library(rvest)`. Jika teman-teman mau belajar *web
 scrape*, berikut *function* yang saya buat untuk *scrape* data dari
 situs tersebut:
 
-``` r
-# url = 'nama url di sini'
-# data = read_html(url) %>% {
-#   tibble(
-#     ket = html_nodes(.,'td:nth-child(2)') %>% html_text(),
-#     md = html_nodes(.,'td:nth-child(1)') %>% html_text(),
-#     pt = html_nodes(.,'td~ td+ td') %>% html_text()
-#   )
-# }
-```
-
-Data mentah hasil *scrape* bisa diunduh di
-[sini](https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/hasil%20scrape%20BPOM.csv).
-
-Berikut adalah contoh `head(data)` dari data mentah tersebut:
-
-| X | ket                                                                                                | md              | pt                                                          |
-| -: | :------------------------------------------------------------------------------------------------- | :-------------- | :---------------------------------------------------------- |
-| 1 | Makanan Ringan Ekstrudat Rasa KejuMerk: EJHKemasan: Aluminium Foil (14 g, 50 g, 60 g, 180 g)       | ML 673709824060 | PT. INTERFOOD SUKSES JASINDOKota Jakarta Pusat, DKI Jakarta |
-| 2 | Gula PasirMerk: -Kemasan: Plastik ( 250 g, 500 g, 1 kg, 2 kg )                                     | MD 251409029038 | PT SURYA UTAMA SENTOSAKota Jakarta Barat, DKI Jakarta       |
-| 3 | Air minum dalam kemasan (air mineral)Merk: Q-BicKemasan: Galon Plastik (19 Liter)                  | MD 265217003010 | PT DIFUSI GOLDEN UTAMAKota Balikpapan, Kalimantan Timur     |
-| 4 | Air minum dalam kemasan (air mineral)Merk: Q-BicKemasan: Gelas Plastik (240 ml)                    | MD 265217002010 | PT DIFUSI GOLDEN UTAMAKota Balikpapan, Kalimantan Timur     |
-| 5 | Daging Ikan, Ayam, Udang, Jamur, dan Sayuran Olahan (Tom Yum)Merk: BernardiKemasan: Plastik (300g) | MD 243213103133 | PT. ELODA MITRAKab. Sidoarjo, Jawa Timur                    |
-| 6 | Makanan Ringan Ekstrudat PedasMerk: O-MACKemasan: Plastik (9 g)                                    | MD 273713043011 | PT. RUKUN BERSAMA SENTOSAKab. Kediri, Jawa Timur            |
-
 Sekarang, kita akan mencoba menjawab beberapa hal berikut:
 
-1.  Provinsi mana yang paling banyak menyumbang *listing* produk
+1.  Provinsi mana yang paling banyak menyumbang listing produk
     terbanyak?
 2.  Kemasan apa yang paling banyak digunakan?
 3.  Di Jawa Barat, kota mana yang paling sering muncul?
 
-## Bagaimana caranya? Nantikan pada saat *live session\!*
+### Bagaimana caranya? Nantikan pada saat live session\!
