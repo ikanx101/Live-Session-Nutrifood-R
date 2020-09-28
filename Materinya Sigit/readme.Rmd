@@ -1,0 +1,12 @@
+---
+title: "ReadMe"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Sabar yah. Nanti files nya akan saya taruh di mari.
+
+- i k a n x -
