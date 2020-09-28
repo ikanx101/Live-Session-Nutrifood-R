@@ -250,7 +250,6 @@ rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global enviro
 setwd("~/Documents/Live-Session-Nutrifood-R")
 ```
 
-
 # Review Materi dari `.pdf`
 ##### _by Ikang_
 
@@ -342,7 +341,10 @@ Caranya adalah dengan memanfaatkan _function_ `separate()` dari `library(tidyr)`
 Jika kita perhatikan dengan baik, pemisah antara ketiga variabel tersebut adalah kata-kata __Merk:__ dan __Kemasan:__. Maka:
 
 ```{r,message=FALSE,warning=FALSE}
-
+data =
+  data %>% 
+  separate(ket,into=c('deskripsi','lainnya'),sep='Merk: ') %>% 
+  separate(lainnya,into=c('merek','kemasan'),sep='Kemasan: ') 
 ```
 
 Mari kita lihat hasilnya:
@@ -362,7 +364,11 @@ Hal yang sama akan saya lakukan untuk variabel `pt`. Saya akan memecah variabel 
 Jika kita perhatikan dengan baik, pemisah antara variabel-variabel tersebut adalah kata-kata __Kota__, __Kab.__, dan __tanda koma__ (__,__).
 
 ```{r,message=FALSE,warning=FALSE}
-
+data =
+  data %>% 
+  separate(pt,into=c("pt_lainnya","provinsi"),sep="\\, ") %>% 
+  separate(pt_lainnya,into=c('pt_lainnya','kota'),sep="Kota ") %>% 
+  separate(pt_lainnya,into=c('nama_perusahaan','kabupaten'),sep="Kab. ")
 ```
 
 Mari kita lihat hasilnya:
@@ -378,7 +384,27 @@ knitr::kable(head(data))
 Saya masih kurang puas dengan data tersebut, maka saya akan coba merapikan tata penulisan masing-masing isi variabel lalu mengekstrak jenis kemasan dan menggabungkan variabel `kota` dan `kabupaten`.
 
 ```{r,message=FALSE,warning=FALSE}
-
+data = 
+  data %>% 
+  mutate(deskripsi = trimws(deskripsi),
+         merek = trimws(merek),
+         kemasan = trimws(kemasan),
+         nama_perusahaan = trimws(nama_perusahaan),
+         kabupaten = trimws(kabupaten),
+         kota = trimws(kota),
+         provinsi = trimws(provinsi),
+         kota_kab = ifelse(is.na(kota),paste0("Kab. ",kabupaten),kota)
+         ) %>% 
+  mutate(nama_perusahaan = toupper(nama_perusahaan),
+         nama_perusahaan = gsub("[^[:alnum:] ]"," ",nama_perusahaan),
+         nama_perusahaan = stringr::str_squish(nama_perusahaan),
+         kemasan = tolower(kemasan),
+         kemasan = gsub("[^[:alnum:] ]"," ",kemasan),
+         kemasan = stringr::str_squish(kemasan),
+         jenis_kemasan = stringr::word(kemasan,1)
+        ) %>% 
+  select(merek,deskripsi,kemasan,jenis_kemasan,nama_perusahaan,kota_kab,provinsi) %>% 
+  distinct() 
 ```
 
 Mari kita lihat hasilnya:
@@ -388,10 +414,31 @@ knitr::kable(head(data,7),caption = "Data Final Clean")
 ```
 
 
+```{r}
+data %>% 
+  group_by(provinsi) %>% 
+  summarise(freq = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(freq))
+```
 
 
+```{r}
+library(ggplot2)
+data %>% 
+  filter(grepl("jawa barat",provinsi,ignore.case = T)) %>% 
+  group_by(kota_kab) %>% 
+  summarise(freq = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(freq)) %>% 
+  ggplot(aes(x = reorder(kota_kab,freq),
+             y = freq)) +
+  geom_col() +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Kota Terbanyak di Jawa Barat")
 
-
+```
 
 
 
