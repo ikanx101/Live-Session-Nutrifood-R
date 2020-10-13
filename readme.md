@@ -80,41 +80,6 @@ session* kali ini akan ada beberapa peraturan, yakni:
 3.  Jangan takut tertinggal materi, *file* `.Rmd` secara live akan
     terupdate di halaman *github* ini.
 
-### Pembagian Kelompok
-
-Berikut adalah pembagian kelompok untuk hari ini:
-
-#### Kelompok I
-
-Fasilitator: Ikang - Lenny
-
-  - <rindy.agassi@nutrifood.co.id>
-  - <ganis.ginanjar@nutrifood.co.id>
-  - <rosariani@nutrifood.co.id>
-  - <awyatno@nutrifood.co.id>
-  - <Edia@nutrifood.co.id>
-
-#### Kelompok II
-
-Fasilitator: Teguh
-
-  - <geovano.satria@nutrifood.co.id>
-  - <michael.lopolisa@nutrifood.co.id>
-  - <riangga.sujatmiko@nutrifood.co.id>
-  - <iman.budiman@nutrifood.co.id>
-  - <nevvi.wibella@nutrifood.co.id>
-  - <titik.kurniawati@nutrifood.co.id>
-
-#### Kelompok II
-
-Fasilitator: Sigit - Fahmi
-
-  - <arga.putra@nutrifood.co.id>
-  - <yulianus.dengi@nutrifood.co.id>
-  - <nicolas.orlando@nutrifood.co.id>
-  - <audy.fathia@nutrifood.co.id>
-  - <caesar.rifa@nutrifood.co.id>
-
 -----
 
 # PENTING\!
