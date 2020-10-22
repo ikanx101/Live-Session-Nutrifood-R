@@ -1,0 +1,207 @@
+---
+title: "Read Me!"
+output: 
+  github_document:
+    pandoc_args: --webtex
+---
+
+```{r setup, include=FALSE}
+rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Documents/Live-Session-Nutrifood-R/R Training in Class Session")
+```
+
+
+# Review Materi dari `.pdf`
+##### _by Ikang_
+
+__R__ sangat berguna saat kita berhadapan dengan dta dalam bentuk _unstructured_ atau _semi-unstructured_. Data yang sepertinya tidak mungkin dianalisa bisa saja dianalisa setelah kita lakukan _data carpentry_ atau _data manipulation_.
+
+Sekarang, kita akan mencoba melakukan _data carpentry_ menggunakan prinsip `tidy` dari data yang ada di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori __produk pangan__ berikut ini:
+
+```{r,echo=FALSE}
+knitr::include_graphics("bpom.png")
+```
+
+Data dari website di atas sudah saya _scrape_ pada tanggal `15 September 2020` sore. Scrape dilakukan menggunakan __R__ dengan memanfaatkan `library(rvest)`. Jika teman-teman mau belajar _web scrape_, berikut _function_ yang saya buat untuk _scrape_ data dari situs tersebut:
+
+```{r}
+# url = 'nama url di sini'
+# data = read_html(url) %>% {
+#   tibble(
+#     ket = html_nodes(.,'td:nth-child(2)') %>% html_text(),
+#     md = html_nodes(.,'td:nth-child(1)') %>% html_text(),
+#     pt = html_nodes(.,'td~ td+ td') %>% html_text()
+#   )
+# }
+```
+
+Data mentah hasil _scrape_ bisa diunduh di _folder_ ini, yakni `hasil scrape BPOM.csv`. 
+
+## _Importing data_
+
+Langkah pertama adalah meng-_import_ data ke dalam __R__ _global environment_. Berhubung data yang akan di-_import_ adalah data `.csv`, maka tidak diperlukan _library_ khusus.
+
+Oh iya, pastikan bahwa _path file_ tertulis dengan baik pada saat kita memanggil data. Teman-teman bisa mempermudah langkah ini dengan menaruh _file_ tersebut di _working directory_ agar tidak perlu lagi menuliskan _full path_.
+
+```{r,echo=FALSE}
+data = read.csv("hasil scrape BPOM.csv")
+```
+
+Mari kita lihat isi dari data tersebut dengan menggunakan perintah `head(data)`:
+
+```{r,echo=FALSE}
+knitr::kable(head(data))
+```
+
+Coba teman-teman perhatikan dengan baik. Data di atas, walaupun berbentuk tabel, tapi isi dari masing-masing variabel di dalamnya adalah teks. 
+
+## _Check_ Struktur Data
+
+Langkah berikutnya setelah kita meng-_import_ data adalah dengan mengecek struktur dari data tersebut.
+
+```{r,warning=FALSE,message=FALSE}
+str(data)
+```
+
+Data tersebut memiliki struktur `data.frame` dengan `4` variabel yang berisi:
+
+- `X` berupa integer; ini merupakan nomor baris data.
+- `ket` berupa `character`; ini merupakan deskripsi dari produk.
+- `md` berupa `character`; berisi kode merek dagang.
+- `pt` berupa `character`; berisi informasi perusahaan yang mendaftarkan produknya.
+
+Dari variabel `ket`, saya bisa mengambil informasi deskripsi produk, merek, dan jenis kemasan. Dari variabel `pt`, saya bisa mengambil nama perusahaan, kota atau kabupaten domisili, dan provinsi domisili.
+
+## Panggil _libraries_
+
+Untuk bisa mengekstrak informasi-informasi tersebut, saya memanggil beberapa _libraries_, yakni:
+
+```{r,message=FALSE,warning=FALSE}
+library(dplyr)
+library(tidyr)
+```
+
+## Mengekstrak informasi
+
+Berikut adalah langkah kerja yang akan saya lakukan:
+
+```{r,echo=FALSE,fig.align='center'}
+knitr::include_graphics("https://raw.githubusercontent.com/ikanx101/ikanx101.github.io/master/_posts/data%20carpentry/bpom/bpom_files/figure-gfm/unnamed-chunk-7-1.png")
+```
+
+### `separate()` I dan `separate()` II
+
+Saya akan memecah variabel `ket` menjadi `3` variabel, yakni:
+
+- `deskripsi`
+- `merek`
+- `kemasan`
+
+Caranya adalah dengan memanfaatkan _function_ `separate()` dari `library(tidyr)`. Kita hanya perlu melihat apakah ada pola tertentu dari data tersebut.
+
+Jika kita perhatikan dengan baik, pemisah antara ketiga variabel tersebut adalah kata-kata __Merk:__ dan __Kemasan:__. Maka:
+
+```{r,message=FALSE,warning=FALSE}
+data =
+  data %>% 
+  separate(ket,into=c('deskripsi','lainnya'),sep='Merk: ') %>% 
+  separate(lainnya,into=c('merek','kemasan'),sep='Kemasan: ') 
+```
+
+Mari kita lihat hasilnya:
+
+```{r,echo=FALSE}
+knitr::kable(head(data))
+```
+
+### `separate()` III dan `separate()` IV
+
+Hal yang sama akan saya lakukan untuk variabel `pt`. Saya akan memecah variabel tersebut menjadi `3` variabel: 
+
+- `nama_perusahaan`
+- `kota_kab`
+- `provinsi`
+
+Jika kita perhatikan dengan baik, pemisah antara variabel-variabel tersebut adalah kata-kata __Kota__, __Kab.__, dan __tanda koma__ (__,__).
+
+```{r,message=FALSE,warning=FALSE}
+data =
+  data %>% 
+  separate(pt,into=c("pt_lainnya","provinsi"),sep="\\, ") %>% 
+  separate(pt_lainnya,into=c('pt_lainnya','kota'),sep="Kota ") %>% 
+  separate(pt_lainnya,into=c('nama_perusahaan','kabupaten'),sep="Kab. ")
+```
+
+Mari kita lihat hasilnya:
+
+```{r,echo=FALSE}
+knitr::kable(head(data))
+```
+
+---
+
+## Apakah pekerjaan kita sudah selesai?
+
+Saya masih kurang puas dengan data tersebut, maka saya akan coba merapikan tata penulisan masing-masing isi variabel lalu mengekstrak jenis kemasan dan menggabungkan variabel `kota` dan `kabupaten`.
+
+```{r,message=FALSE,warning=FALSE}
+data = 
+  data %>% 
+  mutate(deskripsi = trimws(deskripsi),
+         merek = trimws(merek),
+         kemasan = trimws(kemasan),
+         nama_perusahaan = trimws(nama_perusahaan),
+         kabupaten = trimws(kabupaten),
+         kota = trimws(kota),
+         provinsi = trimws(provinsi),
+         kota_kab = ifelse(is.na(kota),paste0("Kab. ",kabupaten),kota)
+         ) %>% 
+  mutate(nama_perusahaan = toupper(nama_perusahaan),
+         nama_perusahaan = gsub("[^[:alnum:] ]"," ",nama_perusahaan),
+         nama_perusahaan = stringr::str_squish(nama_perusahaan),
+         kemasan = tolower(kemasan),
+         kemasan = gsub("[^[:alnum:] ]"," ",kemasan),
+         kemasan = stringr::str_squish(kemasan),
+         jenis_kemasan = stringr::word(kemasan,1)
+        ) %>% 
+  select(merek,deskripsi,kemasan,jenis_kemasan,nama_perusahaan,kota_kab,provinsi) %>% 
+  distinct() 
+```
+
+Mari kita lihat hasilnya:
+
+```{r,echo=FALSE}
+knitr::kable(head(data,7),caption = "Data Final Clean")
+```
+
+
+```{r}
+data %>% 
+  group_by(provinsi) %>% 
+  summarise(freq = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(freq))
+```
+
+
+```{r}
+library(ggplot2)
+data %>% 
+  filter(grepl("jawa barat",provinsi,ignore.case = T)) %>% 
+  group_by(kota_kab) %>% 
+  summarise(freq = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(freq)) %>% 
+  ggplot(aes(x = reorder(kota_kab,freq),
+             y = freq)) +
+  geom_col() +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Kota Terbanyak di Jawa Barat")
+
+```
+
+
+
+

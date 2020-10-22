@@ -8,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-setwd("~/Documents/Training-R---Data-Viz/Materi Regresi In Class")
+setwd("~/Documents/Live-Session-Nutrifood-R/R Training in Class Session/Materinya Lenny")
 knitr::opts_chunk$set(echo = TRUE,
                       warning = FALSE,
                       message = FALSE)

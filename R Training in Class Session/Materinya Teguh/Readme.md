@@ -1,7 +1,7 @@
 Titanic Prediction Model
 ================
 Teguh Prasetia
-2 Oktober 2020
+24 Agustus 2020
 
 # Load library yang dibutuhkan untuk mengerjakan prediksi
 
@@ -75,7 +75,7 @@ library(ROCR)
 titanic <- read.csv("train.csv")
 ```
 
-# Eksplorasi data dan perapihan data
+# Eksploarsi data dan perapihan data
 
 ``` r
 summary(titanic)

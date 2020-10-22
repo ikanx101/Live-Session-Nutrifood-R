@@ -1,7 +1,7 @@
 Materi Regresi Linear
 ================
 Lenny M. Wibisana
-2 Oktober 2020
+11 September 2020
 
 # Perhatian *Trainees*
 

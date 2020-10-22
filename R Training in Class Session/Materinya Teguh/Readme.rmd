@@ -1,6 +1,5 @@
 ---
 title: "Titanic Prediction Model"
-subtitle: "Training R Nutrifood"
 author: "Teguh Prasetia"
 date: "24 Agustus 2020"
 output: 
@@ -9,7 +8,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-setwd("~/Documents/Training-R---Data-Viz/TITANIC")
+setwd("~/Documents/Live-Session-Nutrifood-R/R Training in Class Session/Materinya Teguh")
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
