@@ -5,7 +5,7 @@ Read Me\!
 
 ##### *by Ikang*
 
-**R** sangat berguna saat kita berhadapan dengan dta dalam bentuk
+**R** sangat berguna saat kita berhadapan dengan data dalam bentuk
 *unstructured* atau *semi-unstructured*. Data yang sepertinya tidak
 mungkin dianalisa bisa saja dianalisa setelah kita lakukan *data
 carpentry* atau *data manipulation*.

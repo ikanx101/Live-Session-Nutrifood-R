@@ -15,7 +15,7 @@ setwd("~/Documents/Live-Session-Nutrifood-R/R Training in Class Session")
 # Review Materi dari `.pdf`
 ##### _by Ikang_
 
-__R__ sangat berguna saat kita berhadapan dengan dta dalam bentuk _unstructured_ atau _semi-unstructured_. Data yang sepertinya tidak mungkin dianalisa bisa saja dianalisa setelah kita lakukan _data carpentry_ atau _data manipulation_.
+__R__ sangat berguna saat kita berhadapan dengan data dalam bentuk _unstructured_ atau _semi-unstructured_. Data yang sepertinya tidak mungkin dianalisa bisa saja dianalisa setelah kita lakukan _data carpentry_ atau _data manipulation_.
 
 Sekarang, kita akan mencoba melakukan _data carpentry_ menggunakan prinsip `tidy` dari data yang ada di situs [BPOM](https://cekbpom.pom.go.id/) untuk kategori __produk pangan__ berikut ini:
 
