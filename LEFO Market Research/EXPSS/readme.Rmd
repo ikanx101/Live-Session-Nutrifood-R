@@ -1,0 +1,58 @@
+---
+title: "Penjelasan"
+author: "Ikang Fadhli"
+date: "1 November 2020"
+output: 
+  github_document:
+    pandoc_args: --webtex
+---
+
+```{r setup, include=FALSE}
+rm(list=ls())
+setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# _Dear All,_
+
+Kita akan ada sesi _learning forum_ di hari Senin besok terkait penggunaan `library(expss)` di __R__ sebagai pengganti __SPSS__.
+
+Oleh karena itu, mohon dipersiapkan alat dan bahan beserta bumbunya _yah_. Sehingga besok kita _gak_ ribet terkait teknisnya.
+
+# Langkah-Langkah Persiapan
+
+## 1. _Install_ __R__ di laptop atau komputer
+
+Karena kita akan menggunakan __R__, maka langkah pertama adalah meng-_install_ terlebih dahulu __R__ dan __R Studio__. Bagaimana cara meng-_install_-nya? 
+
+__R__ versi terbaru bisa di-_install_ di _link_ [berikut](https://cran.r-project.org/bin/windows/base/).
+
+__R Studio Desktop__ versi terbaru bisa di-_install_ di _link_ [berikut](https://rstudio.com/products/rstudio/download/).
+
+## 2. Install _libraries_ yang dibutuhkan
+
+Jika __R__ dan __R Studio__ sudah ter-_install_ dengan baik dan benar, maka kita perlu meng-_install_ _libraries_ yang diperlukan. Setidaknya ada beberapa _libraries_ yang wajib untuk _data processing_, yakni:
+
+1. `dplyr`
+1. `tidyr`
+1. `lubridate`
+1. `expss`
+1. `janitor`
+1. `reshape2`
+
+Bagaimana cara meng-_install_-nya? Ketikkan perintah berikut ini di _console_ __R Studio__ masing-masing:
+
+```
+install.packages("dplyr")
+install.packages("tidyr")
+install.packages("lubridate")
+install.packages("expss")
+install.packages("janitor")
+install.packages("reshape2")
+```
+
+Jika semua sudah ter-_install_ dengan baik dan benar, maka artinya kita sudah siap untuk sesi di esok hari _yah_.
+
+## Bahan dan Bumbu
+
+Untuk besok, kita akan menggunakan _dataset_ dari riset yang sudah lama dijalankan _yah_.
