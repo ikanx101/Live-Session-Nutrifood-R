@@ -1,5 +1,7 @@
 ---
-title: "Read Me!"
+title: "Read Me First!"
+author: "Ikang Fadhli"
+date: "1 November 2020"
 output: 
   github_document:
     pandoc_args: --webtex
@@ -16,6 +18,12 @@ setwd("~/Documents/Live-Session-Nutrifood-R")
 ## *Preface*
 
 _Repository_ ini berisi kumpulan materi terkait _R Training_ yang dilakukan di _Nutrifood_. Terima kasih kepada tim _trainer_ yang telah membuat _training_ ini ada dan berhasil.
+
+# Update per 1 November
+
+Materi training `library(expss)` tersedia di folder `LEFO Market Research` _yah_!
+
+---
 
 # PENTING!
 

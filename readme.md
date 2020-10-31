@@ -1,5 +1,7 @@
-Read Me\!
+Read Me First\!
 ================
+Ikang Fadhli
+1 November 2020
 
 # *Dear Nutrifooders*
 
@@ -8,6 +10,13 @@ Read Me\!
 *Repository* ini berisi kumpulan materi terkait *R Training* yang
 dilakukan di *Nutrifood*. Terima kasih kepada tim *trainer* yang telah
 membuat *training* ini ada dan berhasil.
+
+# Update per 1 November
+
+Materi training `library(expss)` tersedia di folder `LEFO Market
+Research` *yah*\!
+
+-----
 
 # PENTING\!
 
