@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
+setwd("~/LEFO Nutrifood/LEFO Market Research/EXPSS")
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -39,6 +39,7 @@ Jika __R__ dan __R Studio__ sudah ter-_install_ dengan baik dan benar, maka kita
 1. `expss`
 1. `janitor`
 1. `reshape2`
+1. `openxlsx`
 
 Bagaimana cara meng-_install_-nya? Ketikkan perintah berikut ini di _console_ __R Studio__ masing-masing:
 
@@ -49,6 +50,7 @@ install.packages("lubridate")
 install.packages("expss")
 install.packages("janitor")
 install.packages("reshape2")
+install.packages("openxlsx")
 ```
 
 Jika semua sudah ter-_install_ dengan baik dan benar, maka artinya kita sudah siap untuk sesi di esok hari _yah_.
@@ -66,3 +68,29 @@ library(expss)
 ## Bahan dan Bumbu
 
 Untuk besok, kita akan menggunakan _dataset_ dari riset yang sudah lama dijalankan _yah_.
+
+---
+
+# Materi _Training_
+
+## Tujuan
+
+Tujuan _training_ ini untuk membuat:
+
+1. Tabulasi frekuensi.
+1. _Cross_ tabulasi frekuensi.
+1. Uji beda sig pada _cross_ tabulasi.
+
+## Prinsip dasar `library(expss)`
+
+Skrip pada `library(expss)` selalu menggunakan _pipe_ pada `tidyverse` (` %>% `).
+
+Berikut adalah alur pengerjaannya:
+
+1. Tabulasi dimulai dengan memanggil dataset.
+1. Memanggil variabel yang hendak dihitung dengan `tab_cells(nama_variabel)`.
+1. Jika hendak melakukan _cross tabulasi_, tambahkan perintah `tab_cols(nama_variabel)` sesuai dengan variabel yang hendak disilangkan.
+1. Jika hendak melakukan _drill down_ pada baris, tambahkan perintah `tab_rows(nama_variabel)` sesuai dengan variabel yang hendak disilangkan.
+1. Panggil perintah untuk menghitung persentase atau _real number_. Untuk persentase, bisa menggunakan perintah `tab_stat_cpct()`. Untuk _real number_, bisa menggunakan perintah `tab_stat_cases()`.
+1. Jika hendak melakukan uji beda dua proporsi pada _cross tabulasi_, `tambahkan tab_last_sig_cpct()` atau `tab_last_sig_cases()`.
+1. Akhiri dengan `tab_pivot()`.
