@@ -1,7 +1,7 @@
 ---
 title: "Penjelasan"
 author: "Ikang Fadhli"
-date: "Update 1 November 2020 - 11:01"
+date: "Update 2 November 2020"
 output: 
   github_document:
     pandoc_args: --webtex
@@ -9,15 +9,25 @@ output:
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("~/LEFO Nutrifood/LEFO Market Research/EXPSS")
+setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# _Dear All,_
+# _Learning Forum Market Research_
 
-Kita akan ada sesi _learning forum_ di hari Senin besok terkait penggunaan `library(expss)` di __R__ sebagai pengganti __SPSS__.
+## _Dear All,_
 
-Oleh karena itu, mohon dipersiapkan alat dan bahan beserta bumbunya _yah_. Sehingga besok kita _gak_ ribet terkait teknisnya.
+Kita akan ada sesi _learning forum_ di hari Senin ini terkait penggunaan `library(expss)` di __R__ sebagai pengganti __SPSS__.
+
+Oleh karena itu, mohon dipersiapkan alat dan bahan beserta bumbunya _yah_. Sehingga nanti pas _LEFO_ kita _gak_ ribet terkait teknisnya.
+
+## Tujuan
+
+Tujuan _LEFO_ ini untuk membuat:
+
+1. Tabulasi frekuensi.
+1. _Cross_ tabulasi frekuensi.
+1. Uji beda sig pada _cross_ tabulasi.
 
 # Langkah-Langkah Persiapan
 
@@ -59,7 +69,7 @@ Jika semua sudah ter-_install_ dengan baik dan benar, maka artinya kita sudah si
 
 Ya kita panggil saja _libraries_-nya:
 
-```{r}
+```{r,message=FALSE,warning=FALSE}
 library(dplyr)
 library(tidyr)
 library(expss)
@@ -67,19 +77,14 @@ library(expss)
 
 ## Bahan dan Bumbu
 
-Untuk besok, kita akan menggunakan _dataset_ dari riset yang sudah lama dijalankan _yah_.
+Untuk training kali ini, kita akan menggunakan _dataset_ bernama `dataset latihan.xlsx`.
+
+Teman-teman bisa men-_download_-nya terlebih dahulu.
 
 ---
 
 # Materi _Training_
 
-## Tujuan
-
-Tujuan _training_ ini untuk membuat:
-
-1. Tabulasi frekuensi.
-1. _Cross_ tabulasi frekuensi.
-1. Uji beda sig pada _cross_ tabulasi.
 
 ## Prinsip dasar `library(expss)`
 

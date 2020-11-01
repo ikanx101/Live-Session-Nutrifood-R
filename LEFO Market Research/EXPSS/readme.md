@@ -1,15 +1,25 @@
 Penjelasan
 ================
 Ikang Fadhli
-Update 1 November 2020 - 11:01
+Update 2 November 2020
 
-# *Dear All,*
+# *Learning Forum Market Research*
 
-Kita akan ada sesi *learning forum* di hari Senin besok terkait
-penggunaan `library(expss)` di **R** sebagai pengganti **SPSS**.
+## *Dear All,*
+
+Kita akan ada sesi *learning forum* di hari Senin ini terkait penggunaan
+`library(expss)` di **R** sebagai pengganti **SPSS**.
 
 Oleh karena itu, mohon dipersiapkan alat dan bahan beserta bumbunya
-*yah*. Sehingga besok kita *gak* ribet terkait teknisnya.
+*yah*. Sehingga nanti pas *LEFO* kita *gak* ribet terkait teknisnya.
+
+## Tujuan
+
+Tujuan *LEFO* ini untuk membuat:
+
+1.  Tabulasi frekuensi.
+2.  *Cross* tabulasi frekuensi.
+3.  Uji beda sig pada *cross* tabulasi.
 
 # Langkah-Langkah Persiapan
 
@@ -60,51 +70,20 @@ Ya kita panggil saja *libraries*-nya:
 
 ``` r
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(tidyr)
 library(expss)
 ```
 
-    ## 
-    ## Attaching package: 'expss'
-
-    ## The following objects are masked from 'package:tidyr':
-    ## 
-    ##     contains, nest
-
-    ## The following objects are masked from 'package:dplyr':
-    ## 
-    ##     between, compute, contains, first, last, na_if, recode, vars
-
 ## Bahan dan Bumbu
 
-Untuk besok, kita akan menggunakan *dataset* dari riset yang sudah lama
-dijalankan *yah*.
+Untuk training kali ini, kita akan menggunakan *dataset* bernama
+`dataset latihan.xlsx`.
+
+Teman-teman bisa men-*download*-nya terlebih dahulu.
 
 -----
 
 # Materi *Training*
-
-## Tujuan
-
-Tujuan *training* ini untuk membuat:
-
-1.  Tabulasi frekuensi.
-2.  *Cross* tabulasi frekuensi.
-3.  Uji beda sig pada *cross* tabulasi.
 
 ## Prinsip dasar `library(expss)`
 
