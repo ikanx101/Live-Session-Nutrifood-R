@@ -1,7 +1,7 @@
 ---
 title: "Penjelasan"
 author: "Ikang Fadhli"
-date: "1 November 2020"
+date: "Update 1 November 2020 - 11:01"
 output: 
   github_document:
     pandoc_args: --webtex
@@ -52,6 +52,16 @@ install.packages("reshape2")
 ```
 
 Jika semua sudah ter-_install_ dengan baik dan benar, maka artinya kita sudah siap untuk sesi di esok hari _yah_.
+
+> Bagaimana cara mengetahui kita telah meng-_install_ _libraries_ tersebut dengan benar?
+
+Ya kita panggil saja _libraries_-nya:
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(expss)
+```
 
 ## Bahan dan Bumbu
 
