@@ -113,3 +113,15 @@ tabel_5 =
 
   # kita lihat hasilnya:
 tabel_5
+
+# buatlah tabel_6 berisi alasan kesukaan dari c3a1 sampai c3a4!
+tabel_6 = 
+  data %>% 
+  tab_cells(mrset(c3a1 %to% c3a4)) %>% 
+  tab_stat_cpct() %>% 
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  set_caption("Minuman buah yang diketahui responden")
+
+  # kita lihat hasilnya:
+tabel_6
