@@ -18,6 +18,7 @@ rm(list = ls())
 library(readxl)
 library(dplyr)
 library(expss)
+library(openxlsx)
 
 # panggil dataset latihan
   # salah satu keuntungan mengolah data entry hasil survey dengan R adalah kita
