@@ -67,7 +67,9 @@ Beberapa _conditional_ yang perlu diketahui dan biasa digunakan untuk data _surv
 
 ## Prinsip dasar _recode_
 
-Untuk melakukan _recode_ dari 
+Untuk melakukan _recode_ dari variabel yang ada, kita akan menggunakan perintah `mutate()` berisi formula yang akan ita hitung. Biasanya proses _recode_ berasal dari _conditional_ dari variabel lain.
+
+Contohnya adalah membuat kategori `T2B`, `Netral`, dan `B2B` dari pertanyaan berskala `1` sampai `6`. Untuk melakukannya, kita bisa menggunakan perintah `case_when()`.
 
 ## __R__ _Script_
 
