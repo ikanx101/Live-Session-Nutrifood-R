@@ -125,3 +125,65 @@ tabel_6 =
 
   # kita lihat hasilnya:
 tabel_6
+
+# ====================================
+# ====================================
+
+# Selanjutnya kita akan membuat tabel dari cross tabulasi!
+
+# buatlah tabel_7 crosstab antara usia dan gender!
+tabel_7 = 
+  data %>% 
+  tab_cells(a1) %>% 
+  tab_cols(jk) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Crosstab antara usia dan gender")
+
+  # kita lihat hasilnya:
+tabel_7
+
+# ============================
+# MODIFIKASI DARI CROSS TAB
+
+# Penambahan kolom total
+tabel_8 = 
+  data %>% 
+  tab_cells(a1) %>% 
+  tab_cols(total(),jk) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Crosstab antara usia dan gender DENGAN TOTAL")
+
+# kita lihat hasilnya:
+tabel_8
+
+# kita buat tabel_9 yang berupa cross tab antara gender, usia, dan SES
+tabel_9 = 
+  data %>% 
+  tab_cells(a1) %>% 
+  tab_rows(a19) %>% 
+  tab_cols(total(),jk) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Crosstab antara usia, SES, dan gender DENGAN TOTAL")
+
+  # kita lihat hasilnya:
+tabel_9
+
+# buat tabel_10 isinya crosstab usia dan gender tapi pake signifikansi
+tabel_10 = 
+  data %>% 
+  tab_cells(a1) %>% 
+  tab_cols(jk) %>% 
+  tab_stat_cpct() %>% 
+  tab_last_sig_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Crosstab antara usia dan gender")
+
+  # kita lihat hasilnya:
+tabel_10
+
+
+
+
