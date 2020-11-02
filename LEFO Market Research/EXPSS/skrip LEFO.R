@@ -5,7 +5,7 @@
   # 2. membuat cross tabulasi
   # 3. membuat uji signifikansi dari cross tabulasi
   # 4. melakukan recode
-  # 5. Export tabulasi ke format excel
+  # 5. export tabulasi ke format excel
 
 # sebelumnya, pastikan working directory kita berada di directory yang tepat
 
@@ -69,3 +69,29 @@ tabel_2
 
 # gimana?
 # mudah kan?
+
+# buatlah tabel_3 berisi umur, pekerjaan, dan SES responden
+
+  # tabulasi frekuensi persentase
+tabel_3 = 
+  data %>% 
+  tab_cells(a1,
+            a3kat,
+            a19) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Tabel Umur, Pekerjaan, dan SES Responden")
+  
+  # kita lihat hasilnya
+tabel_3
+
+# buatlah tabel_4 berisi real number dan persentase dari variabel C1
+tabel_4 = 
+  data %>% 
+  tab_cells(c1) %>% 
+  tab_stat_cases() %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Tabel C1: Real Number dan Persentase")
+
+tabel_4
