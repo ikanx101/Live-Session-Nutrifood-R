@@ -82,7 +82,7 @@ tabel_3 =
   tab_pivot() %>% 
   set_caption("Tabel Umur, Pekerjaan, dan SES Responden")
   
-  # kita lihat hasilnya
+  # kita lihat hasilnya:
 tabel_3
 
 # buatlah tabel_4 berisi real number dan persentase dari variabel C1
@@ -94,4 +94,22 @@ tabel_4 =
   tab_pivot() %>% 
   set_caption("Tabel C1: Real Number dan Persentase")
 
+  # kita lihat hasilnya:
 tabel_4
+
+# ====================================
+# ====================================
+
+# Selanjutnya kita akan membuat tabel dari multiple responses!
+
+# buatlah tabel_5 berisi merek minuman buah yang diketahui oleh responden!
+tabel_5 = 
+  data %>% 
+  tab_cells(mrset(b1a1 %to% b1a5)) %>% 
+  tab_stat_cpct() %>% 
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  set_caption("Minuman buah yang diketahui responden")
+
+  # kita lihat hasilnya:
+tabel_5
