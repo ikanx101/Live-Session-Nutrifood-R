@@ -99,3 +99,8 @@ Berikut adalah alur pengerjaannya:
 1. Panggil perintah untuk menghitung persentase atau _real number_. Untuk persentase, bisa menggunakan perintah `tab_stat_cpct()`. Untuk _real number_, bisa menggunakan perintah `tab_stat_cases()`.
 1. Jika hendak melakukan uji beda dua proporsi pada _cross tabulasi_, `tambahkan tab_last_sig_cpct()` atau `tab_last_sig_cases()`.
 1. Akhiri dengan `tab_pivot()`.
+
+
+## __R__ _Script_
+
+Semua _script_ yang dibutuhkan bisa di-_download_ di _folder_ ini dengan judul `skrip LEFO.R`.

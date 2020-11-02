@@ -107,3 +107,8 @@ Berikut adalah alur pengerjaannya:
 6.  Jika hendak melakukan uji beda dua proporsi pada *cross tabulasi*,
     `tambahkan tab_last_sig_cpct()` atau `tab_last_sig_cases()`.
 7.  Akhiri dengan `tab_pivot()`.
+
+## **R** *Script*
+
+Semua *script* yang dibutuhkan bisa di-*download* di *folder* ini dengan
+judul `skrip LEFO.R`.
