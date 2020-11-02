@@ -184,6 +184,60 @@ tabel_10 =
   # kita lihat hasilnya:
 tabel_10
 
+# buatlah tabel_11 berisi crosstab gender vs merek minuman buah 
+# yang diketahui oleh responden!
+tabel_11 = 
+  data %>% 
+  tab_cells(mrset(b1a1 %to% b1a5)) %>% 
+  tab_cols(jk,total()) %>% 
+  tab_stat_cpct() %>% 
+  tab_sort_desc() %>% 
+  tab_last_sig_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Gender vs Minuman buah yang diketahui responden")
 
+  # kita lihat hasilnya:
+tabel_11
 
+# ============================
+# ============================
 
+# untuk melakukan export ke Excel, kita akan memanfaatkan library(openxlsx)
+# caranya:
+
+# pertama
+# kita bikin workbook-nya
+wb = createWorkbook()
+
+# cara panjang:
+  # kita akan masukin satu-persatu 11 tabel ke dalam satu file excel
+  # sekarang kita tambahin sheet-nya
+  # sheet kosong dengan nama yang kita mau
+sh = addWorksheet(wb,"tabel 1 JK")
+
+  # selanjutnya kita masukin tabel_1 kedalam sheet yang sudah kita siapkan!
+xl_write(tabel_1,wb,sh)
+
+# kita lakukan untuk semua tabel
+sh = addWorksheet(wb,"tabel 2")
+xl_write(tabel_2,wb,sh)
+sh = addWorksheet(wb,"tabel 3")
+xl_write(tabel_3,wb,sh)
+sh = addWorksheet(wb,"tabel 3")
+xl_write(tabel_3,wb,sh)
+sh = addWorksheet(wb,"tabel 4")
+xl_write(tabel_4,wb,sh)
+sh = addWorksheet(wb,"tabel 5")
+xl_write(tabel_5,wb,sh)
+sh = addWorksheet(wb,"tabel 6")
+xl_write(tabel_6,wb,sh)
+sh = addWorksheet(wb,"tabel 7")
+xl_write(tabel_7,wb,sh)
+sh = addWorksheet(wb,"tabel 8")
+xl_write(tabel_8,wb,sh)
+sh = addWorksheet(wb,"tabel 9")
+xl_write(tabel_9,wb,sh)
+sh = addWorksheet(wb,"tabel 10")
+xl_write(tabel_10,wb,sh)
+sh = addWorksheet(wb,"tabel 11")
+xl_write(tabel_11,wb,sh)
