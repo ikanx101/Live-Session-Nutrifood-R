@@ -1,11 +1,10 @@
-# Materi training hari ini
+# Materi training hari PERTAMA
 
 # TUJUAN
   # 1. membuat tabulasi frekuensi
   # 2. membuat cross tabulasi
   # 3. membuat uji signifikansi dari cross tabulasi
-  # 4. melakukan recode
-  # 5. export tabulasi ke format excel
+  # 4. export tabulasi ke format excel
 
 # sebelumnya, pastikan working directory kita berada di directory yang tepat
 
@@ -200,44 +199,55 @@ tabel_11 =
 tabel_11
 
 # ============================
+# Materi training hari KEDUA
+
+# TUJUAN
+  # 1. melakukan filtering
+  # 2. melakukan recode
+
+# training hari kedua kita mulai dari baris ini:
+
+# FILTERING
+# buat tabel_12 berisi tabulasi SES dari responden dengan gender laki-laki
+# buat tabel_13 berisi tabulasi merek yang diketahui dari responden dengan SES Upper I
+
+# RECODE
+# buat kategori B2B, Netral, dan T2B dari pertanyaan tingkat kesetujuan!
+  # lalu buat tabel_14 berisi tabulasi frekuensinya!
+
+
 # ============================
+# EXPORT KE EXCEL
+# untuk melakukan export ke Excel, saya akan membuatnya lebih simpel dengan melakukan looping
+# apa itu looping?
+  # pengulangan yang kita perintahkan agar dilakukan secara otomatis
 
-# untuk melakukan export ke Excel, kita akan memanfaatkan library(openxlsx)
-# caranya:
-
+# bagaimana caranya?
 # pertama
 # kita bikin workbook-nya
 wb = createWorkbook()
 
-# cara panjang:
-  # kita akan masukin satu-persatu 11 tabel ke dalam satu file excel
-  # sekarang kita tambahin sheet-nya
-  # sheet kosong dengan nama yang kita mau
-sh = addWorksheet(wb,"tabel 1 JK")
+# lalu saya buat variabel bernama tabel_all
+# berisi list dari semua tabel yang telah kita buat bersama-sama
+tabel_all = list(tabel_1,
+                 tabel_2,
+                 tabel_3,
+                 tabel_4,
+                 tabel_5,
+                 tabel_6,
+                 tabel_7,
+                 tabel_8,
+                 tabel_9,
+                 tabel_10,
+                 tabel_11,
+                 tabel_12,
+                 tabel_13,
+                 tabel_14)
 
-  # selanjutnya kita masukin tabel_1 kedalam sheet yang sudah kita siapkan!
-xl_write(tabel_1,wb,sh)
+for(i in 1:length(tabel_all)){
+  nama_sheet = paste0("tabulasi ",i)
+  sh = addWorksheet(wb, nama_sheet)
+  xl_write(tabel_all[[i]], wb, sh)
+}
 
-# kita lakukan untuk semua tabel
-sh = addWorksheet(wb,"tabel 2")
-xl_write(tabel_2,wb,sh)
-sh = addWorksheet(wb,"tabel 3")
-xl_write(tabel_3,wb,sh)
-sh = addWorksheet(wb,"tabel 4")
-xl_write(tabel_4,wb,sh)
-sh = addWorksheet(wb,"tabel 5")
-xl_write(tabel_5,wb,sh)
-sh = addWorksheet(wb,"tabel 6")
-xl_write(tabel_6,wb,sh)
-sh = addWorksheet(wb,"tabel 7")
-xl_write(tabel_7,wb,sh)
-sh = addWorksheet(wb,"tabel 8")
-xl_write(tabel_8,wb,sh)
-sh = addWorksheet(wb,"tabel 9")
-xl_write(tabel_9,wb,sh)
-sh = addWorksheet(wb,"tabel 10")
-xl_write(tabel_10,wb,sh)
-sh = addWorksheet(wb,"tabel 11")
-xl_write(tabel_11,wb,sh)
-
-saveWorkbook(wb,"tabulasi LEFO.xlsx",overwrite = T)
+saveWorkbook(wb, "tabulasi.xlsx", overwrite = TRUE)
