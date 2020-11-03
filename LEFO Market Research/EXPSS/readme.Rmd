@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
+setwd("/cloud/project/LEFO Market Research/EXPSS")
 knitr::opts_chunk$set(echo = TRUE)
 ```
 

@@ -9,7 +9,7 @@ output:
 ```{r setup, include=FALSE}
 rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Documents/Live-Session-Nutrifood-R")
+setwd("/cloud/project")
 ```
 
 # *Dear Nutrifooders*
