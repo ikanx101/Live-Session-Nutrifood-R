@@ -9,7 +9,7 @@ output:
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("/cloud/project/LEFO Market Research/EXPSS")
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
@@ -74,3 +74,5 @@ Contohnya adalah membuat kategori `T2B`, `Netral`, dan `B2B` dari pertanyaan ber
 ## __R__ _Script_
 
 Semua _script_ yang dibutuhkan bisa di-_download_ di _folder_ ini dengan judul `skrip LEFO.R`.
+
+__Silakan di-_download_ terlebih dahulu skripnya _yah_. Kita akan melanjutkan dari sana.__

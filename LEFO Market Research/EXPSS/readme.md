@@ -82,3 +82,6 @@ menggunakan perintah `case_when()`.
 
 Semua *script* yang dibutuhkan bisa di-*download* di *folder* ini dengan
 judul `skrip LEFO.R`.
+
+**Silakan di-*download* terlebih dahulu skripnya *yah*. Kita akan
+melanjutkan dari sana.**
