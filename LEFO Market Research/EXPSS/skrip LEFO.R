@@ -6,9 +6,12 @@
   # 3. membuat uji signifikansi dari cross tabulasi
   # 4. export tabulasi ke format excel
 
+# ====================================
+# PENTING
 # sebelumnya, pastikan working directory kita berada di directory yang tepat
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
+# ====================================
 
-# mari kita mulai ya
 
 # ====================================
 
@@ -211,9 +214,25 @@ tabel_11
 # buat tabel_12 berisi tabulasi SES dari responden dengan gender laki-laki
 # buat tabel_13 berisi tabulasi merek yang diketahui dari responden dengan SES Upper I
 
+
+
+
+
+
+
 # RECODE
 # buat kategori B2B, Netral, dan T2B dari pertanyaan tingkat kesetujuan!
   # lalu buat tabel_14 berisi tabulasi frekuensinya!
+
+
+
+
+
+
+
+
+
+
 
 
 # ============================
@@ -250,4 +269,4 @@ for(i in 1:length(tabel_all)){
   xl_write(tabel_all[[i]], wb, sh)
 }
 
-saveWorkbook(wb, "tabulasi.xlsx", overwrite = TRUE)
+saveWorkbook(wb, "hasil tabulasi.xlsx", overwrite = TRUE)
