@@ -370,10 +370,12 @@ tabel_all = list(tabel_1,
                  tabel_13c,
                  tabel_14)
 
-for(i in 1:length(tabel_all)){
-  nama_sheet = paste0("tabulasi ",i)
-  sh = addWorksheet(wb, nama_sheet)
-  xl_write(tabel_all[[i]], wb, sh)
-}
+# bikin sheet
+nama_sheet = paste0("tabulasi all")
+sh = addWorksheet(wb, nama_sheet)
 
-saveWorkbook(wb, "hasil tabulasi.xlsx", overwrite = TRUE)
+# masukin semua tabel ke sheet tersebut
+xl_write(tabel_all, wb, sh)
+
+# export ke Excel
+saveWorkbook(wb, "hasil tabulasi new.xlsx", overwrite = TRUE)
