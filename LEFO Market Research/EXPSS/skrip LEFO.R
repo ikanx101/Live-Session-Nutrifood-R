@@ -9,7 +9,7 @@
 # ====================================
 # PENTING
 # sebelumnya, pastikan working directory kita berada di directory yang tepat
-setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
+setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/EXPSS")
 # ====================================
 
 
@@ -215,18 +215,118 @@ tabel_11
 
 # FILTERING
 # buat tabel_12 berisi tabulasi SES dari responden dengan gender laki-laki
-# buat tabel_13 berisi tabulasi merek yang diketahui dari responden dengan SES Upper I
+tabel_12 = 
+  data %>% 
+  filter(jk == "Pria") %>% 
+  tab_cells(a19) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Tabel SES Responden utk Laki-Laki")
 
+  # kita lihat hasilnya yah:
+tabel_12
 
+# buat tabel_13 berisi tabulasi merek-merek yang diketahui dari responden 
+  # dengan SES Upper I
+tabel_13 = 
+  data %>% 
+  filter(a19 == "Upper 1") %>% 
+  tab_cells(mrset(b1a1 %to% b1a5)) %>% 
+  tab_stat_cpct() %>% 
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  set_caption("Minuman buah yang diketahui responden base resp Upper 1")
 
+  # kita lihat hasilnya yah:
+tabel_13
 
+# buat tabel_13b berisi tabulasi merek-merek yang diketahui dari responden
+  # Wanita dengan SES Middle 1
 
+    # Cara pertama dengan membuat filter bertingkat
+tabel_13b = 
+  data %>% 
+  filter(jk == "Wanita") %>% 
+  filter(a19 == "Middle 1") %>% 
+  tab_cells(mrset(b1a1 %to% b1a5)) %>% 
+  tab_stat_cpct() %>% 
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  set_caption("Minuman buah yang diketahui responden base resp Wanita Middle 1")
 
+tabel_13b
+
+    # Cara kedua dengan menggunakan operator AND
+tabel_13c = 
+  data %>% 
+  filter(jk == "Wanita" & a19 == "Middle 1") %>% 
+  tab_cells(mrset(b1a1 %to% b1a5)) %>% 
+  tab_stat_cpct() %>% 
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  set_caption("Minuman buah yang diketahui responden base resp Wanita Middle 1")
+
+tabel_13c
+
+# Kesimpulannya: 13_b dan 13_c sama
 
 # RECODE
 # buat kategori B2B, Netral, dan T2B dari pertanyaan tingkat kesetujuan!
   # lalu buat tabel_14 berisi tabulasi frekuensinya!
 
+# recode cara 1
+data = 
+  data %>% 
+  mutate(
+    c2_kategori_cara1 = case_when(
+      c2 == "[ 2 ] Tidak puas" ~ "B2B",
+      c2 == "[ 3 ] Agak tidak puas" ~ "Netral",
+      c2 == "[ 4 ] Agak puas" ~ "Netral",
+      c2 == "[ 5 ] Puas" ~ "T2B",
+      c2 == "[ 6 ] Sangat puas" ~ "T2B"
+    )
+  )
+
+# recode cara 2
+  # kita akan memanfaatkan pattern recognition
+data = 
+  data %>% 
+  mutate(
+    c2_kategori_cara2 = case_when(
+      grepl("2",c2) ~ "B2B",
+      grepl("3|4",c2) ~ "Netral",
+      grepl("5|6",c2) ~ "T2B"
+    )
+  )
+
+tabel_14 = 
+  data %>% 
+  tab_cells(c2,c2_kategori_cara1) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Tingkat Kepuasan")
+
+tabel_14
+
+# Cobain Recode Alasan ke Parent Alasan
+  # misalkan kalau ada kata "rasa" masuk ke parent "RASA"
+  # kita akan memanfaatkan pattern recognition
+data = 
+  data %>% 
+  mutate(
+    parent_c3a1 = case_when(
+      grepl("rasa|asam|manis",c3a1,ignore.case = T) ~ "Alasan Rasa"
+    ),
+    parent_c3a2 = case_when(
+      grepl("rasa|asam|manis",c3a2,ignore.case = T) ~ "Alasan Rasa"
+    ),
+    parent_c3a3 = case_when(
+      grepl("rasa|asam|manis",c3a3,ignore.case = T) ~ "Alasan Rasa"
+    ),
+    parent_c3a4 = case_when(
+      grepl("rasa|asam|manis",c3a4,ignore.case = T) ~ "Alasan Rasa"
+    )
+  )
 
 
 # CUSTOM FUNCTION
@@ -266,6 +366,8 @@ tabel_all = list(tabel_1,
                  tabel_11,
                  tabel_12,
                  tabel_13,
+                 tabel_13b,
+                 tabel_13c,
                  tabel_14)
 
 for(i in 1:length(tabel_all)){
