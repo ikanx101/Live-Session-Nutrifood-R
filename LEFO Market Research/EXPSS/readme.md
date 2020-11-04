@@ -71,8 +71,8 @@ data *survey* antara lain:
 ## Prinsip dasar *recode*
 
 Untuk melakukan *recode* dari variabel yang ada, kita akan menggunakan
-perintah `mutate()` berisi formula yang akan ita hitung. Biasanya proses
-*recode* berasal dari *conditional* dari variabel lain.
+perintah `mutate()` berisi formula yang akan kita hitung. Biasanya
+proses *recode* berasal dari *conditional* dari variabel lain.
 
 Contohnya adalah membuat kategori `T2B`, `Netral`, dan `B2B` dari
 pertanyaan berskala `1` sampai `6`. Untuk melakukannya, kita bisa
