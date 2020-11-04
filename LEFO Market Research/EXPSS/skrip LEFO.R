@@ -330,14 +330,26 @@ data =
 
 
 # CUSTOM FUNCTION
-# saya telah membuat beberapa custom function yang biasa dipakai untuk membuat report MR
+# saya telah membuat beberapa custom function yang biasa dipakai untuk 
+# membuat report MR
 # silakan dipanggil:
 source("https://raw.githubusercontent.com/ikanx101/belajaR/master/All%20Func.R")
 
+# Uji proporsi untuk tabel_1 
+tabel_1
 
+# cara pakai base R
+prop.test(c(128,134),
+          c(262,262))
 
+# pakai custom function
+cek.dua.proporsi.donk(128,262,134,262)
 
-
+# Contoh untuk membuat pie chart
+bikinin.pie.chart.dari.data.saya.donk(data,
+                                      data$jk,
+                                      "Jenis Kelamin Responden",
+                                      "Base: All Responden")
 
 
 # ============================
