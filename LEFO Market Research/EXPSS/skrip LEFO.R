@@ -207,6 +207,9 @@ tabel_11
 # TUJUAN
   # 1. melakukan filtering
   # 2. melakukan recode
+  # 3. Custom function:
+      # 1. Uji 2 proporsi
+      # 2. Lain-lain
 
 # training hari kedua kita mulai dari baris ini:
 
@@ -226,8 +229,10 @@ tabel_11
 
 
 
-
-
+# CUSTOM FUNCTION
+# saya telah membuat beberapa custom function yang biasa dipakai untuk membuat report MR
+# silakan dipanggil:
+source("https://raw.githubusercontent.com/ikanx101/belajaR/master/All%20Func.R")
 
 
 
