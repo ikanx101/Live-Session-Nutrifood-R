@@ -18,12 +18,20 @@ library(lavaan)
 data = read.csv()
 
 # model
-model = "
-produk =~ a1 + a2 + a3
-price =~ a4 + a5
-promotion =~ a6 + a7 + a8
-price =~ a9 + a10
-"
+model = "satisfaction =~ a1 + a2 + a3 + a4 + a5 + a6 + a7 + a8 + a9 + a10"
 
-fit = sem(model,data=data)
-summary(fit, standardized = TRUE)
+# hitung modelnya
+fit = cfa(model,data=data)
+hasil = standardizedSolution(fit)
+
+# kita ekstrak informasinya
+hasil %>%
+  select(rhs,lhs,est.std) %>%
+  filter(lhs == "satisfaction") %>%
+  filter(rhs != "satisfaction") %>%
+  mutate(bobot = abs(est.std),
+         bobot = bobot / sum(bobot),
+         bobot = round(bobot*100,2)) %>%
+  rename(bobot_dalam_persen = bobot,
+         variabel = rhs,
+         target = lhs)
