@@ -1,0 +1,48 @@
+rm(list=ls())
+library(lavaan)
+library(tidyverse)
+library(readxl)
+
+#menentukan working directory
+setwd("D:/Project_R/Belajar R/latihan 1")
+
+#ngambil data
+data <- read.csv("CLI_NS.csv")
+definisi <- read_excel("definisi.xlsx")
+
+var.names=definisi$'disingkat jadi:'
+var.names=c('SES',var.names)
+colnames(data)=var.names
+
+str(data)
+
+data1=data %>% filter(SES=="Upper 1" | SES=="Upper 2" | SES=="Middle 1")
+data2=data %>% filter(SES=="Super Upper")
+data3=data %>% filter(SES=="Middle 2")
+data4=data
+
+model.sem <-'CLI =~ vitamin+aman+variasi.rasa+efek.samping+asli+rasa.enak+menyehatkan'
+
+hasil1 <- cfa(model.sem, data = data1)
+hasil2 <- cfa(model.sem, data = data2)
+hasil3 <- cfa(model.sem, data = data3)
+hasil4 <- cfa(model.sem, data = data4)
+
+temuan 1=standardizedSolution(hasil1)
+standardizedSolution(hasil2)
+standardizedSolution(hasil3)
+standardizedSolution(hasil4)
+
+write.csv(temuan1,'Hasil running data 1.csv')
+write.csv(temuan1,'Hasil running data 2.csv')
+
+fitMeasures(hasil1)
+fitMeasures(hasil2)
+fitMeasures(hasil3)
+fitMeasures(hasil4)
+
+for (i in 2:length(data1))
+{
+    print(paste('Ini adalah proporsi dari:',x[i]))
+    print(cbind(prop.table(table(data1[i]))))
+}
