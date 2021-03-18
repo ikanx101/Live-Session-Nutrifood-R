@@ -1,0 +1,112 @@
+---
+title: "Conjoint Analysis for Product Development"
+subtitle: "Learning Forum"
+author: "Market Research Dept."
+institute: "@nutrifoodID"
+date: "30 Maret 2020"
+output:
+  xaringan::moon_reader:
+    mathjax: default
+    lib_dir: libs
+    css: [default,"footer-header.css", fc, fc-fonts]
+    seal: true
+    nature:
+      ratio: '18:10'
+      slideNumberFormat: '%current%' 
+      highlightStyle: ir-black
+      highlightLines: true
+      countIncrementalSlides: false
+---
+layout: true
+
+<div class="my-footer"><span>Sebuah LeFo</span></div>
+---
+
+```{r setup, include=FALSE,warning=FALSE,message=FALSE}
+rm(list=ls())
+library(dplyr)
+library(ggplot2)
+load("bahan lefo.rda")
+```
+
+class: center, middle, inverse
+# __Apa itu Conjoint Analysis?__
+
+---
+
+class: center, middle
+# _Conjoint Analysis_
+
+## _Conjoint analysis_ is a survey-based statistical technique used in market research that helps determine how people value different attributes (feature, function, benefits) that make up an individual product or service.
+
+---
+
+class: center, middle, inverse
+# _Orthogonal_
+
+---
+
+# _Orthogonal_
+
+## Aljabar Linear
+
+> Apa sih _orthogonal_?
+
+---
+
+class: center, middle, inverse
+# _Factorial Design_
+
+---
+
+# _Factorial Design_
+
+
+---
+
+class: center, middle, inverse
+# _Case Study_
+
+---
+
+# _Case Study_
+
+## Mie Instan
+
+Suatu perusahaan hendak membuat mie instan varian terbaru. Beberapa alternatif pilihannya adalah:
+
+1. Warna:
+    1. Kuning
+    1. Hijau
+    1. Merah
+1. Rasa:
+    1. Soto
+    1. Kari ayam
+    1. Goreng jawa
+1. Klaim:
+    1. Less salt
+    1. No msg
+    1. Less fat
+
+---
+
+class: center, middle, inverse
+# _Factorial Design_
+
+---
+
+# _Factorial Design_
+
+## Alternatif Mie Instan yang Ditanyakan ke Responden
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+factdesign %>% 
+  rename(Warna = Var1,
+         Rasa = Var2,
+         Klaim = Var3) %>% 
+  knitr::kable(caption = "Alternatif",align = "c")
+```
+
+---
+class: center, middle, inverse
+# __Terima Kasih__
