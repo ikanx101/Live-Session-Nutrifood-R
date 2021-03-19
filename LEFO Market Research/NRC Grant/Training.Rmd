@@ -249,6 +249,75 @@ $\bar{x} = \frac{17}{10} = 1.7$
 ## Pernyataan yang Tepat
 ### __Mayoritas__ peserta _webinar_ adalah wanita.
 
+---
+class: middle
+
+# Data Berdasarkan Sumbernya
+
+### Berdasarkan sumbernya, data bisa dibagi menjadi dua:
+
+.pull-left[
+
+## Data Primer
+
+> Data yang diambil dari sumber pertama.
+
+Contoh: Data hasil_interview_, data dari mesin, data hasil observasi, dll.
+
+]
+
+.pull-right[
+
+## Data Sekunder
+
+> Data yang berasal dari sumber yang pernah diolah oleh orang lain.
+
+Contoh: Data dari BPS, data covid dari situs Kawal Covid19, dll.
+
+]
+
+--
+
+### Kapan kita memakai ___data primer___?
+
+--
+
+### Kapan kita memakai ___data sekunder___?
+
+---
+
+# Kualitas dari Suatu Data
+
+## ___Data saya sudah bagus belum ya?___
+
+--
+
+Ada beberapa parameter yang bisa digunakan untuk menjawab pertanyaan tersebut:
+
+1. Kualitas dari suatu data diukur dari __seberapa bisa data tersebut memenuhi kebutuhan analisis__.
+    - Setelah itu baru dicek secara statistik: _blank_ data atau _extreme values_.
+1. Data yang bagus biasanya berasal dari _random sampling_.
+1. Untuk data yang diambil secara berulang-ulang (harian, mingguan, bulanan, tahunan, atau lainnya), pastikan bahwa cara pengambilan data harus sama.
+
+---
+
+# _Importance of Disclaimer_
+
+## Apa yang menyebabkan hasil _survey_ / _study_ / penelitian tidak sesuai dengan kondisi _real_?
+
+### Ingat bahwa setiap penelitian memiliki __limitasi__ dan __asumsi__. 
+
+1. Perhatikan dengan seksama kondisi yang dilalui saat melakukan penelitian. Apakah ada perbedaan dengan kondisi _real_?
+1. Perhatikan cara pengambilan data. Apakah ada _bias_ yang kita lakukan saat mengambil data?
+
+--
+
+## Contoh:
+
+### Survey mengenai makanan favorit orang Indonesia tapi survey dilakukan di restoran RM Padang. Kira-kira makanan apa yang menjadi favorit `orang Indonesia` tersebut?
+
+---
+
 
 ---
 
