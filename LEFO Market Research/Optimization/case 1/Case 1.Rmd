@@ -1,0 +1,129 @@
+---
+title: "Training Optimization"
+subtitle: "Contoh Kasus"
+author: "Ikanx Fadhli @nutrifood"
+date: "20 Maret 2021"
+output:
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: 
+        collapsed: false
+    number_sections: false
+    theme: darkly
+    highlight: pygments
+    fig_caption: yes
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 99)
+```
+
+# Kasus _Optimization_ I
+
+## Masalah
+
+Manajemen __Koperasi Susu Berkah__ (__KSB__) setiap harinya menerima `1000` liter susu dari para anggotanya untuk diproduksi menjadi _yogurt_ atau keju _mozarella_. 
+
+- Keuntungan dari setiap liter susu yang terjual adalah `Rp1.000`. 
+- Keuntungan dari _yogurt_ yang terjual dari bahan satu liter susu adalah `Rp1.200`
+- Sedangkan keuntungan keju _mozarella_ dari bahan satu liter susu adalah `Rp900`. 
+
+Setelah menganalisa data penjualan, manajemen koperasi mendapatkan informasi sebagai berikut:
+
+- Paling banyak `500` liter susu.
+- _Yogurt_ paling banyak bisa dibuat dari bahan `300` liter susu.
+- Keju _mozarella_ paling banyak bisa dibuat dari bahan `400` liter susu.
+
+Dari informasi di atas, manajemen __KSB__ ingin menentukan berapa banyak susu yang harus dibuat _yogurt_, susu yang harus dibuat keju _mozarella_, dan susu yang dijual langsung, agar keuntungan yang didapat maksimal.
+
+## Model Matematika
+
+Dari kasus di atas, kita akan membuat model matematikanya.
+
+### Variabel Penentuan
+
+Misalkan saya notasikan `3` variabel berikut ini:
+
+- $x_1$ sebagai seberapa banyak (dalam liter) susu yang bisa dijual langsung,
+- $x_2$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat _yogurt_, dan 
+- $x_3$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat keju _mozarella_.
+
+Di mana:
+
+$$x_1,x_2,x_3	\in \mathbb{Z}$$
+
+### _Constraints_
+
+Berikut adalah _constraints_ yang ada pada kasus di atas:
+
+- $0 \leq x_1 \leq 500$
+- $0 \leq x_2 \leq 300$
+- $0 \leq x_3 \leq 400$
+- $x_1 + x_2 + x_3 = 1000$
+
+### _Objective Function_
+
+Tujuan utama permodelan matematika ini adalah __memaksimalkan__ _profit_ yang ingin dicapai __KSB__, yakni:
+
+$$max(1000x_1 + 1200x_2 + 900x_3)$$
+
+## _Solver R_
+
+### Penulisan Model Matematika di __R__
+
+Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+#  set vector profit
+profit = c(1000,1200,900)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  # add variables
+  # non negative integers
+  add_variable(x[i],i = 1:3,
+               type = "integer",
+               lb = 0) %>%
+  # set obj function
+  set_objective(sum_expr(x[i]*profit[i],i = 1:3),
+                "max") %>%
+  # add constraints
+  add_constraint(x[1] <= 500) %>% 
+  add_constraint(x[2] <= 300) %>% 
+  add_constraint(x[3] <= 400) %>% 
+  add_constraint(sum_expr(x[i],i = 1:3) == 1000)
+model
+```
+
+### _Solving_
+
+Kemudian saya _solve_ dengan __R__:
+
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+### _Final Result_
+
+Saya dapatkan konfigurasi terbaik seperti ini:
+
+```{r,message=FALSE,warning=FALSE}
+result %>% get_solution(x[i])
+```
+
+Dengan _profit_ maksimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
+
+---
