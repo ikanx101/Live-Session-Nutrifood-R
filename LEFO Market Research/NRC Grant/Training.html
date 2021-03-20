@@ -1,33 +1,31 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Basic Analytics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ikang Fadhli" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/fc.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/fc-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="footer-header.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Basic Analytics
+## Coaching Weeks – Nutrifood Research Center Fellowship 2021
+### Ikang Fadhli
+### Nutrifood Indonesia
+### 22 Maret 2020
+
 ---
-title: "Basic Analytics"
-subtitle: "Coaching Weeks – Nutrifood Research Center Fellowship 2021"
-author: "Ikang Fadhli"
-institute: "Nutrifood Indonesia"
-date: "22 Maret 2020"
-output:
-  xaringan::moon_reader:
-    mathjax: default
-    lib_dir: libs
-    css: [default,"footer-header.css", fc, fc-fonts]
-    seal: true
-    nature:
-      ratio: '18:10'
-      slideNumberFormat: '%current%' 
-      highlightStyle: ir-black
-      highlightLines: true
-      countIncrementalSlides: false
----
+
 layout: true
 
-<div class="my-footer"><span>NRC Fellowship 2021</span></div>
+&lt;div class="my-footer"&gt;&lt;span&gt;NRC Fellowship 2021&lt;/span&gt;&lt;/div&gt;
 
-```{r setup, include=FALSE}
-rm(list=ls())
-setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant")
-library(dplyr)
-library(ggplot2)
-library(ggpubr)
-```
+
 
 ---
 class: middle, center
@@ -48,9 +46,7 @@ class: center, middle
 ### ___Setiap perusahaan bisa menjual barang yang sama dan memberikan jasa yang sama kepada pelanggannya. Pembeda satu perusahaan dengan perusahaan lainnya adalah analytics.___
 ### Thomas Davenport, Professor Harvard.
 
-```{r out.width = '35%',echo=FALSE}
-knitr::include_graphics('competing.PNG')
-```
+&lt;img src="competing.PNG" width="35%" /&gt;
 
 ---
 class: middle
@@ -66,9 +62,7 @@ class: middle
 ]
 
 .pull-right[
-```{r out.width = '75%',echo=FALSE}
-knitr::include_graphics('analytics.jpg')
-```
+&lt;img src="analytics.jpg" width="75%" /&gt;
 ]
 
 ---
@@ -84,9 +78,7 @@ class: middle
 ]
 
 .pull-right[
-```{r out.width = '85%',echo=FALSE}
-knitr::include_graphics('model.PNG')
-```
+&lt;img src="model.PNG" width="85%" /&gt;
 ]
 ---
 
@@ -108,41 +100,17 @@ Setidaknya ada __tiga__ proses kritis dalam _flow_ tersebut, yakni:
 class: center, middle
 # Ingat baik-baik!
 
-```{r,include=FALSE}
-nomnoml::nomnoml("
-                 [Masalah] -> [Tujuan]
-                 [Tujuan] -> [Data]
-                 [Data] -> [Analisa]
-                 [Analisa] --> [Masalah]
-                 ",
-                 "alur.png",
-                 450,700)
-```
 
-```{r out.width = '85%',echo=FALSE}
-knitr::include_graphics('alur.png')
-```
+
+&lt;img src="alur.png" width="85%" /&gt;
 
 ---
 class: center, middle
 # Materi Hari Ini
 
-```{r,include=FALSE}
-nomnoml::nomnoml("#direction:right
-                 [Materi Hari Ini] -> [Perkenalan dengan data]
-                 [Materi Hari Ini] -> [Teknik sampling]
-                 [Materi Hari Ini] -> [Analisa deskripsi]
-                 [Materi Hari Ini] -> [Statistika inferensi|Uji hipotesis]
-                 [Statistika inferensi] -> [Statistik Parametrik]
-                 [Statistika inferensi] -> [Statistik Non Parametik]",
-                 "materi.png", 
-                 700, 
-                 550)
-```
 
-```{r out.width = '85%',echo=FALSE}
-knitr::include_graphics('materi.png')
-```
+
+&lt;img src="materi.png" width="85%" /&gt;
 
 ---
 class: center, middle, inverse
@@ -158,34 +126,16 @@ __Representasi faktual dari suatu observasi.__
 
 Bentuknya bermacam-macam, tidak hanya berupa tabel di __Ms. Excel__ saja. Contohnya seperti ini:
 
-```{r out.width = '55%',echo=FALSE}
-knitr::include_graphics("contoh_data.png")
-```
+&lt;img src="contoh_data.png" width="55%" /&gt;
 
 ---
 # Tipe Data
 
 ### Masing-masing tipe data memiliki cara tersendiri dalam menganalisa dan memahaminya.
 
-```{r,include=FALSE}
-nomnoml::nomnoml("[Data] -> [Qualitative]
-                 [Data] -> [Quantitative]
-                 [Qualitative] -> [Ordinal]
-                 [Qualitative] -> [Nominal]
-                 [Ordinal] -> [Urutan penting]
-                 [Nominal] -> [Merepresentasikan Sesuatu]
-                 [Quantitative] -> [Kontinu]
-                 [Quantitative] -> [Diskrit]
-                 [Kontinu] -> [Bilangan Real|(mengandung koma)]
-                 [Diskrit] -> [Bilangan Bulat]",
-                 "tipe_data.png", 
-                 900, 
-                 450)
-```
 
-```{r out.width = '65%',echo=FALSE}
-knitr::include_graphics("tipe_data.png")
-```
+
+&lt;img src="tipe_data.png" width="65%" /&gt;
 
 ---
 # _Data Qualitative_
@@ -214,7 +164,7 @@ ___Rata-rata peserta webinar tersebut adalah wanita.___
 
 ## Formula
 
-$\bar{x} = \frac{\sum_{i=1}^{n} xi}{n}$
+`\(\bar{x} = \frac{\sum_{i=1}^{n} xi}{n}\)`
 
 --
 
@@ -226,11 +176,11 @@ Misalkan saya tulis `pria` sebagai `1` dan `wanita` sebagai `2`.
 
 Maka didapatkan:
 
-$\sum_{i=1}^{n} xi = 1+1+1+2+2+2+2+2+2+2 = 17$
+`\(\sum_{i=1}^{n} xi = 1+1+1+2+2+2+2+2+2+2 = 17\)`
 
-$n = 10$
+`\(n = 10\)`
 
-$\bar{x} = \frac{17}{10} = 1.7$
+`\(\bar{x} = \frac{17}{10} = 1.7\)`
 
 ]
 
@@ -261,7 +211,7 @@ $\bar{x} = \frac{17}{10} = 1.7$
 
 ## Data Primer
 
-> Data yang diambil dari sumber pertama.
+&gt; Data yang diambil dari sumber pertama.
 
 Contoh: Data hasil_interview_, data dari mesin, data hasil observasi, dll.
 
@@ -271,7 +221,7 @@ Contoh: Data hasil_interview_, data dari mesin, data hasil observasi, dll.
 
 ## Data Sekunder
 
-> Data yang berasal dari sumber yang pernah diolah oleh orang lain.
+&gt; Data yang berasal dari sumber yang pernah diolah oleh orang lain.
 
 Contoh: Data dari BPS, data covid dari situs Kawal Covid19, dll.
 
@@ -289,28 +239,9 @@ Contoh: Data dari BPS, data covid dari situs Kawal Covid19, dll.
 
 class: middle, center
 
-```{r,include=FALSE}
-nomnoml::nomnoml("
-                 [Masalah] -> [Butuh Data]
-                 [Butuh Data] -> [Ada data sekunder?]
-                 [Ada data sekunder?] -> [Ada]
-                 [Ada data sekunder?] -> [Tidak ada]
-                 [Tidak ada] -> [Cari data primer]
-                 [Ada] -> [Cek karakteristik]
-                 [Cek karakteristik] -> [Masih relevan?]
-                 [Masih relevan?] -> [Ya]
-                 [Masih relevan?] -> [Tidak]
-                 [Tidak] -> [Cari data primer]
-                 [Ya] -> [Pakai data sekunder]
-                 ",
-                 "sekunder.png", 
-                 900, 
-                 450)
-```
 
-```{r out.width = '95%',echo=FALSE}
-knitr::include_graphics("sekunder.png")
-```
+
+&lt;img src="sekunder.png" width="95%" /&gt;
 
 ---
 
@@ -358,9 +289,7 @@ class: center, middle, inverse
 .pull-left[
 ## Pertanyaannya:
 ### Kenapa saya harus melakukan _sampling_?
-```{r out.width = '50%',echo=FALSE}
-knitr::include_graphics("sampling.PNG")
-```
+&lt;img src="sampling.PNG" width="50%" /&gt;
 ]
 
 --
@@ -406,7 +335,7 @@ knitr::include_graphics("sampling.PNG")
 
 ## Masih ingat pernyataan ini:
 
-> _Data yang bagus biasanya berasal dari random sampling._
+&gt; _Data yang bagus biasanya berasal dari random sampling._
 
 --
 
@@ -441,9 +370,7 @@ Minimal ada tiga informasi yang harus diketahui untuk menghitung berapa banyak _
 ]
 
 .pull-right[
-```{r out.width = '75%',echo=FALSE}
-knitr::include_graphics("raosoft.PNG")
-```
+&lt;img src="raosoft.PNG" width="75%" /&gt;
 ]
 
 ---
@@ -460,8 +387,8 @@ knitr::include_graphics("raosoft.PNG")
 
 Jika hasil survey saya __dikembalikan__ ke populasi orang diabetes:
 
-- $75 \pm 3$ % orang diabetes suka dengan makanan manis.
-- Jika survey saya diulang `10` kali, maka `8` dari `10` pengulangan tersebut akan menghasilkan $75 \pm 3$ % orang diabetes suka dengan makanan manis.
+- `\(75 \pm 3\)` % orang diabetes suka dengan makanan manis.
+- Jika survey saya diulang `10` kali, maka `8` dari `10` pengulangan tersebut akan menghasilkan `\(75 \pm 3\)` % orang diabetes suka dengan makanan manis.
 
 ---
 class: center, middle, inverse
@@ -475,19 +402,9 @@ class: center, middle, inverse
 
 Berikut adalah proses yang _proper_ dalam melakukan analisa data:
 
-```{r,include=FALSE,echo=FALSE}
-nomnoml::nomnoml("[Raw Data] -> [Data Preparation|Consistency Check|Structured dan Format Checked]
-                 [Data Preparation] -> [Data Cleaning|Empty Cell(s)|Extreme value(s)]
-                 [Data Cleaning] -> [Data Analysis]
-                 [Data Analysis] -> [Data Visualization|Information|Insights]",
-                 "getting.png", 
-                 900, 
-                 350)
-```
 
-```{r out.width = '80%',echo=FALSE}
-knitr::include_graphics("getting.png")
-```
+
+&lt;img src="getting.png" width="80%" /&gt;
 
 .pull-left[
 Sebelum mulai melakukan analisa dan memahami data, kita harus melakukan proses _data preparation_ yang mencakup:
@@ -523,19 +440,9 @@ class: middle
 ]
 
 .pull-right[
-```{r,include=FALSE}
-nomnoml::nomnoml("[Analisa Deskriptif] -> [Pemusatan data|Persebaran data]
-                 [Analisa Deskriptif] -> [Korelasi|Beda signifikan]
-                 [Analisa Deskriptif] -> [Frekuensi tabulasi|Cross tabulasi]
-                 [Analisa Deskriptif] -> [Distribusi|Fungsi distribusi]",
-                 "deskriptif.png",
-                 900, 
-                 450)
-```
 
-```{r out.width = '75%',echo=FALSE}
-knitr::include_graphics("deskriptif.png")
-```
+
+&lt;img src="deskriptif.png" width="75%" /&gt;
 
 ]
 
@@ -595,7 +502,7 @@ _Only  if it's a variation that caused by special cause_.
 
 Secara definisi statistika, korelasi adalah:
 
-> __Linear strength and direction__ of a relationship between two variables.
+&gt; __Linear strength and direction__ of a relationship between two variables.
 
 ## _Keywords_
 
@@ -616,9 +523,7 @@ Ada hal penting yang perlu diperhatikan saat kita hendak melakukan analisa korel
 
 Masih ingat dengan tipe-tipe data?
 
-```{r out.width = '70%',echo=FALSE}
-knitr::include_graphics("tipe_data.png")
-```
+&lt;img src="tipe_data.png" width="70%" /&gt;
 
 Jadi, hanya data kuantitatif saja yang bisa dihitung korelasinya.
 ]
@@ -631,7 +536,7 @@ class: middle
 
 Jadi jika saya memiliki data kualitatif, apakah tidak bisa dihitung korelasinya?
 
-> Jawabannya: tetap bisa
+&gt; Jawabannya: tetap bisa
 
 Namun tidak menggunakan metode yang selama ini umum digunakan. Karena saat kita berbicara mengenai korelasi, sebenarnya kita hanya membicarakan hubungan dari dua data kuantitatif saja.
 
@@ -651,9 +556,7 @@ Secara _default_, __Ms. Excel__ menggunakan cara perhitungan parametrik (__Pears
 ]
 
 .pull-right[
-```{r out.width = '83%',echo=FALSE}
-knitr::include_graphics("paramnon.png")
-```
+&lt;img src="paramnon.png" width="83%" /&gt;
 ]
 
 ---
@@ -664,9 +567,7 @@ knitr::include_graphics("paramnon.png")
 
 ## Seringkali kita dihadapkan pada data berbentuk nominal atau ordinal.
 
-```{r out.width = '83%',echo=FALSE}
-knitr::include_graphics("tipe_data.png")
-```
+&lt;img src="tipe_data.png" width="83%" /&gt;
 ]
 
 .pull-right[
@@ -719,7 +620,7 @@ Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara sta
   - H0: rata - rata dari dua sampel yang dites sama.
   - H1: rata - rata dari dua sampel yang dites berbeda. 
 3. Hitung statistik uji atau p-value.
-4. Kesimpulan: Tolak H0 jika p-value < 0.05.
+4. Kesimpulan: Tolak H0 jika p-value &lt; 0.05.
 5. Tuliskan kesimpulan dengan kalimat non matematis.
 ]
 
@@ -727,29 +628,17 @@ Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara sta
 # Statistika Inferensi
 ## Antara Parametrik dan Non Parametrik
 
-```{r,include=FALSE}
-nomnoml::nomnoml("[Uji Hipotesis] -> [Parametrik|Uji statistik yang\nselama ini dipelajari]
-                 [Uji Hipotesis] -> [Non Parametrik|Uji statistik yang\njarang diketahui]
-                 [Parametrik] -> [Sampel banyak|n>30]
-                 [Parametrik] -> [Distribusi diketahui|Normal atau lainnya]
-                 [Non Parametrik] -> [Sampel sedikit|n<30]
-                 [Non Parametrik] -> [Distribusi tidak diketahui|Bukan normal]",
-                 "parnonpar.png", 
-                 900, 
-                 550)
-```
+
 
 .pull-left[
 
-```{r out.width = '90%',echo=FALSE}
-knitr::include_graphics("parnonpar.png")
-```
+&lt;img src="parnonpar.png" width="90%" /&gt;
 
 ]
 
 .pull-right[
 
-> ___Selama ini kita banyak mempelajari dan mendiskusikan mengenai statistika parametrik. Padahal ada limitasi pada analisa parametrik.___
+&gt; ___Selama ini kita banyak mempelajari dan mendiskusikan mengenai statistika parametrik. Padahal ada limitasi pada analisa parametrik.___
 
 ### Kesimpulan:
 
@@ -761,29 +650,17 @@ knitr::include_graphics("parnonpar.png")
 ---
 # Parametrik vs Non Parametrik
 
-```{r,include=FALSE}
-nomnoml::nomnoml("[Pengujian] -> [beda 2 mean independen|parametrik: t test dan z test|non parametrik: mann-whitney u]
-                 [Pengujian] -> [beda 2 mean dependen|parametrik: paired t test|non parametrik: wilcoxxon sign rank]
-                 [Pengujian] -> [beda 3 mean atau lebih|parametrik: annova|non parametrik: kruskal wallis]
-                 [Pengujian] -> [korelasi|parametrik: pearson|non parametrik: spearman]
-                 ",
-                 "parnonpar new.png", 
-                 900, 
-                 550,
-                 direction = down)
-```
+
 
 .pull-left[
 
-```{r out.width = '60%',echo=FALSE}
-knitr::include_graphics("parnonpar new.png")
-```
+&lt;img src="parnonpar new.png" width="60%" /&gt;
 
 ]
 
 .pull-right[
 
-> Gunakan sesuai kebutuhan!
+&gt; Gunakan sesuai kebutuhan!
 
 ]
 
@@ -794,3 +671,128 @@ class: middle, center, inverse
 
 # Terima Kasih
 ### find me at: ikanx101.com
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "18:10",
+"slideNumberFormat": "%current%",
+"highlightStyle": "ir-black",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

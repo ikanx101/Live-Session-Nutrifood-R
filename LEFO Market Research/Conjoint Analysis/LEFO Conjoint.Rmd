@@ -1,26 +1,24 @@
 ---
 title: "Conjoint Analysis for Product Development"
-subtitle: "Learning Forum"
 author: "Market Research Dept."
-institute: "@nutrifoodID"
 date: "30 Maret 2020"
+subtitle: "Learning Forum"
+institute: '@nutrifoodID'
 output:
-  xaringan::moon_reader:
-    mathjax: default
-    lib_dir: libs
-    css: [default,"footer-header.css", fc, fc-fonts]
-    seal: true
-    nature:
-      ratio: '18:10'
-      slideNumberFormat: '%current%' 
-      highlightStyle: ir-black
-      highlightLines: true
-      countIncrementalSlides: false
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: no
+    number_sections: yes
+    theme: journal
+    highlight: pygments
+    fig_caption: yes
+    code_folding: hide
+    mathjax: local
+    self_contained: yes
 ---
-layout: true
 
-<div class="my-footer"><span>Sebuah LeFo</span></div>
----
 
 ```{r setup, include=FALSE,warning=FALSE,message=FALSE}
 rm(list=ls())
@@ -29,22 +27,24 @@ library(ggplot2)
 load("bahan lefo.rda")
 ```
 
-class: center, middle, inverse
 # __Apa itu Conjoint Analysis?__
 
----
+> ___Conjoint analysis is a survey-based statistical technique used in market research that helps determine how people value different attributes (feature, function, benefits) that make up an individual product or service.___
 
-class: center, middle
-# _Conjoint Analysis_
 
-## _Conjoint analysis_ is a survey-based statistical technique used in market research that helps determine how people value different attributes (feature, function, benefits) that make up an individual product or service.
 
----
-
-class: center, middle, inverse
 # _Orthogonal_
 
----
+```{r}
+data.frame(x = c(-10:10),
+           y = c(-10:10)) %>% 
+  ggplot(aes(x = x,
+             y = y)) +
+  geom_vline(xintercept = 0) +
+  geom_hline(yintercept = 0) +
+  theme_void()
+```
+
 
 # _Orthogonal_
 
@@ -54,7 +54,6 @@ class: center, middle, inverse
 
 ---
 
-class: center, middle, inverse
 # _Factorial Design_
 
 ---
@@ -64,7 +63,6 @@ class: center, middle, inverse
 
 ---
 
-class: center, middle, inverse
 # _Case Study_
 
 ---
@@ -90,7 +88,6 @@ Suatu perusahaan hendak membuat mie instan varian terbaru. Beberapa alternatif p
 
 ---
 
-class: center, middle, inverse
 # _Factorial Design_
 
 ---
@@ -99,7 +96,7 @@ class: center, middle, inverse
 
 ## Alternatif Mie Instan yang Ditanyakan ke Responden
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE}
+```{r,warning=FALSE,message=FALSE}
 factdesign %>% 
   rename(Warna = Var1,
          Rasa = Var2,
@@ -108,5 +105,4 @@ factdesign %>%
 ```
 
 ---
-class: center, middle, inverse
 # __Terima Kasih__
