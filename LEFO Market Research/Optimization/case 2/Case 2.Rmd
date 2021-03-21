@@ -132,6 +132,6 @@ Saya dapatkan konfigurasi terbaik seperti ini:
 result %>% get_solution(x[i])
 ```
 
-Dengan _profit_ maksimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
+Dengan _cost_ minimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
 
 ---
