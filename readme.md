@@ -1,7 +1,6 @@
 Read Me First\!
 ================
 Ikang Fadhli
-1 November 2020
 
 # *Dear Nutrifooders*
 
@@ -10,11 +9,6 @@ Ikang Fadhli
 *Repository* ini berisi kumpulan materi terkait *R Training* yang
 dilakukan di *Nutrifood*. Terima kasih kepada tim *trainer* yang telah
 membuat *training* ini ada dan berhasil.
-
-# Update per 1 November
-
-Materi training `library(expss)` tersedia di folder `LEFO Market
-Research` *yah*\!
 
 -----
 
@@ -31,3 +25,13 @@ Setiap kita bekerja dengan menggunakan **R**, berikut adalah
 langkah-langkah standar yang biasa dilakukan:
 
 ![](readme_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
+
+## **Discord**
+
+Punya akun *Discord*? Kalau belum, silakan *download apps*-nya di
+[sini](https://discord.com/).
+
+*Available* untuk **iOS**, **Android**, **Windows**, dan **Linux**.
+
+*Join discord* **Nutrifood x R** di *link* [berikut
+ini](https://discord.gg/zy9XJgsf).

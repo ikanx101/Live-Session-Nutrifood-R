@@ -9,7 +9,6 @@ output:
 ```{r setup, include=FALSE}
 rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global environment
 knitr::opts_chunk$set(echo = TRUE)
-setwd("~/Live-Session-Nutrifood-R")
 ```
 
 # *Dear Nutrifooders*
@@ -17,10 +16,6 @@ setwd("~/Live-Session-Nutrifood-R")
 ## *Preface*
 
 _Repository_ ini berisi kumpulan materi terkait _R Training_ yang dilakukan di _Nutrifood_. Terima kasih kepada tim _trainer_ yang telah membuat _training_ ini ada dan berhasil.
-
-# Update per 3 November
-
-Materi training `library(expss)` __hari kedua__ tersedia di folder `LEFO Market Research` _yah_!
 
 ---
 
@@ -144,3 +139,11 @@ nomnoml::nomnoml("#direction: down,
                     ]
                  ")
 ```
+
+## __Discord__
+
+Punya akun _Discord_? Kalau belum, silakan _download apps_-nya di [sini](https://discord.com/).
+
+_Available_ untuk __iOS__, __Android__, __Windows__, dan __Linux__.
+
+_Join discord_ __Nutrifood x R__ di _link_ [berikut ini](https://discord.gg/zy9XJgsf).
