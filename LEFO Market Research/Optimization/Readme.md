@@ -29,17 +29,21 @@ Suatu permodelan matematika disebut *feasible* jika:
 
 ## *Cases*
 
-Ada 3 *cases* yang sudah saya masukkan di sini:
+Ada 4 *cases* dari *training* yang sudah saya masukkan di sini:
 
 1.  Case I: Koperasi Susu Berkah.
 2.  Case II: Tiga Mesin Filling.
 3.  Case III: Lampu Penerangan Jalan.
+4.  Case IV: Perusahaan Cat.
 
 Saya menggunakan **R** untuk membuat model *optimization* dan di-*solve*
 dengan *engine* yang tersedia di `library(ompr)`.
 
 Agak berbeda dengan *libraries* yang akan digunakan saat *training*
 dengan **FINANMOS ITB** kelak namun tetap menghasilkan hasil yang sama.
+
+> ***Silakan Anda mendownload file*** `.html` ***yang ada pada
+> masing-masing folder*** `case`.
 
 ## **Discord**
 
@@ -58,3 +62,5 @@ Selamat belajar.
 *Feel free to discuss*.
 
 *Created by:* [Ikang Fadhli](https://ikanx101.com/)
+
+*Last update:* 2021-03-21 16:59:05
