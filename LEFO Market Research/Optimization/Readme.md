@@ -5,6 +5,28 @@ Welcome\!
 yang diberikan pada saat ***optimization training*** oleh **FINANMOS
 ITB** 2021.
 
+## Catatan Penting Tentang *Optimization*
+
+*Optimization* berarti proses pencarian suatu nilai yang **optimal**.
+Kondisi optimal bisa terjadi saat sesuatu bernilai **maksimum** atau
+**minimum**.
+
+Hal tersebut yang harus kita pahami.
+
+Permodelan matematika terkait *optimization* tidak lepas dari `3` hal
+berikut ini:
+
+1.  *Decision Variable*, yakni nilai yang ingin dicari. Diharapkan dari
+    nilai ini akan tercipta kondisi yang optimal.
+2.  *Constraints*, yakni *boundaries* (limitasi) yang ada pada *problem*
+    yang dihadapi.
+3.  *Objective function*, yakni kondisi optimal yang harus dipenuhi.
+
+Suatu permodelan matematika disebut *feasible* jika:
+
+> ***Decision variable yang didapatkan memenuhi objective function dan
+> tidak melanggar constraints.***
+
 ## *Cases*
 
 Ada 3 *cases* yang sudah saya masukkan di sini:
@@ -13,8 +35,11 @@ Ada 3 *cases* yang sudah saya masukkan di sini:
 2.  Case II: Tiga Mesin Filling.
 3.  Case III: Lampu Penerangan Jalan.
 
-Saya menggunakan **R** untuk membuat model *optimization* lalu *solve*
-dengan *engine* yang tersedia di `ompr`.
+Saya menggunakan **R** untuk membuat model *optimization* dan di-*solve*
+dengan *engine* yang tersedia di `library(ompr)`.
+
+Agak berbeda dengan *libraries* yang akan digunakan saat *training*
+dengan **FINANMOS ITB** kelak namun tetap menghasilkan hasil yang sama.
 
 ## **Discord**
 
