@@ -13,25 +13,38 @@ Kondisi optimal bisa terjadi saat sesuatu bernilai **maksimum** atau
 
 Hal tersebut yang harus kita pahami.
 
-Permodelan matematika terkait *optimization* tidak lepas dari `3` hal
+Permodelan matematika terkait *optimization* tidak lepas dari `4` hal
 berikut ini:
 
 1.  *Decision Variable*, yakni nilai yang ingin dicari. Diharapkan dari
     nilai ini akan tercipta kondisi yang optimal.
-2.  *Constraints*, yakni *boundaries* (limitasi) yang ada pada *problem*
-    yang dihadapi.
-3.  *Objective function*, yakni kondisi optimal yang harus dipenuhi.
+2.  *Parameter*, yakni nilai yang besarannya *given*. Jika kita melihat
+    pada kasus *real*, parameter adalah nilai yang tidak kita kontrol.
+3.  *Constraints*, yakni *boundaries* (limitasi) yang ada pada *problem*
+    yang dihadapi. Bisa jadi dalam suatu kasus, kita membuat permodelan
+    matematika yang tidak memiliki *constraints*.
+4.  *Objective function*, yakni kondisi optimal yang harus dipenuhi.
 
-Suatu permodelan matematika disebut *feasible* jika:
+*Parameter* dan *decision variable* akan muncul pada *constraints* dan
+*objective function*.
 
-> ***Decision variable yang didapatkan memenuhi objective function dan
-> tidak melanggar constraints.***
+Suatu *decision variable* disebut *feasible* jika:
+
+> ***Decision variable yang didapatkan tidak melanggar constraints.***
+
+Suatu *decision variable* disebut optimal jika:
+
+> ***Decision variable yang didapatkan memenuhi objective function.***
+
+## Contoh Kasus yang Dibahas
+
+<img src="contoh.jpg" width="1149" />
 
 ## *Cases*
 
 Ada 4 *cases* dari *training* yang sudah saya masukkan di sini:
 
-1.  Case I: Koperasi Susu Berkah.
+1.  Case I: Koperasi Susu Berkah. *Sudah dibahas pagi ini*.
 2.  Case II: Tiga Mesin Filling.
 3.  Case III: Lampu Penerangan Jalan.
 4.  Case IV: Perusahaan Cat.
@@ -63,4 +76,4 @@ Selamat belajar.
 
 *Created by:* [Ikang Fadhli](https://ikanx101.com/)
 
-*Last update:* 2021-03-21 16:59:05
+*Last update:* 2021-03-22 08:43:07
