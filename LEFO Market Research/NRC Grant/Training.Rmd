@@ -783,7 +783,7 @@ knitr::include_graphics("parnonpar new.png")
 
 .pull-right[
 
-> Gunakan sesuai kebutuhan!
+## ___Gunakan sesuai kebutuhan!___
 
 ]
 
@@ -792,5 +792,5 @@ knitr::include_graphics("parnonpar new.png")
 
 class: middle, center, inverse
 
-# Terima Kasih
-### find me at: ikanx101.com
+## Terima Kasih
+# Nutrifood Indonesia
