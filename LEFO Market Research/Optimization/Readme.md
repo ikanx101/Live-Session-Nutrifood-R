@@ -54,6 +54,9 @@ dengan *engine* yang tersedia di `library(ompr)`.
 
 Agak berbeda dengan *libraries* yang akan digunakan saat *training*
 dengan **FINANMOS ITB** kelak namun tetap menghasilkan hasil yang sama.
+Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah
+*real* ke permodelan matematikanya. Jika sudah termodelkan, akan mudah
+dimasukkan ke berbagai *libraries* yang ada di **R**.
 
 > ***Silakan Anda mendownload file*** `.html` ***yang ada pada
 > masing-masing folder*** `case`.
@@ -76,4 +79,4 @@ Selamat belajar.
 
 *Created by:* [Ikang Fadhli](https://ikanx101.com/)
 
-*Last update:* 2021-03-22 08:43:07
+*Last update:* 2021-03-22 09:00:45
