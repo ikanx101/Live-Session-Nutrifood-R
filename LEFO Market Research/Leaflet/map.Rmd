@@ -1,0 +1,120 @@
+---
+title: "Membuat Peta di R"
+subtitle: "Data dari Bill"
+author: "Ikang"
+date: "23 Maret 2020"
+institute: '@nutrifoodID'
+output:
+  html_document:
+    toc: yes
+    toc_depth: 5
+    toc_float:
+      collapsed: no
+    number_sections: no
+    theme: cerulean
+    highlight: pygments
+    fig_caption: yes
+    code_folding: hide
+    self_contained: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+rm(list=ls())
+```
+
+# Peta di R
+
+Ada beberapa _libraries_ yang bisa digunakan untuk membuat _object_ peta di __R__, seperti:
+
+1. `ggmap`.
+    - _Advantages:_
+        - _Works well with_ `ggplot2` _object_.
+        - Peta yang dihasilkan merupakan _static map_ sehingga hanya perlu koneksi internet saat pertama _rendering_-nya.
+        - Bisa melakukan analisa _density 2D_ secara visual.
+    - _Disadvantages:_
+        - Perlu daftar __API__ ke _Google Cloud Console_.
+        - Dimensi peta (_width_ x _height_) tidak bisa diubah.
+1. `leaflet`.
+    - _Advantages:_
+        - Peta yang dihasilkan adalah _dynamic_ mengandalkan _engine open street map_ (__OSM__).
+        - Tidak perlu daftar __API__ apapun.
+    - _Disadvantages:_
+        - Harus memiliki koneksi internet setiap kali melihat peta tersebut. Jika tidak, peta tidak akan _rendered_ sempurna.
+        - Hanya membuat _map_ saja tanpa ada analisa visual apapun.
+        
+Untuk keperluan membuat peta kali ini, saya akan membuat peta menggunakan `leaflet` yang lebih simpel.
+
+# _Membuat Peta_
+
+## _Libraries_
+
+Untuk membuatnya, pertama-tama kita pastikan terlebih dahulu bahwa kita telah meng-_install_ `leaflet`.
+
+Caranya:
+
+Ketik dan _run_ _code_ berikut di _console_ __R Studio__:
+
+`install.packages("leaflet")`
+
+## Data yang Digunakan
+
+Data yang digunakan adalah data berformat _excel_ yang memiliki variabel `longitude` dan `latitude`. 
+
+_File_ yang digunakan bernama `data dari google.xlsx`.
+
+## Langkah yang Dilakukan
+
+### Panggil _Libraries_
+
+```{r,warning=FALSE,message=FALSE}
+library(readxl) # untuk import file excel
+library(dplyr) # untuk data carpentry
+library(leaflet) # untuk membuat peta
+```
+
+### _Import Excel_
+
+```{r}
+data = read_excel("data dari google.xlsx")
+```
+
+### Melihat Struktur Data
+
+```{r}
+str(data)
+```
+
+Ternyata kita dapatkan variabel `lat` dan `long` ternyata berjenis `character`. Seharusnya keduanya berjenis `numeric`.
+
+Hal ini terjadi karena pada baris `13` tidak ditemukan `long` dan `lat`.
+
+Jadi kita harus _filter-out_ data tersebut terlebih dahulu.
+
+### Filter Serta Konversi `lat` dan `long` ke Jenis Numerik
+
+```{r,warning=FALSE,message=FALSE}
+data = 
+  data %>% 
+  mutate(lat = as.numeric(lat),
+         long = as.numeric(long)) %>% 
+  filter(!is.na(lat))
+```
+
+### Membuat Peta
+
+```{r}
+leaflet() %>% # memanggil leaflet
+  addTiles() %>% # memanggil layer dari OSM
+  addCircles(lng = data$long, # memasukkan data longitude
+             lat = data$lat,  # memasukkan data latitude
+             popup = paste(data$first_name,data$last_name)) # memasukkan popup berupa nama
+```
+
+---
+
+[_Further reading_](https://rstudio.github.io/leaflet/).
+
+_Feel free to discuss_.
+
+[Ikang Fadhli](https://ikanx101.com/)

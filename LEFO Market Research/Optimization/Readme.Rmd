@@ -1,0 +1,72 @@
+---
+title: "Welcome!"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+_Repositories_ ini berisi _R Markdown_ penyelesaian dari beberapa kasus yang diberikan pada saat ___optimization training___ oleh __FINANMOS ITB__ 2021.
+
+## Catatan Penting Tentang _Optimization_
+
+_Optimization_ berarti proses pencarian suatu nilai yang __optimal__. Kondisi optimal bisa terjadi saat sesuatu bernilai __maksimum__ atau __minimum__.
+
+Hal tersebut yang harus kita pahami.
+
+Permodelan matematika terkait _optimization_ tidak lepas dari `4` hal berikut ini:
+
+1. _Decision Variable_, yakni nilai yang ingin dicari. Diharapkan dari nilai ini akan tercipta kondisi yang optimal.
+1. _Parameter_, yakni nilai yang besarannya _given_. Jika kita melihat pada kasus _real_, parameter adalah nilai yang tidak kita kontrol.
+1. _Constraints_, yakni _boundaries_ (limitasi) yang ada pada _problem_ yang dihadapi. Bisa jadi dalam suatu kasus, kita membuat permodelan matematika yang tidak memiliki _constraints_.
+1. _Objective function_, yakni kondisi optimal yang harus dipenuhi.
+
+_Parameter_ dan _decision variable_ akan muncul pada _constraints_ dan _objective function_.
+
+Suatu _decision variable_ disebut _feasible_ jika:
+
+> ___Decision variable yang didapatkan tidak melanggar constraints.___
+
+Suatu _decision variable_ disebut optimal jika:
+
+> ___Decision variable yang didapatkan memenuhi objective function.___
+
+## Contoh Kasus yang Dibahas
+
+```{r,echo=FALSE}
+knitr::include_graphics("contoh.jpg")
+```
+
+## _Cases_
+
+Ada 4 _cases_ dari _training_ yang sudah saya masukkan di sini:
+
+1. Case I: Koperasi Susu Berkah. _Sudah dibahas pagi ini_.
+1. Case II: Tiga Mesin Filling.
+1. Case III: Lampu Penerangan Jalan.
+1. Case IV: Perusahaan Cat.
+
+Saya menggunakan __R__ untuk membuat model _optimization_ dan di-_solve_ dengan _engine_ yang tersedia di `library(ompr)`.
+
+Agak berbeda dengan _libraries_ yang akan digunakan saat _training_ dengan __FINANMOS ITB__ kelak namun tetap menghasilkan hasil yang sama. Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah _real_ ke permodelan matematikanya. Jika sudah termodelkan, akan mudah dimasukkan ke berbagai _libraries_ yang ada di __R__.
+
+> ___Silakan Anda mendownload file___ `.html` ___yang ada pada masing-masing folder___ `case`.
+
+## __Discord__
+
+Punya akun _Discord_? Kalau belum, silakan _download apps_-nya di [sini](https://discord.com/).
+
+_Available_ untuk __iOS__, __Android__, __Windows__, dan __Linux__.
+
+_Join discord_ __Nutrifood x R__ di _link_ [berikut ini](https://discord.gg/zy9XJgsf).
+
+---
+
+Selamat belajar.
+
+_Feel free to discuss_.
+
+_Created by:_ [Ikang Fadhli](https://ikanx101.com/)
+
+_Last update:_ `r Sys.time()`

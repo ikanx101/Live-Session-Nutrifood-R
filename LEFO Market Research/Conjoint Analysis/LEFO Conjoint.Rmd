@@ -1,8 +1,8 @@
 ---
 title: "Conjoint Analysis for Product Development"
+subtitle: "Sebuah Learning Forum"
 author: "Market Research Dept."
 date: "30 Maret 2020"
-subtitle: "Learning Forum"
 institute: '@nutrifoodID'
 output:
   html_document:
@@ -10,12 +10,11 @@ output:
     toc_depth: 5
     toc_float:
       collapsed: no
-    number_sections: yes
-    theme: journal
+    number_sections: no
+    theme: cerulean
     highlight: pygments
     fig_caption: yes
     code_folding: hide
-    mathjax: local
     self_contained: yes
 ---
 
@@ -27,13 +26,118 @@ library(ggplot2)
 load("bahan lefo.rda")
 ```
 
-# __Apa itu Conjoint Analysis?__
+# _Conjoint Analysis_
+
+## Definisi
 
 > ___Conjoint analysis is a survey-based statistical technique used in market research that helps determine how people value different attributes (feature, function, benefits) that make up an individual product or service.___
 
+## Sejarah
+
+_Conjoint analysis originated in mathematical psychology and was developed by marketing professor Paul E. Green at the Wharton School of the University of Pennsylvania. Other prominent conjoint analysis pioneers include professor V. "Seenu" Srinivasan of Stanford University who developed a linear programming (LINMAP) procedure for rank ordered data as well as a self-explicated approach, and Jordan Louviere (University of Iowa) who invented and developed choice-based approaches to conjoint analysis and related techniques such as best–worst scaling._
+
+## Penggunaan
+
+_Conjoint Analysis_ kerap digunakan dalam bidang _new product/service development_. Salah satu keunggulannya adalah menghitung seberapa penting suatu _attribute_ dengan _indirect question_ menggunakan konsep __ortogonalitas__ yang ada di aljabar.
+
+[_Maxis_](https://www.maxis.com.my/en/about-maxis/) merupakan salah satu _provider_ telekomunikasi terbesar di Malaysia. Pada medio 2011, Maxis hendak membuat beberapa _starter pack_ yang ditujukan khusus kepada TKI yang bekerja di Malaysia. Mereka hendak memilah dan memilih _features_ apa saja yang sebaiknya dimasukkan ke dalam _starter pack_ tersebut.
+
+Pada waktu itu, pemilihan _attributes_ dan _levels_ yang digunakan berasal dari _focus group discussion_.
+
+## Istilah yang Perlu Diketahui
+
+Ada dua istilah yang sudah saya sebut beberapa kali, yakni:
+
+1. _Attributes_ dan
+1. _Levels_.
+
+### Membedakan _Attributes_ dan _Levels_
+
+Misalkan:
+
+> __Nutrifood__ berencana untuk meluncurkan _mie instan_ varian terbaru di akhir tahun ini. Namun mereka masih bingung kira-kira faktor apa saja yang harus ada di _mie instan_ tersebut.
+
+Mereka sudah _list_ beberapa alternatif pilihan sebagai berikut:
+
+1. Warna _mie_, pilihannya:
+    - Kuning
+    - Hijau
+    - Merah
+1. Rasa _mie_, pilihannya:
+    - Soto
+    - Kari Ayam
+    - Goreng Jawa
+1.  Klaim _mie_, pilihannya:
+    - _Less salt_
+    - _No msg_
+    - _Less fat_
+
+Faktor `warna`, `rasa` dan `klaim` disebut ___attributes___. 
+
+Sedangkan pilihan-pilihan yang ada di masing-masing _attributes_ (misal `kuning`, `hijau`, ..., `no msg`, `less fat`) disebut ___levels___.
+
+### Perbedaan dengan Survey Biasa
+
+Jika kita melakukan __survey biasa__, hal yang paling sering terjadi adalah memberikan pertanyaan langsung (_direct question_) kepada responden terkait seberapa penting masing-masing _attributes_ dan _levels_ mana yang mereka pilih. 
+
+Contohnya sebagai berikut:
+
+1. Dalam memilih suatu _mie instan_, dari ketiga faktor berikut ini: warna, rasa, dan klaim. Urutkan dari aspek yang __paling penting__ ke aspek yang paling __tidak penting__!
+    - Urutan 1:
+    - Urutan 2:
+    - Urutan 3:
+1. Warna _mie instan_ apa yang Anda sukai? (pilih salah satu)
+    - Kuning
+    - Hijau
+    - Merah
+1. Rasa _mie instan_ apa yang Anda sukai? (pilih salah satu)
+    - Soto
+    - Kari Ayam
+    - Goreng Jawa
+1. Klaim _mie instan_ apa yang Anda sukai? (pilih salah satu)
+    - _Less salt_
+    - _No msg_
+    - _Less fat_
+    
+Jika kita menggunakan _Conjoint Analysis_, kita tidak akan bertanya _direct_ kepada responden seperti pada cara sebelumnya. Lantas bagaimana caranya?
+
+> ___Kita akan memberikan beberapa alternatif pilihan produk untuk kemudian dipilih oleh responden.___
+
+Responden bisa diminta untuk:
+
+1. Memberikan _ranking_ (mengurutkan) alternatif produk mana yang __paling disukai__ sampai yang __tidak disukai__.
+1. Memberikan _rating_ (nilai) setiap alternatif produk yang ditanyakan.
+1. Memilih __satu saja alternatif produk__ yang paling disukai.
+
+Pertanyaannya adalah:
+
+> ___Bagaimana caranya kita menentukan beberapa alternatif pilihan produk yang hendak ditanyakan?___
+
+# Penentuan Alternatif Pilihan
+
+## Semua Kombinasi yang Mungkin
+
+Perhatikan bahwa kita memiliki 3 _level_ di _attribute_ `warna`, 3 _level_ di _atribute_ `rasa`, dan 3 _level_ di _atribute_ `klaim`.
+
+Oleh karena itu, ada $3 * 3 * 3 = 27$ alternatif pilihan produk yang bisa ditawarkan sebagai berikut:
+
+```{r}
+experiment %>% 
+  mutate(Alternatif = 1:nrow(experiment)) %>% 
+  relocate(Alternatif,.before = Var1) %>% 
+  rename(Warna = Var1,
+         Rasa = Var2,
+         Klaim = Var3) %>% 
+  knitr::kable()
+```
+
+Masalah yang timbul adalah:
+
+> ___Kita tidak mungkin menawarkan `r nrow(experiment)`
+
+## _Orthogonalitas_ dalam Aljabar Linear
 
 
-# _Orthogonal_
 
 ```{r}
 data.frame(x = c(-10:10),
@@ -46,53 +150,10 @@ data.frame(x = c(-10:10),
 ```
 
 
-# _Orthogonal_
-
-## Aljabar Linear
-
-> Apa sih _orthogonal_?
-
 ---
 
 # _Factorial Design_
 
----
-
-# _Factorial Design_
-
-
----
-
-# _Case Study_
-
----
-
-# _Case Study_
-
-## Mie Instan
-
-Suatu perusahaan hendak membuat mie instan varian terbaru. Beberapa alternatif pilihannya adalah:
-
-1. Warna:
-    1. Kuning
-    1. Hijau
-    1. Merah
-1. Rasa:
-    1. Soto
-    1. Kari ayam
-    1. Goreng jawa
-1. Klaim:
-    1. Less salt
-    1. No msg
-    1. Less fat
-
----
-
-# _Factorial Design_
-
----
-
-# _Factorial Design_
 
 ## Alternatif Mie Instan yang Ditanyakan ke Responden
 
