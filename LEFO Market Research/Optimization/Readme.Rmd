@@ -42,7 +42,7 @@ knitr::include_graphics("contoh.jpg")
 
 Ada 4 _cases_ dari _training_ yang sudah saya masukkan di sini:
 
-1. Case I: Koperasi Susu Berkah. _Sudah dibahas pagi ini_.
+1. Case I: Koperasi Susu Berkah. 
 1. Case II: Tiga Mesin Filling.
 1. Case III: Lampu Penerangan Jalan.
 1. Case IV: Perusahaan Cat.

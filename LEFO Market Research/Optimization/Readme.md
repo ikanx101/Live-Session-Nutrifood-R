@@ -44,7 +44,7 @@ Suatu *decision variable* disebut optimal jika:
 
 Ada 4 *cases* dari *training* yang sudah saya masukkan di sini:
 
-1.  Case I: Koperasi Susu Berkah. *Sudah dibahas pagi ini*.
+1.  Case I: Koperasi Susu Berkah.
 2.  Case II: Tiga Mesin Filling.
 3.  Case III: Lampu Penerangan Jalan.
 4.  Case IV: Perusahaan Cat.
@@ -79,4 +79,4 @@ Selamat belajar.
 
 *Created by:* [Ikang Fadhli](https://ikanx101.com/)
 
-*Last update:* 2021-03-26 09:18:13
+*Last update:* 2021-03-26 14:45:44
