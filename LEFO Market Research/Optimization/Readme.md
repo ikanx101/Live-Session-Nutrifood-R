@@ -38,7 +38,7 @@ Suatu *decision variable* disebut optimal jika:
 
 ## Contoh Kasus yang Dibahas
 
-<img src="contoh.jpg" width="1149" />
+<img src="contoh.jpg" width="1149" height="50%" />
 
 ## *Cases*
 
@@ -58,8 +58,8 @@ Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah
 *real* ke permodelan matematikanya. Jika sudah termodelkan, akan mudah
 dimasukkan ke berbagai *libraries* yang ada di **R**.
 
-> ***Silakan Anda mendownload file*** `.html` ***yang ada pada
-> masing-masing folder*** `case`.
+> ***Silakan Anda mendownload file*** `Cases.pdf` ***yang ada di folder
+> ini***.
 
 ## **Discord**
 
@@ -79,4 +79,4 @@ Selamat belajar.
 
 *Created by:* [Ikang Fadhli](https://ikanx101.com/)
 
-*Last update:* 2021-03-22 09:00:45
+*Last update:* 2021-03-26 09:18:13
