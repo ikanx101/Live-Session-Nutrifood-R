@@ -1,0 +1,807 @@
+---
+title: "Training Optimization Nutrifood x FINANMOS ITB"
+subtitle: "Sebuah Catatan Short Course"
+author: "Ikanx Fadhli @nutrifood"
+date: "26 Maret 2021"
+fontsize: 10pt
+header-includes:
+- \usepackage{titling}
+- \pretitle{\begin{center}\includegraphics[width=3in,height=3in]{logo R.png}\LARGE\\}
+- \posttitle{\end{center}}
+- \usepackage{fancyhdr}
+- \pagestyle{fancy}
+- \fancyhead[CO,CE]{@nutrifood}
+- \fancyfoot[CO,CE]{ikanx101.com}
+- \fancyfoot[LE,RO]{hal \thepage}
+output:
+  pdf_document:
+    toc: false
+    toc_depth: 5
+    number_sections: true
+    fig_width: 7
+    fig_height: 4
+    fig_caption: true
+    highlight: zenburn
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+options(scipen = 99)
+```
+
+\newpage
+\tableofcontents
+
+\newpage
+&nbsp;
+\pagebreak
+
+# Pendahuluan
+
+Catatan ini berisi _R Markdown_ penyelesaian dari beberapa kasus yang diberikan pada saat ___optimization training___ oleh __FINANMOS ITB__ 2021.
+
+## Catatan Penting Tentang _Optimization_
+
+_Optimization_ berarti proses pencarian suatu nilai yang __optimal__. Kondisi optimal bisa terjadi saat sesuatu bernilai __maksimum__ atau __minimum__.
+
+Hal tersebut yang harus kita pahami.
+
+Permodelan matematika terkait _optimization_ tidak lepas dari `4` hal berikut ini:
+
+1. _Decision Variable_, yakni nilai yang ingin dicari. Diharapkan dari nilai ini akan tercipta kondisi yang optimal.
+1. _Parameter_, yakni nilai yang besarannya _given_. Jika kita melihat pada kasus _real_, parameter adalah nilai yang tidak kita kontrol.
+1. _Constraints_, yakni _boundaries_ (limitasi) yang ada pada _problem_ yang dihadapi. Bisa jadi dalam suatu kasus, kita membuat permodelan matematika yang tidak memiliki _constraints_.
+1. _Objective function_, yakni kondisi optimal yang harus dipenuhi.
+
+_Parameter_ dan _decision variable_ akan muncul pada _constraints_ dan _objective function_.
+
+Suatu _decision variable_ disebut _feasible_ jika:
+
+> ___Decision variable yang didapatkan tidak melanggar constraints.___
+
+Suatu _decision variable_ disebut optimal jika:
+
+> ___Decision variable yang didapatkan memenuhi objective function.___
+
+## Contoh Kasus yang Dibahas
+
+```{r out.height= "50%" ,echo=FALSE}
+knitr::include_graphics("contoh.jpg")
+```
+
+Saya menggunakan __R__ untuk membuat model _optimization_ dan di-_solve_ dengan _engine_ yang tersedia di `library(ompr)`. Tipe variabel penentuan yang didukung oleh `ompr` antara lain:
+
+1. `binary`
+1. `continuos`
+1. `integer`
+
+Agak berbeda dengan _libraries_ yang akan digunakan saat _training_ dengan __FINANMOS ITB__ kelak namun tetap menghasilkan hasil yang sama. Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah _real_ ke permodelan matematikanya. Jika sudah termodelkan, akan mudah dimasukkan ke berbagai _libraries_ yang ada di __R__.
+
+\pagebreak
+
+# __Koperasi Susu Berkah__
+
+## Masalah
+
+Manajemen __Koperasi Susu Berkah__ (__KSB__) setiap harinya menerima `1000` liter susu dari para anggotanya untuk diproduksi menjadi _yogurt_ atau keju _mozarella_. 
+
+- Keuntungan dari setiap liter susu yang terjual adalah `Rp1.000`. 
+- Keuntungan dari _yogurt_ yang terjual dari bahan satu liter susu adalah `Rp1.200`
+- Sedangkan keuntungan keju _mozarella_ dari bahan satu liter susu adalah `Rp900`. 
+
+Setelah menganalisa data penjualan, manajemen koperasi mendapatkan informasi sebagai berikut:
+
+- Paling banyak `500` liter susu.
+- _Yogurt_ paling banyak bisa dibuat dari bahan `300` liter susu.
+- Keju _mozarella_ paling banyak bisa dibuat dari bahan `400` liter susu.
+
+Dari informasi di atas, manajemen __KSB__ ingin menentukan berapa banyak susu yang harus dibuat _yogurt_, susu yang harus dibuat keju _mozarella_, dan susu yang dijual langsung, agar keuntungan yang didapat maksimal.
+
+## Model Matematika
+
+Dari kasus di atas, kita akan membuat model matematikanya.
+
+### Variabel Penentuan
+
+Misalkan saya notasikan `3` variabel berikut ini:
+
+- $x_1$ sebagai seberapa banyak (dalam liter) susu yang bisa dijual langsung,
+- $x_2$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat _yogurt_, dan 
+- $x_3$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat keju _mozarella_.
+
+Di mana:
+
+$$x_1,x_2,x_3	\in \mathbb{Z}$$
+
+### _Constraints_
+
+Berikut adalah _constraints_ yang ada pada kasus di atas:
+
+- $0 \leq x_1 \leq 500$
+- $0 \leq x_2 \leq 300$
+- $0 \leq x_3 \leq 400$
+- $x_1 + x_2 + x_3 = 1000$
+
+### _Objective Function_
+
+Tujuan utama permodelan matematika ini adalah __memaksimalkan__ _profit_ yang ingin dicapai __KSB__, yakni:
+
+$$max(1000x_1 + 1200x_2 + 900x_3)$$
+
+## _Solver R_
+
+### Penulisan Model Matematika di __R__
+
+Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+#  set vector profit
+profit = c(1000,1200,900)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  # add variables
+  # non negative integers
+  add_variable(x[i],i = 1:3,
+               type = "integer",
+               lb = 0) %>%
+  # set obj function
+  set_objective(sum_expr(x[i]*profit[i],i = 1:3),
+                "max") %>%
+  # add constraints
+  add_constraint(x[1] <= 500) %>% 
+  add_constraint(x[2] <= 300) %>% 
+  add_constraint(x[3] <= 400) %>% 
+  add_constraint(sum_expr(x[i],i = 1:3) == 1000)
+model
+```
+
+### _Solving_
+
+Kemudian saya _solve_ dengan __R__:
+
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+### _Final Result_
+
+Saya dapatkan konfigurasi terbaik seperti ini:
+
+```{r,message=FALSE,warning=FALSE}
+result %>% get_solution(x[i])
+```
+
+Dengan _profit_ maksimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
+
+\pagebreak
+
+```{r,include=FALSE}
+rm(list=ls())
+```
+
+# __Tiga Mesin Filling__
+
+## Masalah
+
+Di sebuah perusahaan, departemen _filling_ dan _packing_ memiliki tiga jenis mesin yang selalu beroperasi setiap harinya. Setiap mesin memiliki kapasitas, biaya proses per unit produk, dan biaya _setup_ masing-masing.
+
+Berikut adalah datanya:
+
+```{r,echo=FALSE}
+data = data.frame(
+  mesin =  c(1:3),
+  biaya_setup = c(300,100,200),
+  biaya_proses_unit = c(2,10,5),
+  kapasitas = c(600,800,1200)
+)
+knitr::kable(data,align = "c",caption = "Data Mesin Filling dan Packing")
+```
+Mengingat di setiap mesin harus ada pekerja yang ditugaskan untuk menjalankannya, manajemen mengambil keputusan bahwa jika suatu mesin digunakan, maka mesin tersebut paling sedikit harus memproses `400` unit produk. 
+
+Di suatu hari, terdapat beban kerja sebanyak `2000` unit produk yang harus diproses _filling_ dan _packing_-nya. 
+
+> ___Berapa konfigurasi produk per mesin yang paling optimal?___
+
+## Model Matematika
+
+Dari kasus di atas, kita akan membuat model matematikanya.
+
+### Variabel Penentuan
+
+Misalkan saya notasikan `3` variabel berikut ini:
+
+- $x_1$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin I,
+- $x_2$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin II, dan 
+- $x_3$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin III.
+
+Di mana:
+
+$$x_1,x_2,x_3	\in \mathbb{Z}$$
+
+### _Constraints_
+
+Berikut adalah _constraints_ yang ada pada kasus di atas:
+
+- $400 \leq x_1 \leq 600$
+- $400 \leq x_2 \leq 800$
+- $400 \leq x_3 \leq 1200$
+- $x_1 + x_2 + x_3 = 2000$
+
+### _Objective Function_
+
+Tujuan utama permodelan matematika ini adalah __meminimalkan__ _cost_ yang terjadi di semua mesin, yakni:
+
+$$min((300+2x_1) + (100+10x_2) + (200+5x_3))$$
+
+## _Solver R_
+
+### Penulisan Model Matematika di __R__
+
+Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+#  set vector fixed cost
+fixed_cost = c(300000,100000,200000)
+
+# set vector cost per unit
+cost_per_unit = c(2000,10000,5000)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  # add variables
+  # non negative integers
+  add_variable(x[i],i = 1:3,
+               type = "integer",
+               lb = 400) %>%
+  # set obj function
+  set_objective((fixed_cost[1]+cost_per_unit[1]*x[1]) + (fixed_cost[2]+cost_per_unit[2]*x[2]) + (fixed_cost[3]+cost_per_unit[3]*x[3]),
+                "min") %>%
+  # add constraints
+  add_constraint(x[1] <= 600) %>% 
+  add_constraint(x[2] <= 800) %>% 
+  add_constraint(x[3] <= 1200) %>% 
+  add_constraint(sum_expr(x[i],i = 1:3) == 2000)
+model
+```
+
+### _Solving_
+
+Kemudian saya _solve_ dengan __R__:
+
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+### _Final Result_
+
+Saya dapatkan konfigurasi terbaik seperti ini:
+
+```{r,message=FALSE,warning=FALSE}
+result %>% get_solution(x[i])
+```
+
+Dengan _cost_ minimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
+
+\pagebreak
+
+```{r,include=FALSE}
+rm(list=ls())
+```
+
+# __Lampu Penerangan Jalan__
+
+## Masalah
+
+Perhatikan gambar di bawah ini:
+
+```{r out.height="25%",echo=FALSE,fig.align='center'}
+print("Courtesy of: FINANMOS ITB 2021")
+knitr::include_graphics("download.png")
+```
+
+Suatu komplek perumahan dengan denah seperti di atas memiliki `11` jalan. Setiap pertemuan jalan, diberikan tanda nomor `1` hingga `8`. _Town management_ hendak memasang lampu penerangan di __setiap pertemuan jalan tersebut__.
+
+Tujuan utama mereka adalah memasang lampu sehingga __semua jalan__ diterangi paling sedikit satu lampu.
+
+> ___Di titik mana saja town management harus memasang lampu-lampu tersebut?___
+
+## Model Matematika
+
+Dari kasus di atas, kita akan membuat model matematikanya.
+
+### Parameter
+
+Misalkan saya notasikan $Jl$ sebagai himpunan jalan, yakni:
+
+$$Jl = \{A,B,C,D,E,F,G,H,I,J,K\}$$
+
+Misalkan saya notasikan $J$ sebagai himpunan titik-titik pertemuan jalan, yakni:
+
+$$J = \{1,2,3,4,5,6,7,8\}$$
+
+### Variabel Penentuan
+
+Kemudian saya akan tuliskan $x_j$ sebagai _binary number_ yang menyatakan apakah lampu dipasang atau tidak di titik $j \in J$.
+
+$$x_j = \begin{cases} 1,& \text{ jika di titik } j \text{ dipasang lampu}\\ 0, & \text{ lainnya.}\end{cases}$$
+Misalkan:
+
+- $x_1=0$, artinya lampu di titik `1` __tidak dipasang lampu__.
+- $x_2=1$, artinya lampu di titik `2` __dipasang lampu__.
+
+### _Constraints_
+
+Dengan variabel keputusan seperti di atas, maka sesuai keinginan kita menerangi __setiap jalan paling sedikit dengan satu lampu__, kita mempunyai kendala:
+
+1. $x_1 + x_2 \geq 1$ untuk __Jalan A__.
+1. $x_2 + x_3 \geq 1$ untuk __Jalan B__.
+1. $x_1 + x_6 \geq 1$ untuk __Jalan G__.
+1. $x_2 + x_6 \geq 1$ untuk __Jalan F__.
+1. $x_2 + x_4 \geq 1$ untuk __Jalan I__.
+1. $x_4 + x_7 \geq 1$ untuk __Jalan H__.
+1. $x_4 + x_5 \geq 1$ untuk __Jalan C__.
+1. $x_7 + x_8 \geq 1$ untuk __Jalan D__.
+1. $x_3 + x_5 \geq 1$ untuk __Jalan K__.
+1. $x_6 + x_7 \geq 1$ untuk __Jalan E__.
+1. $x_5 + x_8 \geq 1$ untuk __Jalan J__.
+
+### _Objective Function_
+
+Tujuan utama permodelan matematika ini adalah __meminimalkan__ banyaknya titik yang dipasang lampu penerangan, yakni:
+
+$$min(\sum x_j, j\in J)$$
+
+\pagebreak
+
+## _Solver R_
+
+### Penulisan Model Matematika di __R__
+
+Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  # add variables
+  # binary
+  add_variable(x[i],
+               i = 1:8,
+               type = "binary",
+               lb = 0) %>%
+  # set obj function
+  set_objective(sum_expr(x[i],i = 1:8),
+                "min") %>%
+  # add constraints
+  add_constraint(x[1] + x[2] >= 1) %>% 
+  add_constraint(x[2] + x[3] >= 1) %>% 
+  add_constraint(x[1] + x[6] >= 1) %>%
+  add_constraint(x[2] + x[6] >= 1) %>%
+  add_constraint(x[2] + x[4] >= 1) %>%
+  add_constraint(x[4] + x[7] >= 1) %>%
+  add_constraint(x[4] + x[5] >= 1) %>%
+  add_constraint(x[7] + x[8] >= 1) %>%
+  add_constraint(x[3] + x[5] >= 1) %>%
+  add_constraint(x[6] + x[7] >= 1) %>%
+  add_constraint(x[5] + x[8] >= 1)
+model
+```
+
+\pagebreak
+
+### _Solving_
+
+Kemudian saya _solve_ dengan __R__:
+
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+### _Final Result_
+
+Saya dapatkan konfigurasi terbaik seperti ini:
+
+```{r,message=FALSE,warning=FALSE}
+result %>% get_solution(x[i]) %>% filter(value == 1)
+```
+
+Dengan banyak lampu minimum terpasang sebanyak `r round(result$objective_value)` buah.
+
+\pagebreak
+
+```{r,include=FALSE}
+rm(list=ls())
+```
+
+# __Perusahaan Cat__
+
+## Masalah
+
+Suatu perusahaan memproduksi `4` warna cat yaitu:
+
+- Putih,
+- Kuning, 
+- Hitam, dan 
+- Merah. 
+
+Keempat cat tersebut diproduksi di mesin-mesin yang sama, sehingga ada keperluan untuk mencuci mesin-mesin tersebut di antara produksi `2` cat yang berbeda warna.  
+
+Kita mempunyai masalah untuk menentukan urutan produksi cat harian yang _optimal_, yakni urutan produksi cat yang menghasilkan total waktu pencucian paling kecil. 
+
+> ___Urutan harian ini akan dipakai tiap hari, karena perusahaan setiap hari harus memproduksi keempat cat tersebut.___
+
+Tabel berikut menampilkan waktu pencucian antara produksi cat di suatu baris jika akan dilanjutkan dengan cat di suatu kolom.
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+data = data.frame(putih = c(NA,20,50,45),
+                  kuning = c(10,NA,44,40),
+                  hitam = c(17,19,NA,20),
+                  merah = c(15,18,25,NA))
+
+row.names(data) = c("putih","kuning","hitam","merah")
+
+options(knitr.kable.NA = '~')
+knitr::kable(data,row.names = T,align = "c",caption = "Matriks Cleaning Mesin Cat (dalam menit)")
+```
+
+> ___Urutan produksi cat seperti apa yang meminimalkan waktu cleaning?___
+
+## Metode Heuristik
+
+Sebenarnya masalah di atas mirip sekali dengan __Travelling Salesperson Problem__, yakni suatu masalah _optimization_ yang mencari rute terpendek dari beberapa tempat. 
+
+Jadi alih-alih menggunakan metode _Mixed Integer Linear Programming_ (__MILP__) yang biasa saya pakai untuk menyelesaikan _optimization_, saya akan menggunakan cara __TSP__ saja.
+
+\pagebreak
+
+### _How to_
+
+Langkah pertama adalah menyiapkan matriks cleaning terlebih dahulu, yakni dengan mengubah `data` yang berupa _dataframe_ ke bentuk _matrix_ di __R__.
+
+```{r}
+data[is.na(data)] = 0
+level = rownames(data)
+matriks = as.matrix(data)
+matriks
+```
+
+Jika kita perhatikan dengan baik. Matriks _cleaning_ di atas berbentuk asimetris. Artinya waktu _cleaning_ dari cat `1` ke `2` __tidak sama__ dengan waktu _cleaning_ dari cat `2` ke `1`.
+
+Oleh karena itu, saya akan membuat _problem_ __Assymetric TSP__ (__ATSP__) untuk kemudian di-_solve_.
+
+```{r}
+library(TSP)
+problem = as.ATSP(matriks)
+hasil = solve_TSP(problem)
+hasil
+```
+
+Didapatkan waktu _cleaning_ terkecil adalah sebesar `98` menit.
+
+### _Final Result_
+
+Saya dapatkan urutan terbaik seperti ini: 
+
+```{r} 
+paste(level[as.integer(hasil)],collapse = " - ")
+```
+
+\pagebreak
+
+```{r,include=FALSE}
+rm(list=ls())
+```
+
+# ___Nurse Schedulling___
+
+Di bagian ini kita akan mempelajari masalah penjadwalan perawat (_nurse scheduling_) yang mempunyai aturan kerja yang tidak terlalu banyak. Aturan kerja yang dibahas di sini mungkin saja merupakan aturan di suatu rumah sakit saja, yang sedikit berbeda dengan aturan kerja perawat di rumah sakit lainnya. Tetapi tujuan dibuat aturan kerja ini di rumah sakit manapun adalah sama, yaitu aturan yang dibuat agar jam kerja perawat diatur sedemikian hingga sehingga para perawat berada pada kondisi yang baik ketika bekerja.
+
+## Masalah
+
+Lingkungan kerja para perawat yang kita bahas adalah sebagai berikut:
+
+- Para perawat bekerja pada suatu shift kerja
+- Terdapat `3` shift kerja yaitu:
+    - _day shift_ (8.00 - 16.00), 
+    - _evening shift_ (16.00 - 24.00), dan
+    - _night shift_ (24.00 - 8.00)
+- Pada setiap shift dibutuhkan `4` orang perawat.
+
+Selain itu, terdapat beberapa aturan kerja perawat yang harus dipenuhi, yakni:
+
+1. Setiap perawat dalam satu hari dapat ditugaskan paling banyak dalam satu _shift_.
+1. Jika seorang perawat ditugaskan pada _shift_ malam, maka dia tidak dapat ditugaskan di _shift_ pagi di hari berikutnya.
+1. Jika seorang perawat ditugaskan dalam `3` hari berturut-turut, maka hari keempatnya harus diberi libur.
+1. Jika seorang perawat ditugaskan pada suatu _shift_ di _weekend_, maka dia tidak dapat ditugaskan di _weekend_ berikutnya.
+
+> ___Bagaimana jadwal yang optimal? Berapa banyak perawat yang dibutuhkan?___
+
+## Model Matematika
+
+### Membangun Model Matematika
+
+#### _Time Frame_
+
+Untuk memudahkan membuat model matematika _nurse schedulling_, saya akan mendefinisikan terlebih dahulu _time frame_ yang hendak digunakan. Apakah akan dibuat jadwal selama seminggu, sebulan, atau periode tertentu.
+
+Untuk itu, saya akan melihat __aturan kerja ke-4__, yakni:
+
+> Jika seorang perawat ditugaskan pada suatu _shift_ di _weekend_, maka dia tidak dapat ditugaskan di _weekend_ berikutnya.
+
+Dari kasus di atas, setidaknya _time frame_ penjadwalan __tersingkat__ yang bisa buat adalah dalam waktu `2` minggu.
+
+Dari _time frame_ tersebut, kita juga bisa mengandaikan berapa banyak perawat yang dibutuhkan.
+
+#### Berapa banyak perawat yang dibutuhkan?
+
+Dari penjelasan kasus di atas, sebenarnya tidak ada batasan maksimal berapa perawat yang bisa ditugaskan di rumah sakit tersebut. Namun, dari __aturan kerja ke-4__ kita bisa hitung secara kasar berapa minimal perawat yang harus ditugaskan.
+
+> Bagaimana caranya?
+
+Mari kita ingat beberapa hal berikut ini:
+
+1. _Weekend_ terjadi pada hari Sabtu dan Minggu.
+1. Setiap hari ada `3` _shifts_.
+1. Setiap _shift_ minimal ada `4` perawat.
+1. Perawat yang sudah ditugaskan di _weekend_ I, tidak boleh ditugaskan di _weekend_ II.
+
+Oleh karena itu, pada _weekend_ I paling sedikit kita bisa menugaskan $3*4=12$ orang perawat.
+
+> Pada _weekend_ I, kita bisa mempekerjakan `12` perawat pada Sabtu dan Minggu.
+
+Ke-`12` orang perawat ini tidak boleh ditugaskan di _weekend_ II. Sehingga dibutuhkan $3*4=12$ orang perawat lainnya di _weekend_ II.
+
+> ___Sehingga dibutuhkan minimal `24` orang perawat untuk `2` minggu ini.___
+
+### Parameter
+
+Dari penjelasan-penjelasan di atas, saya akan mendefinisikan beberapa hal, yakni:
+
+- $H = \{1,2,3,4,5,6,7,8,9,10,11,12,13,14\}$ adalah himpunan hari dalam _time frame_ `2` minggu. Saya tuliskan `1` sebagai Senin. _Weekend_ terjadi pada $H_w = \{6,7,13,14\}$.
+- $S = \{1,2,3\}$ adalah himpunan _shift_ kerja harian perawat.
+- $N = \{1,2,3,4,...,24\}$ adalah himpunan banyaknya perawat yang dibutuhkan. Pada mulanya, saya akan _set_ dulu sebanyak `24` orang perawat. Jika ternyata tidak _feasible_, maka akan saya tambah satu demi satu sehingga ditemukan solusi _feasible_.
+
+### Variabel Penentuan
+
+Saya definisikan:
+
+$$x_{n,h,s} = \begin{cases} 1,& \text{ jika di perawat ke } n \text{ bekerja di hari } h \text{ pada shift ke }s\\ 0, & \text{ lainnya.}\end{cases}$$
+
+### _Constraints_
+
+Sekarang kita akan menuliskan _constraints_ dalam bahasa matematika.
+
+#### _Constraint_ I
+
+Setiap perawat dalam satu hari dapat ditugaskan paling banyak dalam satu _shift_.
+
+$$x_{n,h,1} + x_{n,h,2} + x_{n,h,3} \leq 1 \text{, untuk } n \in N \text{ dan } h \in H$$
+
+Ekspresi matematika di atas memastikan bahwa seorang perawat hanya bisa ditugaskan dalam __satu shift__ per hari __atau__ tidak ditugaskan sama sekali.
+
+#### _Constraint_ II
+
+Jika seorang perawat ditugaskan pada _shift_ malam, maka dia tidak dapat ditugaskan di _shift_ pagi.
+
+$$x_{n,h,3} + x_{n,h+1,1} \leq 1 \text{, untuk } n \in N \text{ dan } h \in \{1,2,..,13\}$$
+
+Ekspresi matematika di atas memastikan bahwa seorang perawat yang bertugas _night shift_ pada hari $h$ tidak boleh bertugas pada _shift_ pagi esok harinya ($h+1$) __atau__ perawat tersebut tidak ditugaskan sama sekali.
+
+#### _Constraint_ III
+
+Jika seorang perawat ditugaskan dalam `3` hari berturut-turut, maka hari keempatnya harus diberi libur.
+
+Jadi seorang perawat bisa saja bertugas di berbagai _shift_ selama 3 hari berturut-turut tapi __tidak diperbolehkan__ untuk bertugas di hari keempat.
+
+$$x_{n,h,1} + x_{n,h+1,1} + x_{n,h+2,1} + x_{n,h+3,1} +$$
+
+$$x_{n,h,2} + x_{n,h+1,2} + x_{n,h+2,2} + x_{n,h+3,2} +$$
+
+$$x_{n,h,3} + x_{n,h+1,3} + x_{n,h+2,3} + x_{n,h+3,3} \leq 3 \text{, untuk } n \in N \text{ dan } h \in \{1,2,..,11\}$$
+
+
+#### _Constraint_ IV
+
+Jika seorang perawat ditugaskan pada suatu _shift_ di _weekend_, maka dia tidak dapat ditugaskan di _weekend_ berikutnya.
+
+Saya telah menuliskan _weekend_ terjadi saat $H \in \{6,7,13,14\}$. 
+
+Bagi saya, _constraint_ IV merupakan _constraint_ yang tersulit untuk dituliskan model matematikanya. Oleh karena itu, saya akan gunakan induksi sebagai berikut:
+
+##### Tanggal `6`
+
+Jika seorang perawat bertugas di hari `6` (_shift_ apapun), dia tidak boleh bertugas di hari `13` dan `14`. Tapi jika dia tidak bertugas di hari `6`, maka dia diperbolehkan bertugas di hari `13` __dan atau__ `14`. Akibatnya:
+
+- Jika $x_{n,6,s} = 1$ maka $x_{n,13,s} + x_{n,14,s} = 0$
+- Jika $x_{n,6,s} = 0$ maka $x_{n,13,s} + x_{n,14,s} \leq 2$ karena perawat tersebut bisa bertugas di tanggal `13` __dan atau__ `14`.
+
+Maka model matematika pada _constraint_ tanggal `6` adalah sebagai berikut:
+
+$$ 2\sum_{s \in S} x_{n,6,s} + \sum_{s \in S}x_{n,13,s} + \sum_{s \in S}x_{n,14,s} \leq 2 
+\text{, untuk } n \in N $$
+
+##### Tanggal `7`
+
+Dengann prinsip yang sama dengan tanggal `6`, saya bisa dapatkan model matematika pada _constraint_ tanggal `7` adalah sebagai berikut:
+
+$$ 2\sum_{s \in S} x_{n,7,s} + \sum_{s \in S}x_{n,13,s} + \sum_{s \in S}x_{n,14,s} \leq 2 
+\text{, untuk } n \in N $$
+
+#### _Constraint_ V
+
+Ada satu _constraint_ terakhir yang kita tidak boleh lupakan. Apa itu?
+
+Setiap _shift_ harus dilayani minimal `4` orang perawat.
+
+$$\sum_{n \in N} x_{n,h,s} \geq 4 \text{, untuk } h \in H,  \text{ dan } s \in S$$
+
+### _Objective Function_
+
+$$min \sum_{n \in N} \sum_{h \in H} \sum_{s \in S} x_{n,h,s} $$
+
+\pagebreak
+
+## _Solver R_
+
+### Penulisan Model Matematika di __R__
+
+Berikut adalah penulisan model matematika di __R__:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  # add variables
+  # non negative integers
+  add_variable(x[n,h,s],
+               n = 1:24,
+               h = 1:14,
+               s = 1:3,
+               type = "binary",
+               lb = 0) %>%
+  # set obj function
+  set_objective(sum_expr(x[n,h,s],
+                         n = 1:24,
+                         h = 1:14,
+                         s = 1:3),
+                "min") %>%
+  # add constraints
+  # constraint I
+  add_constraint(x[n,h,1] + x[n,h,2] + x[n,h,3] <= 1, 
+                 n = 1:24,
+                 h = 1:14) %>% 
+  # constraint II
+  add_constraint(x[n,h,3] + x[n,h+1,1] <= 1,
+                 n = 1:24,
+                 h = 1:13) %>% 
+  # constraint III
+  add_constraint(x[n,h,1] + x[n,h+1,1] + x[n,h+2,1] + x[n,h+3,1] + 
+                 x[n,h,2] + x[n,h+1,2] + x[n,h+2,2] + x[n,h+3,2] + 
+                 x[n,h,3] + x[n,h+1,3] + x[n,h+2,3] + x[n,h+3,3] <= 3,
+                 n = 1:24,
+                 h = 1:11) %>% 
+  # constraint IV tanggal 6
+  add_constraint(2*(x[n,6,1] + x[n,6,2] + x[n,6,3]) + 
+                 sum_expr(x[n,13,s],
+                          s = 1:3) + 
+                 sum_expr(x[n,14,s],
+                          s = 1:3) <= 2,
+                 n = 1:24) %>% 
+  # constraint IV tanggal 7
+  add_constraint(2*(x[n,7,1] + x[n,7,2] + x[n,7,3]) + 
+                 sum_expr(x[n,13,s],
+                          s = 1:3) + 
+                 sum_expr(x[n,14,s],
+                          s = 1:3) <= 2,
+                 n = 1:24) %>% 
+  # contraint V
+  add_constraint(sum_expr(x[n,h,s],
+                          n = 1:24) >= 4,
+                 h = 1:14,
+                 s = 1:3)
+model
+```
+
+### _Solving_
+
+Kemudian saya _solve_ dengan __R__:
+
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+\pagebreak
+
+## Solusi Optimal
+
+### Jadwal Optimal
+
+Berikut adalah jadwal optimal dalam kasus ini:
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+result %>% 
+  get_solution(x[n,h,s]) %>%
+  filter(value == 1) %>% 
+  group_by(h,s) %>% 
+  summarise(perawat = paste(n,collapse = ",")) %>% 
+  ungroup() %>% 
+  mutate(s = case_when(s == 1 ~ "Pagi",
+                       s == 2 ~ "Siang",
+                       s == 3 ~ "Malam"),
+         s = factor(s, levels = c("Pagi","Siang","Malam"))
+         ) %>% 
+  reshape2::dcast(h ~ s,
+                  value.var = "perawat") %>% 
+  rename(tanggal = h) %>% 
+  knitr::kable(align = "c",caption = "Jadwal Perawat: Angka Pada Tanggal Menunjukkan id Perawat")
+```
+
+\pagebreak
+
+### Rekap Jadwal Optimal
+
+Berikut adalah rekapan jadwal optimal per perawat:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+result %>% 
+  get_solution(x[n,h,s]) %>%
+  filter(value == 1) %>% 
+  group_by(n,s) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(s = case_when(s == 1 ~ "Pagi",
+                       s == 2 ~ "Siang",
+                       s == 3 ~ "Malam"),
+         s = factor(s, levels = c("Pagi","Siang","Malam"))
+         ) %>% 
+  rename(id_perawat = n,
+         shift = s,
+         berapa_x_bertugas = nn) %>% 
+  reshape2::dcast(id_perawat ~ shift,
+                  value.var = "berapa_x_bertugas") %>% 
+  knitr::kable(align = "c",caption = "Rekapan Berapa Kali Perawat Bertugas")
+  
+```
+
+Setelah kita lihat bersama, ternyata ada beberapa perawat yang __hanya__ mendapatkan porsi kecil dalam jadwal tersebut. Lantas muncul pertanyaan:
+
+> ___Apakah kita bisa meratakan workload antar perawat?___
