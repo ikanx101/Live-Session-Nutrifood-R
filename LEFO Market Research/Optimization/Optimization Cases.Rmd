@@ -16,7 +16,7 @@ header-includes:
 output:
   pdf_document:
     toc: false
-    toc_depth: 5
+    toc_depth: 7
     number_sections: true
     fig_width: 7
     fig_height: 4
@@ -79,7 +79,7 @@ Agak berbeda dengan _libraries_ yang akan digunakan saat _training_ dengan __FIN
 
 \pagebreak
 
-# __Koperasi Susu Berkah__
+# __Koperasi Susu Berkah I__
 
 ## Masalah
 
@@ -183,6 +183,102 @@ result %>% get_solution(x[i])
 ```
 
 Dengan _profit_ maksimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
+
+\pagebreak
+
+```{r,include=FALSE}
+rm(list=ls())
+```
+
+# __Koperasi Susu Berkah II__
+
+Berikut adalah modifikasi dari permasalah di Koperasi Susu Berkah.
+
+## Masalah
+
+Dari Koperasi Susu Berkah tersebut, sebenarnya untuk penjualan susu cair ada resiko tidak terjualnya keseluruhan susu cair pada hari yang sama sebesar `10%`. Setiap susu yang tidak terjual ini akan memberikan kerugian sebesar `Rp500` per liternya.
+
+> ___Berapa profit maksimal yang masih kita peroleh saat resiko tidak terjualnya susu cair terburuk?___
+
+## Model Matematika
+
+Dari kasus di atas, kita cukup memodifikasi model matematika yang _existing_.
+
+### Variabel Penentuan
+
+Saya akan definisikan variabel baru $x_4$, yakni berapa banyak susu cair yang tidak terjual.
+
+### _Objective Function_
+
+Sekarang, _objective function_-nya berubah menjadi:
+
+$$min(1000x_1 + 1200x_2 + 900x_3 - 500x_4)$$
+Kenapa dibuat _min_? Karena kita ingin menghitung profit terbaik saat resiko terburuk.
+
+### _Constraint_
+
+Sekarang saya tambahkan satu _constraint_ terkait $x_4$.
+
+$$0 \leq x_4 \leq 0.1x_1$$
+
+dan
+
+$$x_1 + x_2 + x_3 + x_4 = 1000$$
+
+## _Solver_ __R__
+
+### Model Matematika di __R__
+
+Berikut adalah penulisan model matematika di __R__:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+#  set vector profit
+profit = c(1000,1200,900,-500)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  # add variables
+  # non negative integers
+  add_variable(x[i],i = 1:4,
+               type = "continuous",
+               lb = 0) %>%
+  # set obj function
+  set_objective(sum_expr(x[i]*profit[i],i = 1:4),
+                "min") %>%
+  # add constraints
+  add_constraint(sum_expr(x[i],i = 1:4) == 1000) %>% 
+  add_constraint(x[1] <= 500) %>% 
+  add_constraint(x[2] <= 300) %>% 
+  add_constraint(x[3] <= 400) %>% 
+  add_constraint(x[4] - .1*x[1] <= 0)
+model
+```
+
+### _Solving_
+
+```{r}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+### _Final Result_
+
+Berikut adalah _final result_-nya:
+
+```{r}
+result %>% get_solution(x[i])
+result$objective_value
+```
+
 
 \pagebreak
 
@@ -518,6 +614,96 @@ paste(level[as.integer(hasil)],collapse = " - ")
 
 \pagebreak
 
+## Metode Eksak
+
+Sekarang kita akan menyelesaikan persoalan urutan cat ini dengan metode eksak dengan `ompr`. 
+
+### Model Matematika
+
+Untuk melakukannya saya akan mendefinisikan beberapa hal sebagai berikut:
+
+#### Parameter Misal saya tuliskan:
+
+- $W = \{1,2,3,4\}$ sebagai himpunan warna cat yang diproduksi. Angka 1 menunjukkan putih, 2 menunjukkan kuning, 3 menunjukkan hitam, dan 4 menunjukkan merah.
+- $c_{i,j}$ menunjukkan waktu _cleaning_ antara produksi cat warna ke $i$ dan $j$, $i,j \in W$.
+
+#### Variabel Keputusan Misal saya tuliskan:
+
+$$x_{i,j} = \begin{cases} 1,& \text{ jika pabrik memproduksi cat ke } i \text{ dilanjutkan cat ke } j \\ 0, & \text{ lainnya.}\end{cases}$$
+
+#### _Constraints_ 
+
+Mari kita bangun beberapa _constraints_ dari kasus ini.
+
+_Constraint_ pertama adalah satu warna hanya bisa diikuti oleh satu warna yang lain. Maksudnya dari warna ke $i$, hanya bisa diikuti _unique_ oleh warna ke $j$. Saya tuliskan ekspresinya menjadi:
+
+$$\sum_{j \in W,j \neq i} x_{i,j} = 1$$
+
+_Constraint_ kedua adalah satu warna hanya bisa berasal dari satu warna yang lain. Maksudnya dari warna $i$, hanya bisa berasal _unique_ dari warna ke $j$. Saya tuliskan ekspresinya menjadi:
+
+$$\sum_{i \in W,i \neq j} x_{i,j} = 1$$
+
+Kedua _constraints_ yang di atas ternyata belum cukup untuk menjelaskan kondisi _real_-nya. Kenapa? Kita harus pastikan:
+
+> Semua $i \in W$ terlewati. Solusi yang ada __harus melibatkan semua warna__.
+ 
+Lantas bagaimana caranya?
+
+Saya akan gunakan induksi sebagai berikut:
+
+Misalkan:
+
+Saya mulai produksi dari titik $1$, maka ada kemungkinan saya akan berakhir ke titik $\{2,3,4\}$. Jika saya memilih untuk masuk ke titik $2$, maka ada kemungkinan saya akan berakhir ke titik $\{3,4\}$. Seandainya itu adalah langkah yang saya lakukan, maka saya tidak boleh melakukan langkah kembali dari $2$ ke $1$.
+
+```{r,echo=FALSE}
+nomnoml::nomnoml("
+                 [1] -> [2]
+                 [1] --> [3]
+                 [1] --> [4]
+                 
+                 [2] -> [3]
+                 [2] --> [4]
+                 [2] <--> [1]
+                 ")
+
+```
+
+Maka saya tuliskan:
+
+$$x_{1,2} + x_{2,1} \leq x_{1,3} + x_{1,4} + x_{2,3} + x_{2,4}$$
+
+Proses ini akan saya ulangi untuk semua alternatif lainnya:
+
+- Dari $1$ ke $3$ (termasuk kebalikannya),
+- Dari $1$ ke $4$ (termasuk kebalikannya),
+- Dari $2$ ke $3$ (termasuk kebalikannya),
+- Dari $2$ ke $4$ (termasuk kebalikannya),
+- Dari $3$ ke $4$ (termasuk kebalikannya).
+
+Sehingga _constraint_ terakhirnya:
+
+$$x_{1,2} + x_{2,1} \leq x_{1,3} + x_{1,4} + x_{2,3} + x_{2,4}$$
+
+$$x_{1,3} + x_{3,1} \leq x_{1,2} + x_{1,4} + x_{3,2} + x_{3,4}$$
+
+$$x_{1,4} + x_{4,1} \leq x_{1,2} + x_{1,3} + x_{4,2} + x_{4,3}$$
+
+$$x_{2,3} + x_{3,2} \leq x_{2,1} + x_{2,4} + x_{3,1} + x_{3,4}$$
+
+$$x_{3,4} + x_{4,3} \leq x_{3,1} + x_{3,2} + x_{4,1} + x_{4,2}$$
+
+#### _Objective Function_
+
+Permasalahan ini adalah meminimalisir waktu _cleaning_ dari urutan yang ada, yakni:
+
+$$min(\sum_{i \in W} \sum_{j \in W,j \neq i} x_{i,j}*c_{i,j})$$
+
+### _Solver_ __R__
+
+
+
+\pagebreak
+
 ```{r,include=FALSE}
 rm(list=ls())
 ```
@@ -805,3 +991,98 @@ result %>%
 Setelah kita lihat bersama, ternyata ada beberapa perawat yang __hanya__ mendapatkan porsi kecil dalam jadwal tersebut. Lantas muncul pertanyaan:
 
 > ___Apakah kita bisa meratakan workload antar perawat?___
+
+## Masalah Baru
+
+Sekarang kita akan paksakan setiap _nurse_ mendapatkan _workload_ yang sama.
+
+Pertama-tama, mari kita hitung. Berapa banyak shift yang ideal per perawat.
+
+$$\text{banyak shift ideal} = \frac{hari*shift*min(\text{perawat per shift})}{\text{total perawat}} $$
+
+Yakni:
+
+$$\text{banyak shift ideal} = \frac{14*3*4}{24} = \frac{168}{7} = 7$$
+
+Jadi diharapkan setiap perawat mendapatkan banyak _shift_ yang sama, yakni sebanyak `7` _shifts_. 
+
+Maka model matematika dari _constraint_ ini adalah:
+
+$$\sum_{h \in H} \sum_{s \in S} x_{h,n,s} = 7, \text{untuk } n \in N$$
+
+## _Solver R_
+
+### Penulisan Model Matematika di __R__
+
+Berikut adalah penulisan model matematika di __R__:
+
+```{r,message=FALSE,warning=FALSE}
+# membuat model
+model = 
+  model %>% 
+  # contraint baru
+  add_constraint(sum_expr(x[n,h,s],
+                          h = 1:14,
+                          s = 1:3) == 7,
+                 n = 1:24)
+model
+```
+
+### _Solving_
+
+Kemudian saya _solve_ dengan __R__:
+
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
+
+### Solusi Optimal
+
+#### Jadwal Optimal
+
+Berikut adalah jadwal optimal dalam kasus ini:
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+result %>% 
+  get_solution(x[n,h,s]) %>%
+  filter(value == 1) %>% 
+  group_by(h,s) %>% 
+  summarise(perawat = paste(n,collapse = ",")) %>% 
+  ungroup() %>% 
+  mutate(s = case_when(s == 1 ~ "Pagi",
+                       s == 2 ~ "Siang",
+                       s == 3 ~ "Malam"),
+         s = factor(s, levels = c("Pagi","Siang","Malam"))
+         ) %>% 
+  reshape2::dcast(h ~ s,
+                  value.var = "perawat") %>% 
+  rename(tanggal = h) %>% 
+  knitr::kable(align = "c",caption = "Jadwal Perawat: Angka Pada Tanggal Menunjukkan id Perawat")
+```
+
+\pagebreak
+
+#### Rekap Jadwal Optimal
+
+Berikut adalah rekapan jadwal optimal per perawat:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+result %>% 
+  get_solution(x[n,h,s]) %>%
+  filter(value == 1) %>% 
+  group_by(n,s) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(s = case_when(s == 1 ~ "Pagi",
+                       s == 2 ~ "Siang",
+                       s == 3 ~ "Malam"),
+         s = factor(s, levels = c("Pagi","Siang","Malam"))
+         ) %>% 
+  rename(id_perawat = n,
+         shift = s,
+         berapa_x_bertugas = nn) %>% 
+  reshape2::dcast(id_perawat ~ shift,
+                  value.var = "berapa_x_bertugas") %>% 
+  knitr::kable(align = "c",caption = "Rekapan Berapa Kali Perawat Bertugas")
+  
+```

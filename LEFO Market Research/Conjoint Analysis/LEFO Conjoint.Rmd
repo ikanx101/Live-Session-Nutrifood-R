@@ -133,11 +133,17 @@ experiment %>%
 
 Masalah yang timbul adalah:
 
-> ___Kita tidak mungkin menawarkan `r nrow(experiment)`
+> ___Kita tidak mungkin menawarkan___ `r nrow(experiment)` ___buah alternatif produk kepada responden.___
 
 ## _Orthogonalitas_ dalam Aljabar Linear
 
+Secara simpel, ortogonal berarti __tegak lurus__.
 
+Di dalam aljabar linear, dua _vector_ disebut tegak lurus jika _cosine_ dari sudut yang terbentuk (misal saya tuliskan sebagai $\theta$), $cos(\theta) = 0$.
+
+Berapa nilai $\theta$?
+
+Ilustrasi bidang kartesian:
 
 ```{r}
 data.frame(x = c(-10:10),
@@ -146,16 +152,57 @@ data.frame(x = c(-10:10),
              y = y)) +
   geom_vline(xintercept = 0) +
   geom_hline(yintercept = 0) +
-  theme_void()
+  theme_void() +
+  geom_point(color = "white") +
+  annotate("label",x = 10,y=0,label = "Sb x") +
+  annotate("label",x = 0,y=10,label = "Sb y")
 ```
 
+Apa kegunaan _orthogonal_?
+
+## Basis _Vector_ {.tabset}
+
+Salah satu kegunaan _vector orthogonal_ adalah bisa dijadikan basis dalam suatu dimensi.
+
+> ___Apa itu basis?___
+
+Misal $\bar{u}$ dan $\bar{v}$ adalah _vector_ basis di bidang dimensi `2`, maka untuk setiap $\bar{z}$ sembarang _vector_ di bidang dimensi dua bisa dituliskan sebagai fungsi dari $\bar{u}$ dan $\bar{v}$.
+
+$$\bar{z} = f(\bar{u},\bar{v})$$
+
+### Quis: _Vector_ Basis 
+
+Misalkan saya memiliki sebuah bidang dimensi 2. 
+
+1. Ada berapa _vector_ basis yang ada?
+1. Apa saja vector basis yang ada?
+
+### Jawaban
+
+1. Ada dua _vector_ basis oleh karena itu disebut __dimensi 2__. Banyak dimensi menunjukkan berapa banyak _vector_ basis.
+1. _Vector_ basis yang ada:
+    - $(1,0)$
+    - $(0,1)$
+
+Misalkan ada suatu _vector_ sembarang di dimensi dua sebagai berikut $(a,b)$, maka dia bisa dituliskan sebagai:
+
+$$(a,b) = a(1,0) + b(0,1)$$
+
+Lantas apa hubungannya dengan _Conjoint_?
 
 ---
 
 # _Factorial Design_
 
+Dalam _conjoint_ ada istilah yang disebut dengan _factorial design_, yakni sebagian alternatif dari keseluruhan alternatif yang mungkin muncul dari kombinasi semua _attributes_ dan _levels_.
+
+Penentuannya adalah dengan menggunakan prinsip _orthogonalitas_:
+
+> Hanya berisi basis _vector_ sehingga bisa digunakan __untuk membangun__ semua kombinasi yang mungkin. 
 
 ## Alternatif Mie Instan yang Ditanyakan ke Responden
+
+Berikut adalah `8` alternatif mie instan yang dinilai merupakan basis _orthogonal_ hasil _output_ dari __R__:
 
 ```{r,warning=FALSE,message=FALSE}
 factdesign %>% 
@@ -165,5 +212,114 @@ factdesign %>%
   knitr::kable(caption = "Alternatif",align = "c")
 ```
 
+## Pembuktian _orthogonalitas_ {.tabset}
+
+_Orthogonalitas_ bisa dibuktikan dengan dua cara, yakni dengan membuat matriks kovariansi dan matriks korelasi. Jika kita mendapatkan hasil antar variabel tidak ditemukan kovriansi dan korelasi, maka bisa dibilang bahwa `8` alternatif tersebut adalah basis _orthogonal_.
+
+### Matriks Kovariansi
+
+```{r}
+knitr::kable(round(cov(prof),1))
+```
+
+### Matriks Korelasi
+
+```{r}
+knitr::kable(round(cor(prof),1))
+```
+
+Terlihat bahwa `8` alternatif adalah basis _orthogonal_.
+
 ---
-# __Terima Kasih__
+
+# Hasil Survey
+
+Kemarin saya telah menyebar survey untuk diisi. Rekan-rekan disuruh untuk memberikan _rating_ 1 - 6 kepada `8` alternatif mie instan. Urutan `8` alternatif mie instan dibuat _random_ per responden.
+
+## Data Mentah
+
+Berikut adalah data mentah yang saya dapatkan:
+
+```{r,warning=FALSE,message=FALSE}
+data = read.csv("hasil survey.csv")
+data = data %>% janitor::clean_names()
+colnames(data)[7:14] = paste0("alt",1:8)
+
+data = data %>% select(nama_kamu,contains("alt"))
+data_new = data.frame(t(data))
+colnames(data_new) = data_new[1,]
+data_new = data_new[-1,]
+
+d1 = 
+  factdesign %>% 
+  rename(Warna = Var1,
+         Rasa = Var2,
+         Klaim = Var3) 
+
+data.frame(d1,data_new) %>% knitr::kable(align = "c",caption = "Hasil Survey")
+```
+
+## Analisa Overall
+
+Berikut adalah hasil analisa _overall_.
+
+```{r,warning=FALSE,message=FALSE}
+library(conjoint)
+Conjoint(y=data_new, x=prof, z=case_level)
+```
+
+### _Attributes Importance_
+
+Dari analisa di atas, kita dapatkan _attributes importance_ sebagai berikut:
+
+```{r,message=FALSE,warning=FALSE}
+att = 
+  data.frame(att = c("Warna","Rasa","Klaim"),
+           imp = c(36,31.54,32.47))
+
+att %>% 
+  ggplot(aes(x = reorder(att,-imp),
+             y = imp)) +
+  geom_col(color = "steelblue",
+           fill = "white") +
+  geom_label(aes(label = imp),
+             color = "steelblue",
+             fill = "white",
+             size = 3.5) +
+  theme_minimal() +
+  labs(title = "Attributes Importance dari Mie Instan Terbaru Nutrifood",
+       subtitle = "base: All Responden",
+       caption = "Dibuat dan dihitung dengan R") +
+  theme(axis.title = element_blank(),
+        axis.text.y = element_blank())
+```
+
+### _Levels Utilities_
+
+Berikut adalah nilai _utilities_ dari masing-masing _levels_:
+
+```{r,message=FALSE,warning=FALSE}
+lev = 
+  data.frame(atr = c(rep("Warna",3),
+                     rep("Rasa",3),
+                     rep("Klaim",3)),
+             level = c("Kuning","Hijau","Merah",
+                       "Soto","Kari Ayam","Goreng Jawa",
+                       "Less Salt","No MSG","Less Fat"),
+             utils = c(.0667,-.0889,.0222,
+                       -.2,-.0444,.2444,
+                       .0667,-.1111,.0444)
+             )
+
+lev %>% 
+  ggplot(aes(y = level,
+             x = utils)) +
+  geom_col() +
+  facet_wrap(~atr,ncol = 1,scales = "free")
+```
+
+---
+
+__Terima Kasih__
+
+Dibawakan oleh [Ikang](https://ikanx101.com/).
