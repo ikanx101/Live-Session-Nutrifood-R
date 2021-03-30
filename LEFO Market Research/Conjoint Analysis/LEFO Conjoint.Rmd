@@ -345,6 +345,12 @@ Selain melakukan analisa untuk _overall_ responden, kita bisa melakukan analisa 
 
 Sekarang saya akan melakukan analisa individual sebagai berikut:
 
+#### Pebe
+
+```{r}
+Conjoint(y=data_new[13], x=prof, z=case_level)
+```
+
 #### Lian Cing
 
 ```{r}
