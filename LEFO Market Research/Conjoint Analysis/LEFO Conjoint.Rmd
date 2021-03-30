@@ -314,9 +314,48 @@ lev =
 lev %>% 
   ggplot(aes(y = level,
              x = utils)) +
-  geom_col() +
-  facet_wrap(~atr,ncol = 1,scales = "free")
+  geom_col(color = "steelblue"
+           fill = "white") + 
+  geom_label(aes(label = utils),
+             size = 2.5) +
+  facet_wrap(~atr,ncol = 1,scales = "free") +
+  theme_minimal() +
+  labs(title = "Utilities dari Masing-Masing Levels Mie Instan Terbaru Nutrifood",
+       subtitle = "base: All Responden",
+       caption = "Dibuat dan dihitung dengan R") +
+  theme(axis.title = element_blank(),
+        axis.text.x = element_blank())
 ```
+
+### _Summary_ I
+
+Dari kedua grafik di atas, kita telah mendapatkan _insights_ bahwa:
+
+1.  Ketiga _attributes_ memiliki skala kepentingan yang hampir sama bagi _overall_ responden.
+2.  Produk mie instan terbaik bisa didapatkan dengan memilih _levels_ yang memiliki nilai _utilities_ tertinggi.
+
+## _What's Next_
+
+Selain melakukan analisa untuk _overall_ responden, kita bisa melakukan analisa untuk masing-masing individual responden atau beberapa kelompok responden. Sebagai contoh:
+
+1. Apakah ada perbedaan _attributes importance_ dari responden wanita dan pria?
+2. Apakah ada perbedaan nilai _utilities_ dari setiap _levels_ untuk masing-masing responden?
+
+### Analisa Individual {.tabset}
+
+Sekarang saya akan melakukan analisa individual sebagai berikut:
+
+#### Lian Cing
+
+#### Ucup
+
+#### Endy
+
+#### Amel
+
+# _Discussion_
+
+Dari bahasan di atas, salah satu limitasi yang biasa dihadapi saat menggunakan _conjoint analysis_ adalah banyaknya alternatif pilihan pada _factorial design_ yang terlalu banyak. Oleh karena itu, salah satu solusi yang bisa dilakukan adalah dengan melakukan _hierarchical conjoint analysis_. 
 
 ---
 
