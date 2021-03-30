@@ -700,6 +700,7 @@ $$min(\sum_{i \in W} \sum_{j \in W,j \neq i} x_{i,j}*c_{i,j})$$
 
 ### _Solver_ __R__
 
+___Maaf, belum sempet dikerjain. Nanti yah tunggu rada kosong dulu.___
 
 
 \pagebreak
