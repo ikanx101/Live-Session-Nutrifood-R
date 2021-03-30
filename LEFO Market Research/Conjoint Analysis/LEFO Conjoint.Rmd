@@ -314,7 +314,7 @@ lev =
 lev %>% 
   ggplot(aes(y = level,
              x = utils)) +
-  geom_col(color = "steelblue"
+  geom_col(color = "steelblue",
            fill = "white") + 
   geom_label(aes(label = utils),
              size = 2.5) +
@@ -327,7 +327,7 @@ lev %>%
         axis.text.x = element_blank())
 ```
 
-### _Summary_ I
+### _Summary_
 
 Dari kedua grafik di atas, kita telah mendapatkan _insights_ bahwa:
 
@@ -347,11 +347,42 @@ Sekarang saya akan melakukan analisa individual sebagai berikut:
 
 #### Lian Cing
 
+```{r}
+Conjoint(y=data_new[2], x=prof, z=case_level)
+```
+
 #### Ucup
 
-#### Endy
+```{r}
+Conjoint(y=data_new[5], x=prof, z=case_level)
+```
+
+
+#### Fahmi
+
+```{r}
+Conjoint(y=data_new[9], x=prof, z=case_level)
+```
+
+#### Charissa
+
+```{r}
+Conjoint(y=data_new[7], x=prof, z=case_level)
+```
+
 
 #### Amel
+
+```{r}
+Conjoint(y=data_new[15], x=prof, z=case_level)
+```
+
+#### Astri
+
+```{r}
+Conjoint(y=data_new[8], x=prof, z=case_level)
+```
+
 
 # _Discussion_
 
