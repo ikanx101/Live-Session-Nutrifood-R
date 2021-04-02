@@ -1,0 +1,27 @@
+---
+title: "Untitled"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Mukadimah
+
+## Pernah dengar Istilah:
+
+1. Big data
+1. Machine Learning,
+1. Deep Learning
+
+## Remember This
+
+```{r,echo=FALSE}
+nomnoml::nomnoml("
+                 [People] <-> [Data]
+                 [Data] <-> [Tools]
+                 [Tools] <-> [People]
+                 ")
+```
+
