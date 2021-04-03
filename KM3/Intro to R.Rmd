@@ -102,4 +102,10 @@ nomnoml::nomnoml("
                  ")
 ```
 
-# _Let's Begin!_|Open your [browser](https://colab.research.google.com/notebook#create=true&language=r_)!
+# _Without further due, Let's Begin!_|Open your [browser](https://colab.research.google.com/notebook#create=true&language=r_)!
+
+# Wassalam
+
+More [Tutorials](https://ikanx101.com/tags/#training-r)
+
+Find more about R in [ikanx101.com](https://ikanx101.com/)
