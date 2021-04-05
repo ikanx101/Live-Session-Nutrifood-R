@@ -1161,6 +1161,8 @@ Dari hasil di atas terlihat bahwa `ompr` tidak mampu menyelesaikan masalah _non 
 
 ### Konversi ke Masalah Linear
 
+#### Definisi Variabel $y$
+
 Untuk mengubahnya ke dalam masalah linear, saya akan membuat pemisalan sebagai berikut:
 
 $$y = x_1x_2$$
@@ -1176,3 +1178,28 @@ $$y \leq x_1$$
 $$y \leq x_2$$
 
 $$y \geq x_1 + x_2 - 1$$
+
+#### Perubahan Model _Optimization_
+
+Dari persamaan-persamaan di atas, kita telah mendapatkan perubahan linear dari masalah awalnya.
+
+Yakni:
+
+__Minimumkan__:
+
+$$y + 2x_1 + 2x_2$$
+
+Terhadap:
+
+$$4x_1 + 6x_2 \geq 10$$
+
+$$-x_1 + y \leq 0$$
+
+$$-x_2 + y \leq 0$$
+
+$$-x_1 + y \leq 0$$
+
+$$x_1 + x_2 - y \leq 1$$
+
+$$x_1,x_2 \in \{0,1\}$$
+
