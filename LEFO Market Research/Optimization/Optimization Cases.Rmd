@@ -1109,7 +1109,7 @@ result %>%
 
 \pagebreak
 
-# _Not Linear Modelling_
+# _Non Linear Modelling_
 
 ## Masalah
 
@@ -1144,20 +1144,20 @@ library(ompr.roi)
 library(ROI.plugin.glpk)
 
 # membuat model
-model = 
-  MIPModel() %>%
-  add_variable(x[i],
-               i = 1:2, 
-               type = "binary",
-               lb = 0) %>%
-  set_objective(x[1]^2 + x[1] * x[2] + x[2]^2 + x[1] + x[2],
-                "min") %>%
-  add_constraint(4*x[1] + 6*x[2] >= 10)
+# model = 
+#   MIPModel() %>%
+#   add_variable(x[i],
+#                i = 1:2, 
+#                type = "binary",
+#                lb = 0) %>%
+#   set_objective(x[1]^2 + x[1] * x[2] + x[2]^2 + x[1] + x[2],
+#                 "min") %>%
+#   add_constraint(4*x[1] + 6*x[2] >= 10)
 
-model
+# model
 ```
 
-Dari hasil di atas terlihat bahwa `ompr` tidak mampu menyelesaikan masalah _non linear_. 
+`ompr` tidak mampu menyelesaikan masalah _non linear_ seperti di atas. 
 
 ### Konversi ke Masalah Linear
 
@@ -1197,25 +1197,56 @@ $$-x_1 + y \leq 0$$
 
 $$-x_2 + y \leq 0$$
 
-$$-x_1 + y \leq 0$$
-
 $$x_1 + x_2 - y \leq 1$$
 
-$$x_1,x_2 \in \{0,1\}$$
+$$x_1,x_2,y \in \{0,1\}$$
 
 #### Penulisan Model di __R__
 
 Sekarang kita akan menuliskan model di atas ke dalam __R__ sebagai berikut:
 
 ```{r}
+# dimulai dengan hati yang bersih
+rm(list=ls())
 
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  add_variable(x[i],
+               i = 1:2, 
+               type = "binary",
+               lb = 0) %>%
+  add_variable(y,
+               type = "binary",
+               lb = 0) %>% 
+  set_objective(y + 2*x[1] + 2*x[2],
+                "min") %>%
+  add_constraint(4*x[1] + 6*x[2] >= 10) %>% 
+  add_constraint(-x[1] + y <= 0) %>% 
+  add_constraint(-x[2] + y <= 0) %>% 
+  add_constraint(x[1] + x[1] - y <= 1)
+
+model
 ```
 
+#### _Solving_
 
+Kemudian saya _solve_ dengan __R__:
 
+```{r,message=FALSE,warning=FALSE}
+result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
+```
 
+#### Solusi Optimal
 
+Berikut adalah solusi optimal yang didapatkan:
 
-
-
-
+```{r}
+result %>% get_solution(x[i])
+```

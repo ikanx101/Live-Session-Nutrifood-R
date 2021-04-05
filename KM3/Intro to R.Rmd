@@ -16,7 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-setwd("~/Live-Session-Nutrifood-R/KM3")
+setwd("~/Documents/Live-Session-Nutrifood-R/KM3")
 ```
 
 # Mukadimah|Izinkan saya bercerita terlebih dahulu
@@ -27,7 +27,7 @@ setwd("~/Live-Session-Nutrifood-R/KM3")
 > ___Setiap perusahaan bisa menawarkan produk dan atau jasa yang sama. Perbedaannya adalah analytics.___
 
 ```{r out.width="40%",echo=FALSE}
-knitr::include_graphics("~/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant/competing.PNG")
+knitr::include_graphics("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant/competing.PNG")
 ```
 
 ## Mukadimah|_Disclaimer_
