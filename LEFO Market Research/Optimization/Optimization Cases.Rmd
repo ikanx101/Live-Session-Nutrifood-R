@@ -1203,3 +1203,19 @@ $$x_1 + x_2 - y \leq 1$$
 
 $$x_1,x_2 \in \{0,1\}$$
 
+#### Penulisan Model di __R__
+
+Sekarang kita akan menuliskan model di atas ke dalam __R__ sebagai berikut:
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
