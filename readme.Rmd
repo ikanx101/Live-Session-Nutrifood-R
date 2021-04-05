@@ -1,6 +1,6 @@
 ---
 title: "Read Me First!"
-author: "Ikang Fadhli"
+author: "Sir Ikanx"
 output: 
   github_document:
     pandoc_args: --webtex
@@ -11,11 +11,9 @@ rm(list=ls()) # ini berguna untuk menghapus semua data yang ada di global enviro
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# *Dear Nutrifooders*
+# *Preface*
 
-## *Preface*
-
-_Repository_ ini berisi kumpulan materi terkait _R Training_ yang dilakukan di _Nutrifood_. Terima kasih kepada tim _trainer_ yang telah membuat _training_ ini ada dan berhasil.
+_Repository_ ini berisi kumpulan materi terkait _R Training_. Terima kasih kepada tim _trainer_ yang telah membuat _training_ ini ada dan berhasil.
 
 ---
 

@@ -2,7 +2,7 @@
 title: "Training Optimization Nutrifood x FINANMOS ITB"
 subtitle: "Sebuah Catatan Short Course"
 author: "Ikanx Fadhli @nutrifood"
-date: "26 Maret 2021"
+date: "5 April 2021"
 fontsize: 10pt
 header-includes:
 - \usepackage{titling}
@@ -34,6 +34,14 @@ options(scipen = 99)
 
 \newpage
 &nbsp;
+\pagebreak
+
+# Kata Pengantar {-}
+
+_Alhamdulillah_, _training optimization_ telah selesai dilakukan. Peserta merupakan _Nutrifooders_ dari tim _market research_ dan beberapa tim _member_ dari departemen lain yang terkait.
+
+Diharapkan _training_
+
 \pagebreak
 
 # Pendahuluan
@@ -655,7 +663,7 @@ Misalkan:
 
 Saya mulai produksi dari titik $1$, maka ada kemungkinan saya akan berakhir ke titik $\{2,3,4\}$. Jika saya memilih untuk masuk ke titik $2$, maka ada kemungkinan saya akan berakhir ke titik $\{3,4\}$. Seandainya itu adalah langkah yang saya lakukan, maka saya tidak boleh melakukan langkah kembali dari $2$ ke $1$.
 
-```{r,echo=FALSE}
+```{r out.width="30%",echo=FALSE}
 nomnoml::nomnoml("
                  [1] -> [2]
                  [1] --> [3]
@@ -1090,3 +1098,5 @@ result %>%
   knitr::kable(align = "c",caption = "Rekapan Berapa Kali Perawat Bertugas")
   
 ```
+
+\pagebreak

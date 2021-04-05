@@ -1,14 +1,12 @@
 Read Me First\!
 ================
-Ikang Fadhli
+Sir Ikanx
 
-# *Dear Nutrifooders*
+# *Preface*
 
-## *Preface*
-
-*Repository* ini berisi kumpulan materi terkait *R Training* yang
-dilakukan di *Nutrifood*. Terima kasih kepada tim *trainer* yang telah
-membuat *training* ini ada dan berhasil.
+*Repository* ini berisi kumpulan materi terkait *R Training*. Terima
+kasih kepada tim *trainer* yang telah membuat *training* ini ada dan
+berhasil.
 
 -----
 
