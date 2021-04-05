@@ -40,7 +40,15 @@ options(scipen = 99)
 
 _Alhamdulillah_, _training optimization_ telah selesai dilakukan. Peserta merupakan _Nutrifooders_ dari tim _market research_ dan beberapa tim _member_ dari departemen lain yang terkait.
 
-Diharapkan _training_
+Diharapkan _training_ ini memberikan wawasan baru terkait penggunaan metode matematika untuk menyelesaikan masalah _optimization_ yang terjadi di banyak area kerja Nutrifood.
+
+Semoga bisa berguna.
+
+Bekasi, 4 April 2021.
+
+Pengepul materi _training_,
+
+Ikang Fadhli
 
 \pagebreak
 
@@ -1100,3 +1108,71 @@ result %>%
 ```
 
 \pagebreak
+
+# _Not Linear Modelling_
+
+## Masalah
+
+Ada kalanya kita bertemu dengan masalah _optimization_ yang tidak linear. Justru biasanya masalah _real world_ tidak berbentuk linear. Sayangnya _solver_ di __R__ yang ada sekarang masih terbatas di _linear problem_ saja.
+
+> ___Bagaimana menyelesaikannya?___
+
+Salah satu solusinya adalah dengan mengkonversi masalah __tidak linear__ menjadi __linear__.
+
+## Contoh Masalah _Optimization_
+
+__Minimumkan:__
+
+$$x_1^2 + x_1 x_2 + x_2^2 + x_1 +x_2$$
+
+Terhadap:
+
+$$4 x_1 + 6 x_2 \geq 10 \text{, dimana: }x_1,x_2 \in \{0,1\}$$
+
+### _Solver_ di __R__
+
+Untuk mengecek apakah `ompr` bisa menyelesaikan masalah _non linear_ di atas, maka saya akan tuliskan model matematikanya dalam __R__:
+
+```{r,message=FALSE,warning=FALSE}
+# dimulai dengan hati yang bersih
+rm(list=ls())
+
+# memanggil libraries
+library(dplyr)
+library(ompr)
+library(ompr.roi)
+library(ROI.plugin.glpk)
+
+# membuat model
+model = 
+  MIPModel() %>%
+  add_variable(x[i],
+               i = 1:2, 
+               type = "binary",
+               lb = 0) %>%
+  set_objective(x[1]^2 + x[1] * x[2] + x[2]^2 + x[1] + x[2],
+                "min") %>%
+  add_constraint(4*x[1] + 6*x[2] >= 10)
+
+model
+```
+
+Dari hasil di atas terlihat bahwa `ompr` tidak mampu menyelesaikan masalah _non linear_. 
+
+### Konversi ke Masalah Linear
+
+Untuk mengubahnya ke dalam masalah linear, saya akan membuat pemisalan sebagai berikut:
+
+$$y = x_1x_2$$
+
+Karena $x_1$ dan $x_2$ adalah _binary_, maka:
+
+$$x_1^2 = x_1$$
+
+$$x_2^2 = x_2$$
+
+$$y \leq x_1$$
+
+$$y \leq x_2$$
+
+$$y \geq x_1 + x_2 - 1$$
