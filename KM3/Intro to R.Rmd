@@ -16,7 +16,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-setwd("~/Documents/Live-Session-Nutrifood-R/KM3")
+setwd("D:/Live Session Nutrifood/KM3")
 ```
 
 # Mukadimah|Izinkan saya bercerita terlebih dahulu
@@ -27,7 +27,7 @@ setwd("~/Documents/Live-Session-Nutrifood-R/KM3")
 > ___Setiap perusahaan bisa menawarkan produk dan atau jasa yang sama. Perbedaannya adalah analytics.___
 
 ```{r out.width="40%",echo=FALSE}
-knitr::include_graphics("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant/competing.PNG")
+knitr::include_graphics("D:/Live Session Nutrifood/LEFO Market Research/NRC Grant/competing.PNG")
 ```
 
 ## Mukadimah|_Disclaimer_
@@ -55,7 +55,6 @@ nomnoml::nomnoml("
                 ")
 ```
 
-
 ## Mukadimah|_Buzzwords_
 ### Pernahkan Anda mendengar istilah berikut?
 
@@ -70,7 +69,7 @@ nomnoml::nomnoml("
 
 ## Mukadimah|_D a t a_
 
-Semua _buzzwords_ tersebut terkait dengan __data__ dan _tools_ tradisional seperti Excel dan SPSS sudah tidak mampu lagi mengolah data yang struktur dan formatnya sudah beragam.
+Semua _buzzwords_ tersebut terkait dengan __data__. Sayangnya _tools_ tradisional seperti __Excel__ dan __SPSS__ sudah tidak mampu lagi mengolah data yang struktur dan formatnya sudah beragam.
 
 Oleh karena itu penggunaan _software_ lain seperti __R__ dan __Python__ meningkat.
 
@@ -80,14 +79,12 @@ Oleh karena itu penggunaan _software_ lain seperti __R__ dan __Python__ meningka
 ### _Becoming problem solver_
 
 ```{r,echo=FALSE}
-nomnoml::nomnoml("
-                 [Masalah] -> [Tujuan]
+nomnoml::nomnoml("[Masalah] -> [Tujuan]
                  [Tujuan] -> [Data]
                  [Data] -> [Analisa]
-                 [Analisa <-> [Masalah]
+                 [Analisa] <-> [Masalah]
                  ")
 ```
-
 
 ## Mukadimah|_Solving the Problem_
 ### _Analytics Framework_
@@ -102,7 +99,7 @@ nomnoml::nomnoml("
                  ")
 ```
 
-# _Without further due, Let's Begin!_|Open your [browser](https://colab.research.google.com/notebook#create=true&language=r_)!
+# _Without further due, Let's Begin!_|Open your [browser](https://colab.research.google.com/drive/1Mrke1M75lG4-PDJG3nMmpiPw_h0U5OfV?usp=sharing)!
 
 # Wassalam
 
