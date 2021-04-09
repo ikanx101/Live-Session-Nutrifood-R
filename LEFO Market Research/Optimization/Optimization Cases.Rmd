@@ -2,26 +2,10 @@
 title: "Training Optimization Nutrifood x FINANMOS ITB"
 subtitle: "Sebuah Catatan Short Course"
 author: "Ikanx Fadhli @nutrifood"
-date: "5 April 2021"
-fontsize: 10pt
-header-includes:
-- \usepackage{titling}
-- \pretitle{\begin{center}\includegraphics[width=3in,height=3in]{logo R.png}\LARGE\\}
-- \posttitle{\end{center}}
-- \usepackage{fancyhdr}
-- \pagestyle{fancy}
-- \fancyhead[CO,CE]{@nutrifood}
-- \fancyfoot[CO,CE]{ikanx101.com}
-- \fancyfoot[LE,RO]{hal \thepage}
+date: "9 April 2021"
 output:
-  pdf_document:
-    toc: false
-    toc_depth: 7
-    number_sections: true
-    fig_width: 7
-    fig_height: 4
-    fig_caption: true
-    highlight: zenburn
+    rmdformats::readthedown:
+    highlight: espresso
 ---
 
 ```{r setup, include=FALSE}
@@ -29,55 +13,48 @@ knitr::opts_chunk$set(echo = TRUE)
 options(scipen = 99)
 ```
 
-\newpage
-\tableofcontents
 
-\newpage
-&nbsp;
-\pagebreak
+# Kata Pengantar
 
-# Kata Pengantar {-}
+*Alhamdulillah*, *training optimization* telah selesai dilakukan. Peserta merupakan *Nutrifooders* dari tim *market research* dan beberapa tim *member* dari departemen lain yang terkait.
 
-_Alhamdulillah_, _training optimization_ telah selesai dilakukan. Peserta merupakan _Nutrifooders_ dari tim _market research_ dan beberapa tim _member_ dari departemen lain yang terkait.
-
-Diharapkan _training_ ini memberikan wawasan baru terkait penggunaan metode matematika untuk menyelesaikan masalah _optimization_ yang terjadi di banyak area kerja Nutrifood.
+Diharapkan *training* ini memberikan wawasan baru terkait penggunaan metode matematika untuk menyelesaikan masalah *optimization* yang terjadi di banyak area kerja Nutrifood.
 
 Semoga bisa berguna.
 
-Bekasi, 4 April 2021.
+Bekasi, 9 April 2021.
 
-Pengepul materi _training_,
+Pengepul materi *training*,
 
 Ikang Fadhli
 
-\pagebreak
 
 # Pendahuluan
 
-Catatan ini berisi _R Markdown_ penyelesaian dari beberapa kasus yang diberikan pada saat ___optimization training___ oleh __FINANMOS ITB__ 2021.
+Catatan ini berisi *R Markdown* penyelesaian dari beberapa kasus yang diberikan pada saat ***optimization training*** oleh **FINANMOS ITB** 2021.
 
-## Catatan Penting Tentang _Optimization_
+## Catatan Penting Tentang *Optimization*
 
-_Optimization_ berarti proses pencarian suatu nilai yang __optimal__. Kondisi optimal bisa terjadi saat sesuatu bernilai __maksimum__ atau __minimum__.
+*Optimization* berarti proses pencarian suatu nilai yang **optimal**. Kondisi optimal bisa terjadi saat sesuatu bernilai **maksimum** atau **minimum**.
 
 Hal tersebut yang harus kita pahami.
 
-Permodelan matematika terkait _optimization_ tidak lepas dari `4` hal berikut ini:
+Permodelan matematika terkait *optimization* tidak lepas dari `4` hal berikut ini:
 
-1. _Decision Variable_, yakni nilai yang ingin dicari. Diharapkan dari nilai ini akan tercipta kondisi yang optimal.
-1. _Parameter_, yakni nilai yang besarannya _given_. Jika kita melihat pada kasus _real_, parameter adalah nilai yang tidak kita kontrol.
-1. _Constraints_, yakni _boundaries_ (limitasi) yang ada pada _problem_ yang dihadapi. Bisa jadi dalam suatu kasus, kita membuat permodelan matematika yang tidak memiliki _constraints_.
-1. _Objective function_, yakni kondisi optimal yang harus dipenuhi.
+1.  *Decision Variable*, yakni nilai yang ingin dicari. Diharapkan dari nilai ini akan tercipta kondisi yang optimal.
+2.  *Parameter*, yakni nilai yang besarannya *given*. Jika kita melihat pada kasus *real*, parameter adalah nilai yang tidak kita kontrol.
+3.  *Constraints*, yakni *boundaries* (limitasi) yang ada pada *problem* yang dihadapi. Bisa jadi dalam suatu kasus, kita membuat permodelan matematika yang tidak memiliki *constraints*.
+4.  *Objective function*, yakni kondisi optimal yang harus dipenuhi.
 
-_Parameter_ dan _decision variable_ akan muncul pada _constraints_ dan _objective function_.
+*Parameter* dan *decision variable* akan muncul pada *constraints* dan *objective function*.
 
-Suatu _decision variable_ disebut _feasible_ jika:
+Suatu *decision variable* disebut *feasible* jika:
 
-> ___Decision variable yang didapatkan tidak melanggar constraints.___
+> ***Decision variable yang didapatkan tidak melanggar constraints.***
 
-Suatu _decision variable_ disebut optimal jika:
+Suatu *decision variable* disebut optimal jika:
 
-> ___Decision variable yang didapatkan memenuhi objective function.___
+> ***Decision variable yang didapatkan memenuhi objective function.***
 
 ## Contoh Kasus yang Dibahas
 
@@ -85,33 +62,32 @@ Suatu _decision variable_ disebut optimal jika:
 knitr::include_graphics("contoh.jpg")
 ```
 
-Saya menggunakan __R__ untuk membuat model _optimization_ dan di-_solve_ dengan _engine_ yang tersedia di `library(ompr)`. Tipe variabel penentuan yang didukung oleh `ompr` antara lain:
+Saya menggunakan **R** untuk membuat model *optimization* dan di-*solve* dengan *engine* yang tersedia di `library(ompr)`. Tipe variabel penentuan yang didukung oleh `ompr` antara lain:
 
-1. `binary`
-1. `continuos`
-1. `integer`
+1.  `binary`
+2.  `continuos`
+3.  `integer`
 
-Agak berbeda dengan _libraries_ yang akan digunakan saat _training_ dengan __FINANMOS ITB__ kelak namun tetap menghasilkan hasil yang sama. Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah _real_ ke permodelan matematikanya. Jika sudah termodelkan, akan mudah dimasukkan ke berbagai _libraries_ yang ada di __R__.
+Agak berbeda dengan *libraries* yang akan digunakan saat *training* dengan **FINANMOS ITB** kelak namun tetap menghasilkan hasil yang sama. Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah *real* ke permodelan matematikanya. Jika sudah termodelkan, akan mudah dimasukkan ke berbagai *libraries* yang ada di **R**.
 
-\pagebreak
 
-# __Koperasi Susu Berkah I__
+# **Koperasi Susu Berkah I**
 
 ## Masalah
 
-Manajemen __Koperasi Susu Berkah__ (__KSB__) setiap harinya menerima `1000` liter susu dari para anggotanya untuk diproduksi menjadi _yogurt_ atau keju _mozarella_. 
+Manajemen **Koperasi Susu Berkah** (**KSB**) setiap harinya menerima `1000` liter susu dari para anggotanya untuk diproduksi menjadi *yogurt* atau keju *mozarella*.
 
-- Keuntungan dari setiap liter susu yang terjual adalah `Rp1.000`. 
-- Keuntungan dari _yogurt_ yang terjual dari bahan satu liter susu adalah `Rp1.200`
-- Sedangkan keuntungan keju _mozarella_ dari bahan satu liter susu adalah `Rp900`. 
+-   Keuntungan dari setiap liter susu yang terjual adalah `Rp1.000`.
+-   Keuntungan dari *yogurt* yang terjual dari bahan satu liter susu adalah `Rp1.200`
+-   Sedangkan keuntungan keju *mozarella* dari bahan satu liter susu adalah `Rp900`.
 
 Setelah menganalisa data penjualan, manajemen koperasi mendapatkan informasi sebagai berikut:
 
-- Paling banyak `500` liter susu.
-- _Yogurt_ paling banyak bisa dibuat dari bahan `300` liter susu.
-- Keju _mozarella_ paling banyak bisa dibuat dari bahan `400` liter susu.
+-   Paling banyak `500` liter susu.
+-   *Yogurt* paling banyak bisa dibuat dari bahan `300` liter susu.
+-   Keju *mozarella* paling banyak bisa dibuat dari bahan `400` liter susu.
 
-Dari informasi di atas, manajemen __KSB__ ingin menentukan berapa banyak susu yang harus dibuat _yogurt_, susu yang harus dibuat keju _mozarella_, dan susu yang dijual langsung, agar keuntungan yang didapat maksimal.
+Dari informasi di atas, manajemen **KSB** ingin menentukan berapa banyak susu yang harus dibuat *yogurt*, susu yang harus dibuat keju *mozarella*, dan susu yang dijual langsung, agar keuntungan yang didapat maksimal.
 
 ## Model Matematika
 
@@ -121,34 +97,34 @@ Dari kasus di atas, kita akan membuat model matematikanya.
 
 Misalkan saya notasikan `3` variabel berikut ini:
 
-- $x_1$ sebagai seberapa banyak (dalam liter) susu yang bisa dijual langsung,
-- $x_2$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat _yogurt_, dan 
-- $x_3$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat keju _mozarella_.
+-   $x_1$ sebagai seberapa banyak (dalam liter) susu yang bisa dijual langsung,
+-   $x_2$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat *yogurt*, dan
+-   $x_3$ sebagai seberapa banyak (dalam liter) susu yang bisa dibuat keju *mozarella*.
 
 Di mana:
 
-$$x_1,x_2,x_3	\in \mathbb{Z}$$
+$$x_1,x_2,x_3   \in \mathbb{Z}$$
 
-### _Constraints_
+### *Constraints*
 
-Berikut adalah _constraints_ yang ada pada kasus di atas:
+Berikut adalah *constraints* yang ada pada kasus di atas:
 
-- $0 \leq x_1 \leq 500$
-- $0 \leq x_2 \leq 300$
-- $0 \leq x_3 \leq 400$
-- $x_1 + x_2 + x_3 = 1000$
+-   $0 \leq x_1 \leq 500$
+-   $0 \leq x_2 \leq 300$
+-   $0 \leq x_3 \leq 400$
+-   $x_1 + x_2 + x_3 = 1000$
 
-### _Objective Function_
+### *Objective Function*
 
-Tujuan utama permodelan matematika ini adalah __memaksimalkan__ _profit_ yang ingin dicapai __KSB__, yakni:
+Tujuan utama permodelan matematika ini adalah **memaksimalkan** *profit* yang ingin dicapai **KSB**, yakni:
 
 $$max(1000x_1 + 1200x_2 + 900x_3)$$
 
-## _Solver R_
+## *Solver R*
 
-### Penulisan Model Matematika di __R__
+### Penulisan Model Matematika di **R**
 
-Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+Untuk menyelesaikan masalah ini, saya akan menggunakan *solver* di **R**. Berikut adalah model yang saya buat:
 
 ```{r,message=FALSE,warning=FALSE}
 # dimulai dengan hati yang bersih
@@ -182,15 +158,15 @@ model =
 model
 ```
 
-### _Solving_
+### *Solving*
 
-Kemudian saya _solve_ dengan __R__:
+Kemudian saya *solve* dengan **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
 ```
 
-### _Final Result_
+### *Final Result*
 
 Saya dapatkan konfigurasi terbaik seperti ini:
 
@@ -198,15 +174,13 @@ Saya dapatkan konfigurasi terbaik seperti ini:
 result %>% get_solution(x[i])
 ```
 
-Dengan _profit_ maksimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
-
-\pagebreak
+Dengan *profit* maksimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
 
 ```{r,include=FALSE}
 rm(list=ls())
 ```
 
-# __Koperasi Susu Berkah II__
+# **Koperasi Susu Berkah II**
 
 Berikut adalah modifikasi dari permasalah di Koperasi Susu Berkah.
 
@@ -214,26 +188,25 @@ Berikut adalah modifikasi dari permasalah di Koperasi Susu Berkah.
 
 Dari Koperasi Susu Berkah tersebut, sebenarnya untuk penjualan susu cair ada resiko tidak terjualnya keseluruhan susu cair pada hari yang sama sebesar `10%`. Setiap susu yang tidak terjual ini akan memberikan kerugian sebesar `Rp500` per liternya.
 
-> ___Berapa profit maksimal yang masih kita peroleh saat resiko tidak terjualnya susu cair terburuk?___
+> ***Berapa profit maksimal yang masih kita peroleh saat resiko tidak terjualnya susu cair terburuk?***
 
 ## Model Matematika
 
-Dari kasus di atas, kita cukup memodifikasi model matematika yang _existing_.
+Dari kasus di atas, kita cukup memodifikasi model matematika yang *existing*.
 
 ### Variabel Penentuan
 
 Saya akan definisikan variabel baru $x_4$, yakni berapa banyak susu cair yang tidak terjual.
 
-### _Objective Function_
+### *Objective Function*
 
-Sekarang, _objective function_-nya berubah menjadi:
+Sekarang, *objective function*-nya berubah menjadi:
 
-$$min(1000x_1 + 1200x_2 + 900x_3 - 500x_4)$$
-Kenapa dibuat _min_? Karena kita ingin menghitung profit terbaik saat resiko terburuk.
+$$min(1000x_1 + 1200x_2 + 900x_3 - 500x_4)$$ Kenapa dibuat *min*? Karena kita ingin menghitung profit terbaik saat resiko terburuk.
 
-### _Constraint_
+### *Constraint*
 
-Sekarang saya tambahkan satu _constraint_ terkait $x_4$.
+Sekarang saya tambahkan satu *constraint* terkait $x_4$.
 
 $$0 \leq x_4 \leq 0.1x_1$$
 
@@ -241,11 +214,11 @@ dan
 
 $$x_1 + x_2 + x_3 + x_4 = 1000$$
 
-## _Solver_ __R__
+## *Solver* **R**
 
-### Model Matematika di __R__
+### Model Matematika di **R**
 
-Berikut adalah penulisan model matematika di __R__:
+Berikut adalah penulisan model matematika di **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 # dimulai dengan hati yang bersih
@@ -280,15 +253,15 @@ model =
 model
 ```
 
-### _Solving_
+### *Solving*
 
 ```{r}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
 ```
 
-### _Final Result_
+### *Final Result*
 
-Berikut adalah _final result_-nya:
+Berikut adalah *final result*-nya:
 
 ```{r}
 result %>% get_solution(x[i])
@@ -296,17 +269,16 @@ result$objective_value
 ```
 
 
-\pagebreak
 
 ```{r,include=FALSE}
 rm(list=ls())
 ```
 
-# __Tiga Mesin Filling__
+# **Tiga Mesin Filling**
 
 ## Masalah
 
-Di sebuah perusahaan, departemen _filling_ dan _packing_ memiliki tiga jenis mesin yang selalu beroperasi setiap harinya. Setiap mesin memiliki kapasitas, biaya proses per unit produk, dan biaya _setup_ masing-masing.
+Di sebuah perusahaan, departemen *filling* dan *packing* memiliki tiga jenis mesin yang selalu beroperasi setiap harinya. Setiap mesin memiliki kapasitas, biaya proses per unit produk, dan biaya *setup* masing-masing.
 
 Berikut adalah datanya:
 
@@ -319,11 +291,12 @@ data = data.frame(
 )
 knitr::kable(data,align = "c",caption = "Data Mesin Filling dan Packing")
 ```
-Mengingat di setiap mesin harus ada pekerja yang ditugaskan untuk menjalankannya, manajemen mengambil keputusan bahwa jika suatu mesin digunakan, maka mesin tersebut paling sedikit harus memproses `400` unit produk. 
 
-Di suatu hari, terdapat beban kerja sebanyak `2000` unit produk yang harus diproses _filling_ dan _packing_-nya. 
+Mengingat di setiap mesin harus ada pekerja yang ditugaskan untuk menjalankannya, manajemen mengambil keputusan bahwa jika suatu mesin digunakan, maka mesin tersebut paling sedikit harus memproses `400` unit produk.
 
-> ___Berapa konfigurasi produk per mesin yang paling optimal?___
+Di suatu hari, terdapat beban kerja sebanyak `2000` unit produk yang harus diproses *filling* dan *packing*-nya.
+
+> ***Berapa konfigurasi produk per mesin yang paling optimal?***
 
 ## Model Matematika
 
@@ -333,34 +306,34 @@ Dari kasus di atas, kita akan membuat model matematikanya.
 
 Misalkan saya notasikan `3` variabel berikut ini:
 
-- $x_1$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin I,
-- $x_2$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin II, dan 
-- $x_3$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin III.
+-   $x_1$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin I,
+-   $x_2$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin II, dan
+-   $x_3$ sebagai seberapa banyak (dalam unit) produk yang dijalankan di mesin III.
 
 Di mana:
 
-$$x_1,x_2,x_3	\in \mathbb{Z}$$
+$$x_1,x_2,x_3   \in \mathbb{Z}$$
 
-### _Constraints_
+### *Constraints*
 
-Berikut adalah _constraints_ yang ada pada kasus di atas:
+Berikut adalah *constraints* yang ada pada kasus di atas:
 
-- $400 \leq x_1 \leq 600$
-- $400 \leq x_2 \leq 800$
-- $400 \leq x_3 \leq 1200$
-- $x_1 + x_2 + x_3 = 2000$
+-   $400 \leq x_1 \leq 600$
+-   $400 \leq x_2 \leq 800$
+-   $400 \leq x_3 \leq 1200$
+-   $x_1 + x_2 + x_3 = 2000$
 
-### _Objective Function_
+### *Objective Function*
 
-Tujuan utama permodelan matematika ini adalah __meminimalkan__ _cost_ yang terjadi di semua mesin, yakni:
+Tujuan utama permodelan matematika ini adalah **meminimalkan** *cost* yang terjadi di semua mesin, yakni:
 
 $$min((300+2x_1) + (100+10x_2) + (200+5x_3))$$
 
-## _Solver R_
+## *Solver R*
 
-### Penulisan Model Matematika di __R__
+### Penulisan Model Matematika di **R**
 
-Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+Untuk menyelesaikan masalah ini, saya akan menggunakan *solver* di **R**. Berikut adalah model yang saya buat:
 
 ```{r,message=FALSE,warning=FALSE}
 # dimulai dengan hati yang bersih
@@ -397,15 +370,15 @@ model =
 model
 ```
 
-### _Solving_
+### *Solving*
 
-Kemudian saya _solve_ dengan __R__:
+Kemudian saya *solve* dengan **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
 ```
 
-### _Final Result_
+### *Final Result*
 
 Saya dapatkan konfigurasi terbaik seperti ini:
 
@@ -413,15 +386,15 @@ Saya dapatkan konfigurasi terbaik seperti ini:
 result %>% get_solution(x[i])
 ```
 
-Dengan _cost_ minimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
+Dengan *cost* minimum sebesar Rp`r round(result$objective_value/1000000,3)` juta.
 
-\pagebreak
+
 
 ```{r,include=FALSE}
 rm(list=ls())
 ```
 
-# __Lampu Penerangan Jalan__
+# **Lampu Penerangan Jalan**
 
 ## Masalah
 
@@ -432,11 +405,11 @@ print("Courtesy of: FINANMOS ITB 2021")
 knitr::include_graphics("download.png")
 ```
 
-Suatu komplek perumahan dengan denah seperti di atas memiliki `11` jalan. Setiap pertemuan jalan, diberikan tanda nomor `1` hingga `8`. _Town management_ hendak memasang lampu penerangan di __setiap pertemuan jalan tersebut__.
+Suatu komplek perumahan dengan denah seperti di atas memiliki `11` jalan. Setiap pertemuan jalan, diberikan tanda nomor `1` hingga `8`. *Town management* hendak memasang lampu penerangan di **setiap pertemuan jalan tersebut**.
 
-Tujuan utama mereka adalah memasang lampu sehingga __semua jalan__ diterangi paling sedikit satu lampu.
+Tujuan utama mereka adalah memasang lampu sehingga **semua jalan** diterangi paling sedikit satu lampu.
 
-> ___Di titik mana saja town management harus memasang lampu-lampu tersebut?___
+> ***Di titik mana saja town management harus memasang lampu-lampu tersebut?***
 
 ## Model Matematika
 
@@ -454,43 +427,42 @@ $$J = \{1,2,3,4,5,6,7,8\}$$
 
 ### Variabel Penentuan
 
-Kemudian saya akan tuliskan $x_j$ sebagai _binary number_ yang menyatakan apakah lampu dipasang atau tidak di titik $j \in J$.
+Kemudian saya akan tuliskan $x_j$ sebagai *binary number* yang menyatakan apakah lampu dipasang atau tidak di titik $j \in J$.
 
-$$x_j = \begin{cases} 1,& \text{ jika di titik } j \text{ dipasang lampu}\\ 0, & \text{ lainnya.}\end{cases}$$
-Misalkan:
+$$x_j = \begin{cases} 1,& \text{ jika di titik } j \text{ dipasang lampu}\\ 0, & \text{ lainnya.}\end{cases}$$ Misalkan:
 
-- $x_1=0$, artinya lampu di titik `1` __tidak dipasang lampu__.
-- $x_2=1$, artinya lampu di titik `2` __dipasang lampu__.
+-   $x_1=0$, artinya lampu di titik `1` **tidak dipasang lampu**.
+-   $x_2=1$, artinya lampu di titik `2` **dipasang lampu**.
 
-### _Constraints_
+### *Constraints*
 
-Dengan variabel keputusan seperti di atas, maka sesuai keinginan kita menerangi __setiap jalan paling sedikit dengan satu lampu__, kita mempunyai kendala:
+Dengan variabel keputusan seperti di atas, maka sesuai keinginan kita menerangi **setiap jalan paling sedikit dengan satu lampu**, kita mempunyai kendala:
 
-1. $x_1 + x_2 \geq 1$ untuk __Jalan A__.
-1. $x_2 + x_3 \geq 1$ untuk __Jalan B__.
-1. $x_1 + x_6 \geq 1$ untuk __Jalan G__.
-1. $x_2 + x_6 \geq 1$ untuk __Jalan F__.
-1. $x_2 + x_4 \geq 1$ untuk __Jalan I__.
-1. $x_4 + x_7 \geq 1$ untuk __Jalan H__.
-1. $x_4 + x_5 \geq 1$ untuk __Jalan C__.
-1. $x_7 + x_8 \geq 1$ untuk __Jalan D__.
-1. $x_3 + x_5 \geq 1$ untuk __Jalan K__.
-1. $x_6 + x_7 \geq 1$ untuk __Jalan E__.
-1. $x_5 + x_8 \geq 1$ untuk __Jalan J__.
+1.  $x_1 + x_2 \geq 1$ untuk **Jalan A**.
+2.  $x_2 + x_3 \geq 1$ untuk **Jalan B**.
+3.  $x_1 + x_6 \geq 1$ untuk **Jalan G**.
+4.  $x_2 + x_6 \geq 1$ untuk **Jalan F**.
+5.  $x_2 + x_4 \geq 1$ untuk **Jalan I**.
+6.  $x_4 + x_7 \geq 1$ untuk **Jalan H**.
+7.  $x_4 + x_5 \geq 1$ untuk **Jalan C**.
+8.  $x_7 + x_8 \geq 1$ untuk **Jalan D**.
+9.  $x_3 + x_5 \geq 1$ untuk **Jalan K**.
+10. $x_6 + x_7 \geq 1$ untuk **Jalan E**.
+11. $x_5 + x_8 \geq 1$ untuk **Jalan J**.
 
-### _Objective Function_
+### *Objective Function*
 
-Tujuan utama permodelan matematika ini adalah __meminimalkan__ banyaknya titik yang dipasang lampu penerangan, yakni:
+Tujuan utama permodelan matematika ini adalah **meminimalkan** banyaknya titik yang dipasang lampu penerangan, yakni:
 
 $$min(\sum x_j, j\in J)$$
 
-\pagebreak
 
-## _Solver R_
 
-### Penulisan Model Matematika di __R__
+## *Solver R*
 
-Untuk menyelesaikan masalah ini, saya akan menggunakan _solver_ di __R__. Berikut adalah model yang saya buat:
+### Penulisan Model Matematika di **R**
+
+Untuk menyelesaikan masalah ini, saya akan menggunakan *solver* di **R**. Berikut adalah model yang saya buat:
 
 ```{r,message=FALSE,warning=FALSE}
 # dimulai dengan hati yang bersih
@@ -529,17 +501,17 @@ model =
 model
 ```
 
-\pagebreak
 
-### _Solving_
 
-Kemudian saya _solve_ dengan __R__:
+### *Solving*
+
+Kemudian saya *solve* dengan **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
 ```
 
-### _Final Result_
+### *Final Result*
 
 Saya dapatkan konfigurasi terbaik seperti ini:
 
@@ -549,28 +521,28 @@ result %>% get_solution(x[i]) %>% filter(value == 1)
 
 Dengan banyak lampu minimum terpasang sebanyak `r round(result$objective_value)` buah.
 
-\pagebreak
+
 
 ```{r,include=FALSE}
 rm(list=ls())
 ```
 
-# __Perusahaan Cat__
+# **Perusahaan Cat**
 
 ## Masalah
 
 Suatu perusahaan memproduksi `4` warna cat yaitu:
 
-- Putih,
-- Kuning, 
-- Hitam, dan 
-- Merah. 
+-   Putih,
+-   Kuning,
+-   Hitam, dan
+-   Merah.
 
-Keempat cat tersebut diproduksi di mesin-mesin yang sama, sehingga ada keperluan untuk mencuci mesin-mesin tersebut di antara produksi `2` cat yang berbeda warna.  
+Keempat cat tersebut diproduksi di mesin-mesin yang sama, sehingga ada keperluan untuk mencuci mesin-mesin tersebut di antara produksi `2` cat yang berbeda warna.
 
-Kita mempunyai masalah untuk menentukan urutan produksi cat harian yang _optimal_, yakni urutan produksi cat yang menghasilkan total waktu pencucian paling kecil. 
+Kita mempunyai masalah untuk menentukan urutan produksi cat harian yang *optimal*, yakni urutan produksi cat yang menghasilkan total waktu pencucian paling kecil.
 
-> ___Urutan harian ini akan dipakai tiap hari, karena perusahaan setiap hari harus memproduksi keempat cat tersebut.___
+> ***Urutan harian ini akan dipakai tiap hari, karena perusahaan setiap hari harus memproduksi keempat cat tersebut.***
 
 Tabel berikut menampilkan waktu pencucian antara produksi cat di suatu baris jika akan dilanjutkan dengan cat di suatu kolom.
 
@@ -586,19 +558,19 @@ options(knitr.kable.NA = '~')
 knitr::kable(data,row.names = T,align = "c",caption = "Matriks Cleaning Mesin Cat (dalam menit)")
 ```
 
-> ___Urutan produksi cat seperti apa yang meminimalkan waktu cleaning?___
+> ***Urutan produksi cat seperti apa yang meminimalkan waktu cleaning?***
 
 ## Metode Heuristik
 
-Sebenarnya masalah di atas mirip sekali dengan __Travelling Salesperson Problem__, yakni suatu masalah _optimization_ yang mencari rute terpendek dari beberapa tempat. 
+Sebenarnya masalah di atas mirip sekali dengan **Travelling Salesperson Problem**, yakni suatu masalah *optimization* yang mencari rute terpendek dari beberapa tempat.
 
-Jadi alih-alih menggunakan metode _Mixed Integer Linear Programming_ (__MILP__) yang biasa saya pakai untuk menyelesaikan _optimization_, saya akan menggunakan cara __TSP__ saja.
+Jadi alih-alih menggunakan metode *Mixed Integer Linear Programming* (**MILP**) yang biasa saya pakai untuk menyelesaikan *optimization*, saya akan menggunakan cara **TSP** saja.
 
-\pagebreak
 
-### _How to_
 
-Langkah pertama adalah menyiapkan matriks cleaning terlebih dahulu, yakni dengan mengubah `data` yang berupa _dataframe_ ke bentuk _matrix_ di __R__.
+### *How to*
+
+Langkah pertama adalah menyiapkan matriks cleaning terlebih dahulu, yakni dengan mengubah `data` yang berupa *dataframe* ke bentuk *matrix* di **R**.
 
 ```{r}
 data[is.na(data)] = 0
@@ -607,9 +579,9 @@ matriks = as.matrix(data)
 matriks
 ```
 
-Jika kita perhatikan dengan baik. Matriks _cleaning_ di atas berbentuk asimetris. Artinya waktu _cleaning_ dari cat `1` ke `2` __tidak sama__ dengan waktu _cleaning_ dari cat `2` ke `1`.
+Jika kita perhatikan dengan baik. Matriks *cleaning* di atas berbentuk asimetris. Artinya waktu *cleaning* dari cat `1` ke `2` **tidak sama** dengan waktu *cleaning* dari cat `2` ke `1`.
 
-Oleh karena itu, saya akan membuat _problem_ __Assymetric TSP__ (__ATSP__) untuk kemudian di-_solve_.
+Oleh karena itu, saya akan membuat *problem* **Assymetric TSP** (**ATSP**) untuk kemudian di-*solve*.
 
 ```{r}
 library(TSP)
@@ -618,21 +590,21 @@ hasil = solve_TSP(problem)
 hasil
 ```
 
-Didapatkan waktu _cleaning_ terkecil adalah sebesar `98` menit.
+Didapatkan waktu *cleaning* terkecil adalah sebesar `98` menit.
 
-### _Final Result_
+### *Final Result*
 
-Saya dapatkan urutan terbaik seperti ini: 
+Saya dapatkan urutan terbaik seperti ini:
 
-```{r} 
+```{r}
 paste(level[as.integer(hasil)],collapse = " - ")
 ```
 
-\pagebreak
+
 
 ## Metode Eksak
 
-Sekarang kita akan menyelesaikan persoalan urutan cat ini dengan metode eksak dengan `ompr`. 
+Sekarang kita akan menyelesaikan persoalan urutan cat ini dengan metode eksak dengan `ompr`.
 
 ### Model Matematika
 
@@ -640,29 +612,29 @@ Untuk melakukannya saya akan mendefinisikan beberapa hal sebagai berikut:
 
 #### Parameter Misal saya tuliskan:
 
-- $W = \{1,2,3,4\}$ sebagai himpunan warna cat yang diproduksi. Angka 1 menunjukkan putih, 2 menunjukkan kuning, 3 menunjukkan hitam, dan 4 menunjukkan merah.
-- $c_{i,j}$ menunjukkan waktu _cleaning_ antara produksi cat warna ke $i$ dan $j$, $i,j \in W$.
+-   $W = \{1,2,3,4\}$ sebagai himpunan warna cat yang diproduksi. Angka 1 menunjukkan putih, 2 menunjukkan kuning, 3 menunjukkan hitam, dan 4 menunjukkan merah.
+-   $c_{i,j}$ menunjukkan waktu *cleaning* antara produksi cat warna ke $i$ dan $j$, $i,j \in W$.
 
 #### Variabel Keputusan Misal saya tuliskan:
 
 $$x_{i,j} = \begin{cases} 1,& \text{ jika pabrik memproduksi cat ke } i \text{ dilanjutkan cat ke } j \\ 0, & \text{ lainnya.}\end{cases}$$
 
-#### _Constraints_ 
+#### *Constraints*
 
-Mari kita bangun beberapa _constraints_ dari kasus ini.
+Mari kita bangun beberapa *constraints* dari kasus ini.
 
-_Constraint_ pertama adalah satu warna hanya bisa diikuti oleh satu warna yang lain. Maksudnya dari warna ke $i$, hanya bisa diikuti _unique_ oleh warna ke $j$. Saya tuliskan ekspresinya menjadi:
+*Constraint* pertama adalah satu warna hanya bisa diikuti oleh satu warna yang lain. Maksudnya dari warna ke $i$, hanya bisa diikuti *unique* oleh warna ke $j$. Saya tuliskan ekspresinya menjadi:
 
 $$\sum_{j \in W,j \neq i} x_{i,j} = 1$$
 
-_Constraint_ kedua adalah satu warna hanya bisa berasal dari satu warna yang lain. Maksudnya dari warna $i$, hanya bisa berasal _unique_ dari warna ke $j$. Saya tuliskan ekspresinya menjadi:
+*Constraint* kedua adalah satu warna hanya bisa berasal dari satu warna yang lain. Maksudnya dari warna $i$, hanya bisa berasal *unique* dari warna ke $j$. Saya tuliskan ekspresinya menjadi:
 
 $$\sum_{i \in W,i \neq j} x_{i,j} = 1$$
 
-Kedua _constraints_ yang di atas ternyata belum cukup untuk menjelaskan kondisi _real_-nya. Kenapa? Kita harus pastikan:
+Kedua *constraints* yang di atas ternyata belum cukup untuk menjelaskan kondisi *real*-nya. Kenapa? Kita harus pastikan:
 
-> Semua $i \in W$ terlewati. Solusi yang ada __harus melibatkan semua warna__.
- 
+> Semua $i \in W$ terlewati. Solusi yang ada **harus melibatkan semua warna**.
+
 Lantas bagaimana caranya?
 
 Saya akan gunakan induksi sebagai berikut:
@@ -690,13 +662,13 @@ $$x_{1,2} + x_{2,1} \leq x_{1,3} + x_{1,4} + x_{2,3} + x_{2,4}$$
 
 Proses ini akan saya ulangi untuk semua alternatif lainnya:
 
-- Dari $1$ ke $3$ (termasuk kebalikannya),
-- Dari $1$ ke $4$ (termasuk kebalikannya),
-- Dari $2$ ke $3$ (termasuk kebalikannya),
-- Dari $2$ ke $4$ (termasuk kebalikannya),
-- Dari $3$ ke $4$ (termasuk kebalikannya).
+-   Dari $1$ ke $3$ (termasuk kebalikannya),
+-   Dari $1$ ke $4$ (termasuk kebalikannya),
+-   Dari $2$ ke $3$ (termasuk kebalikannya),
+-   Dari $2$ ke $4$ (termasuk kebalikannya),
+-   Dari $3$ ke $4$ (termasuk kebalikannya).
 
-Sehingga _constraint_ terakhirnya:
+Sehingga *constraint* terakhirnya:
 
 $$x_{1,2} + x_{2,1} \leq x_{1,3} + x_{1,4} + x_{2,3} + x_{2,4}$$
 
@@ -708,94 +680,93 @@ $$x_{2,3} + x_{3,2} \leq x_{2,1} + x_{2,4} + x_{3,1} + x_{3,4}$$
 
 $$x_{3,4} + x_{4,3} \leq x_{3,1} + x_{3,2} + x_{4,1} + x_{4,2}$$
 
-#### _Objective Function_
+#### *Objective Function*
 
-Permasalahan ini adalah meminimalisir waktu _cleaning_ dari urutan yang ada, yakni:
+Permasalahan ini adalah meminimalisir waktu *cleaning* dari urutan yang ada, yakni:
 
 $$min(\sum_{i \in W} \sum_{j \in W,j \neq i} x_{i,j}*c_{i,j})$$
 
-### _Solver_ __R__
+### *Solver* **R**
 
-___Maaf, belum sempet dikerjain. Nanti yah tunggu rada kosong dulu.___
-
-
+***Maaf, belum sempet dikerjain. Nanti yah tunggu rada kosong dulu.***
 
 
-
-\pagebreak
 
 ```{r,include=FALSE}
 rm(list=ls())
 ```
 
-# ___Nurse Schedulling___
+# ***Nurse Schedulling***
 
-Di bagian ini kita akan mempelajari masalah penjadwalan perawat (_nurse scheduling_) yang mempunyai aturan kerja yang tidak terlalu banyak. Aturan kerja yang dibahas di sini mungkin saja merupakan aturan di suatu rumah sakit saja, yang sedikit berbeda dengan aturan kerja perawat di rumah sakit lainnya. Tetapi tujuan dibuat aturan kerja ini di rumah sakit manapun adalah sama, yaitu aturan yang dibuat agar jam kerja perawat diatur sedemikian hingga sehingga para perawat berada pada kondisi yang baik ketika bekerja.
+Di bagian ini kita akan mempelajari masalah penjadwalan perawat (*nurse scheduling*) yang mempunyai aturan kerja yang tidak terlalu banyak. Aturan kerja yang dibahas di sini mungkin saja merupakan aturan di suatu rumah sakit saja, yang sedikit berbeda dengan aturan kerja perawat di rumah sakit lainnya. Tetapi tujuan dibuat aturan kerja ini di rumah sakit manapun adalah sama, yaitu aturan yang dibuat agar jam kerja perawat diatur sedemikian hingga sehingga para perawat berada pada kondisi yang baik ketika bekerja.
 
 ## Masalah
 
 Lingkungan kerja para perawat yang kita bahas adalah sebagai berikut:
 
-- Para perawat bekerja pada suatu shift kerja
-- Terdapat `3` shift kerja yaitu:
-    - _day shift_ (8.00 - 16.00), 
-    - _evening shift_ (16.00 - 24.00), dan
-    - _night shift_ (24.00 - 8.00)
-- Pada setiap shift dibutuhkan `4` orang perawat.
+-   Para perawat bekerja pada suatu shift kerja
+
+-   Terdapat `3` shift kerja yaitu:
+
+    -   *day shift* (8.00 - 16.00),
+    -   *evening shift* (16.00 - 24.00), dan
+    -   *night shift* (24.00 - 8.00)
+
+-   Pada setiap shift dibutuhkan `4` orang perawat.
 
 Selain itu, terdapat beberapa aturan kerja perawat yang harus dipenuhi, yakni:
 
-1. Setiap perawat dalam satu hari dapat ditugaskan paling banyak dalam satu _shift_.
-1. Jika seorang perawat ditugaskan pada _shift_ malam, maka dia tidak dapat ditugaskan di _shift_ pagi di hari berikutnya.
-1. Jika seorang perawat ditugaskan dalam `3` hari berturut-turut, maka hari keempatnya harus diberi libur.
-1. Jika seorang perawat ditugaskan pada suatu _shift_ di _weekend_, maka dia tidak dapat ditugaskan di _weekend_ berikutnya.
+1.  Setiap perawat dalam satu hari dapat ditugaskan paling banyak dalam satu *shift*.
+2.  Jika seorang perawat ditugaskan pada *shift* malam, maka dia tidak dapat ditugaskan di *shift* pagi di hari berikutnya.
+3.  Jika seorang perawat ditugaskan dalam `3` hari berturut-turut, maka hari keempatnya harus diberi libur.
+4.  Jika seorang perawat ditugaskan pada suatu *shift* di *weekend*, maka dia tidak dapat ditugaskan di *weekend* berikutnya.
 
-> ___Bagaimana jadwal yang optimal? Berapa banyak perawat yang dibutuhkan?___
+> ***Bagaimana jadwal yang optimal? Berapa banyak perawat yang dibutuhkan?***
 
 ## Model Matematika
 
 ### Membangun Model Matematika
 
-#### _Time Frame_
+#### *Time Frame*
 
-Untuk memudahkan membuat model matematika _nurse schedulling_, saya akan mendefinisikan terlebih dahulu _time frame_ yang hendak digunakan. Apakah akan dibuat jadwal selama seminggu, sebulan, atau periode tertentu.
+Untuk memudahkan membuat model matematika *nurse schedulling*, saya akan mendefinisikan terlebih dahulu *time frame* yang hendak digunakan. Apakah akan dibuat jadwal selama seminggu, sebulan, atau periode tertentu.
 
-Untuk itu, saya akan melihat __aturan kerja ke-4__, yakni:
+Untuk itu, saya akan melihat **aturan kerja ke-4**, yakni:
 
-> Jika seorang perawat ditugaskan pada suatu _shift_ di _weekend_, maka dia tidak dapat ditugaskan di _weekend_ berikutnya.
+> Jika seorang perawat ditugaskan pada suatu *shift* di *weekend*, maka dia tidak dapat ditugaskan di *weekend* berikutnya.
 
-Dari kasus di atas, setidaknya _time frame_ penjadwalan __tersingkat__ yang bisa buat adalah dalam waktu `2` minggu.
+Dari kasus di atas, setidaknya *time frame* penjadwalan **tersingkat** yang bisa buat adalah dalam waktu `2` minggu.
 
-Dari _time frame_ tersebut, kita juga bisa mengandaikan berapa banyak perawat yang dibutuhkan.
+Dari *time frame* tersebut, kita juga bisa mengandaikan berapa banyak perawat yang dibutuhkan.
 
 #### Berapa banyak perawat yang dibutuhkan?
 
-Dari penjelasan kasus di atas, sebenarnya tidak ada batasan maksimal berapa perawat yang bisa ditugaskan di rumah sakit tersebut. Namun, dari __aturan kerja ke-4__ kita bisa hitung secara kasar berapa minimal perawat yang harus ditugaskan.
+Dari penjelasan kasus di atas, sebenarnya tidak ada batasan maksimal berapa perawat yang bisa ditugaskan di rumah sakit tersebut. Namun, dari **aturan kerja ke-4** kita bisa hitung secara kasar berapa minimal perawat yang harus ditugaskan.
 
 > Bagaimana caranya?
 
 Mari kita ingat beberapa hal berikut ini:
 
-1. _Weekend_ terjadi pada hari Sabtu dan Minggu.
-1. Setiap hari ada `3` _shifts_.
-1. Setiap _shift_ minimal ada `4` perawat.
-1. Perawat yang sudah ditugaskan di _weekend_ I, tidak boleh ditugaskan di _weekend_ II.
+1.  *Weekend* terjadi pada hari Sabtu dan Minggu.
+2.  Setiap hari ada `3` *shifts*.
+3.  Setiap *shift* minimal ada `4` perawat.
+4.  Perawat yang sudah ditugaskan di *weekend* I, tidak boleh ditugaskan di *weekend* II.
 
-Oleh karena itu, pada _weekend_ I paling sedikit kita bisa menugaskan $3*4=12$ orang perawat.
+Oleh karena itu, pada *weekend* I paling sedikit kita bisa menugaskan $3*4=12$ orang perawat.
 
-> Pada _weekend_ I, kita bisa mempekerjakan `12` perawat pada Sabtu dan Minggu.
+> Pada *weekend* I, kita bisa mempekerjakan `12` perawat pada Sabtu dan Minggu.
 
-Ke-`12` orang perawat ini tidak boleh ditugaskan di _weekend_ II. Sehingga dibutuhkan $3*4=12$ orang perawat lainnya di _weekend_ II.
+Ke-`12` orang perawat ini tidak boleh ditugaskan di *weekend* II. Sehingga dibutuhkan $3*4=12$ orang perawat lainnya di *weekend* II.
 
-> ___Sehingga dibutuhkan minimal `24` orang perawat untuk `2` minggu ini.___
+> ***Sehingga dibutuhkan minimal `24` orang perawat untuk `2` minggu ini.***
 
 ### Parameter
 
 Dari penjelasan-penjelasan di atas, saya akan mendefinisikan beberapa hal, yakni:
 
-- $H = \{1,2,3,4,5,6,7,8,9,10,11,12,13,14\}$ adalah himpunan hari dalam _time frame_ `2` minggu. Saya tuliskan `1` sebagai Senin. _Weekend_ terjadi pada $H_w = \{6,7,13,14\}$.
-- $S = \{1,2,3\}$ adalah himpunan _shift_ kerja harian perawat.
-- $N = \{1,2,3,4,...,24\}$ adalah himpunan banyaknya perawat yang dibutuhkan. Pada mulanya, saya akan _set_ dulu sebanyak `24` orang perawat. Jika ternyata tidak _feasible_, maka akan saya tambah satu demi satu sehingga ditemukan solusi _feasible_.
+-   $H = \{1,2,3,4,5,6,7,8,9,10,11,12,13,14\}$ adalah himpunan hari dalam *time frame* `2` minggu. Saya tuliskan `1` sebagai Senin. *Weekend* terjadi pada $H_w = \{6,7,13,14\}$.
+-   $S = \{1,2,3\}$ adalah himpunan *shift* kerja harian perawat.
+-   $N = \{1,2,3,4,...,24\}$ adalah himpunan banyaknya perawat yang dibutuhkan. Pada mulanya, saya akan *set* dulu sebanyak `24` orang perawat. Jika ternyata tidak *feasible*, maka akan saya tambah satu demi satu sehingga ditemukan solusi *feasible*.
 
 ### Variabel Penentuan
 
@@ -803,31 +774,31 @@ Saya definisikan:
 
 $$x_{n,h,s} = \begin{cases} 1,& \text{ jika di perawat ke } n \text{ bekerja di hari } h \text{ pada shift ke }s\\ 0, & \text{ lainnya.}\end{cases}$$
 
-### _Constraints_
+### *Constraints*
 
-Sekarang kita akan menuliskan _constraints_ dalam bahasa matematika.
+Sekarang kita akan menuliskan *constraints* dalam bahasa matematika.
 
-#### _Constraint_ I
+#### *Constraint* I
 
-Setiap perawat dalam satu hari dapat ditugaskan paling banyak dalam satu _shift_.
+Setiap perawat dalam satu hari dapat ditugaskan paling banyak dalam satu *shift*.
 
 $$x_{n,h,1} + x_{n,h,2} + x_{n,h,3} \leq 1 \text{, untuk } n \in N \text{ dan } h \in H$$
 
-Ekspresi matematika di atas memastikan bahwa seorang perawat hanya bisa ditugaskan dalam __satu shift__ per hari __atau__ tidak ditugaskan sama sekali.
+Ekspresi matematika di atas memastikan bahwa seorang perawat hanya bisa ditugaskan dalam **satu shift** per hari **atau** tidak ditugaskan sama sekali.
 
-#### _Constraint_ II
+#### *Constraint* II
 
-Jika seorang perawat ditugaskan pada _shift_ malam, maka dia tidak dapat ditugaskan di _shift_ pagi.
+Jika seorang perawat ditugaskan pada *shift* malam, maka dia tidak dapat ditugaskan di *shift* pagi.
 
 $$x_{n,h,3} + x_{n,h+1,1} \leq 1 \text{, untuk } n \in N \text{ dan } h \in \{1,2,..,13\}$$
 
-Ekspresi matematika di atas memastikan bahwa seorang perawat yang bertugas _night shift_ pada hari $h$ tidak boleh bertugas pada _shift_ pagi esok harinya ($h+1$) __atau__ perawat tersebut tidak ditugaskan sama sekali.
+Ekspresi matematika di atas memastikan bahwa seorang perawat yang bertugas *night shift* pada hari $h$ tidak boleh bertugas pada *shift* pagi esok harinya ($h+1$) **atau** perawat tersebut tidak ditugaskan sama sekali.
 
-#### _Constraint_ III
+#### *Constraint* III
 
 Jika seorang perawat ditugaskan dalam `3` hari berturut-turut, maka hari keempatnya harus diberi libur.
 
-Jadi seorang perawat bisa saja bertugas di berbagai _shift_ selama 3 hari berturut-turut tapi __tidak diperbolehkan__ untuk bertugas di hari keempat.
+Jadi seorang perawat bisa saja bertugas di berbagai *shift* selama 3 hari berturut-turut tapi **tidak diperbolehkan** untuk bertugas di hari keempat.
 
 $$x_{n,h,1} + x_{n,h+1,1} + x_{n,h+2,1} + x_{n,h+3,1} +$$
 
@@ -835,53 +806,52 @@ $$x_{n,h,2} + x_{n,h+1,2} + x_{n,h+2,2} + x_{n,h+3,2} +$$
 
 $$x_{n,h,3} + x_{n,h+1,3} + x_{n,h+2,3} + x_{n,h+3,3} \leq 3 \text{, untuk } n \in N \text{ dan } h \in \{1,2,..,11\}$$
 
+#### *Constraint* IV
 
-#### _Constraint_ IV
+Jika seorang perawat ditugaskan pada suatu *shift* di *weekend*, maka dia tidak dapat ditugaskan di *weekend* berikutnya.
 
-Jika seorang perawat ditugaskan pada suatu _shift_ di _weekend_, maka dia tidak dapat ditugaskan di _weekend_ berikutnya.
+Saya telah menuliskan *weekend* terjadi saat $H \in \{6,7,13,14\}$.
 
-Saya telah menuliskan _weekend_ terjadi saat $H \in \{6,7,13,14\}$. 
-
-Bagi saya, _constraint_ IV merupakan _constraint_ yang tersulit untuk dituliskan model matematikanya. Oleh karena itu, saya akan gunakan induksi sebagai berikut:
+Bagi saya, *constraint* IV merupakan *constraint* yang tersulit untuk dituliskan model matematikanya. Oleh karena itu, saya akan gunakan induksi sebagai berikut:
 
 ##### Tanggal `6`
 
-Jika seorang perawat bertugas di hari `6` (_shift_ apapun), dia tidak boleh bertugas di hari `13` dan `14`. Tapi jika dia tidak bertugas di hari `6`, maka dia diperbolehkan bertugas di hari `13` __dan atau__ `14`. Akibatnya:
+Jika seorang perawat bertugas di hari `6` (*shift* apapun), dia tidak boleh bertugas di hari `13` dan `14`. Tapi jika dia tidak bertugas di hari `6`, maka dia diperbolehkan bertugas di hari `13` **dan atau** `14`. Akibatnya:
 
-- Jika $x_{n,6,s} = 1$ maka $x_{n,13,s} + x_{n,14,s} = 0$
-- Jika $x_{n,6,s} = 0$ maka $x_{n,13,s} + x_{n,14,s} \leq 2$ karena perawat tersebut bisa bertugas di tanggal `13` __dan atau__ `14`.
+-   Jika $x_{n,6,s} = 1$ maka $x_{n,13,s} + x_{n,14,s} = 0$
+-   Jika $x_{n,6,s} = 0$ maka $x_{n,13,s} + x_{n,14,s} \leq 2$ karena perawat tersebut bisa bertugas di tanggal `13` **dan atau** `14`.
 
-Maka model matematika pada _constraint_ tanggal `6` adalah sebagai berikut:
+Maka model matematika pada *constraint* tanggal `6` adalah sebagai berikut:
 
 $$ 2\sum_{s \in S} x_{n,6,s} + \sum_{s \in S}x_{n,13,s} + \sum_{s \in S}x_{n,14,s} \leq 2 
 \text{, untuk } n \in N $$
 
 ##### Tanggal `7`
 
-Dengann prinsip yang sama dengan tanggal `6`, saya bisa dapatkan model matematika pada _constraint_ tanggal `7` adalah sebagai berikut:
+Dengann prinsip yang sama dengan tanggal `6`, saya bisa dapatkan model matematika pada *constraint* tanggal `7` adalah sebagai berikut:
 
 $$ 2\sum_{s \in S} x_{n,7,s} + \sum_{s \in S}x_{n,13,s} + \sum_{s \in S}x_{n,14,s} \leq 2 
 \text{, untuk } n \in N $$
 
-#### _Constraint_ V
+#### *Constraint* V
 
-Ada satu _constraint_ terakhir yang kita tidak boleh lupakan. Apa itu?
+Ada satu *constraint* terakhir yang kita tidak boleh lupakan. Apa itu?
 
-Setiap _shift_ harus dilayani minimal `4` orang perawat.
+Setiap *shift* harus dilayani minimal `4` orang perawat.
 
 $$\sum_{n \in N} x_{n,h,s} \geq 4 \text{, untuk } h \in H,  \text{ dan } s \in S$$
 
-### _Objective Function_
+### *Objective Function*
 
 $$min \sum_{n \in N} \sum_{h \in H} \sum_{s \in S} x_{n,h,s} $$
 
-\pagebreak
 
-## _Solver R_
 
-### Penulisan Model Matematika di __R__
+## *Solver R*
 
-Berikut adalah penulisan model matematika di __R__:
+### Penulisan Model Matematika di **R**
+
+Berikut adalah penulisan model matematika di **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 # dimulai dengan hati yang bersih
@@ -947,15 +917,15 @@ model =
 model
 ```
 
-### _Solving_
+### *Solving*
 
-Kemudian saya _solve_ dengan __R__:
+Kemudian saya *solve* dengan **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
 ```
 
-\pagebreak
+
 
 ## Solusi Optimal
 
@@ -981,7 +951,7 @@ result %>%
   knitr::kable(align = "c",caption = "Jadwal Perawat: Angka Pada Tanggal Menunjukkan id Perawat")
 ```
 
-\pagebreak
+
 
 ### Rekap Jadwal Optimal
 
@@ -1008,13 +978,13 @@ result %>%
   
 ```
 
-Setelah kita lihat bersama, ternyata ada beberapa perawat yang __hanya__ mendapatkan porsi kecil dalam jadwal tersebut. Lantas muncul pertanyaan:
+Setelah kita lihat bersama, ternyata ada beberapa perawat yang **hanya** mendapatkan porsi kecil dalam jadwal tersebut. Lantas muncul pertanyaan:
 
-> ___Apakah kita bisa meratakan workload antar perawat?___
+> ***Apakah kita bisa meratakan workload antar perawat?***
 
 ## Masalah Baru
 
-Sekarang kita akan paksakan setiap _nurse_ mendapatkan _workload_ yang sama.
+Sekarang kita akan paksakan setiap *nurse* mendapatkan *workload* yang sama.
 
 Pertama-tama, mari kita hitung. Berapa banyak shift yang ideal per perawat.
 
@@ -1024,17 +994,17 @@ Yakni:
 
 $$\text{banyak shift ideal} = \frac{14*3*4}{24} = \frac{168}{7} = 7$$
 
-Jadi diharapkan setiap perawat mendapatkan banyak _shift_ yang sama, yakni sebanyak `7` _shifts_. 
+Jadi diharapkan setiap perawat mendapatkan banyak *shift* yang sama, yakni sebanyak `7` *shifts*.
 
-Maka model matematika dari _constraint_ ini adalah:
+Maka model matematika dari *constraint* ini adalah:
 
 $$\sum_{h \in H} \sum_{s \in S} x_{h,n,s} = 7, \text{untuk } n \in N$$
 
-## _Solver R_
+## *Solver R*
 
-### Penulisan Model Matematika di __R__
+### Penulisan Model Matematika di **R**
 
-Berikut adalah penulisan model matematika di __R__:
+Berikut adalah penulisan model matematika di **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 # membuat model
@@ -1048,9 +1018,9 @@ model =
 model
 ```
 
-### _Solving_
+### *Solving*
 
-Kemudian saya _solve_ dengan __R__:
+Kemudian saya *solve* dengan **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
@@ -1080,7 +1050,7 @@ result %>%
   knitr::kable(align = "c",caption = "Jadwal Perawat: Angka Pada Tanggal Menunjukkan id Perawat")
 ```
 
-\pagebreak
+
 
 #### Rekap Jadwal Optimal
 
@@ -1107,21 +1077,21 @@ result %>%
   
 ```
 
-\pagebreak
 
-# _Non Linear Modelling_
+
+# *Non Linear Modelling*
 
 ## Masalah
 
-Ada kalanya kita bertemu dengan masalah _optimization_ yang tidak linear. Justru biasanya masalah _real world_ tidak berbentuk linear. Sayangnya _solver_ di __R__ yang ada sekarang masih terbatas di _linear problem_ saja.
+Ada kalanya kita bertemu dengan masalah *optimization* yang tidak linear. Justru biasanya masalah *real world* tidak berbentuk linear. Sayangnya *solver* di **R** yang ada sekarang masih terbatas di *linear problem* saja.
 
-> ___Bagaimana menyelesaikannya?___
+> ***Bagaimana menyelesaikannya?***
 
-Salah satu solusinya adalah dengan mengkonversi masalah __tidak linear__ menjadi __linear__.
+Salah satu solusinya adalah dengan mengkonversi masalah **tidak linear** menjadi **linear**.
 
-## Contoh Masalah _Optimization_
+## Contoh Masalah *Optimization*
 
-__Minimumkan:__
+**Minimumkan:**
 
 $$x_1^2 + x_1 x_2 + x_2^2 + x_1 +x_2$$
 
@@ -1129,9 +1099,9 @@ Terhadap:
 
 $$4 x_1 + 6 x_2 \geq 10 \text{, dimana: }x_1,x_2 \in \{0,1\}$$
 
-### _Solver_ di __R__
+### *Solver* di **R**
 
-Untuk mengecek apakah `ompr` bisa menyelesaikan masalah _non linear_ di atas, maka saya akan tuliskan model matematikanya dalam __R__:
+Untuk mengecek apakah `ompr` bisa menyelesaikan masalah *non linear* di atas, maka saya akan tuliskan model matematikanya dalam **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 # dimulai dengan hati yang bersih
@@ -1157,7 +1127,7 @@ library(ROI.plugin.glpk)
 # model
 ```
 
-`ompr` tidak mampu menyelesaikan masalah _non linear_ seperti di atas. 
+`ompr` tidak mampu menyelesaikan masalah *non linear* seperti di atas.
 
 ### Konversi ke Masalah Linear
 
@@ -1167,7 +1137,7 @@ Untuk mengubahnya ke dalam masalah linear, saya akan membuat pemisalan sebagai b
 
 $$y = x_1x_2$$
 
-Karena $x_1$ dan $x_2$ adalah _binary_, maka:
+Karena $x_1$ dan $x_2$ adalah *binary*, maka:
 
 $$x_1^2 = x_1$$
 
@@ -1179,13 +1149,13 @@ $$y \leq x_2$$
 
 $$y \geq x_1 + x_2 - 1$$
 
-#### Perubahan Model _Optimization_
+#### Perubahan Model *Optimization*
 
 Dari persamaan-persamaan di atas, kita telah mendapatkan perubahan linear dari masalah awalnya.
 
 Yakni:
 
-__Minimumkan__:
+**Minimumkan**:
 
 $$y + 2x_1 + 2x_2$$
 
@@ -1201,9 +1171,9 @@ $$x_1 + x_2 - y \leq 1$$
 
 $$x_1,x_2,y \in \{0,1\}$$
 
-#### Penulisan Model di __R__
+#### Penulisan Model di **R**
 
-Sekarang kita akan menuliskan model di atas ke dalam __R__ sebagai berikut:
+Sekarang kita akan menuliskan model di atas ke dalam **R** sebagai berikut:
 
 ```{r}
 # dimulai dengan hati yang bersih
@@ -1235,9 +1205,9 @@ model =
 model
 ```
 
-#### _Solving_
+#### *Solving*
 
-Kemudian saya _solve_ dengan __R__:
+Kemudian saya *solve* dengan **R**:
 
 ```{r,message=FALSE,warning=FALSE}
 result = solve_model(model, with_ROI(solver = "glpk", verbose = TRUE))
@@ -1250,3 +1220,72 @@ Berikut adalah solusi optimal yang didapatkan:
 ```{r}
 result %>% get_solution(x[i])
 ```
+
+# Regresi Linear Sebagai Masalah _Optimization_
+
+Suatu permasalahan regresi linear bisa dipandang sebagai masalah _optimization_. _Kok bisa?_
+
+Mari kita lihat contoh kasus berikut ini:
+
+## Masalah
+
+Suatu laboratorium hendak melakukan penelitian tentang mikroba dalam beberapa makanan basi. Mereka mengambil sampel mikroba dalam selang waktu tertentu dan mencatat berapa banyak mikroba yang ada di beberapa makanan tersebut.
+
+Berikut adalah datanya:
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+rm(list=ls())
+library(ggplot2)
+
+data = data.frame(t = 1:10,
+                  y = sample(50:100,10)
+                  )
+
+data$y = round((31:40)*data$y/100,
+               1)
+data %>% 
+  ggplot(aes(x = t,
+             y = y)) +
+  geom_point() +
+  geom_label(aes(label = paste0("(",t,", ",y,")")),
+             size = 3) +
+  labs(x = "Waktu",
+       y = "Rata-rata Banyak Mikroba (dalam juta)",
+       title = "Data Hasil Penelitian",
+       subtitle = "Suatu laboratorium melakukan observasi terhadap suatu makanan.\nMereka meneliti seberapa banyak mikroba yang muncul saat makanan dibiarkan dalam\nsuatu tempat terbuka.")
+```
+
+> ___Bisakah kita membuat model prediksi berapa banyak mikroba dari waktu tertentu?___
+
+## Permodelan Matematika
+
+Misalkan persamaan regresi linear yang akan saya cari adalah sebagai berikut:
+
+$$y = at + b$$
+
+Dengan $y$ adalah banyaknya mikroba dan $t$ adalah waktu.
+
+Jika kita perhatikan kembali, suatu persamaan regresi linear disebut __terbaik__ saat _error_ yang dihasilkan sangat kecil. Misal saya tulis $\hat{y_i}$ sebagai hasil prediksi model regresi pada waktu $i$.
+
+Maka $error$ bisa saya tuliskan sebagai $e_i = \hat{y_i} - y_i$.
+
+Kalau kita ingat, ada satu parameter _goodness of fit_ bernama __RMSE__ (_Root Mean Square Error_). Kelak __RMSE__ ini akan saya jadikan _objective function_ dari masalah _optimization_.
+
+### _Objective Function_
+
+$$\text{min}(e_1^2) = \\ \text{min}(\hat{y_i} - y_i)^2 = \\ \text{min} (at_i + b - y_i)^2$$
+
+### _Decision Variables_
+
+Variabel keputusan yang dicari adalah:
+
+$$a,b \in \text{R}$$
+
+### _Constraint_
+
+_Constraints_ pada masalah ini hanyalah pada _boundaries_ $t$ dan $y$ yang ada pada data berikut ini:
+
+```{r,echo=FALSE}
+data %>% knitr::kable(caption = "Data",align = "c")
+```
+
