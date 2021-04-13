@@ -688,9 +688,7 @@ $$min(\sum_{i \in W} \sum_{j \in W,j \neq i} x_{i,j}*c_{i,j})$$
 
 ### *Solver* **R**
 
-***Maaf, belum sempet dikerjain. Nanti yah tunggu rada kosong dulu.***
-
-
+Cara mengerjakan dengan _solver_ __R__ diberikan kepada pembaca sebagai bahan latihan.
 
 ```{r,include=FALSE}
 rm(list=ls())
@@ -1289,3 +1287,27 @@ _Constraints_ pada masalah ini hanyalah pada _boundaries_ $t$ dan $y$ yang ada p
 data %>% knitr::kable(caption = "Data",align = "c")
 ```
 
+## _Solver_ __R__
+
+Cara mengerjakan dengan _solver_ __R__ diberikan kepada pembaca sebagai bahan latihan.
+
+## Metode Lain: Menggunakan _Linear Modelling_
+
+Untuk menyelesaikan masalah regresi linear di __R__, kita bisa menggunakan _function_ `lm()`. Salah satu tutorial lengkap terkait regresi linear di __R__ bisa dilihat di [sini](https://ikanx101.com/blog/belajar-regresi/).
+
+### Menyelesaikan `lm()` di __R__
+
+```{r,warning=FALSE,message=FALSE}
+regresi_model = lm(y ~ t, data)
+summary(regresi_model)
+```
+
+Dari hasil di atas, kita dapatkan:
+
+$y =$ `r regresi_model$coefficients[1]` $+$ `r regresi_model$coefficients[2]` $t$
+
+Jika kita hitung __RMSE__, didapatkan nilai:
+
+```{r,message=FALSE,warning=FALSE}
+caret::RMSE(regresi_model$fitted.values,data$y)
+```
