@@ -1,3 +1,5 @@
+setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/Optimization")
+
 library(dplyr)
 library(ggforce)
 library(reshape2)
@@ -15,8 +17,9 @@ jadwal %>%
   annotate("segment", x = 1, xend = 2, y = 0, yend = 0, size = 1, color = "steelblue") +
   annotate("segment", x = 2, xend = 3, y = 0, yend = 0, size = 1, color = "black") +
   annotate("segment", x = 3, xend = 4, y = 0, yend = 0, size = 1, color = "darkred") +
+  annotate("segment", x = 4, xend = 5, y = 0, yend = 0, size = 1, color = "grey") +
   
-  geom_point(aes(y = 0), size = 3, shape = 21, stroke = 1.5, fill = "white") +
+  geom_point(aes(y = -.1), size = 1, shape = 21, stroke = 1.5, fill = "white") +
   
   geom_label(aes(y = 0, label = label_minggu),
              fill = "black",
@@ -29,8 +32,8 @@ jadwal %>%
                    con.type = "elbow") +
 
   labs(title = "Timeline Pengadaan Bahan Baku Gula",
-       subtitle = "minggu dalam suatu bulan",
-       caption = "dibuat dengan R")+
+       subtitle = "Garis horizontal menandakan minggu",
+       caption = "Tim Optimis Nutrifood\ndibuat dengan R")+
   
   theme_void() +
   
