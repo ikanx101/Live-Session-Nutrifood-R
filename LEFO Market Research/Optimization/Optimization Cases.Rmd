@@ -1076,8 +1076,72 @@ result %>%
 ```
 
 
+# __Masalah Inventori Gudang__
 
-# *Non Linear Modelling*
+Kali ini kita akan melihat contoh pemodelan matematika di masalah pengelolaan inventori (_inventory control_) untuk memperluas wawasan jenis-jenis model optimisasi. 
+
+## Masalah
+
+Pak Agung adalah seorang pemilik kios yang menjual pupuk organik dalam kemasan karung. Selama ini, Pak Agung selalu memesan  sejumlah karung pupuk organik dari produsennya setiap hari minggu. Dia juga mencatat berapa karung pupuk yang terjual setiap  minggunya. Setiap minggunya, pupuk yang terjual tidak selalu sama, tetapi dia dapat menghitung rata-rata pupuk yang terjual setiap minggunya.
+
+Sekarang ini, usahanya sudah berkembang pesat. Kadangkala persediaan pupuk sudah habis ketika ada orang yang akan membeli pupuk. Tetapi kadang pula sesudah satu minggu masih tersedia pupuk yang belum terjual dan ini memerlukan biaya penyimpanan bertambah. Karena itu,   dia ingin mengetahui berapa botol pupuk yang harus dipesan setiap kali memesan dan apakah dia harus memesan lebih sering atau lebih jarang.
+
+Berapa banyak barang harus dipesan dan berapa sering barang harus dipesan dikenal dengan nama ___Economic Order Quantity___ (__EOQ__), suatu besaran yang dihitung dalam rangka meminimumkan rata-rata biaya inventori, yaitu biaya-biaya untuk pemesanan dan penyimpanan.
+
+## Parameter
+
+Parameter di masalah kita adalah beberapa besaran yang diketahui, seperti:
+
+1. $C_O$ adalah biaya pemesanan dalm satu kali pesan, tidak bergantung pada banyaknya pupuk yang dipesan,
+1. $D$ adalah rata-rata banyaknya pupuk organik yang terjual perminggunya (satuannya `karung/7 hari`),
+1. $S$ adalah biaya penyimpanan pupuk per karung per hari.
+
+Kita asumsikan semua nilainya tetap.
+
+## Model Matematika
+### _Decision Variable_
+
+Kita definisikan _decision variable_ sebagai berikut:
+
+- $O$ adalah banyaknya karung pupuk organik yang dipesan dalam satu kali pesan.
+- $P$ adalah panjangnya siklus antara dua kali pemesanan (dalam hari).
+
+### Masalah Optimisasi
+
+Kita dapat memodelkan masalah optimisasinya dengan terlebih dahulu membuat simplifikasi dinamika inventori pupuknya sebagai berikut. Misalkan pupuk dipesan sebanyak 10  karung tiap minggu, dengan rata-rata banyaknya pupuk yang terjual adalah 10/7 karung per minggu.  Asumsikan lead time, yaitu periode  waktu yang dibutuhkan mulai dari memesan sampai barang datang, adalah 0. Maka ketika pupuk dipesan tingkat inventori adalah 0, dan sesaat setelah memesan tingkat inventory langsung berubah menjadi 10, seperti digambarkan di gambar berikut ini.
+
+```{r out.width="70%", echo=FALSE, fig.align='center'}
+knitr::include_graphics("EOQ.png")
+```
+
+Tujuan kita adalah menentukan berapa nilai $O$ dan berapa nilai $P$ agar rata-rata biaya inventory minimum. Agar lebih mudah dalam penurunan fungsi objektif, kita akan gunakan rata-rata biaya inventori per hari. Kita sebenarnya dapat juga menurunkan fungsi objektif berupa rata-rata biaya inventori per minggu atau per bulan, dan hal ini Kita ingat bahwa di masalah ini biaya pemesanan adalah tetap, tidak tergantung pada berapa banyak pupuk yang kita pesan. Maka jika kita memesan tiap $P$ hari,
+
+Misalkan:
+
+- Rata-rata biaya pesan per hari adalah $\frac{C_O}{P}$,
+- Rata-rata biaya penyimpanan per hari adalah $\frac{OP}{2}$.
+
+Sehingga rata-rata total biaya iventori perhari adalah:
+
+$$\frac{C_O}{P} + \frac{OP}{2}$$
+
+Fungsi di atas adalah fungsi dua peubah, yang mana di kasus kita kita dapat membuatnya menjadi fungsi satu peubah dengan mensubtitusi variabel $P$ dalam variabel $O$ jika kita gunakan asumsi tambahan bahwa kita memesan di saat tingkat inventori sama dengan nol. Artinya, gunakan ilustrasi di gambar di atas pada kondisi umum yaitu kemiringan grafiknya adalah $-\frac{D}{7}$,
+
+
+$$P = \frac{7O}{D}$$
+
+Sehingga:
+
+$$\frac{C_O}{P} + \frac{OP}{2} = \frac{C_OD}{7O} + \frac{7O^2}{2D}$$
+
+Nilai $O$ yang optimal dapat diperoleh dengan menyamakan turunan pertama fungsi dia atas sama dengan nol (syarat perlu untuk keoptimalan), dan kita dapatkan:
+
+$$EOQ = \sqrt{ \frac{2 C_O D^2}{7} }$$
+
+dan nilai $P$ yang optimal dapat diperoleh dengan mensubstitusikan nilai $EOQ$ di atas ke persamaan yang mengalikan $P$ dan $O$, yaitu $P = \frac{7O}{D}$.
+
+
+# ___Non Linear Modelling___
 
 ## Masalah
 
@@ -1219,7 +1283,7 @@ Berikut adalah solusi optimal yang didapatkan:
 result %>% get_solution(x[i])
 ```
 
-# Regresi Linear Sebagai Masalah _Optimization_
+# __Regresi Linear Sebagai Masalah__ ___Optimization___
 
 Suatu permasalahan regresi linear bisa dipandang sebagai masalah _optimization_. _Kok bisa?_
 
@@ -1311,3 +1375,5 @@ Jika kita hitung __RMSE__, didapatkan nilai:
 ```{r,message=FALSE,warning=FALSE}
 caret::RMSE(regresi_model$fitted.values,data$y)
 ```
+
+__Terima Kasih__
