@@ -44,4 +44,4 @@ jadwal %>%
         plot.caption = element_text(hjust = 0.5, color = "grey50", family = "Lato")) +
   xlim(-3,5)+ ylim(-30,30)
 
-ggsave("gula.png", width = 15, height = 7)
+ggsave("gula_new.png", width = 15, height = 7)
