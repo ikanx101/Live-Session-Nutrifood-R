@@ -42,6 +42,6 @@ jadwal %>%
         plot.title = element_text(hjust = 0.5, face = "bold", size = 25, family = "Patua"),
         plot.subtitle = element_text(hjust = 0.5, face = "italic", size = 22),
         plot.caption = element_text(hjust = 0.5, face = "bold", size = 10, color = "grey50", family = "Lato")) +
-  xlim(0,7)+ ylim(-30,30)
+  xlim(0,7)+ ylim(-35,35)
 
-ggsave("gula_new.png", width = 15, height = 7)
+ggsave("gula_new.png", width = 15, height = 8)
