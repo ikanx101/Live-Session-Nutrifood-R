@@ -39,9 +39,13 @@ options(scipen = 99)
 
 Diharapkan *training* ini memberikan wawasan baru terkait penggunaan metode matematika untuk menyelesaikan masalah *optimization* yang terjadi di banyak area kerja Nutrifood.
 
+Tentunya kalian mungkin menemukan _typo_ pada materi ini. Beberapa materi awal merupakan _copy-paste_ langsung dari materi __FinanMos__ sedangkan pada kasus-kasus merupakan penulisan ulang dari materi __FinanMos__.
+
+Pada beberapa kasus, kalian mungkin juga menemukan perbedaan cara saya menuliskan indeks pada _decision variable_. Itu tidak menjadi masalah karena notasi bisa berbeda tergantung cara penulisan.
+
 Semoga bisa berguna.
 
-Bekasi, 9 April 2021.
+Bekasi, 19 April 2021.
 
 Pengepul materi *training*,
 
@@ -818,10 +822,49 @@ Secara ringkas, masalah __TSP__ dapat dituliskan sebagai berikut:
 
 > ___Diberikan koordinat sejumlah titik, kita ingin menentukan tur dengan jarak terpendek yang mengunjungi semua titik tepat satu kali.___ 
 
-```{r,out.height="50%",fig.align='center'}
+```{r,out.height="50%",fig.align='center',echo=FALSE}
 knitr::include_graphics("ilusrasi TSP.png")
 ```
 
+## Model Matematika dari __TSP__
+
+### Parameter
+
+Diberikan $n$ titik yang diberikan label $0,1,2,..,n-1$ dengan label $0$ sebagai titik awal. Didefinisikan $c_{ij}$ sebagai jarak antara titik $i$ dan $j$.
+
+### _Decision Variable_
+
+Misalkan $T = (0,1,..,n-1)$, saya definisikan untuk $i,j \in T \text{ dengan } i \neq j$
+
+$$y_{ij} = \begin{cases}1, & \text{ jika kita menuju titik } j \text{ setelah mengunjungi titik }  i \\0, & \text{ lainnya}\end{cases}.$$
+
+### _Constraints_
+
+#### Kendala I
+
+Dari suatu titik, kita menuju __tepat__ satu titik lainnya.
+
+$$\forall i \in T, \sum_{j \neq i} y_{ij} =1$$
+
+#### Kendala II
+
+Dari suatu titik, kita menuju __tepat__ satu titik lainnya.
+
+$$\forall j \in T, \sum_{i \neq j} y_{ij} =1$$
+
+#### Kendala III
+
+Kendala ketiga dibuat untuk mencegah terjadinya _sub tour_ yang melibatkan $2$ atau $3$ sampai $n-1$ titik.
+
+Untuk setiap $S \subset T$ dengan $2 \leq |S| \leq n-2$:
+
+$$\sum_i \sum_j y_{ij} \leq |S| - 1$$
+
+### _Objective Function_
+
+Masalah dari __TSP__ ini adalah:
+
+$$\sum_{i} \sum_{j} c_{ij} y_{ij}$$
 
 \pagebreak
 
