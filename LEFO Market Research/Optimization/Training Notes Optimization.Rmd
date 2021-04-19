@@ -1570,7 +1570,7 @@ result %>% get_solution(x[i])
 
 \pagebreak
 
-# __Regresi Linear Sebagai Masalah__ ___Optimization___
+# __Regresi Linear__
 
 Suatu permasalahan regresi linear bisa dipandang sebagai masalah _optimization_. _Kok bisa?_
 
