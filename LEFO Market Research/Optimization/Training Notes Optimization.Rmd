@@ -868,6 +868,95 @@ $$\sum_{i} \sum_{j} c_{ij} y_{ij}$$
 
 \pagebreak
 
+# ___Vehicle Routing Problem___
+
+Di bagian ini kita akan membahas masalah yang dapat dianggap sebagai perluasan dari __TSP__, yang dikenal dengan nama ___Vehicle Routing Problem___ (__VRP__).
+
+## Masalah __VRP__ Klasik
+
+setiap rute bermula dan berakhir di titik tertentu, yang kita namakan titik _origin_, setiap titik dikunjungi tepat satu kali oleh tepat satu _vehicle_. Pengertian biaya optimal di sini dapat bervariasi, bisa berupa rute-rute dengan total jarak terkecil, atau rute-rute yang membutuhkan _vehicle_ sesedikit mungkin. 
+
+Berikut ini adalah ilustrasi dari penyelesaian __VRP__.
+
+```{r out.height="40%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("VRP.png")
+```
+
+__VRP__ sering sekali kita temui dalam masalah transportasi barang dari satu titik (_plant_ atau gudang) ke  sejumlah titik distribusi atau titik _demand_. Pada era ekonomi global sekarang ini, kebutuhan transportasi barang ini berkembang sangat pesat membuat kompleksitas __VRP__ yang dipunyai makin bertambah. Karena itu, banyak penelitian dilakukan untuk memodelkan variasi dari __VRP__ dan teknik-teknik penyelesaian variasi dari __VRP__ agar kegiatan transportasi barang makin efisien.
+
+Di kegiatan industri sehari-hari, seringkali masalah yang dihadapi lebih rumit dibandingkan masalah __VRP klasik__ yang dijelaskan di atas. 
+
+1. Contoh yang pertama adalah masalah __VRP__ di mana tujuan kunjungan yang harus dilakukan adalah untuk mengirim sejumlah barang ke titik-titik _demand_ dengan _volume demand_ yang kadang kala cukup besar, melebihi kapasitas angkut dari _vehicle_ yang ada. 
+1. Contoh yang kedua adalah masalah __VRP__ yang mewakili kebutuhan kunjungan oleh teknisi atau _sales_, di mana tidak ada kendala kapasitas _vehicle_ tetapi ada kendala total waktu tur yang dibatasi oleh jam kerja teknisi atau _sales_. 
+
+Beragamnya kendala yang ada mengakibatkan banyaknya variasi dari __VRP__, yang sebagiannya akan dibahas setelah ini.
+
+## Variasi __VRP__
+
+- Jika terdapat kendala di mana _vehicle_ yang ada mempunyai kapasitas tertentu: ___Capacitated Vehicle Routing Problem___ (__CPRV__).
+- Jika terdapat kendala di mana tiap titik harus dikunjungi pada _interval_ waktu tertentu: ___Vehicle Routing Problem with Time Windows___ (__PRVTW__).
+- Jika terdapat kondisi di mana suatu titik dapat dikunjungi atau dilayani oleh lebih dari satu _vehicle_: ___Vehicle Routing Problem with Split Deliveries___ (__PRVSD__).
+- Jika terdapat kondisi di mana sutu titik dapat dikunjungi atau dilayani oleh lebih dari satu _vehicle_ dan tiap titik harus dikunjungi pada _interval_ waktu tertentu: ___Vehicle Routing Problem with Time Windows and Split Deliveries___ (__PRVTWSD__).
+- Di dunia nyata, kadang kita menemukan __VRP__ di mana tujuannya bukan menentukan rute-rute dengan total jarak dari seluruh rute terkecil tetapi menentukan rute-rute dengan rute terpanjangnya mempunyai total jarak terkecil: ___Min Max Vehicle Routing Problem___ (__MMVRP__). 
+
+Salah satu alasan munculnya __MMVRP__ ini adalah adanya kebutuhan untuk membuat rute-rute yang cenderung seragam dalam hal total jarak, atau karena adanya batasan untuk total waktu tempuh dari rute-rute yang akan didapatkan dari penyelesaian __VRP__ ini.
+
+## Model Matematika __VRP__ Klasik
+
+Sekarang kita akan membuat model matematika dari permasalahan __VRP__ klasik.
+
+### Parameter
+
+Misalkan:
+
+- $T = \{1,2,..,n\}$ adalah himpunan titik _demand_.
+- Titik $0$ adalah titik depot atau gudang.
+- $d_{ij}$ adalah jarak dari $i$ ke $j$.
+- $q_i$ adalah _demand_ barang di titik $i$.
+- $V = \{1,2,..,m\}$ adalah himpunan _vehicles_.
+
+### _Decision Variables_
+
+Misal saya definisikan:
+
+$$x_{ijk} = \begin{cases} 1,  &\text{ jika titik } j \text{ dikunjungi setelah kunjungan ke titik } i  \text{ oleh vehicle ke } k\\ 0, & \text{ lainnya.}\end{cases}$$
+
+dan
+
+$$y_{ik} = \begin{cases} 1,  &\text{ jika titik } i \text{ dikunjungi oleh vehicle ke  }  k, \\ 0, & \text{ lainnya.}\end{cases}$$
+
+### _Constraints_
+
+Berikut adalah kendala-kendala yang ada:
+
+$$\forall i \in T \bigcup \{ 0 \} , \, \forall k \in V, \sum_{ j \neq i} x_{ijk} =   y_{ik}$$
+
+dan
+
+$$\forall j \in T  \bigcup \{ 0 \} , \, \forall k \in V, \sum_{i \neq j} x_{ijk} =   y_{ik}$$
+
+Kendala ini menjamin di  setiap titik _demand_ dikunjungi oleh suatu _vehicle_ dan _vehicle_ tersebut pasti akan meninggalkan titik tersebut.
+
+Sedangkan:
+
+$$\forall i \in T, \,  \sum_{k \in V} y_{ik} =1$$
+
+Kendala ketiga menjamin setiap titik dikunjungi tepat satu _vehicle_.
+
+Lalu:
+
+$\forall S \subset T, \text{ dengan } 2 \leq |S| \leq n-2, \text{ dan } \forall k \in V$:
+
+$$\sum _i \sum _j x_{ijk} \leq |S| -1$$
+
+### _Objective Function_
+
+Tujuan utama masalah ini adalah meminimumkan jarak yang ditempuh.
+
+$$\sum_{i \in T} \sum_{j \neq j} \sum_{k \in V} d_{ij} x_{ijk}$$
+
+\pagebreak
+
 # ***Nurse Schedulling***
 
 Di bagian ini kita akan mempelajari masalah penjadwalan perawat (*nurse scheduling*) yang mempunyai aturan kerja yang tidak terlalu banyak. Aturan kerja yang dibahas di sini mungkin saja merupakan aturan di suatu rumah sakit saja, yang sedikit berbeda dengan aturan kerja perawat di rumah sakit lainnya. Tetapi tujuan dibuat aturan kerja ini di rumah sakit manapun adalah sama, yaitu aturan yang dibuat agar jam kerja perawat diatur sedemikian hingga sehingga para perawat berada pada kondisi yang baik ketika bekerja.
