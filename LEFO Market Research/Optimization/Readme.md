@@ -1,4 +1,4 @@
-Welcome\!
+Welcome!
 ================
 
 *Repositories* ini berisi *R Markdown* penyelesaian dari beberapa kasus
@@ -14,8 +14,8 @@ Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah
 *real* ke permodelan matematikanya. Jika sudah termodelkan, akan mudah
 dimasukkan ke berbagai *libraries* yang ada di **R**.
 
-> ***Silakan Anda mendownload file*** `Optimization Cases.pdf` ***yang
-> ada di folder ini***.
+> ***Silakan Anda mendownload file*** `Training Notes Optimization.pdf`
+> ***yang ada di folder ini***.
 
 ## **Discord**
 
@@ -27,7 +27,7 @@ Punya akun *Discord*? Kalau belum, silakan *download apps*-nya di
 *Join discord* **Nutrifood x R** di *link* [berikut
 ini](https://discord.gg/zy9XJgsf).
 
------
+------------------------------------------------------------------------
 
 Selamat belajar.
 
@@ -35,4 +35,4 @@ Selamat belajar.
 
 *Created by:* [Ikang Fadhli](https://ikanx101.com/)
 
-*Last update:* 2021-03-30 05:10:22
+*Last update:* 2021-04-20 14:56:16

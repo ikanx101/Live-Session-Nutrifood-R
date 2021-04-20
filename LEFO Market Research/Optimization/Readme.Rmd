@@ -13,7 +13,7 @@ Saya menggunakan __R__ untuk membuat model _optimization_ dan di-_solve_ dengan 
 
 Agak berbeda dengan _libraries_ yang akan digunakan saat _training_ dengan __FINANMOS ITB__ kelak namun tetap menghasilkan hasil yang sama. Karena persoalan yang pentingnya adalah bagaimana memodelkan masalah _real_ ke permodelan matematikanya. Jika sudah termodelkan, akan mudah dimasukkan ke berbagai _libraries_ yang ada di __R__.
 
-> ___Silakan Anda mendownload file___ `Optimization Cases.pdf` ___yang ada di folder ini___.
+> ___Silakan Anda mendownload file___ `Training Notes Optimization.pdf` ___yang ada di folder ini___.
 
 ## __Discord__
 
