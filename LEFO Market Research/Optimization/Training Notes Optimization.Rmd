@@ -6,7 +6,7 @@ date: "19 April 2021"
 fontsize: 10pt
 header-includes:
 - \usepackage{titling}
-- \pretitle{\begin{center}\includegraphics[width=5in,height=5in]{logo R.png}\LARGE\\}
+- \pretitle{\begin{center}\includegraphics[width=3in,height=3in]{logo R.png}\LARGE\\}
 - \posttitle{\end{center}}
 - \usepackage{fancyhdr}
 - \pagestyle{fancy}
@@ -1663,5 +1663,106 @@ Jika kita hitung __RMSE__, didapatkan nilai:
 caret::RMSE(regresi_model$fitted.values,data$y)
 ```
 
+\pagebreak
 
+# Penyediaan BBM
+
+Di bagian ini kita akan mempelajari simplifikasi dari masalah penyediaan bahan bakar minyak (BBM) di Indonesia. Kebutuhan BBM di Indonesia sangat tinggi, mengingat banyaknya penduduk di Indonesia yang memerlukanbahan bakar gas.  Walaupun Indonesia adalah negara penghasil minyak mentah, yang merupakan bahan pembuat BBM, tetapi konsumsi BBM jauh lebih tinggi dibandingkan total produksi BBM yang dapat dihasilkan dari seluruh minyak mentah yang dikilang di kilang dalam negeri. Gambar berikut memperlihatkan kondisi kekurangan tersebut, sehingga sejak tahun 2004 Indonesia adalah negara pengimpor minyak mentah dan bahan bakar minyak. 
+
+```{r out.width="80%", echo=FALSE, fig.align='center'}
+print("Grafik produksi dan konsumsi BBM Indonesia. Sumber: PWC Indonesia.")
+knitr::include_graphics("Oil BBM.jpg")
+```
+
+Mengapa disebut negara pengimpor minyak mentah dan juga bahan bakar minyak?
+
+## Masalah
+
+Dalam setahun, Indonesia:
+
+- Membutuhkan BBM sejumlah tertentu. Di grafik di atas, pada tahun 2018 kebutuhan BBM Indonesia adalah sekitar 1.750 juta kilo liter per hari.
+- Dari sejumlah kilang yang ada, Indonesia hanya mampu  memproses minyak mentah menjadi BBM sejumlah tertentu. Di tahun 2018, kemampuan produksinya hanyalah sejumlah 638 ribu kilo liter.
+- Dari sejumlah blok sumur minyak yang ada, Indonesia dapat menghasilkan sejumlah minyak mentah jenis tertentu. Di grafik di atas, pada tahun 2018 volume produksi minyak mentah Indonesia adalah sekitar 800 ribu kilo liter. Tetapi: 
+    - (a)  yang mutlak dimiliki pemerintah Indonesia hanya sekitar 10% nya saja, sisanya dimiliki oleh pihak KKKS yang bebas menjualnya ke dalam negeri atau untuk eksport. Selain itu, 
+    - (b) tidak semua minyak yang dihasilkan optimal dikilang di kilang-kilang yang ada di Indonesia. 
+
+Karena alasan (a) dan (b) di atas, sebagian dari minyak mentah yang dihasilkan diekspor ke manca negara, dan pengilangan minyak mentah di kilang-kilang dalam negeri bahan mentahnya adalah minyak mentah hasil _lifting_ dalam negeri dan minyak mentah impor dari luar negeri (contohnya dari Arab Saudi, Nigeria, Australia dan Aljazair). 
+
+\pagebreak
+## Asumsi
+
+Di model optimisasi kita melihat simplifikasi masalah dengan mengasumsikan:
+
+1. Hanya ada dua jenis BBM hasil pengilangan, yaitu BBM 1 dan BBM 2.
+1. Ada empat negara dari mana kita mengimport minyak mentah, yaitu negara  Arab Saudi, Nigeria, Australia dan Aljazair,
+1. _Yield factor_ dari minyak mentah yang diimpor dari tiap negara berbeda. 
+    - _Yield factor_ adalah proporsi untuk tiap jenis BBM yang dihasilkan dari pengilangan minyak mentah. 
+    - Sebagai contoh, jika _yield factor_ dari suatu minyak mentah dalam menghasilkan BBM 1 adalah 0.7 maka dari satu juta kilo liter minyak mentah tersebut yang dikilang dihasilkan 700 ribu kilo liter BBM 1. 
+1. Ada satu negara dari mana kita mengimpor BBM 1 dan BBM 2.
+1. Biaya pengilangan minyak mentah di semua kilang sama, sehingga di model ini kita boleh menganggap hanya ada satu kilang saja.
+
+Berdasakan deskripsi di atas, kita dapat menyimpulkan masalah optimisasi dalam penyediaan BBM di Indonesia adalah berapa banyak ekspor minyak mentah, berapa banyak impor minyak mentah (dan dari negara mana saja), berapa banyak kita mengimpor tiap jenis BBM, agar kebutuhan BBM terpenuhi dengan total biaya penyediaan BBM minimum.
+
+## Parameter
+
+Berikut ini kita akan melihat parameter-parameter yang terlibat dalam pemodelan masalah penyediaan BBM ini, setelah ada beberapa proses simplifikasi dari masalah nyatanya. Demikian pula dengan nilai-nilai paramter yang ada dibuat dummy, mengingat beberapa nilai parameter nilainya berubah seiring perubahan harga minyak dunia dan kondisi infrastruktur pengilangan minyak mentah di Indonesia. 
+
+Untuk memudahkan pemodelan, kita mendefinisikan himpunan indeks terlebih dahulu. Memodelkan masalah penyediaan BBM ini setingkat lebih rumit dibandingkan memodelkan perencaan produksi di koperasi susu sebelumnya karena bahan baku produksi BBM berasal dari lebih dari satu pemasok (supplier), di mana keputusan menggunakan bahan baku dari pemasok mana saja adalah hal yang akan menjadi bagian dari solusi masalah. Sementara di masalah koperasi susu, susu sudah tersedia dan tidak ada kebutuhan mengetahui susu dari mana saja itu berasal. Variabel keputusan dapat didefinisikan dengan mudah setelah kita mempunyai himpunan indeks ini secara lengkap, demikian pula ketika kita membuat kendala-kendala di masalah optimisasi himpunan indeks ini akan sangat membantu kita membuat ekspresi matematikanya.
+
+Misalkan:
+
+- $I = \{1,2\}$ adalah himpunan jenis BBM.
+- $J = \{1,2,..,5\}$ adalah himpunan pemasok BBM. Sebagai catatan $J=5$ berarti pemasok dalam negeri.
+- $D_i$ adalah _demand_ BBM jenis $i$ dalam satuan kilo liter.
+- $CO_i$ adalah harga impor BBM jenis $i$ dalam satuan USD per satu juta kilo liter.
+- $S_i$ adalah harga jual BBM jenis $i$ dalam satuan USD per satu juta kilo liter.
+- $CR_j$ adalah harga impor minyak mentah dari negara $j$ dalam satuan USD per satu juta kilo liter.
+- $Y_ji$ adalah _yield factor_ dari minyak mentah $j$ dalam menghasilkan BBM jenis $i$.
+- $OP$ adalah biaya kilang BBM dalam satuan USD per satu juta kilo liter.
+- $P$ adalah kapasitas produksi kilang minyak dalam negeri dengan satuan USD per satu juta kilo liter.
+
+## _Decision Variable_
+
+- Misalkan $x_j$ adalah banyaknya minyak mentah yang dibeli dari negara $j$. Ingat kembali untuk $j=5$ variabel ini terkait dengan penggunaan BBM dari dalam negeri.
+- Misalkan $z_i$ adalah banyaknya impor BBM jenis $i$.
+
+## _Constraints_
+
+Berikut adalah kendala-kendala yang ada:
+
+- _Demand_ dari tiap jenis BBM harus terpenuhi, baik dari hasil pengilangan minyak mentah ataupun dari impor BBM. 
+
+$$\sum_{j\in J} Y_{ji}x_j + z_i \geq D_i$$
+
+- Kapasitas produksi kilang di dalam negeri terbatas, yaitu paling banyak sebanyak $P$.
+
+$$\sum_{j\in J} x_j  \leq P$$
+
+- Banyaknya minyak mentah hasil lifting minyak mentah dalam negeri yang diproses di kilang adalah terbatas, yaitu paling banyak $L$.
+
+$$x_5 \leq L$$
+
+## _Objective Function_
+
+Fungsi objektif dari masalah ini adalah biaya penyediaan BBM. Biaya terdiri dari:
+
+1. Biaya untuk mengimpor minyak mentah,
+1. Biaya untuk mengimpor BBM,
+1. Biaya untuk mengilang minyak mentah.
+
+Semua biaya tersebut kita keluarkan, dan di masalah ini masih ada peluang kita mempunyai pendapatan dari mengekspor minyak mentah dan penjualan BBM. Karena itu, lebih baik kita menggunakan besaran keuntungan, yaitu pendapatan dikurangi biaya, sebagai fungsi objektif. Sekarang kita rinci berapa biaya yang kita keluarkan dan berapa pendapatan yang mungkin.
+
+- Biaya impor/pembelian minyak mentah sebanyak $\sum_{j=1}^5 C_j x_j$.
+- Biaya impor BBM sebanyak $\sum_{i=1}^2 CO_i z_i$.
+- Biaya pengilangan minyak mentah sebanyak $OP\sum_{j=1}^5 x_j$.
+- Pendapatan dari penjualan BBM sebanyak $\sum_{i=1}^2 S_i (\sum_{j=1}^5 Y_{ji}x_j)$,
+- Pendapatan dari eksport minyak mentah sebesar $C_5 (L-x_5)$.
+
+Sehingga kita mempunyai fungsi objektif berupa fungsi keuntungan dengan ekspresi.
+
+$$\text{Obj Function} = \sum_{i = 1}^2 S_{i} (\sum_{j=1}^5 Y_{ji} x_{j}) + C_5 (L - x_5) - \sum_{j=1}^5 C_j x_j - \sum_{i=1}^2 CO_i z_i - OP \sum_{j=1}^5 x_j$$
+
+Maka tujuan kita adalah $max(\text{Obj Function})$.
+
+\pagebreak
 # Epilog {-}
