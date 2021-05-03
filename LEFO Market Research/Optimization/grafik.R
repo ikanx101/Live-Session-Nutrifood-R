@@ -26,7 +26,7 @@ jadwal %>%
              color = "white") +
   
   geom_mark_circle(aes(y = 0, label = NA, description = label, fill = event), 
-                   con.cap = -1, fill = NA, color = NA, label.fontsize = 10, label.hjust = 0,
+                   con.cap = -1, fill = NA, color = NA, label.fontsize = 9, label.hjust = 0,
                    label.fill = NA,
                    con.size = 0.5, con.border = "one",
                    con.type = "elbow") +

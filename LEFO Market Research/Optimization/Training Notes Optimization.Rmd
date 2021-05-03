@@ -1765,4 +1765,132 @@ $$\text{Obj Function} = \sum_{i = 1}^2 S_{i} (\sum_{j=1}^5 Y_{ji} x_{j}) + C_5 (
 Maka tujuan kita adalah $max(\text{Obj Function})$.
 
 \pagebreak
+# Penentuan _Supplier_
+
+Kali ini, kita akan membahas terkait masalah _real_ yang dihadapi Nutrifood di _plant_.
+
+## Latar Belakang
+
+Dalam rangkaian produksi, __Nutrifood__ menggunakan banyak sekali bahan baku. Salah satu bahan baku utama yang paling sering digunakan adalah __gula__. 
+
+Selama ini __Nutrifood__ memesan gula secara __langsung tiap bulannya__ dengan besarnya pemesanan disesuaikan dengan:
+
+1. Angka _forecast_ masing-masing produk yang menggunakan gula-gula tersebut.
+1. _Existing stock_ gula yang ada di gudang bahan baku.
+1. _Minimum order_ per jenis gula yang ditetapkan _vendor_.
+
+Informasi terkait pengiriman gula:
+
+- Pengiriman bahan baku gula oleh para _vendor_ dilakukan sebanyak __4__ kali dalam sebulan dengan jumlah  sesuai dengan aturan berikut:
+    - Banyaknya gula pada __pengiriman pertama__ disesuaikan dengan __stok__ ___existing___ dan ___demand___ produk terkait gula tersebut pada minggu I.
+    - Sedangkan banyaknya gula pada __pengiriman kedua hingga keempat__ dibuat proporsional.
+    - Contoh pada suatu bulan tertentu:
+        - Kebutuhan gula diperkirakan sebesar __400 ton__.
+        - Stok _existing_ gula di gudang bahan baku ada __50 ton__.
+        - Maka Nutrifood perlu memesan gula sebesar __350 ton__.
+        - Pengiriman dilakukan __4 kali__.
+        - Pada minggu I, diperkirakan kebutuhan gula ada sebesar __100 ton__. Oleh karena itu, __pengiriman gula pertama__ adalah sebesar __50 ton__ saja.
+        - Pada minggu II, III, dan IV pengiriman gula adalah proporsional sebesar __100 ton__.
+    - Oleh karena itu, kelak pada model matematika perlu ada _constraints_ terkait hal ini.
+    
+```{r out.width="90%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("ilustrasi.png")
+```
+    
+- __Waktu pengiriman dan inspeksi__ selama __17__ hari setelah pemesanan gula sampai akhirnya gula tersebut dapat digunakan untuk produksi. 
+
+> __Oleh karena itu, perencanaan pembelian gula dilakukan setidaknya sebulan sebelum gula tersebut akan digunakan.__
+
+Saat ini, ada __6__ jenis gula yang bisa dipesan ke __6__ _vendor_ yang berbeda. Masing-masing gula digunakan untuk membuat produk tertentu. 
+
+Informasi lain yang perlu diketahui adalah:
+
+- __Tidak ada kewajiban__ bagi Nutrifood untuk membeli semua jenis gula. 
+- Terkait penggunaan bahan baku gula:
+    - Sebagian kecil dari produk hanya bisa diproduksi dengan __satu jenis gula saja__.
+    - Sebagian besar lainnya memungkinkan untuk diproduksi dengan __dua atau lebih jenis gula__.
+        - Unit per jenis gula yang digunakan untuk membuat produk adalah sama walau berbeda jenis gula.
+- Setidaknya minimal ada __2 jenis gula__ yang dibeli Nutrifood sebagai _back up_ substitusi bahan baku.
+- Pembelian gula harus memenuhi _minimum order_ yang ditetapkan oleh _vendor_ __tapi__ jika pembelian di atas _minimum order_ harus dilakukan __pembulatan__. Misalkan:
+    - _Minimum order_ gula adalah __10 ton__, maka Nutrifood:
+        - Boleh membeli __11 ton__.
+        - Tidak boleh membeli __10.5 ton__.
+- Harga masing-masing jenis gula berbeda. Namun untuk lama pengiriman gula, pada kasus ini semua gula memiliki lama pengiriman yang sama.
+
+> ___Berapa banyak gula yang harus dipesan ke masing-masing vendor `dalam sebulan` agar menghasilkan cost yang terendah?___
+
+### Alur Pengadaan Bahan Baku Gula
+
+Berikut adalah _summary_ alur pengadaan bahan baku gula yang dilakukan Nutrifood:
+
+```{r out.width="90%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("gula_new.png")
+```
+
+Model matematika yang dibuat akan berdasarkan _flow_ di atas.
+
+
+## Contoh Ilustrasi
+
+### Case I: Minimal __2 jenis__ gula sebagai _back up_
+
+Dalam suatu bulan tertentu, untuk memproduksi produk __A__, __B__, dan __C__ dibutuhkan gula $x_1$, $x_2$, __atau__ $x_3$.
+
+Untuk memastikan tidak ada masalah di kemudian hari (sebagai _back up_), maka minimal harus ada __2__ jenis gula yang harus dibeli. Alternatifnya:
+
+1. Membeli $x_1$ dan $x_2$,
+1. Membeli $x_1$ dan $x_3$,
+1. Membeli $x_2$ dan $x_3$, atau
+1. Membeli $x_1$, $x_2$, dan $x_3$.
+
+### Case II: Unit gula yang digunakan __sama__
+
+Dalam suatu bulan tertentu, untuk membuat produk __A__, kita bisa menggunakan:
+
+1. 100 unit $x_1$ atau,
+1. 100 unit $x_2$.
+
+Sedangkan untuk membuat produk __B__, kita bisa menggunakan:
+
+1. 100 unit $x_2$ atau,
+1. 100 unit $x_3$.
+
+Dari kasus di atas, kita bisa menuliskan bahwa:
+
+1. Kebutuhan gula 1 ada sebesar $x_1 \leq 100$.
+1. Kebutuhan gula 2 ada sebesar $x_2 \leq 200$.
+1. Kebutuhan gula 3 ada sebesar $x_3 \leq 100$.
+
+Karena minimal harus ada __2 gula yang dipilih__, maka alternatif solusi yang ada adalah:
+
+1. 100 unit $x_1$ dan 100 unit $x_2$.
+1. 100 unit $x_1$ dan 100 unit $x_3$.
+1. 100 unit $x_2$ dan 100 unit $x_3$.
+1. 100 unit $x_1$, 100 unit $x_2$ dan 100 unit $x_3$.
+    
+## __Model Matematika__
+
+### ___Time Frame___
+_Time frame_ dari masalah ini adalah penentuan berapa banyak jenis gula yang harus dibeli setiap __bulan__ dalam rentang __6 minggu__. 
+
+### ___Known Parameter___
+
+Dari informasi di atas, kita bisa dapatkan informasi:
+
+### _Decision Variables_
+
+Misalkan saya definisikan $x_i$ sebagai banyaknya gula $i$ yang dibeli untuk memenuhi $D$. Lalu karena Nutrifood tidak ada kewajiban membeli semua gula yang ada, maka:
+
+$x_i$ bisa bernilai:
+
+- $x_i = 0$ __atau__ 
+- $\text{min_order}_i \leq x_i \leq \text{max_cap}$.
+
+Untuk itu, saya akan definisikan satu variabel $y_i$ berupa _binary_:
+
+$$y_i = \begin{cases} 1 & x_i=0,\\ 0 & \text{min_order}_i \leq x_i \leq \text{max_cap}\end{cases}$$
+
+$$\forall k \in K \text{ kecuali } \{1,6\}, \, \forall  i \in P_j, \, \forall k \in G,$$
+
+\pagebreak
 # Epilog {-}
