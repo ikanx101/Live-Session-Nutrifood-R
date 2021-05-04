@@ -1877,20 +1877,108 @@ _Time frame_ dari masalah ini adalah penentuan berapa banyak jenis gula yang har
 
 Dari informasi di atas, kita bisa dapatkan informasi:
 
+- $M = \{1,2,..,6\}$ adalah himpunan minggu dalam _timeframe_ masalah ini.
+- $\hat{M} = M \setminus \{1,6\}$
+- $P = P_1 \bigcup P_2 \bigcup \cdots \bigcup P_6$ adalah himpunan produk yang diproduksi selama 6 minggu tersebut.
+- $\hat{P}$ adalah bagian dari $P$, berupa himpunan produk yang menggunakan paling sedikit dua jenis gula.
+- $\dot{P}$ adalah bagian dari $P$, berupa himpunan produk yang menggunakan satu jenis gula saja.
+- $G = \{1,2,..,6\}$ adalah himpunan jenis gula.
+- $D$ adalah kebutuhan gula di bulan perencanaan, yaitu: $week_3,week_4,week_5, \text{ dan } week_6$.
+- $maxcap$ adalah kapasitas gudang atau tempat penyimpanan gula.
+- $\forall i \in P_j, \, g_{ijk}$ adalah kebutuhan gula (dalam ton) dari produk $i$ di minggu ke $k$.
+- $\forall k \in G, \, c_k$ adalah harga gula (dalam ton) dari pemasok atau jenis ke $k$.
+- $\forall k \in G, \, \epsilon _k$ adalah minimum order gula jenis $k$.
+- $\forall k \in G, \, \hat{d}_{2k}$ adalah total kebutuhan gula jenis ke $k$ di minggu ke $2$.
+- $\forall k \in G, \, Z_{ik}$ adalah ___level of inventory___ dari gula jenis $k$ di akhir minggu $1$.
+
 ### _Decision Variables_
 
-Misalkan saya definisikan $x_i$ sebagai banyaknya gula $i$ yang dibeli untuk memenuhi $D$. Lalu karena Nutrifood tidak ada kewajiban membeli semua gula yang ada, maka:
+Misalkan saya definisikan $\forall k \in G, x_k$ sebagai banyaknya gula jenis $k$ (dalam ton) yang dibeli dari _supplier_ $k$. Kita ketahui bahwa tidak ada kewajiban bagi Nutrifood untuk membeli semua jenis gula tersebut. Perlu diingat juga bahwa $x_k \in \mathbb{Z}$.
 
-$x_i$ bisa bernilai:
+Artinya:
 
-- $x_i = 0$ __atau__ 
-- $\text{min_order}_i \leq x_i \leq \text{max_cap}$.
+- $x_k = 0$ jika kita tidak membeli gula $k$ 
+- $\epsilon_k \leq x_k \leq maxcap$ jika kita membeli gula. 
 
-Untuk itu, saya akan definisikan satu variabel $y_i$ berupa _binary_:
+Untuk menangani nilai diskontinu dari $x_k$, misalkan $\forall k \in G$ saya definisikan:
 
-$$y_i = \begin{cases} 1 & x_i=0,\\ 0 & \text{min_order}_i \leq x_i \leq \text{max_cap}\end{cases}$$
+$$y_k = \begin{cases} 1,& x_k = 0 \\ 0, & \epsilon_k \leq x_k \leq maxcap \end{cases}$$
 
-$$\forall k \in K \text{ kecuali } \{1,6\}, \, \forall  i \in P_j, \, \forall k \in G,$$
+Lalu $\forall j \in M \setminus \{1,6\}, \, \forall  i \in P_j, \, \forall k \in G$, saya definisikan $\hat{x_{jk}}$ sebagai banyaknya pengiriman gula jenis $k$ di awal minggu ke $j$.
+
+Saya definisikan juga:
+
+$$a_{ijk} = \begin{cases} 1, & \text{produk ke } i \text{ di minggu ke } j \text{ menggunakan gula jenis } k\\ 0, & \text{lainnya},\end{cases}$$
+
+$$b_{ijk} = \text{proporsi penggunaan gula jenis } k \text{  dari seluruh kebutuhan gula  produk ke } i \text{ di minggu ke } j.$$
+
+$b_{ijk}$ berada di _range_ $0 \leq b_{ijk} \leq 1$$
+
+Lalu $\forall j \in M \setminus \{1\}, \, \forall k \in G$, saya definisikan $z_{jk}$ sebagai _level of inventory_ gula jenis $k$ di akhir minggu $j$, dengan $0 \leq z_{jk} \leq maxcap$.
+
+\pagebreak
+
+### _Constraints_
+
+#### ___Constraint___ __I__ 
+memberikan hubungan yang benar antara variabel keputusan biner $y_k$ dan variabel keputusan integer atau variabel kontinyu $x_k$ yang berkaitan dengannya.
+
+$\forall k \in G$,
+
+$$x_k \leq D y_k$$
+
+$$x_k \geq \epsilon_k y_k$$
+
+$\forall j \in M \setminus \{1,2\}, \, \forall  i \in P_j, \, \forall k \in G$,
+
+$$b_{ijk} \leq a_{ijk}$$
+
+$$b_{ijk} \geq \mu a_{ijk}, \text{ untuk nilai } \mu \text{ yang sangat kecil.}$$
+
+#### ___Constraint___ __II__ 
+dibuat agar total pemesanan gula tidak kurang dari _total demand_ di bulan perencanaan.
+
+$$\sum_{k \in G} x_k \geq D$$
+
+#### ___Constraint___ __III__ 
+mengatur hubungan antara total pembelian gula dan pengiriman tiap minggu, $\forall k \in G$ maka:
+
+$$x_k = \sum_{j \in \hat{M}} \hat{x} _{jk}$$
+
+#### ___Constraint___ __IV__ 
+menjaga volume setiap jenis gula yang dikirim di pengiriman kedua, ketiga dan keempat selalu sama, $\forall k \in G$ maka:
+
+$$\hat{x}_{3k} = \hat{x}_{4k} \text{ dan } \hat{x}_{4k} = \hat{x}_{5k}$$
+
+#### ___Constraint___ __V__ 
+dibuat untuk menjaga komposisi gula yang diinginkan. 
+
+Pertama-tama untuk produk yang menggunakan lebih dari satu jenis gula, $\forall j \in M \setminus \{1, 2\} ,  \forall i \in \hat{P} _j$, maka:
+
+$$\sum_{k \in G} a_{ijk} \geq 2$$
+
+$$\sum_{k \in G} b_{ijk}  = 1$$
+
+Kedua untuk produk yang hanya bisa menggunakan satu jenis gula, $\forall j \in M \setminus \{1, 2\} ,  \forall i \in \dot{P} _j$, maka:
+
+$$\sum_{k \in G} a_{ijk} = 1$$
+
+$$\sum_{k \in G} b_{ijk}  = 1$$
+
+#### ___Constraint___ __VI__ 
+dibuat untuk menjaga _level of inventory_ sesaat setelah pengiriman gula tidak melebihi kapasitas gudang atau tempat penyimpanan.
+
+$$\sum_{k \in G} (Z_{1k} + \hat{x}_{1k} - \hat{d}_{2k} + z_{jk})  = maxcap$$
+
+$\forall j \in M \setminus \{1,2\}$,
+
+$$\sum_{k \in G} (z_{(j-1) k} + \hat{x} _{(j-1) k}) - \sum_{i \in P_j} b_{ijk} g_{ijk} + z_{jk} = maxcap$$
+
+### _Objective Function_
+
+Berdasarkan pembahasan di atas, maka masalah pemiihan pemasok gula dan volume pemesanannya dapat dituliskan menjadi masalah:
+
+$$\text{min} \sum_{k \in G}c_k x_k$$
 
 \pagebreak
 # Epilog {-}
