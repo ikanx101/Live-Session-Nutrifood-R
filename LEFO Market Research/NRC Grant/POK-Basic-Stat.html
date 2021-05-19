@@ -4,7 +4,8 @@
     <title>Basic Statistics &amp; Analytics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ikang Fadhli" />
-    <meta name="date" content="2021-04-01" />
+    <meta name="date" content="2021-05-10" />
+    <script src="libs/header-attrs-2.7/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/fc.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/fc-fonts.css" rel="stylesheet" />
@@ -18,7 +19,7 @@ class: center, middle, inverse, title-slide
 ## POK 2021
 ### Ikang Fadhli
 ### Nutrifood Indonesia
-### 1 April 2021
+### 10 May 2021
 
 ---
 
@@ -587,6 +588,13 @@ Secara _default_, __Ms. Excel__ menggunakan cara perhitungan parametrik (__Pears
 ]
 
 ---
+class: middle
+
+# Korelasi Bukan Berarti Kausalitas!
+
+&lt;img src="https://miro.medium.com/max/2400/1*LMH2Z_KaYMCLZ9690br8AA.png" width="83%" /&gt;
+
+---
 
 # Beda Signifikan
 
@@ -640,16 +648,37 @@ Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara sta
 .pull-right[
 ### Langkah - langkah uji hipotesis:
 
-1. Tentukan hipotesis nol dan hipotesis tandingan.
-  - Notasi: H0 dan H1
-  - Hipotesis nol adalah hipotesis yang mengandung unsur __sama dengan__.
-2. Contoh pada t-test dua sampel:
-  - H0: rata - rata dari dua sampel yang dites sama.
-  - H1: rata - rata dari dua sampel yang dites berbeda. 
-3. Hitung statistik uji atau p-value.
-4. Kesimpulan: Tolak H0 jika p-value &lt; 0.05.
-5. Tuliskan kesimpulan dengan kalimat non matematis.
+- Tentukan hipotesis nol dan hipotesis tandingan.
+    - Notasi: `\(H_0\)` dan `\(H_1\)`
+    - Hipotesis nol adalah hipotesis yang mengandung unsur sama dengan.
+- Hitung statistik uji atau p-value.
+- Kesimpulan: Tolak `\(H_0\)` jika `\(p_{value} &lt; 0.05\)`.
+    - Kenapa dipilih nilai `0.05`?
+    - Nilai tersebut sebenarnya bisa kita ganti tergantung seberapa besar atau kecil akurasi pengujian yang kita lakukan.
+    - Nilai `0.05` yang digunakan biasanya lazim dipakai pada banyak kasus.
+    - Penjelasan terkait nilai `0.05` atau `\(\alpha\)` atau yang biasa disebut sebagai ___significance level___ bisa rekan-rekan cari di berbagai sumber.
+- Tuliskan kesimpulan dengan kalimat non matematis.
 ]
+
+---
+class: middle
+# Statistika Inferensi
+## Z-Test vs T-test
+
+Kapan pakai Z-Test? Kapan pakai T-Test?
+
+1. Menggunakan __z-test__: digunakan jika kita mengetahui parameter variansi dari populasi.
+1. Menggunakan __t-test__: digunakan jika kita tidak mengetahui parameter variansi dari populasi sehingga variansi populasi akan kita dekati dengan variansi dari _sample_.
+
+---
+class: middle
+# Statistika Inferensi
+## Uji Beda Rata-Rata Dua Sampel
+
+Perlu saya ingatkan kembali bahwa __uji mean 2 sample__ ada dua jenis, yakni:
+
+1. Uji untuk dua data berpasangan: dilakukan jika __subjek penelitian sama dan ingin melihat apakah perlakuan yang ada memberikan dampak terhadap perubahan mean data atau tidak__. Contoh: peneliti hendak menguji apakah ada perbedaan nilai _pre test_ dan _post test_ dari suatu kelompok murid dalam mengikuti suatu pelatihan. Pada uji ini, kedua _sample_ wajib memiliki jumlah baris yang sama.
+1. Uji untuk data independen: dilakukan jika __dua kelompok sample yang diuji tidak saling berkaitan sama sekali__. Pada uji ini, tidak ada keharusan jumlah baris data dari kedua _sample_ harus sama (bisa berbeda).
 
 ---
 # Statistika Inferensi
