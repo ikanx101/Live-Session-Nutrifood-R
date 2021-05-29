@@ -29,7 +29,7 @@ data = data.frame(
             "14 May\nWEDDING DAY",
             "14 Feb\nAhnaf lahir jam 6.30 WIB. Hasil tes bilirubin kurang baik, sehingga harus disinar kembali setelah beberapa hari sempat pulang ke rumah.",
             "5 Agustus\nCeisya lahir jam 6.30 WIB. Beberapa minggu setelahnya, Ceisya harus dirawat di ruang intermediate karena ada infeksi di pusarnya.",
-            "#1Dekade pernikahan.")
+            "#SatuDekade pernikahan.")
 )
 
 
