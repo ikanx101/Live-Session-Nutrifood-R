@@ -1,0 +1,67 @@
+---
+title: "POST TEST: Basic Statistics"
+author: "Mohammad Rizka Fadhli"
+date: "7/28/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Post Test Basic Stats")
+
+```
+
+# KETERANGAN
+Bentuk soal adalah _multiple choices_ dengan jawaban benar hanya satu dan saya __bold__ seperti __PPKM__ (_with bold_) kemarin.
+
+# SOAL
+
+1. Berikut ini adalah proses atau titik kritis dalam melakukan suatu penelitian, kecuali:
+    1. Formulasi masalah
+    1. _Design research_
+    1. Analisa data
+    1. ___Feedback___ __penelitian__
+1. Dalam suatu penelitian, saya mengumpulkan data kadar `gula darah` dari karyawan Nutrifood. Kemudian saya membuat variabel baru bernama `kategori gula darah` yang berisi pengelompokkan `gula darah` menjadi: _high_, _medium_, dan _low_. Termasuk ke dalam tipe data apakah data `gula darah` tersebut?
+    1. Nominal
+    1. Ordinal
+    1. __Kontinu__
+    1. Diskrit
+1. Berikut ini data yang termasuk ke dalam jenis data kuantitatif adalah ...
+    1. __Tinggi badan__
+    1. Jenis kelamin
+    1. Nama-nama hari
+    1. Skala kepuasan
+1. Berikut ini data yang termasuk ke dalam jenis data nominal adalah ...
+    1. Banyak karyawan per departemen
+    1. Usia karyawan
+    1. Banyak hari libur per bulan
+    1. __Kode departemen dalam divisi HR__
+1. Berikut ini adalah data yang bisa dihitung _mean_, _median_, dan _modus_, ___kecuali___ ...
+    1. Gramasi hasil mesin _filling_
+    1. __Kode departemen di Nutrifood__
+    1. Banyaknya sachet NutriSari yang diproduksi mingguan
+    1. Banyaknya karyawan yang makan di kanti dalam sehari
+1. Dari beberapa data berikut ini, data mana yang __hanya bisa dihitung__ ___mean___-__nya__?
+    1. _Gender_ karyawan
+    1. __Banyaknya mobil yang diparkir di halaman depan dalam sehari__
+    1. Kode departemen di _plant_ Cibitung
+    1. Pengelompokkan kadar gula darah karyawan: _high_, _medium_, dan _low_
+1. Setelah diteliti, banyaknya produk cacat hasil produksi berkorelasi dengan lamanya waktu _mixing_ produk sebesar `0.78`. Pernyataan mana yang benar?
+    1. __Semakin lama produk di-mixing, ada kecenderungan semakin banyak produk cacat__
+    1. Korelasi antara produk cacat dan lama _mixing_ relatif lemah
+    1. Waktu _mixing_ mengakibatkan banyaknya produk cacat menurun
+    1. Banyaknya produk cacat tidak berpengaruh terhadap waktu _mixing_
+1. Mana pernyataan yang tepat mengenai _mean_ atau rata-rata?
+    1. _Mean_ tidak akan terpengaruh oleh data ekstrim atau pencilan
+    1. _Mean_ berisi dua nilai yang mewakili keseluruhan data
+    1. __Mean bisa dihitung jika datanya termasuk data kuantitatif__
+1. Berikut adalah pernyataan yang benar terkait dengan data, kecuali...
+    1. Data yang baik adalah data yang dapat menjawab tujuan penelitian
+    1. Data yang baik biasanya berasal dari random sampling
+    1. __Data tersier adalah data yang terbaik untuk penelitian__
+    1. Data yang diambil berulang-ulang harus memiliki standar pengambilan data yang sama
+1. Misalkan saya telah melakukan penelitian kepada 300 orang diabetes dengan _margin of error_ sebesar `3%` dan _confidence level_ sebesar `80%`. Saya mendapatkan bahwa `75%` dari responden suka dengan makanan manis. Jika hasil riset saya dibaca ke dalam populasi, berapa persen orang yang suka dengan makanan manis?
+    1. 80% $\pm$ 3%
+    1. __75%__ $\pm$ __3%__
+    1. 75% - 80%
+    1. 80% $\pm$ 75%
