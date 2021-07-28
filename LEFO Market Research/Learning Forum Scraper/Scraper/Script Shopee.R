@@ -39,7 +39,7 @@ rm(list=ls())
 
 # ====================================
 # Contoh
-url = "https://shopee.co.id/ZWITSAL-BABY-FABRIC-SOFTENER-425ML-i.20528020.4007884591"
+url = "https://shopee.co.id/Zwitsal-Eau-De-Toilette-100-Ml-Parfum-Eau-De-Toilette-Parfum-Pakaian-Aroma-Bayi-i.14318452.4132994147"
 
 # bikin skrip utk scraping
 
@@ -75,7 +75,12 @@ scrape_shopee = function(link){
   x <- b$Runtime$evaluate('document.querySelector("._1HEBVl").innerText')
   harga = x$result$value
   harga = ifelse(is.null(harga),NA,harga)
-
+  
+  # digunakan untuk extract rating
+  x <- b$Runtime$evaluate('document.querySelector("._1mYa1t").innerText')
+  rating = x$result$value
+  rating = ifelse(is.null(rating),NA,rating)
+  
   # digunakan untuk extract nama toko
   x <- b$Runtime$evaluate('document.querySelector("._3uf2ae").innerText')
   toko = x$result$value
@@ -85,7 +90,7 @@ scrape_shopee = function(link){
   waktu_scrape = Sys.time()
   
   # digunakan untuk membuat tabel
-  data = data.frame(link,nama,terjual,harga,toko,waktu_scrape)
+  data = data.frame(link,nama,terjual,rating,harga,toko,waktu_scrape)
   return(data)
 }
 
