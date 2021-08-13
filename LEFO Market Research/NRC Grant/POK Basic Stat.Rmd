@@ -1,9 +1,9 @@
 ---
 title: "Basic Statistics & Analytics"
-subtitle: "POK 2021"
+subtitle: "Orientasi Nutrifooders 2021"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
-date: "10 May 2021"
+date: "Friday 13th"
 output:
   xaringan::moon_reader:
     mathjax: default
@@ -23,7 +23,7 @@ layout: true
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant")
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant")
 library(dplyr)
 library(ggplot2)
 library(ggpubr)
@@ -590,6 +590,44 @@ class: middle
   - Kelebihan: Tidak mudah terpengaruh oleh nilai pencilan.
   - Kekurangan: _Very limited statistical use_.
 ]
+
+---
+
+class: middle, center
+# QUIZ
+
+### _Siapa yang terbaik di antara keduanya?_
+
+```{r,echo=FALSE}
+knitr::include_graphics("https://passingthroughresearcher.files.wordpress.com/2019/01/central-tendency.png")
+```
+
+---
+
+class: middle,center
+
+# INTERPRETASI
+
+--
+### Modus: Konsistensi
+
+--
+### Mean: Rata-rata (_obviously_)
+
+--
+### Median?
+
+---
+
+class: middle,center
+
+# INTERPRETASI MEDIAN
+
+## Bayangkan sebuah perlombaan lari
+
+```{r,echo=FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/ikanx101/ikanx101.github.io/master/_posts/QnA%20NBC%20Sep/animated.gif")
+```
 
 ---
 
