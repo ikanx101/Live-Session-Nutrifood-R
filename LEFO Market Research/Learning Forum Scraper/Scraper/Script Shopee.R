@@ -59,7 +59,7 @@ b$Network$setCookies(cookies = cookies$cookies)
 scrape_shopee = function(link){
   # navigate
   b$Page$navigate(link)
-  Sys.sleep(5)
+  Sys.sleep(15)
   
   # digunakan untuk extract nama produk
   x <- b$Runtime$evaluate('document.querySelector(".attM6y span").innerText')
