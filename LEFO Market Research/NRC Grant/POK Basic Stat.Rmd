@@ -157,6 +157,49 @@ knitr::include_graphics('alur.png')
 ```
 
 ---
+class: middle
+# _Some Useful Framework_
+
+.pull-left[
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+nomnoml::nomnoml("
+                 [Masalah] -> [Tujuan]
+                 [Tujuan] -> [Input]
+                 [Input] -> [Proses]
+                 [Proses] -> [Output]
+                 [Tujuan] review <-- [Output] 
+                 
+                 [Proses|
+                    [Function]
+                    [Algorithm]
+                    ]
+                 
+                 [Input|
+                    [Data]
+                    [Rules]
+                    [Constraints]
+                    [dsb]
+                    ]
+                    
+                 ")
+```
+
+]
+
+.pull-right[
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+nomnoml::nomnoml("
+                 [S] -> [I]
+                 [I] -> [P]
+                 [P] -> [O]
+                 [O] -> [C]
+                 ")
+```
+]
+
+---
 class: center, middle
 # Materi Hari Ini
 
