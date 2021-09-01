@@ -39,7 +39,7 @@ rm(list=ls())
 
 # ====================================
 # Contoh
-url = "https://www.tokopedia.com/nutrimartid/tropicana-slim-strawberry-jam"
+url = "https://www.tokopedia.com/pikowa/klem-klip-kabel-rapi-dinding-5set-tempel-manejemen-wire-bonus-ties-klem-5set-besar?whid=0"
 
 # bikin skrip utk scraping
 
@@ -59,7 +59,7 @@ url = "https://www.tokopedia.com/nutrimartid/tropicana-slim-strawberry-jam"
       scrape_tokopedia = function(link){
         # navigate
         b$Page$navigate(link)
-        Sys.sleep(5)
+        Sys.sleep(10)
         
         # digunakan untuk extract nama produk
         x <- b$Runtime$evaluate('document.querySelector(".css-1wtrxts").innerText')
@@ -86,11 +86,16 @@ url = "https://www.tokopedia.com/nutrimartid/tropicana-slim-strawberry-jam"
         toko = x$result$value
         toko = ifelse(is.null(toko),NA,toko)
         
+        # digunakan untuk extract alamat toko
+        x <- b$Runtime$evaluate('document.querySelector("#pdp_comp-shipment b").innerText')
+        alamat = x$result$value
+        alamat = ifelse(is.null(alamat),NA,alamat)
+        
         # time stamp aja, kapan kita melakukan ini
         waktu_scrape = Sys.time()
         
         # digunakan untuk membuat tabel
-        data = data.frame(link,nama,terjual,harga,rating,toko,waktu_scrape)
+        data = data.frame(link,nama,terjual,harga,rating,alamat,toko,waktu_scrape)
         return(data)
       }
       
