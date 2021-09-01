@@ -1,9 +1,9 @@
 ---
 title: "Basic Statistics & Analytics"
-subtitle: "Orientasi Nutrifooders 2021"
+subtitle: "Colloqium Training Nutrifooders 2021"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
-date: "Friday 13th"
+date: "1 September 2021"
 output:
   xaringan::moon_reader:
     mathjax: default
@@ -30,9 +30,16 @@ library(ggpubr)
 ```
 
 ---
+class: center, middle, inverse
+
+# APA FAEDAHNYA MATERI INI?
+_Project_ yang kalian kerjakan bisa jadi terkait dengan data. Jika tidak, setidaknya materi ini bisa dijadikan bahan evaluasi apakah _project_ yang kalian kerjakan `berhasil` atau `tidak`, `impactful` atau `tidak`.
+
+---
 
 class: center, middle, inverse
 # _WHY ANALYTICS MATTER?_
+## _Kenapa sih harus pake beginian segala?_
 
 ---
 class: center, middle
@@ -882,6 +889,29 @@ knitr::include_graphics("parnonpar new.png")
 
 ]
 
+---
+
+class: middle,center,inverse
+# CONTOH-CONTOH KASUS YANG SERING DITEMUI
+## Berikut adalah beberapa contoh kasus yang sering ditemui saat _colloqium_
+
+---
+
+# CONTOH I
+
+### Saya hendak membandingkan _service level_ antara dua _supplier_.
+
+# CONTOH II
+
+### Saya hendak membandingkan _service level_ antara tiga _supplier_.
+
+# CONTOH III
+
+### Saya hendak membandingkan apakah _service level_ suatu _supplier_ sudah sesuai dengan spek standar Nutrifood.
+
+# CONTOH IV
+
+### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
 
 ---
 
