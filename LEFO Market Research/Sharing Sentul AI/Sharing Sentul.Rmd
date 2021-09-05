@@ -1,0 +1,170 @@
+---
+title: "IMPLEMENTASI <b>ARTIFICIAL INTELLIGENCE</b> DI NUTRIFOOD"
+subtitle: "Penjelasan Umum<br>dan Beberapa Proyek Kolaborasi"
+author: "Market Research Dept."
+institute: "@nutrifood"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  xaringan::moon_reader:
+    mathjax: default
+    lib_dir: libs
+    css: [default,"footer-header.css", fc, fc-fonts]
+    seal: true
+    nature:
+      ratio: '18:10'
+      slideNumberFormat: '%current%' 
+      highlightStyle: ir-black
+      highlightLines: true
+      countIncrementalSlides: false
+---
+layout: true
+
+<div class="my-footer"><span>Sharing Sentul Plant</span></div>
+
+```{r setup, include=FALSE}
+rm(list=ls())
+setwd("/cloud/project/LEFO Market Research/Sharing Sentul AI")
+library(dplyr)
+library(ggplot2)
+```
+
+---
+class: middle, center, inverse
+
+## Tenang saja isinya tidak __semenyeramkan__ judulnya
+_Please sit back and relax, we will uncover the truth behind AI_
+
+---
+class: middle
+
+### Apa yang terlintas dalam pikiran rekan-rekan saat mendengar kata-kata:
+# _ARTIFICIAL INTELLIGENCE_ ?
+
+---
+# Apakah ini?
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("images-2.jpeg")
+```
+
+---
+# Atau ini?
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+knitr::include_graphics("images-3.jpeg")
+```
+
+---
+# Atau ini?
+
+```{r out.width="70%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("Screenshot_20210905_122754_com.opera.browser.jpg")
+```
+
+---
+class: middle
+
+# Lantas apa itu ___AI___ ?
+
+---
+class: middle
+
+### Lantas apa bedanya dengan:
+# _MACHINE LEARNING_ ?
+
+--
+# _DEEP LEARNING_ ?
+
+---
+class: middle
+
+# ANALOGI
+
+.pull-left[
+
+### _It is like teenagers talking about sex._
+
+> Everybody talks about it but how many doing it?
+
+]
+
+.pull-right[
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+knitr::include_graphics("images-4.jpeg")
+```
+
+]
+
+---
+class: middle
+
+# SULIT BAGI ORANG AWAM UNTUK MEMBEDAKAN
+
+--
+
+## Mana yang termasuk _science_ ? 
+
+--
+
+## Mana yang termasuk _Science Fiction_?
+
+--
+
+#### Terence Tse dan Mark Esposito, __AI Republic__, 2019.
+
+---
+class: middle
+# SCIENCE VS SCIENCE FICTION
+
+.pull-left[
+
+## _Artificial General Intelligence_
+
+- This is considered as __“Strong AI”__. 
+- This is the kind of AI that scared people, self-aware, has free-will, cannot be dictated by human.
+- This is what __average person__ thinks about when they hear AI.
+
+]
+
+.pull-right[
+
+## _Artificial Narrow Intelligence_
+
+- This is considered __“weak AI”__. 
+- __Right now__, all computer intelligent technologies are working solely with ANI, machine that can only serve a very well-defined purpose.
+
+]
+
+--
+
+## Kesimpulan: Saat ini kita sampai di __ANI__.
+
+--
+
+> Bagaimana dengan _self driving_ car?
+
+--
+
+## _Keywords: repetitive and well-defined purpose_
+
+---
+class: middle, center
+
+# So, how AlphaGo defeat human world champion in 2017?
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+knitr::include_graphics("images-5.jpeg")
+```
+
+--
+
+## _Simply_: Number Crunching!
+
+---
+class: middle, center, inverse
+
+## Terima Kasih
+# _Market Research_ Dept. @nutrifood 
+
+### _find me at:_ ikanx101.com
