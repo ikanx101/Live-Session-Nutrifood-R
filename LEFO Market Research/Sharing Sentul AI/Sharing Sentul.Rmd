@@ -162,6 +162,178 @@ knitr::include_graphics("images-5.jpeg")
 ## _Simply_: Number Crunching!
 
 ---
+
+class: middle, center, inverse
+
+# JADI
+## Apa itu _Artificial Intelligence_ ?
+
+---
+class: middle
+
+# Apa itu _Artificial Intelligence_ ?
+
+.pull-left[
+
+## _Did you know_
+
+Term AI has been used since the 1950s as umbrella terms for applied science such as Maths, Statistics, Physics, Engineering and Computer science.
+
+## _So, what is AI, ML and DL?_
+
+It is just a bunch lines of algorithm codes doing well-defined jobs!
+
+]
+
+.pull-right[
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+knitr::include_graphics("images.png")
+```
+
+]
+
+---
+class: middle
+
+# SUMMARY
+
+.pull-left[
+
+## Isi dari _Artificial Intelligence_ adalah:
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("#direction: down,
+                 [Artificial Intelligence] -> [Science]
+                 [Artificial Intelligence] -> [Engineering]
+                 [Science] -> [Computation]
+                 [Engineering] -> [Computation]
+                 
+                 [Science|
+                    [Theoretical] -> [Math]
+                    [Theoretical] -> [Physic]
+                    [Theoretical] -> [Chemist]
+                    [Theoretical] -> [Biology]
+                    ]
+                    
+                 [Computation| 
+                    [Iterasi]
+                    [Aproksimasi]
+                    ]
+                 ")
+```
+
+]
+
+.pull-right[
+
+## Apa itu Algoritma?
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("#direction: down,
+                 [Input] -> [<choice>Sekumpulan baris kode\nberisi perintah\nmemproses input menjadi desired output]
+                 [<choice>Sekumpulan baris kode\nberisi perintah\nmemproses input menjadi desired output] -> [output]
+                 "
+                 )
+
+```
+
+]
+
+---
+class: middle
+# APA YANG __AI__ BISA LAKUKAN?
+
+.pull-left[
+
+### Human brain is ___limited___ in terms of computing.
+
+### While machine or computer has ___"unlimited"___ computing resources.
+
+### AI is a ___tools___ that help us to:
+
+]
+
+.pull-right[
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("
+                 [AI] -> [Automation]
+                 [AI] -> [Optimization]
+                 [AI] -> [Prediction/Classification\nForecast]
+                 [AI] -> [Advance Analysis]
+                 [AI] -> [Data Acquisition]
+                 "
+                 )
+
+```
+
+]
+
+---
+
+# _"UNLIMITED_ COMPUTING RESOURCES
+
+.pull-left[
+
+## Deteksi Biomarker dalam Darah
+
+Untuk mengetahui seseorang terinfeksi Covid atau tidak.
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+knitr::include_graphics("Screenshot_20210905_154710.jpg")
+```
+
+]
+
+.pull-right[
+
+## Prediksi Diabetes
+
+Mengetahui faktor apa saja yang membuat seseorang wanita beresiko diabetes.
+
+```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=2.5}
+knitr::include_graphics("unnamed-chunk-7-1.png")
+```
+
+Sumber data: PIMA Indian Diabetes. https://ikanx101.com/blog/diabet-ai/
+
+]
+
+---
+class: middle,center,inverse
+
+# _FREQUENTLY ASKED QUESTIONS_
+
+### Seperti apa bentuknya?
+
+### Bagaimana barangnya?
+
+### Bagaimana cara membuatnya?
+---
+class: center
+
+```{r out.width="100%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("#direction: down,
+                 [AI] -> [Cara membuat]
+                 [AI] -> [Lokasi komputasi]
+                 [AI] -> [License]
+                 
+                 [Cara membuat] -> [No code]
+                 [Cara membuat] -> [Low code]
+                 [Cara membuat] -> [Hard code]
+                 
+                 [Lokasi komputasi] -> [Local]
+                 [Lokasi komputasi] -> [Cloud]
+                 
+                 [License] -> [Open source]
+                 [License] -> [Paid / Freemium]
+                 "
+                 )
+
+```
+
+---
 class: middle, center, inverse
 
 ## Terima Kasih
