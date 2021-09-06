@@ -23,7 +23,7 @@ layout: true
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("/cloud/project/LEFO Market Research/Sharing Sentul AI")
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Sharing Sentul AI")
 library(dplyr)
 library(ggplot2)
 ```
@@ -153,7 +153,7 @@ class: middle, center
 
 # So, how AlphaGo defeat human world champion in 2017?
 
-```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
 knitr::include_graphics("images-5.jpeg")
 ```
 
@@ -280,7 +280,7 @@ nomnoml::nomnoml("
 
 Untuk mengetahui seseorang terinfeksi Covid atau tidak.
 
-```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=4}
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
 knitr::include_graphics("Screenshot_20210905_154710.jpg")
 ```
 
@@ -292,7 +292,7 @@ knitr::include_graphics("Screenshot_20210905_154710.jpg")
 
 Mengetahui faktor apa saja yang membuat seseorang wanita beresiko diabetes.
 
-```{r,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center',fig.height=2.5}
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
 knitr::include_graphics("unnamed-chunk-7-1.png")
 ```
 
@@ -885,7 +885,7 @@ class: middle,center
 
 ### Pada _outlet_ kategori apa sebaiknya Lokalate bekerja sama?
 
-_Keyword: Automation, Data Acquisiition, Advance Analysis_
+_Keyword: Automation, Data Acquisition, Advance Analysis_
 
 ---
 class: middle
@@ -957,7 +957,7 @@ class: middle,center
 
 ### Apakah outlet bisa dikelompokkan? Harus dikasih diskon berapa? Bagaimana menentukan potensi suatu area?
 
-_Keyword: Automation, Optimization, Advanca Analysis, Data Acquisition_
+_Keyword: Automation, Optimization, Advance Analysis, Data Acquisition_
 
 ---
 class: middle, center, inverse
@@ -979,7 +979,10 @@ nomnoml::nomnoml("
                  
                  [Prediction] -> [Classification]
                  [Classification] -> [by predictors - target|independen - dependen]
-                 
+                 [Prediction] -> [Regression]
+                 [Regression] -> [by predictors - target|independen - dependen]
+                 [Classification|Data kategorik]
+                 [Regression|Data numerik]
                  [Forecast] -> [by sequence\nhistorical|time based|time series]
                  
                  ")
@@ -1011,17 +1014,58 @@ knitr::include_graphics("istockphoto-475696742-612x612.jpg")
 ```
 
 ]
+---
+class: middle,center
+
+# APA PERBEDAAN
+## _Machine learning_ dan _Deep Learning_
+
+```{r out.width="100%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("
+                 [Prediction] -> [Supervised]
+                 [Supervised] -> [Machine learning]
+                 [Supervised] -> [Deep learning]
+                 
+                 [Machine learning] -> [Pure Statistics]
+                 [Pure Statistics] -> [Binary Logistic Regressing]
+                 [Pure Statistics] -> [Regression Tree]
+                 [Pure Statistics] -> [Random Forest]
+                 [Pure Statistics] -> [Discriminant, etc]
+                 
+                 [Deep learning] -> [Math]
+                 [Math] -> [Neural Networks]
+                 
+                 [Neural Networks] -> [Tensorflow|Keras]
+                 ")
+```
+---
+class: middle,center
+
+# PROJECT PREDICTION: RESIKO DIABETES DARI DATA KESEHATAN
+
+## Bekerja sama dengan Tim ITB
+
+### Melakukan prediksi perhitungan skor tertentu berdasarkan data numerik kesehatan.
+
+_Keyword: Regression_
 
 ---
 class: middle,center
 
-# PROJECT XX: XX
+# EXPLORATORY MODEL ANALYSIS: PRODUCT DEVELOPMENT TIME PREDICTION
 
-## _Judul_
+## _Project_ promosi Charissa Lungkat di dept. PV
 
-### Deskripsi
+### Melakukan prediksi apakah suatu produk baru yang sedang dibuat akan `on time` atau `delay`.
 
-_Keyword: Automation_
+_Keyword: Classification_
+
+---
+class: middle,center
+
+# KENAPA JARANG SEKALI _PROJECT PREDICTION_ DI NUTRIFOOD?
+
+### Keterbatasan banyaknya data di divisi _sales_, _marketing_, dan _promotion_ mengakibatkan setiap model _prediction_ yang dibuat memiliki akurasi rendah.
 
 ---
 class: middle, center, inverse
