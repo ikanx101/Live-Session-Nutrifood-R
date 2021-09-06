@@ -682,11 +682,6 @@ nomnoml::nomnoml("
 Sekarang prosesnya hanya memakan waktu __< 5 menit__.
 
 ---
-class: center,middle
-
-# DEMO
-
----
 class: middle,center
 
 # PROJECT III: AUDIT FINANCE
@@ -863,28 +858,106 @@ class: middle
 knitr::include_graphics("download-1.png")
 ```
 
+---
+class: middle
+
+# _SAMPLE REPORT_
+
+```{r out.width="80%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("download-2.png")
+```
+
+---
+class: middle
+
+# _SAMPLE REPORT_
+
+```{r out.width="50%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("download.gif")
+```
 
 ---
 class: middle,center
 
 # PROJECT VI: AREA MARKETING
 
-## _WEBSCRAPING GRABFOOD MERCHANT_: 
+## _WEBSCRAPING GRABFOOD MERCHANT_: STRATEGIC OUTLET FOR LOKALATE
 
-### LALA
+### Pada _outlet_ kategori apa sebaiknya Lokalate bekerja sama?
 
-_Keyword: Automation, Advance Analysis_
+_Keyword: Automation, Data Acquisiition, Advance Analysis_
+
+---
+class: middle
+
+# PERHATIKAN HALAMAN DEPAN SUATU MERCHANT GRABFOOD
+
+```{r out.width="80%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("Screenshot_20210906_082333_com.opera.browser.jpg")
+```
+
+---
+class:center
+
+# MERCHANT MANA YANG PALING COCOK DIGARAP OLEH LOKALATE?
+
+```{r out.width="100%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("
+                 [Masalah] -> [Tujuan]
+                 [Tujuan] -> [Input]
+                 [Input] -> [Proses]
+                 [Proses] -> [Output]
+                 
+                 [Masalah|
+                    Grabfood memiliki banyak merchant\nDi Jawa Tengah ada ribuan\nMerchant mana saja yang strategic\nuntuk Lokalate?|
+                    Mencari merchant yang menjual Milo]
+                 
+                 [Tujuan|
+                    Mengambil data Merchant GrabFood\nLalu menganalisanya]
+                 
+                 [Input|
+                    Ribuan links merchant GrabFood]
+                    
+                 [Proses|
+                    [Algoritma] -> [Automatic|Webscrape|Data cleaning|Data preparation]
+                    ]
+                 
+                 [Output|
+                    [R program] -> [Report]
+                    ]
+                 ")
+```
+
+---
+class: middle
+
+# _SAMPLE REPORT_
+
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("download-3.png")
+```
 
 ---
 class: middle,center
 
-# PROJECT VII: SALES
+# PROJECT VII: GRB
 
-## CLUSTERING OUTLET, POTENTIAL AREA
+## _OPTIMIZATION_: PRODUCTION SCHEDULLING NUTRISARI
 
-### LALALA
+### Bagaimana membuat urutan produksi yang meminimalkan waktu cleaning? Kolaborasi dengan ITB
 
-_Keyword: Automation, Advance Analysis_
+_Keyword: Automation, Optimization_
+
+---
+class: middle,center
+
+# PROJECT VIII: SALES
+
+## CLUSTERING OUTLET, REVIEW DISKON, DAN MENGUKUR POTENSI AREA
+
+### Apakah outlet bisa dikelompokkan? Harus dikasih diskon berapa? Bagaimana menentukan potensi suatu area?
+
+_Keyword: Automation, Optimization, Advanca Analysis, Data Acquisition_
 
 ---
 class: middle, center, inverse
@@ -911,6 +984,33 @@ nomnoml::nomnoml("
                  
                  ")
 ```
+
+---
+class: middle
+# CONTOH KASUS
+
+## Bagaimana meramal cuaca esok hari?
+
+.pull-left[
+
+### _Prediction_
+
+$$cuaca \sim pressure + kelembapan + angin_{arah} + angin_{speed} + ...$$
+
+### _Forecast_
+
+Historikal cuaca pada hari-hari sebelumnya.
+
+$$day_1 = hujan,day_2 = hujan, day_3 = cerah,...,day_{n-1} = cerah,day_n = ???$$
+]
+
+.pull-right[
+
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("istockphoto-475696742-612x612.jpg")
+```
+
+]
 
 ---
 class: middle,center
