@@ -1,5 +1,5 @@
 ---
-title: "IMPLEMENTASI <b>ARTIFICIAL INTELLIGENCE</b> DI NUTRIFOOD"
+title: "IMPLEMENTASI <b>ARTIFICIAL INTELLIGENCE</b> DI <i>MARKET RESEARCH</i>"
 subtitle: "Penjelasan Umum<br>dan Beberapa Proyek Kolaborasi"
 author: "Market Research Dept."
 institute: "@nutrifood"
