@@ -569,11 +569,6 @@ nomnoml::nomnoml("
 Sekarang prosesnya hanya memakan waktu __< 16 detik__.
 
 ---
-class: middle,center
-
-# DEMO
-
----
 class:center
 
 # _REPORT RAW MATERIAL_
