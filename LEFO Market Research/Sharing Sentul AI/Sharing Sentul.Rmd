@@ -410,9 +410,9 @@ nomnoml::nomnoml("#direction: down,
 ---
 class: middle, center
 
-# __R__ ENVIRONMENT WORKS WITH
+# __R__ ENVIRONMENT 
 
-```{r out.width="50%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+```{r out.width="75%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
 knitr::include_graphics("Screenshot_20210905_194046.jpg")
 ```
 
@@ -423,6 +423,15 @@ class: middle, center
 
 ```{r out.width="80%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
 knitr::include_graphics("Screenshot_20210905_194713.jpg")
+```
+
+---
+class: middle,center
+
+# LANTAS APA BEDANYA DENGAN:
+
+```{r out.width="75%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("images-6.jpeg")
 ```
 
 ---
@@ -742,15 +751,118 @@ class: middle,center
 _Keyword: Automation_
 
 ---
+class:center
+
+# OTOMATISASI REPORT BUDGET VS REALISASI
+
+```{r out.width="100%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("
+                 [Masalah] -> [Tujuan]
+                 [Tujuan] -> [Input]
+                 [Input] -> [Proses]
+                 [Proses] -> [Output]
+                 
+                 [Masalah|
+                    Manual|
+                    Long time process|
+                    Banyak file terlibat|
+                    Format: rtf,pdf,txt
+                    ]
+                 
+                 [Tujuan|
+                    Membuat proses\nmenjadi otomatis
+                    ]
+                 
+                 [Input|
+                    Data Oracle\nMultiple formats]
+                 
+                 [Proses|
+                    Cross referencing|
+                    Kalkulasi per dept]
+                 
+                 [Output|
+                    [R program] -> [Report\nper dept]
+                    [Report\nper dept] -> [Excel files]
+                    [Excel files] -> [Send Email\nOtomatis]
+                    ]
+                ")
+
+```
+
+---
 class: middle,center
 
 # PROJECT V: E-COMM
 
 ## _WEBSCRAPING E-COMMERCE_: PRE AND POST PRODUCT LAUNCH ANALYSIS
 
-### Analisa market Olive Oil di market places (sebelum dan sesudah TS Olive Oil _launch_)
+### Analisa market Olive Oil di Tokopedia (sebelum dan sesudah TS Olive Oil _launch_)
 
-_Keyword: Automation, Advance Analysis_
+_Keyword: Automation, Data Acquisition, Advance Analysis_
+
+---
+class: middle
+# PERHATIKAN HALAMAN DEPAN TOKOPEDIA BERIKUT
+## Data apa saja yang terlihat dari halaman ini?
+
+```{r out.width="75%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("Screenshot_20210906_072311_com.opera.browser.jpg")
+```
+
+
+---
+class:center
+
+# APA YANG TERJADI PADA MARKET OLIVE OIL SAAT TS HENDAK _LAUNCH_
+
+```{r out.width="100%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+nomnoml::nomnoml("
+                 [Masalah] -> [Tujuan]
+                 [Tujuan] -> [Input]
+                 [Input] -> [Proses]
+                 [Proses] -> [Output]
+                 
+                 [Masalah|
+                    Before vs After TS launch|
+                    Ratusan produk olive oil\ndijual di Tokopedia|
+                    Butuh data harian|
+                    Bagaimana cara mengambilnya?]
+                 
+                 [Tujuan|
+                    Mendapatkan gambaran dan analisa\nmarket olive oil di Tokopedia]
+                 
+                 [Input|
+                    Ratusan links produk]
+                 
+                 [Proses|
+                    [Algoritma] -> [Automatic|Webscrape|Data cleaning|Data preparation]
+                    [Automatic] -> [Deep Analysis]
+                    ]
+                 
+                 [Output|
+                    [R program] -> [Report]
+                    ]
+                 ")
+```
+
+---
+class: middle
+
+# _SAMPLE REPORT_
+
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("download.png")
+```
+
+---
+class: middle
+
+# _SAMPLE REPORT_
+
+```{r out.width="60%",echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
+knitr::include_graphics("download-1.png")
+```
+
 
 ---
 class: middle,center
