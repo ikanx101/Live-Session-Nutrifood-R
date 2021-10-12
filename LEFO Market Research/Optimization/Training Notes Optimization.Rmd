@@ -1211,8 +1211,6 @@ result %>%
   knitr::kable(align = "c",caption = "Jadwal Perawat: Angka Pada Tanggal Menunjukkan id Perawat")
 ```
 
-
-
 ### Rekap Jadwal Optimal
 
 Berikut adalah rekapan jadwal optimal per perawat:
