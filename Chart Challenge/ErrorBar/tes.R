@@ -40,4 +40,4 @@ plot =
         axis.text.y = element_blank(),
         axis.title.y = element_blank())
 
-ggsave("Sekolah.jpg", width = 14, height = 9, dpi = 450)
+ggsave("Sekolah.png", width = 14, height = 9, dpi = 450)
