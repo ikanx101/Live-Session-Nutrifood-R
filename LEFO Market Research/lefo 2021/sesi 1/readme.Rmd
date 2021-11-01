@@ -1,11 +1,7 @@
 ---
-title: "Productive with R Series"
-subtitle: |
-  | Menggunakan R dan Github
-  | Part I
+title: "Productive with R Series Part I: Menggunakan R dan Github"
 author: |
-  | Ikang Fadhli
-  | ikanx101.com
+  | by: Ikang Fadhli
   | Nutrifood Indonesia
 output: 
   github_document:

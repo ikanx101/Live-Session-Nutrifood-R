@@ -1,7 +1,6 @@
-Productive with R Series
+Productive with R Series Part I: Menggunakan R dan Github
 ================
-Ikang Fadhli  
-ikanx101.com  
+by: Ikang Fadhli  
 Nutrifood Indonesia
 
 Tes dulu
