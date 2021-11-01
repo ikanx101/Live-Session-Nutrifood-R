@@ -1,0 +1,21 @@
+---
+title: "Productive with R Series"
+subtitle: |
+  | Menggunakan R dan Github
+  | Part I
+author: |
+  | Ikang Fadhli
+  | ikanx101.com
+  | Nutrifood Indonesia
+output: 
+  github_document:
+    pandoc_args: --webtex
+---
+
+```{r,include=FALSE}
+rm(list=ls())
+library(dplyr)
+library(ggplot2)
+```
+
+Tes dulu
