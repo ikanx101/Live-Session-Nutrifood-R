@@ -14,7 +14,12 @@ library(dplyr)
 library(ggplot2)
 ```
 
-# SESI I
+# SESI I: Menghubungkan __R__ dan `github`
 
-## Menghubungkan __R__ dan `github`
+## Latar Belakang
 
+Tidak setiap waktu kita berada di depan laptop atau komputer. Penyimpanan _cloud_ seperti _Google Drive_ atau _OneDrive_ kurang bersahabat bagi analis data, _programmer_, dan _data-related job_.
+
+## Tujuan
+
+Menggunakan __R__ dari mana saja dan di mana saja.
