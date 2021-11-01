@@ -1,5 +1,5 @@
 ---
-title: "Productive with R Series Part I: Menggunakan R dan Github"
+title: "Productive with R Series"
 author: |
   | by: Ikang Fadhli
   | Nutrifood Indonesia
@@ -14,4 +14,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
-Tes dulu
+# SESI I
+
+## Menghubungkan __R__ dan `github`
+
