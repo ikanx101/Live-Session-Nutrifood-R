@@ -47,29 +47,7 @@ _Google Colab_ secara _default_ berjalan menggunakan bahasa `Python3` dalam sist
 Kita bisa memanfaatkan __Linux__ tersebut untuk meng-_install_ beberapa aplikasi _server_ seperti __R Studio Server__ secara _cloud_. Setelah itu _port server_ tersebut kita _forward_ ke _public_ menggunakan _ssh forwarding_ di __Linux__.
 
 ```{r,echo = FALSE,fig.retina=10,fig.align='center'}
-nomnoml::nomnoml("#direction: down
-                 [Google Colab] -> [Install]
-                 [Install] -> [Run]
-                 [Run] -> [Github]
-                 
-                 [Install|
-                   [R Studio Server]
-                   [Local Tunnel]
-                   ]
-                 
-                 [Run|
-                   [Set TZ]
-                   [Install libraries]
-                   ]
-                 
-                 [Github|
-                   [Config] -> [user name]
-                   [Config] -> [user email]
-                   [Config] -> [clone repo]
-                   
-                   ]
-                 ")
-
+knitr::include_graphics("gambar.png")
 ```
 
 ---
