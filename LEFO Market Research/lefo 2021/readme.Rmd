@@ -14,7 +14,7 @@ library(dplyr)
 library(ggplot2)
 ```
 
-# SESI I: Menghubungkan __R__ dan `github`
+# PENDAHULUAN
 
 ## Latar Belakang
 
@@ -22,4 +22,15 @@ Tidak setiap waktu kita berada di depan laptop atau komputer. Penyimpanan _cloud
 
 ## Tujuan
 
-Menggunakan __R__ dari mana saja dan di mana saja.
+Bekerja dengan lebih produktif dengan __R Studio Server__.
+
+- _Fast_,
+- _Reliable_,
+- _Agile_.
+
+## Bumbu yang Dibutuhkan
+
+Untuk melakukan ini, kita memerlukan beberapa hal ini:
+
+1. _Gadget_ dengan _browser_ (`Chrome`, `Mozilla`, atau `Opera`. Saya belum mencoba `Safari`) dan koneksi internet.
+
