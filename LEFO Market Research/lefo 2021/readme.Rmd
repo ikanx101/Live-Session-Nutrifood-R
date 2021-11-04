@@ -20,6 +20,8 @@ library(ggplot2)
 
 Tidak setiap waktu kita berada di depan laptop atau komputer. Penyimpanan _cloud_ seperti _Google Drive_ atau _OneDrive_ kurang bersahabat bagi analis data, _programmer_, dan _data-related job_.
 
+_Ngoding_ seringkali dirasakan cukup sulit. Apalagi begitu banyak _scripts_ atau _commands_ yang tidak mungkin "dihapalkan" semua. Oleh karena itu, kita bisa mempersingkatnya dengan membuat _function_ sendiri.
+
 ## Tujuan
 
 Bekerja dengan lebih produktif dengan __R Studio Server__.
@@ -36,5 +38,94 @@ Untuk melakukan ini, kita memerlukan beberapa hal ini:
 1. Akun _Gmail_ untuk _run_ di _Google Colab_.
 1. Akun `github` untuk _cloud storage_.
 1. Waktu $\sim 5$ menit untuk instalasi dan konfigurasi __R Studio Server__.
+
+
+## Bagaimana Cara Kerjanya?
+
+_Google Colab_ secara _default_ berjalan menggunakan bahasa `Python3` dalam sistem operasi __Linux__ pada _Compute Engine_-nya.
+
+Kita bisa memanfaatkan __Linux__ tersebut untuk meng-_install_ beberapa aplikasi _server_ seperti __R Studio Server__ secara _cloud_. Setelah itu _port server_ tersebut kita _forward_ ke _public_ menggunakan _ssh forwarding_ di __Linux__.
+
+```{r,echo = FALSE,fig.retina=10,fig.align='center'}
+nomnoml::nomnoml("#direction: down
+                 [Google Colab] -> [Install]
+                 [Install] -> [Run]
+                 [Run] -> [Github]
+                 
+                 [Install|
+                   [R Studio Server]
+                   [ssh Tunnel]
+                   ]
+                 
+                 [Run|
+                   [Set TZ]
+                   [Install libraries]
+                   ]
+                 
+                 [Github|
+                   [Config] -> [user name]
+                   [Config] -> [user email]
+                   [Config] -> [clone repo]
+                   
+                   ]
+                 ")
+
+```
+
+---
+
+# _STEP_ 1
+
+## Persiapan Github
+
+### Buat Akun Github (opsional)
+
+[Github](https://en.m.wikipedia.org/wiki/GitHub) adalah salah satu situs yang digunakan oleh banyak _programmer_ di dunia sebagai area bekerja. Salah satu keunggulannya adalah _environment_-nya yang memang dibuat khusus _programmer_.
+
+Github kini dimiliki oleh _Microsoft_ dan bersifat _free_ dan _open source_.
+
+_Backbone_ dari Github adalah _software_ `Git` yang dibuat oleh penemu __Linux__ ([Linus Torvalds](https://en.m.wikipedia.org/wiki/Linus_Torvalds)).
+
+> Git software for tracking changes in any set of files, usually used for coordinating work among programmers collaboratively developing source code during software development. Its goals include speed, data integrity, and support for distributed, non-linear workflows (thousands of parallel branches running on different systems).
+
+Untuk keperluan market riset, Github akan sangat berguna sebagai _infinite cloud storage_ yang bisa ditempel ke __R Studio__ di perangkat apa saja.
+
+### Buat _Repository_
+
+Silakan buat akun Github (opsional - jika berkenan) lalu coba buat satu _repository_ baru.
+
+Apa itu _repository_?
+
+> Secara simpel suatu repository adalah satu "folder" besar berisi project __R__ yang hendak kita buat atau kerjakan.
+
+Kita bisa membuat _repository_ tersebut _private_ atau _public_ sesuai dengan kebutuhan. Kita juga bisa mengajak rekan-rekan kerja yang lain sebagai _contributors_ dengan _access level_ yang ditentukan dari awal.
+
+Jika kita tidak memiliki akun Github, kita tetap bisa ___clone public repository___ ke dalam __R Studio__ _environment_. Tapi sifatnya hanya pasif (hanya menerima dan mengedit) tidak bisa melakukan perubahan secara _cloud_.
+
+### _Clone_ _Repository_
+
+Jika kita sudah membuat _repository_, silakan _clone repository_ tersebut ke __R Studio__. 
+
+### _Set Tokens_
+
+Sebagai pengaman agar _file_ yang ada di _cloud_ tidak diganggu oleh orang yang tidak berkepentingan, kita perlu membuat _tokens_ yang berguna untuk komunikasi antara __R Studio__ dengan Github.
+
+## Persiapan Google Colab
+
+Pastikan kita telah memiliki akun Gmail. Buka situs [Google Colab](https://colab.research.google.com/#create=true) berbasis `Python3`.s
+
+
+## Set Time Zone
+
+```
+Sys.setenv(TZ = "GMT")
+```
+
+## Config Git Global Setting
+
+```
+system('git config --global user.name "yourname"')
+system('git config --global user.email "youremail@email.com"')
+```
 
 
