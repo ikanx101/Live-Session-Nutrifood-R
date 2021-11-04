@@ -52,6 +52,8 @@ forwarding* di **Linux**.
 
 # SESI I
 
+# *CLOUD COMPUTING*
+
 ## Persiapan Github
 
 ### Buat Akun Github (opsional)
@@ -199,4 +201,29 @@ terputus, *R Studio Server* bisa diandalkan.
 Pengalaman saya *run* semalaman saat tidak ada eksekusi sama sekali,
 *session*-nya tidak terputus.
 
-# SESI IIII
+Tutorial ini pun ditulis menggunakan metode ini.
+
+<div class="figure" style="text-align: center">
+
+<img src="Screenshot_20211104_153833_com.opera.browser.jpg" alt="Screenshoot Saat Membuat Materi"  />
+<p class="caption">
+Screenshoot Saat Membuat Materi
+</p>
+
+</div>
+
+------------------------------------------------------------------------
+
+# SESI II
+
+# **R** *FUNCTION* dan *MARKDOWN*
+
+Salah satu kelebihan *coding-based data analysis* dengan *menu-based
+data analysis* adalah *reproducibility*. Kita (baca: seharusnya) bisa
+mengerjakan tugas repetitif dengan lebih cepat dengan memanfaatkan
+*custom function* dan *markdown*.
+
+Kenapa harus *markdown*?
+
+> Ada kalanya report di market research memiliki dynamic object agar
+> klien bisa berinteraksi langsung pada report. Contoh: dynamic table.

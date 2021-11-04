@@ -76,6 +76,8 @@ nomnoml::nomnoml("#direction: down
 
 # SESI I
 
+# _CLOUD COMPUTING_ {-}
+
 ## Persiapan Github
 
 ### Buat Akun Github (opsional)
@@ -196,5 +198,32 @@ Semua persiapan yang kita lakukan sudah selesai. Seharusnya hanya berjalan 5-10 
 
 Pengalaman saya _run_ semalaman saat tidak ada eksekusi sama sekali, _session_-nya tidak terputus.
 
-# SESI IIII
+Tutorial ini pun ditulis menggunakan metode ini.
+
+```{r,echo=FALSE,fig.align='center',fig.cap = "Screenshoot Saat Membuat Materi"}
+knitr::include_graphics("Screenshot_20211104_153833_com.opera.browser.jpg")
+```
+
+---
+
+# SESI II
+
+# __R__ _FUNCTION_ dan _MARKDOWN_
+
+Salah satu kelebihan _coding-based data analysis_ dengan _menu-based data analysis_ adalah _reproducibility_. Kita (baca: seharusnya) bisa mengerjakan tugas repetitif dengan lebih cepat dengan memanfaatkan _custom function_ dan _markdown_.
+
+Kenapa harus _markdown_?
+
+> Ada kalanya report di market research memiliki dynamic object agar klien bisa berinteraksi langsung pada report. Contoh: dynamic table.
+
+
+
+
+
+
+
+
+
+
+
 
