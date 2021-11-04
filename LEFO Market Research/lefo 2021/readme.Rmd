@@ -33,4 +33,8 @@ Bekerja dengan lebih produktif dengan __R Studio Server__.
 Untuk melakukan ini, kita memerlukan beberapa hal ini:
 
 1. _Gadget_ dengan _browser_ (`Chrome`, `Mozilla`, atau `Opera`. Saya belum mencoba `Safari`) dan koneksi internet.
+1. Akun _Gmail_ untuk _run_ di _Google Colab_.
+1. Akun `github` untuk _cloud storage_.
+1. Waktu $\sim 5$ menit untuk instalasi dan konfigurasi __R Studio Server__.
+
 
