@@ -46,7 +46,7 @@ _Google Colab_ secara _default_ berjalan menggunakan bahasa `Python3` dalam sist
 
 Kita bisa memanfaatkan __Linux__ tersebut untuk meng-_install_ beberapa aplikasi _server_ seperti __R Studio Server__ secara _cloud_. Setelah itu _port server_ tersebut kita _forward_ ke _public_ menggunakan _ssh forwarding_ di __Linux__.
 
-```{r,echo = FALSE,fig.retina=10,fig.align='center'}
+```{r out.width ="100%",echo = FALSE,fig.retina=10,fig.align='center'}
 knitr::include_graphics("gambar.png")
 ```
 
@@ -241,14 +241,29 @@ Membuat _pie-chart_ langsung dari data riset (_single answer_).
 _Copy-paste-run codes below_:
 
 ```{r,message=FALSE,warning=FALSE}
+# set random number
 set.seed(007)
+# dimulai dari hati yg bersih
+rm(list=ls())
+# memanggil libraries
+library(dplyr)
+library(ggplot2)
+# bikin data dummy
 id = 1:100
 aware = sample(c("Ya","Tidak"),
 	       100,
 	       replace = T,
 	       prob = c(.7,.3))
+data = data.frame(id,aware)
 
-data.frame(id,aware)
+# tabulasi
+tab =
+  data %>%
+  group_by(aware) %>%
+  tally() %>%
+  ungroup()
+
+tab
 ```
 
 ## __R__ _Markdown_

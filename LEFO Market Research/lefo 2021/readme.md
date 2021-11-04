@@ -47,7 +47,7 @@ itu *port server* tersebut kita *forward* ke *public* menggunakan *ssh
 forwarding* di
 **Linux**.
 
-<img src="gambar.png" width="187" style="display: block; margin: auto;" />
+<img src="gambar.png" width="100%" style="display: block; margin: auto;" />
 
 -----
 
@@ -284,117 +284,36 @@ Membuat *pie-chart* langsung dari data riset (*single answer*).
 *Copy-paste-run codes below*:
 
 ``` r
+# set random number
 set.seed(007)
+# dimulai dari hati yg bersih
+rm(list=ls())
+# memanggil libraries
+library(dplyr)
+library(ggplot2)
+# bikin data dummy
 id = 1:100
 aware = sample(c("Ya","Tidak"),
            100,
            replace = T,
            prob = c(.7,.3))
+data = data.frame(id,aware)
 
-data.frame(id,aware)
+# tabulasi
+tab =
+  data %>%
+  group_by(aware) %>%
+  tally() %>%
+  ungroup()
+
+tab
 ```
 
-    ##      id aware
-    ## 1     1 Tidak
-    ## 2     2    Ya
-    ## 3     3    Ya
-    ## 4     4    Ya
-    ## 5     5    Ya
-    ## 6     6 Tidak
-    ## 7     7    Ya
-    ## 8     8 Tidak
-    ## 9     9    Ya
-    ## 10   10    Ya
-    ## 11   11    Ya
-    ## 12   12    Ya
-    ## 13   13 Tidak
-    ## 14   14    Ya
-    ## 15   15    Ya
-    ## 16   16    Ya
-    ## 17   17    Ya
-    ## 18   18    Ya
-    ## 19   19 Tidak
-    ## 20   20    Ya
-    ## 21   21    Ya
-    ## 22   22    Ya
-    ## 23   23 Tidak
-    ## 24   24 Tidak
-    ## 25   25 Tidak
-    ## 26   26    Ya
-    ## 27   27    Ya
-    ## 28   28    Ya
-    ## 29   29 Tidak
-    ## 30   30    Ya
-    ## 31   31    Ya
-    ## 32   32    Ya
-    ## 33   33    Ya
-    ## 34   34    Ya
-    ## 35   35    Ya
-    ## 36   36 Tidak
-    ## 37   37    Ya
-    ## 38   38 Tidak
-    ## 39   39 Tidak
-    ## 40   40    Ya
-    ## 41   41 Tidak
-    ## 42   42    Ya
-    ## 43   43 Tidak
-    ## 44   44    Ya
-    ## 45   45 Tidak
-    ## 46   46    Ya
-    ## 47   47    Ya
-    ## 48   48 Tidak
-    ## 49   49 Tidak
-    ## 50   50 Tidak
-    ## 51   51    Ya
-    ## 52   52 Tidak
-    ## 53   53 Tidak
-    ## 54   54    Ya
-    ## 55   55 Tidak
-    ## 56   56    Ya
-    ## 57   57    Ya
-    ## 58   58    Ya
-    ## 59   59    Ya
-    ## 60   60    Ya
-    ## 61   61    Ya
-    ## 62   62    Ya
-    ## 63   63 Tidak
-    ## 64   64    Ya
-    ## 65   65    Ya
-    ## 66   66    Ya
-    ## 67   67    Ya
-    ## 68   68    Ya
-    ## 69   69    Ya
-    ## 70   70    Ya
-    ## 71   71    Ya
-    ## 72   72    Ya
-    ## 73   73 Tidak
-    ## 74   74    Ya
-    ## 75   75    Ya
-    ## 76   76    Ya
-    ## 77   77    Ya
-    ## 78   78    Ya
-    ## 79   79    Ya
-    ## 80   80 Tidak
-    ## 81   81 Tidak
-    ## 82   82 Tidak
-    ## 83   83    Ya
-    ## 84   84 Tidak
-    ## 85   85    Ya
-    ## 86   86    Ya
-    ## 87   87    Ya
-    ## 88   88 Tidak
-    ## 89   89    Ya
-    ## 90   90    Ya
-    ## 91   91    Ya
-    ## 92   92    Ya
-    ## 93   93 Tidak
-    ## 94   94    Ya
-    ## 95   95 Tidak
-    ## 96   96    Ya
-    ## 97   97    Ya
-    ## 98   98    Ya
-    ## 99   99 Tidak
-    ## 100 100    Ya
+    ## # A tibble: 2 x 2
+    ##   aware     n
+    ##   <fct> <int>
+    ## 1 Tidak    31
+    ## 2 Ya       69
 
 ## **R** *Markdown*
 
