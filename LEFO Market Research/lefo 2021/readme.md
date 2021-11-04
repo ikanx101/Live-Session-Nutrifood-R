@@ -223,7 +223,40 @@ data analysis* adalah *reproducibility*. Kita (baca: seharusnya) bisa
 mengerjakan tugas repetitif dengan lebih cepat dengan memanfaatkan
 *custom function* dan *markdown*.
 
+## **R** *Function*
+
+Kenapa harus membuat *custom function*?
+
+> Seringkali kita menggunakan beberapa baris *codes* berulang-ulang.
+
+### Struktur **R** *Function*
+
+Secara teori, teori struktur suatu **R** *function* adalah sebagai
+berikut:
+
+    INPUT
+      - no input
+      - input
+        - single object
+        - multiple object
+
+    PROCESS
+      - base R function
+        - conditional
+        - looping
+        - sequence
+      - other custom function
+
+    OUTPUT
+      - single object
+      - multiple object
+
+Di sini saya menuliskan *object* yang berarti struktur data yang terkait
+bisa berupa *single value*, *data frame*, dan *list*.
+
+## **R** *Markdown*
+
 Kenapa harus *markdown*?
 
-> Ada kalanya report di market research memiliki dynamic object agar
-> klien bisa berinteraksi langsung pada report. Contoh: dynamic table.
+> Ada kalanya *report* di *market research* memiliki *dynamic object*
+> agar klien bisa berinteraksi langsung. Contoh: *dynamic table*.

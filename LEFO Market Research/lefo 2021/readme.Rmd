@@ -212,18 +212,44 @@ knitr::include_graphics("Screenshot_20211104_153833_com.opera.browser.jpg")
 
 Salah satu kelebihan _coding-based data analysis_ dengan _menu-based data analysis_ adalah _reproducibility_. Kita (baca: seharusnya) bisa mengerjakan tugas repetitif dengan lebih cepat dengan memanfaatkan _custom function_ dan _markdown_.
 
+## __R__ _Function_
+
+Kenapa harus membuat _custom function_?
+
+> Seringkali kita menggunakan beberapa baris _codes_ berulang-ulang.
+
+### Struktur __R__ _Function_
+
+Secara teori, teori struktur suatu __R__ _function_ adalah sebagai berikut:
+
+```
+INPUT
+  - no input
+  - input
+    - single object
+    - multiple object
+
+PROCESS
+  - base R function
+    - conditional
+    - looping
+    - sequence
+  - other custom function
+
+OUTPUT
+  - single object
+  - multiple object
+```
+
+Di sini saya menuliskan _object_ yang berarti struktur data yang terkait bisa berupa _single value_, _data frame_, dan _list_.
+
+### _Demo_ dan _Hands on_
+
+Mari kita coba dengan studi kasus perhitungan BMI.
+
+## __R__ _Markdown_
+
 Kenapa harus _markdown_?
 
-> Ada kalanya report di market research memiliki dynamic object agar klien bisa berinteraksi langsung pada report. Contoh: dynamic table.
-
-
-
-
-
-
-
-
-
-
-
+> Ada kalanya _report_ di _market research_ memiliki _dynamic object_ agar klien bisa berinteraksi langsung. Contoh: _dynamic table_.
 
