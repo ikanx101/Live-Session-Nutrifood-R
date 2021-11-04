@@ -245,7 +245,33 @@ Di sini saya menuliskan _object_ yang berarti struktur data yang terkait bisa be
 
 ### _Demo_ dan _Hands on_
 
+#### Kasus I {-}
+
 Mari kita coba dengan studi kasus perhitungan BMI.
+
+$$bmi = \frac{bb}{tb^2}$$
+
+Dimana:
+
+- $bb$ adalah berat badan (dalam kg).
+- $tb$ adalah tinggi badan (dalam m).
+
+#### Kasus II {-}
+
+Membuat _pie-chart_ langsung dari data riset (_single answer_).
+
+_Copy-paste-run codes below_:
+
+```{r,message=FALSE,warning=FALSE}
+set.seed(007)
+id = 1:100
+aware = sample(c("Ya","Tidak"),
+	       100,
+	       replace = T,
+	       prob = c(.7,.3))
+
+data.frame(id,aware)
+```
 
 ## __R__ _Markdown_
 
