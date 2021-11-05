@@ -264,6 +264,15 @@ tab =
   ungroup()
 
 tab
+
+library(webr)
+
+PieDonut(tab,aes(aware,count = n),
+         title = "Awareness terhadap Produk",
+	 subtitle = "Base: All responden",
+         r0 = .7,
+         color = "gray") +
+  scale_fill_brewer(palette = "Accent")
 ```
 
 ## __R__ _Markdown_
