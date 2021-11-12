@@ -1,9 +1,9 @@
 ---
 title: "Basic Statistics & Analytics"
-subtitle: "Colloqium Training Nutrifooders 2021"
+subtitle: "POK Nutrifooders 2021"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
-date: "1 September 2021"
+date: "12 November 2021"
 output:
   xaringan::moon_reader:
     mathjax: default
@@ -28,6 +28,11 @@ library(dplyr)
 library(ggplot2)
 library(ggpubr)
 ```
+
+---
+class: center, middle, inverse
+
+# _WELCOME!_
 
 ---
 class: center, middle, inverse
@@ -695,7 +700,9 @@ class: middle
 .pull-right[
 ### _Is variation a bad thing?_
 
-_Only  if it's a variation that caused by special cause_.
+Mengutip dari buku ___Four Lenses___:
+
+_Only if its caused by special cause_.
 
 - __Common cause__: _flaws inherited in the design of the process_.
 - __Special cause__: _variations from standards cause by employee and/or unusual circumstance / event_.
@@ -934,6 +941,15 @@ knitr::include_graphics("parnonpar new.png")
 
 ---
 
+class: middle, center, inverse
+
+## Terima Kasih
+# Nutrifood Indonesia
+
+### _find me at:_ ikanx101.com
+
+---
+
 class: middle,center,inverse
 # CONTOH-CONTOH KASUS YANG SERING DITEMUI
 ## Berikut adalah beberapa contoh kasus yang sering ditemui saat _colloqium_
@@ -956,11 +972,3 @@ class: middle,center,inverse
 
 ### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
 
----
-
-class: middle, center, inverse
-
-## Terima Kasih
-# Nutrifood Indonesia
-
-### _find me at:_ ikanx101.com
