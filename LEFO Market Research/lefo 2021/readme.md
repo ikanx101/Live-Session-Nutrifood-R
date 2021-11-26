@@ -20,9 +20,9 @@ sendiri.
 
 Bekerja dengan lebih produktif dengan **R Studio Server**.
 
-  - *Fast*,
-  - *Reliable*,
-  - *Agile*.
+-   *Fast*,
+-   *Reliable*,
+-   *Agile*.
 
 ## Bumbu yang Dibutuhkan
 
@@ -32,9 +32,9 @@ Untuk melakukan ini, kita memerlukan beberapa hal ini:
     belum mencoba `Safari`) dan koneksi internet.
 2.  Akun *Gmail* untuk *run* di *Google Colab*.
 3.  Akun `github` untuk *cloud storage*.
-4.  Waktu ![\\sim 5](https://latex.codecogs.com/png.latex?%5Csim%205
-    "\\sim 5") menit untuk instalasi dan konfigurasi **R Studio
-    Server**.
+4.  Waktu
+    ![\\sim 5](https://latex.codecogs.com/png.latex?%5Csim%205 "\sim 5")
+    menit untuk instalasi dan konfigurasi **R Studio Server**.
 
 ## Bagaimana Cara Kerjanya?
 
@@ -44,12 +44,11 @@ dalam sistem operasi **Linux** pada *Compute Engine*-nya.
 Kita bisa memanfaatkan **Linux** tersebut untuk meng-*install* beberapa
 aplikasi *server* seperti **R Studio Server** secara *cloud*. Setelah
 itu *port server* tersebut kita *forward* ke *public* menggunakan *ssh
-forwarding* di
-**Linux**.
+forwarding* di **Linux**.
 
 <img src="gambar.png" width="100%" style="display: block; margin: auto;" />
 
------
+------------------------------------------------------------------------
 
 # SESI I
 
@@ -120,7 +119,7 @@ Colab](https://colab.research.google.com/#create=true) berbasis
 *Copy-paste-run codes below:*
 
     # saya berikan penjelasan setiap baris codesnya ya
-    
+
     # dua baris ini adalah untuk membuat user di Linux
     # secara default saya buat sebagai berikut:
       # user : rstudio
@@ -128,31 +127,31 @@ Colab](https://colab.research.google.com/#create=true) berbasis
     # feel free untuk mengganti ATAU menambahkan multi user
     # ingatlah bahwa compute engine ini milik Google
     # jadi siapa tahu bisa dirun paralel untuk multi user
-    
+
     !sudo useradd -m -s /bin/bash rstudio
     !echo rstudio:password | chpasswd
-    
-    
+
+
     # melakukan update Linux
     !apt-get update
-    
+
     # install R base (cli version)
     !apt-get install r-base
-    
+
     # install beberapa library Linux
     !apt-get install libglpk-dev # ini khusus untuk optimisasi
     !apt-get install gdebi-core
-    
+
     # download installer R studio server dari situs resmi
     !wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-1.4.1103-amd64.deb
-    
+
     # proses instalasi R studio server
     !gdebi -n rstudio-server-1.4.1103-amd64.deb
-    
+
     # Install localtunnel
     !npm install -g npm
     !npm install -g localtunnel
-    
+
     # forward port 8787 ke public
     !lt --port 8787 
 
@@ -202,22 +201,18 @@ terputus, *R Studio Server* bisa diandalkan.
 Pengalaman saya *run* semalaman saat tidak ada eksekusi sama sekali,
 *session*-nya tidak terputus.
 
-Tutorial ini pun ditulis menggunakan metode
-ini.
+Tutorial ini pun ditulis menggunakan metode ini.
 
 <div class="figure" style="text-align: center">
 
-<img src="Screenshot_20211104_153833_com.opera.browser.jpg" alt="Screenshoot Saat Membuat Materi"  />
-
+<img src="Screenshot_20211104_153833_com.opera.browser.jpg" alt="Screenshoot Saat Membuat Materi" width="1920" />
 <p class="caption">
-
 Screenshoot Saat Membuat Materi
-
 </p>
 
 </div>
 
------
+------------------------------------------------------------------------
 
 # SESI II
 
@@ -244,14 +239,14 @@ berikut:
       - input
         - single object
         - multiple object
-    
+
     PROCESS
       - base R function
         - conditional
         - looping
         - sequence
       - other custom function
-    
+
     OUTPUT
       - single object
       - multiple object
@@ -265,55 +260,14 @@ bisa berupa *single value*, *data frame*, dan *list*.
 
 Mari kita coba dengan studi kasus perhitungan BMI.
 
-  
-![bmi =
-\\frac{bb}{tb^2}](https://latex.codecogs.com/png.latex?bmi%20%3D%20%5Cfrac%7Bbb%7D%7Btb%5E2%7D
-"bmi = \\frac{bb}{tb^2}")  
+![bmi = \\frac{bb}{tb^2}](https://latex.codecogs.com/png.latex?bmi%20%3D%20%5Cfrac%7Bbb%7D%7Btb%5E2%7D "bmi = \frac{bb}{tb^2}")
 
 Dimana:
 
-  - ![bb](https://latex.codecogs.com/png.latex?bb "bb") adalah berat
+-   ![bb](https://latex.codecogs.com/png.latex?bb "bb") adalah berat
     badan (dalam kg).
-  - ![tb](https://latex.codecogs.com/png.latex?tb "tb") adalah tinggi
+-   ![tb](https://latex.codecogs.com/png.latex?tb "tb") adalah tinggi
     badan (dalam m).
-
-#### Kasus II
-
-Membuat *pie-chart* langsung dari data riset (*single answer*).
-
-*Copy-paste-run codes below*:
-
-``` r
-# set random number
-set.seed(007)
-# dimulai dari hati yg bersih
-rm(list=ls())
-# memanggil libraries
-library(dplyr)
-library(ggplot2)
-# bikin data dummy
-id = 1:100
-aware = sample(c("Ya","Tidak"),
-           100,
-           replace = T,
-           prob = c(.7,.3))
-data = data.frame(id,aware)
-
-# tabulasi
-tab =
-  data %>%
-  group_by(aware) %>%
-  tally() %>%
-  ungroup()
-
-tab
-```
-
-    ## # A tibble: 2 x 2
-    ##   aware     n
-    ##   <fct> <int>
-    ## 1 Tidak    31
-    ## 2 Ya       69
 
 ## **R** *Markdown*
 

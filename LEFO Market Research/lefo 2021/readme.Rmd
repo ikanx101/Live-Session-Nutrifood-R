@@ -234,47 +234,6 @@ Dimana:
 - $bb$ adalah berat badan (dalam kg).
 - $tb$ adalah tinggi badan (dalam m).
 
-#### Kasus II {-}
-
-Membuat _pie-chart_ langsung dari data riset (_single answer_).
-
-_Copy-paste-run codes below_:
-
-```{r,message=FALSE,warning=FALSE}
-# set random number
-set.seed(007)
-# dimulai dari hati yg bersih
-rm(list=ls())
-# memanggil libraries
-library(dplyr)
-library(ggplot2)
-# bikin data dummy
-id = 1:100
-aware = sample(c("Ya","Tidak"),
-	       100,
-	       replace = T,
-	       prob = c(.7,.3))
-data = data.frame(id,aware)
-
-# tabulasi
-tab =
-  data %>%
-  group_by(aware) %>%
-  tally() %>%
-  ungroup()
-
-tab
-
-library(webr)
-
-PieDonut(tab,aes(aware,count = n),
-         title = "Awareness terhadap Produk",
-	 subtitle = "Base: All responden",
-         r0 = .7,
-         color = "gray") +
-  scale_fill_brewer(palette = "Accent")
-```
-
 ## __R__ _Markdown_
 
 Kenapa harus _markdown_?
