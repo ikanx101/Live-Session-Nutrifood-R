@@ -1,0 +1,162 @@
+---
+title: "SIMULASI MONTE CARLO"
+subtitle: "INTRODUCTION TO COMPUTATIONAL MODELLING"
+author: "Ikang Fadhli"
+institute: "Nutrifood Indonesia"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  beamer_presentation:
+    fig_width: 7
+    fig_height: 6
+    fig_caption: true
+    slide_level: 2
+    theme: "Szeged"
+    colortheme: "beetle"
+    fonttheme: "structurebold"
+classoption: "aspectratio=169"
+toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# MODELLING
+
+## Model
+
+\begin{columns}
+\column{0.6\textwidth}
+
+```{r out.width = '85%',echo=FALSE}
+knitr::include_graphics('model.PNG')
+```
+
+\column{0.4\textwidth}
+A model is a tool to help us understand the complexities of the universe, and never a substitute for the universe itself. Nate Silver.
+\end{columns}
+
+## Mencari Solusi Model
+
+Suatu permasalahan bisa dituliskan menjadi model matematis (termasuk statistik). Biasanya _goals_ dari model tersebut adalah untuk:
+
+1. Mencari akar (_roots_).
+1. Memaksimalkan atan meminimalkan (_optimize_).
+
+## Mencari Solusi Model
+
+Untuk menyelesaikan dan mencari solusi dari suatu model, setidaknya ada dua pendekatan yang bisa dilakukan:
+
+1. Metode _exact_: menggunakan prinsip matematika (kalkulus dan aljabar) untuk mencari solusi.
+    - _Advantages_: __pasti memberikan solusi terbaik__.
+    - _Disadvantages_: Lama dan tidak semua masalah di dunia bisa dicari solusi eksaknya.
+1. Metode _numeric_: menggunakan aproksimasi dengan prinsip-prinsip komputasi (_conditional_, _looping_, dan _sequence_).
+    - _Advantages_: __belum tentu memberikan solusi terbaik__.
+    - _Disadvantages_: Relatif cepat dan bisa untuk semua masalah.
+    
+## Mencari Solusi Model (lanjutan)
+
+Sebenarnya ada satu lagi pendekatan yang bisa dilakukan, yakni:
+
+Metode _heuristic_: menggunakan aproksimasi dengan prinsip komputasi __namun__ cara kerjanya terinspirasi dari kejadian-kejadian alam yang bersifat acak.
+
+- _Advantages_: __belum tentu memberikan solusi terbaik__.
+- _Disadvantages_: Relatif cepat. Apakah bisa untuk semua masalah? _No free lunch theorem_.
+
+## Contoh Metode _Heuristic_
+
+- _Artifical bee colony_ (_ABC_) _algorithm_. Terinspirasi dari koloni lebah yang selalu berkumpul mencari madu. Lebah akan dibagi menjadi lebah pekerja dan lebah _scout_.
+- _Simulated annealing algorithm_. Terinspirasi dari pendinginan metal yang dilebur. Pada metode ini, kita akan menggunakan istilah `temperatur`, `cooling rate`, dan `epoch`.
+- _Spiral optimization algorithm_. Terinspirasi dari bentuk-bentuk spiral yang ada di alam (orbit planet, kerang, dll). Pada metode ini, kita akan menggunakan istilah `rotasi` dan `kontraksi`.
+- _Genetic algorithm_. Terinspirasi dari mutasi DNA akibat perkawinan silang. Pada metode ini, kita akan menggunakan istilah `populasi`, `kromosom`, `gen`, `allele`, `genotype`, `fenotype`, dll.
+
+## Metode _Heuristic_
+
+Saya akan bahas di tahun depan.
+
+# SIMULASI
+
+## _Definition_
+
+- _Simulation is the operation of a model, which is a representation of that system._
+- _A simulation uses a model to emulate the dynamic characteristics of a system._
+- _The operation of the model can be studied, and then properties concerning the behavior of the actual system can be inferred._
+
+## Dalam Bahasa Manusia
+
+> Kita mungkin tidak bisa memiliki data dari suatu sistem. Namun jika kita tahu sifat-sifat dan karakteristik dari sistem tersebut, kita bisa membuat model yang bekerja layaknya sistem tersebut.
+
+- _Mathematicians_ $\rightarrow$ tidak selalu membutuhkan data.
+- _Statisticians_ $\rightarrow$ membutuhkan data.
+
+## Monte Carlo
+
+\begin{columns}
+\column{0.7\textwidth}
+
+```{r out.width = '85%',echo=FALSE}
+knitr::include_graphics('casino.jpg')
+```
+
+\column{0.3\textwidth}
+Diambil dari suatu nama daerah di Monaco yang memiliki banyak kasino dan tempat perjudian.
+\end{columns}
+
+## Simulasi Monte Carlo
+
+__Prinsip__
+
+> Melakukan sebanyak-banyaknya pengulangan model __secara acak__ untuk mencapai kondisi di mana _law of large number_ terpenuhi.
+
+```{r out.width = '30%',echo=FALSE,fig.align='center'}
+knitr::include_graphics('meme.jpeg')
+```
+
+## _Flow chart_
+
+```{r out.width = '50%',echo=FALSE,fig.align='center'}
+knitr::include_graphics('flowchart.png')
+```
+
+[_Further reading_](https://ikanx101.com/blog/comp-think/)
+
+## Simulasi Monte Carlo
+
+___Advantages___
+
+1. Tidak perlu menuliskan dan menurunkan formulasi matematika dari permasalahan.
+1. Cukup menuliskan algoritma _random number generator_ sesuai kebutuhan.
+1. Bisa digunakan untuk berbagai macam masalah _real_.
+
+___Disdvantages___
+
+1. Untuk permasalahan yang kompleks, butuh waktu yang lebih lama.
+1. Tidak ada jaminan solusi yang didapatkan adalah yang paling optimal.
+
+# _USE CASES_ I
+
+## _Monty Hall Problem_
+
+```{r out.width = '80%',echo=FALSE,fig.align='center'}
+knitr::include_graphics('Super deal 2.jpg')
+```
+
+
+## _Monty Hall Problem_
+
+```{r out.width = '80%',echo=FALSE,fig.align='center'}
+knitr::include_graphics('super deal.jpg')
+```
+
+
+## _Flowchart_ Simulasi Monte Carlo untuk _Monty Hall_
+
+```{r out.width = '65%',echo=FALSE,fig.align='center'}
+knitr::include_graphics('monty hall.png')
+```
+
+## Hasil Simulasi Monte Carlo untuk _Monty Hall_
+
+```{r out.width = '65%',echo=FALSE,fig.align='center'}
+knitr::include_graphics('monty hall sim.png')
+```
