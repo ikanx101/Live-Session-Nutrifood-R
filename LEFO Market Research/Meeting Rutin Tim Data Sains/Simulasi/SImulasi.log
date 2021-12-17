@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  26 NOV 2021 14:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  17 DEC 2021 12:44
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -720,11 +720,16 @@ Package: inputenc 2021/02/14 v1.3d Input encoding file
 \inpenc@posthook=\toks46
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2020/02/02 v2.0n Standard LaTeX package
-) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerthemeSzeged.st
+)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerthemeAnnArbor.st
 y
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerouterthememinifr
-ames.sty))
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamercolorthemebeetle
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerinnerthemerounde
+d.sty)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerouterthemeinfoli
+nes.sty)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamercolorthemewolver
+ine.sty))
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamercolorthemebeaver
 .sty)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerfontthemestructu
 rebold.sty) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/upquote/upquote.s
@@ -732,27 +737,28 @@ ty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verba
 tim
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
-Package: microtype 2021/10/31 v3.0 Micro-typographical refinements (RS)
+Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
 \MT@toks=\toks47
 \MT@count=\count335
 \MT@tempbox=\box76
-\MT@leftmarginkern=\dimen288
-\MT@rightmarginkern=\dimen289
-LaTeX Info: Redefining \textls on input line 1114.
-\MT@outer@kern=\dimen290
-LaTeX Info: Redefining \textmicrotypecontext on input line 1700.
+LaTeX Info: Redefining \leftprotrusion on input line 1010.
+LaTeX Info: Redefining \rightprotrusion on input line 1018.
+LaTeX Info: Redefining \textls on input line 1173.
+\MT@outer@kern=\dimen288
+LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
 \MT@listname@count=\count336
 
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.de
 f
-File: microtype-pdftex.def 2021/10/31 v3.0 Definitions specific to pdftex (RS)
-LaTeX Info: Redefining \lsstyle on input line 915.
-LaTeX Info: Redefining \lslig on input line 915.
+File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
+
+LaTeX Info: Redefining \lsstyle on input line 897.
+LaTeX Info: Redefining \lslig on input line 897.
 \MT@outer@space=\skip67
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
-File: microtype.cfg 2021/10/31 v3.0 microtype main configuration file (RS)
+File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
 ))
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.de
 f
@@ -788,14 +794,14 @@ LaTeX Font Info:    ... okay on input line 101.
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: includehead includefoot 
-* h-part:(L,W,R)=(28.45274pt, 398.3386pt, 28.45274pt)
+* h-part:(L,W,R)=(10.95pt, 433.34409pt, 10.95pt)
 * v-part:(T,H,B)=(0.0pt, 256.0748pt, 0.0pt)
 * \paperwidth=455.24408pt
 * \paperheight=256.0748pt
-* \textwidth=398.3386pt
+* \textwidth=433.34409pt
 * \textheight=227.62207pt
-* \oddsidemargin=-43.81725pt
-* \evensidemargin=-43.81725pt
+* \oddsidemargin=-61.31999pt
+* \evensidemargin=-61.31999pt
 * \topmargin=-72.26999pt
 * \headheight=14.22636pt
 * \headsep=0.0pt
@@ -935,13 +941,10 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-(./SImulasi.nav)
-LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <6> not available
-(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 101.
+(./SImulasi.nav) [1
 
-[1{/home/ikanx_server/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-] (./SImulasi.toc
+{/home/ikanx_server/.TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./
+SImulasi.toc
 LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10.95> not available
 (Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 3.
 ) [2
@@ -949,11 +952,11 @@ LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <10.95> not available
 ] [3
 
 ]
-<model.png, id=159, 325.215pt x 184.43906pt>
+<model.png, id=90, 325.215pt x 184.43906pt>
 File: model.png Graphic file (type png)
 <use model.png>
 Package pdftex.def Info: model.png  used on input line 121.
-(pdftex.def)             Requested size: 203.1562pt x 115.21783pt.
+(pdftex.def)             Requested size: 221.00931pt x 125.34372pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
 121.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
@@ -1009,17 +1012,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
  <./model.PNG>] [5
 
 ]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 168.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 168.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 168.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 168.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 168.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 168.
 [6
 
@@ -1048,74 +1041,120 @@ LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <14.4> not available
 ] [12
 
 ]
-<casino.jpg, id=422, 903.375pt x 602.25pt>
+<casino.jpg, id=182, 903.375pt x 602.25pt>
 File: casino.jpg Graphic file (type jpg)
 <use casino.jpg>
 Package pdftex.def Info: casino.jpg  used on input line 264.
-(pdftex.def)             Requested size: 237.01212pt x 158.00569pt.
+(pdftex.def)             Requested size: 257.84044pt x 171.89114pt.
 [13
 
  <./casino.jpg>]
-<meme.jpeg, id=452, 268.00125pt x 189.70876pt>
+<meme.jpeg, id=192, 268.00125pt x 189.70876pt>
 File: meme.jpeg Graphic file (type jpg)
 <use meme.jpeg>
 Package pdftex.def Info: meme.jpeg  used on input line 276.
-(pdftex.def)             Requested size: 119.50279pt x 84.58946pt.
+(pdftex.def)             Requested size: 130.00455pt x 92.0231pt.
 [14
 
  <./meme.jpeg>]
-<flowchart.png, id=482, 487.8225pt x 289.08pt>
+<flowchart.png, id=201, 487.8225pt x 289.08pt>
 File: flowchart.png Graphic file (type png)
 <use flowchart.png>
 Package pdftex.def Info: flowchart.png  used on input line 283.
-(pdftex.def)             Requested size: 199.1693pt x 118.02512pt.
+(pdftex.def)             Requested size: 216.67204pt x 128.39978pt.
 [15
 
  <./flowchart.png>] [16
 
-] [17
+]
+LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 314.
+
+[17
 
 ]
-<Super deal 2.jpg, id=568, 501.875pt x 321.2pt>
+<Super deal 2.jpg, id=235, 501.875pt x 321.2pt>
 File: Super deal 2.jpg Graphic file (type jpg)
 <use Super deal 2.jpg>
 Package pdftex.def Info: Super deal 2.jpg  used on input line 319.
-(pdftex.def)             Requested size: 318.67209pt x 203.95973pt.
+(pdftex.def)             Requested size: 346.67659pt x 221.8831pt.
 
-Overfull \vbox (35.55537pt too high) detected at line 319
+Overfull \vbox (29.16751pt too high) detected at line 319
  []
 
 [18
 
  <./Super deal 2.jpg>]
-<super deal.jpg, id=598, 646.66594pt x 183.68625pt>
+<super deal.jpg, id=244, 646.66594pt x 183.68625pt>
 File: super deal.jpg Graphic file (type jpg)
 <use super deal.jpg>
 Package pdftex.def Info: super deal.jpg  used on input line 324.
-(pdftex.def)             Requested size: 318.67209pt x 90.51994pt.
+(pdftex.def)             Requested size: 303.33952pt x 86.16437pt.
 [19
 
  <./super deal.jpg>]
-<monty hall.png, id=628, 460.8417pt x 312.2064pt>
+\openout4 = `SImulasi.vrb'.
+
+(./SImulasi.vrb) [20
+
+]
+\openout4 = `SImulasi.vrb'.
+
+(./SImulasi.vrb) [21
+
+]
+<monty hall.png, id=285, 460.8417pt x 312.2064pt>
 File: monty hall.png Graphic file (type png)
 <use monty hall.png>
-Package pdftex.def Info: monty hall.png  used on input line 330.
-(pdftex.def)             Requested size: 258.91765pt x 175.41559pt.
-
-Overfull \vbox (7.01123pt too high) detected at line 330
- []
-
-[20
+Package pdftex.def Info: monty hall.png  used on input line 356.
+(pdftex.def)             Requested size: 281.671pt x 190.8315pt.
+[22
 
  <./monty hall.png>]
-<monty hall sim.png, id=657, 650.43pt x 361.35pt>
+<monty hall sim.png, id=294, 650.43pt x 361.35pt>
 File: monty hall sim.png Graphic file (type png)
 <use monty hall sim.png>
-Package pdftex.def Info: monty hall sim.png  used on input line 335.
-(pdftex.def)             Requested size: 258.91765pt x 143.8427pt.
-[21
+Package pdftex.def Info: monty hall sim.png  used on input line 361.
+(pdftex.def)             Requested size: 303.33952pt x 168.52225pt.
+[23
 
- <./monty hall sim.png>]
+ <./monty hall sim.png>] [24
+
+] [25
+
+] [26
+
+] [27
+
+] [28
+
+] [29
+
+] [30
+
+]
+<resampling.png, id=383, 3047.385pt x 580.1675pt>
+File: resampling.png Graphic file (type png)
+<use resampling.png>
+Package pdftex.def Info: resampling.png  used on input line 456.
+(pdftex.def)             Requested size: 433.34409pt x 82.49767pt.
+[31
+
+ <./resampling.png>]
+\openout4 = `SImulasi.vrb'.
+
+(./SImulasi.vrb
+Overfull \hbox (3.55966pt too wide) in paragraph at lines 31--31
+[]  \T1/lmtt/m/n/10.95 mangga = sample(c(1,0),n_mangga,replace = T,prob = c(p_m
+angga,1-p_mangga))[] 
+ []
+
+) [32
+
+] [33
+
+
+]
 \tf@nav=\write6
 \openout6 = `SImulasi.nav'.
 
@@ -1127,30 +1166,30 @@ Package pdftex.def Info: monty hall sim.png  used on input line 335.
 
 (./SImulasi.aux)
 Package rerunfilecheck Info: File `SImulasi.out' has not changed.
-(rerunfilecheck)             Checksum: C28A81DB323B903C00AA0C0B2D3900DD;275.
+(rerunfilecheck)             Checksum: 44D4F98EAAD902FEFC04795131A9600E;384.
  ) 
 Here is how much of TeX's memory you used:
- 23029 strings out of 480559
- 431839 string characters out of 5902712
- 760502 words of memory out of 5000000
- 39962 multiletter control sequences out of 15000+600000
- 492045 words of font info for 138 fonts, out of 8000000 for 9000
+ 23236 strings out of 480559
+ 437287 string characters out of 5902712
+ 741048 words of memory out of 5000000
+ 40133 multiletter control sequences out of 15000+600000
+ 474709 words of font info for 117 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 101i,19n,108p,1005b,796s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 101i,15n,108p,1005b,682s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/home/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/ho
 me/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</home/ikanx_s
 erver/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></home/ikanx_server/
-.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></home/ikanx_server/.TinyTe
-X/texmf-dist/fonts/type1/public/lm/lmssbo10.pfb></home/ikanx_server/.TinyTeX/te
-xmf-dist/fonts/type1/public/lm/lmssbx10.pfb></home/ikanx_server/.TinyTeX/texmf-
-dist/fonts/type1/public/lm/lmsso10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/
-fonts/type1/public/lm/lmsy10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/
-type1/public/lm/lmtt10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/
-public/amsfonts/symbols/msam10.pfb>
-Output written on SImulasi.pdf (21 pages, 888106 bytes).
+.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb></home/ikanx_server/.TinyT
+eX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></home/ikanx_server/.TinyTeX/texm
+f-dist/fonts/type1/public/lm/lmssbo10.pfb></home/ikanx_server/.TinyTeX/texmf-di
+st/fonts/type1/public/lm/lmssbx10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/f
+onts/type1/public/lm/lmsso10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/
+type1/public/lm/lmsy10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/
+public/lm/lmtt10.pfb>
+Output written on SImulasi.pdf (33 pages, 994024 bytes).
 PDF statistics:
- 741 PDF objects out of 1000 (max. 8388607)
- 656 compressed objects within 7 object streams
- 62 named destinations out of 1000 (max. 500000)
- 55403 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 469 PDF objects out of 1000 (max. 8388607)
+ 352 compressed objects within 4 object streams
+ 99 named destinations out of 1000 (max. 500000)
+ 45434 words of extra memory for PDF output out of 51595 (max. 10000000)
 

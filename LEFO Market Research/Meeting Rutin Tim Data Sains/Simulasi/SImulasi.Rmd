@@ -10,8 +10,8 @@ output:
     fig_height: 6
     fig_caption: true
     slide_level: 2
-    theme: "Szeged"
-    colortheme: "beetle"
+    theme: "AnnArbor"
+    colortheme: "beaver"
     fonttheme: "structurebold"
 classoption: "aspectratio=169"
 toc: true
@@ -144,10 +144,28 @@ knitr::include_graphics('Super deal 2.jpg')
 
 ## _Monty Hall Problem_
 
-```{r out.width = '80%',echo=FALSE,fig.align='center'}
+```{r out.width = '70%',echo=FALSE,fig.align='center'}
 knitr::include_graphics('super deal.jpg')
 ```
 
+## Algoritma _Monty Hall_ dalam _Single Round_
+
+Berikut adalah algoritma _Monty Hall_ dalam satu babak:
+
+```
+pintu = 1:3
+hadiah = sample(pintu,1)
+pilih = sample(pintu,1)
+buka = pintu[c(-pilih,-hadiah)]
+  if(length(buka)>1){buka = sample(buka,1)}
+decision = ifelse(pilih == hadiah,"stay","switch")
+```
+
+## Prinsip Simulasi untuk Menyelesaikan _Monty Hall_
+
+### Prinsip Simulasi
+
+Dari algoritma _single round_ di _slide_ sebelumnya, kita akan ulang ribuan kali untuk melihat seberapa mana `decision` terbaik dari sekian banyak kemungkinan _event_ yang terjadi.
 
 ## _Flowchart_ Simulasi Monte Carlo untuk _Monty Hall_
 
@@ -157,6 +175,110 @@ knitr::include_graphics('monty hall.png')
 
 ## Hasil Simulasi Monte Carlo untuk _Monty Hall_
 
-```{r out.width = '65%',echo=FALSE,fig.align='center'}
+```{r out.width = '70%',echo=FALSE,fig.align='center'}
 knitr::include_graphics('monty hall sim.png')
 ```
+
+# _USE CASES_ II
+
+## _Resampling_ Data
+
+Salah satu kegunaan dari simulasi _Monte Carlo_ adalah kita bisa melakukan _resampling_ memanfaatkan prinsip ini.
+
+Sebagai contoh, tim _market research_ sering mendapatkan _request_ untuk menyamakan proporsi SES dari berbagai _Annual Research_ atau Riset _Media Habit_.
+
+## Analogi
+
+Di suatu toko buah, ada 4 jenis buah yang dijual yaitu: apel, jeruk, mangga, dan salak. Dari informasi _supplier_, diketahui:
+
+1. Sebanyak 35 buah dari total 100 buah apel berasa masam.
+1. Sebanyak 25 buah dari total 55 buah jeruk berasa masam.
+1. Sebanyak 40 buah dari total 60 buah mangga berasa masam.
+1. Sebanyak 15 buah dari total 75 buah salak berasa masam.
+
+Setiap jenis buah ditempatkan di baknya masing-masing (terpisah) dan tidak bisa dibedakan secara kasat mata mana yang masam dan manis.
+
+## Analogi (lanjutan)
+
+Lalu seorang pelanggan datang dan mengambil:
+
+- 4 buah apel,
+- 8 buah jeruk,
+- 3 buah mangga,
+- 5 buah salak.
+
+### Pertanyaannya
+
+Berapa banyak buah masam yang bisa diperoleh pelanggan tersebut?
+
+## Analogi (lanjutan)
+
+Ada tiga kemungkinan yang bisa terjadi. Yakni:
+
+1. Si pelanggan mengambil __semua buah masam__ (20 buah masam).
+1. Si pelanggan __tidak mengambil buah yang masam__ sama sekali (0 buah masam).
+1. Si pelanggan mengambil $1 \leq n \leq 19$ buah yang masam.
+
+## Masalah Utama
+
+Jadi masalahnya adalah menghitung kira-kira berapa buah masam yang berpeluang tinggi bisa diambil pelanggan (_expected value_).
+
+## Prinsip Simulasi
+
+Prinsip dari simulasi adalah dengan membuat seolah-olah ada banyak pelanggan datang, mengambil buah, lalu menghitung berapa banyak yang masam. Semua pelanggan akan direkap, rata-rata berapa banyak buah masam akan dihitung. 
+
+## Ilustrasi Simulasi
+
+```{r,include=FALSE}
+nomnoml::nomnoml("
+                 [<actor> pelanggan] -> [toko]
+                 [toko] -> [evaluasi]
+                 [evaluasi] -> [<actor> pelanggan]
+                 
+                 [evaluasi|
+                  [<usecase> hitung\nn buah masam] -> [<usecase> rekap]]
+                 [toko|
+                  [<usecase> ambil 10 buah]]
+                 ","resampling.png",700,300)
+```
+
+```{r out.width="100%",fig.align='center',echo=FALSE,fig.height=3,fig.width=7}
+knitr::include_graphics("resampling.png")
+```
+
+Simulasi akan mengulang-ulang proses di atas hingga ribuan bahkan jutaan kali.
+
+## Algoritma Simulasi {.allowframebreaks}
+
+```
+# probability
+p_apel = 35/100
+p_jeruk = 25/55
+p_mangga = 40/60
+p_salak = 15/75
+
+# yang diambil pelanggan
+n_apel = 4
+n_jeruk = 8
+n_mangga = 3
+n_salak = 5
+
+
+# simulasi
+busuk = c()
+n_simu = 50000
+# iterasi
+for(i in 1:n_simu){
+  apel = sample(c(1,0),n_apel,replace = T,prob = c(p_apel,1-p_apel))
+  jeruk = sample(c(1,0),n_jeruk,replace = T,prob = c(p_jeruk,1-p_jeruk))
+  mangga = sample(c(1,0),n_mangga,replace = T,prob = c(p_mangga,1-p_mangga))
+  salak = sample(c(1,0),n_salak,replace = T,prob = c(p_salak,1-p_salak))
+  buah_busuk = sum(apel,jeruk,mangga,salak)
+  busuk = c(buah_busuk,busuk)
+}
+# rekap hasil simulasi
+rekap_simulasi = data.frame(iter = 1:n_simu,busuk)
+```
+
+
+
