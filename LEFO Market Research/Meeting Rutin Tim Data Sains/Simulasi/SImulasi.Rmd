@@ -288,3 +288,4 @@ Prinsip pada _slides_ sebelumnya bisa dengan mudah kita aplikasikan untuk melaku
 
 Caranya adalah dengan me-_random_ `id_resp` berdasarkan proporsi-proporsi yang diinginkan (misal `SES`, `range_usia`, `gender`, atau `wilayah`).
 
+
