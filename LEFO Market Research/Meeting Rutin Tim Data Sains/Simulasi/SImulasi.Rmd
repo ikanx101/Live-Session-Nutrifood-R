@@ -248,7 +248,7 @@ knitr::include_graphics("resampling.png")
 
 Simulasi akan mengulang-ulang proses di atas hingga ribuan bahkan jutaan kali.
 
-## Algoritma Simulasi {.allowframebreaks}
+## Algoritma Simulasi _Single Round_ {.allowframebreaks}
 
 ```
 # probability
@@ -265,20 +265,15 @@ n_salak = 5
 
 
 # simulasi
-busuk = c()
-n_simu = 50000
-# iterasi
-for(i in 1:n_simu){
-  apel = sample(c(1,0),n_apel,replace = T,prob = c(p_apel,1-p_apel))
-  jeruk = sample(c(1,0),n_jeruk,replace = T,prob = c(p_jeruk,1-p_jeruk))
-  mangga = sample(c(1,0),n_mangga,replace = T,prob = c(p_mangga,1-p_mangga))
-  salak = sample(c(1,0),n_salak,replace = T,prob = c(p_salak,1-p_salak))
-  buah_busuk = sum(apel,jeruk,mangga,salak)
-  busuk = c(buah_busuk,busuk)
-}
-# rekap hasil simulasi
-rekap_simulasi = data.frame(iter = 1:n_simu,busuk)
+apel = sample(c(1,0),n_apel,replace = T,prob = c(p_apel,1-p_apel))
+jeruk = sample(c(1,0),n_jeruk,replace = T,prob = c(p_jeruk,1-p_jeruk))
+mangga = sample(c(1,0),n_mangga,replace = T,prob = c(p_mangga,1-p_mangga))
+salak = sample(c(1,0),n_salak,replace = T,prob = c(p_salak,1-p_salak))
+buah_busuk = sum(apel,jeruk,mangga,salak)
 ```
 
+Kita hanya perlu mengulang-ulang algoritma di atas hingga hasilnya konvergen.
 
+## _Resampling Annual Research_
 
+Prinsip pada _slides_ sebelumnya bisa dengan mudah kita 
