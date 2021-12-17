@@ -274,6 +274,17 @@ buah_busuk = sum(apel,jeruk,mangga,salak)
 
 Kita hanya perlu mengulang-ulang algoritma di atas hingga hasilnya konvergen.
 
+## Hasil Simulasi _Resampling_
+
+Berikut adalah hasil simulasinya:
+
+```
+gambar
+```
+
 ## _Resampling Annual Research_
 
-Prinsip pada _slides_ sebelumnya bisa dengan mudah kita 
+Prinsip pada _slides_ sebelumnya bisa dengan mudah kita aplikasikan untuk melakukan _resampling_. Jika pada contoh sebelumnya kita __tidak memiliki data__ (hanya mengetahui parameter-parameter yang ada dalam data), pada _annual research_ atau _riset media habit_ kita memiliki data _real_-nya.
+
+Caranya adalah dengan me-_random_ `id_resp` berdasarkan proporsi-proporsi yang diinginkan (misal `SES`, `range_usia`, `gender`, atau `wilayah`).
+
