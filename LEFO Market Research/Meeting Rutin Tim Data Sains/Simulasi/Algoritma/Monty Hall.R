@@ -29,9 +29,17 @@ monty = function(){
   cat(message)
 }
 
-for(i in 1:400){
+n = 500
+mulai = Sys.time()
+
+for(i in 1:n){
   monty()
 }
 
+runtime = Sys.time() - mulai
+runtime = round(runtime,5)
+
+cat("\n\nUntuk melakukan simulasi sebanyak ",n," kali dibutuhkan waktu selama ",runtime)
+cat(" detik\n")
 # proporsi
 prop.table(table(final))
