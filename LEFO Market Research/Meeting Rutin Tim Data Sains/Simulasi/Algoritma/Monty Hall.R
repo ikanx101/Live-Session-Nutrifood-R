@@ -29,7 +29,7 @@ monty = function(){
   cat(message)
 }
 
-n = 500
+n = 9000
 mulai = Sys.time()
 
 for(i in 1:n){

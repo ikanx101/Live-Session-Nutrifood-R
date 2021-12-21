@@ -14,7 +14,7 @@ n_salak = 5
 
 # simulasi
 busuk = c()
-n_simu = 50
+n_simu = 90000
 
 start = Sys.time()
 
