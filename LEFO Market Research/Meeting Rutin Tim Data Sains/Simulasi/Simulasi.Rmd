@@ -51,8 +51,8 @@ Untuk menyelesaikan dan mencari solusi dari suatu model, setidaknya ada dua pend
     - _Advantages_: __pasti memberikan solusi terbaik__.
     - _Disadvantages_: Lama dan tidak semua masalah di dunia bisa dicari solusi eksaknya.
 1. Metode _numeric_: menggunakan aproksimasi dengan prinsip-prinsip komputasi (_conditional_, _looping_, dan _sequence_).
-    - _Advantages_: __belum tentu memberikan solusi terbaik__.
-    - _Disadvantages_: Relatif cepat dan bisa untuk semua masalah.
+    - _Advantages_: Relatif cepat dan bisa untuk semua masalah.
+    - _Disadvantages_: __belum tentu memberikan solusi terbaik__.
     
 ## Mencari Solusi Model (lanjutan)
 
@@ -60,8 +60,8 @@ Sebenarnya ada satu lagi pendekatan yang bisa dilakukan, yakni:
 
 Metode _heuristic_: menggunakan aproksimasi dengan prinsip komputasi __namun__ cara kerjanya terinspirasi dari kejadian-kejadian alam yang bersifat acak.
 
-- _Advantages_: __belum tentu memberikan solusi terbaik__.
-- _Disadvantages_: Relatif cepat. Apakah bisa untuk semua masalah? _No free lunch theorem_.
+- _Advantages_: Relatif cepat. Apakah bisa untuk semua masalah? _No free lunch theorem_.
+- _Disadvantages_: __belum tentu memberikan solusi terbaik__.
 
 ## Contoh Metode _Heuristic_
 
