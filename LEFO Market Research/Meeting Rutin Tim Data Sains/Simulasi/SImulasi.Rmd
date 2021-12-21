@@ -278,8 +278,8 @@ Kita hanya perlu mengulang-ulang algoritma di atas hingga hasilnya konvergen.
 
 Berikut adalah hasil simulasinya:
 
-```
-gambar
+```{r out.width="65%",fig.align='center',echo=FALSE,fig.height=3,fig.width=7}
+knitr::include_graphics("Resampling.png")
 ```
 
 ## _Resampling Annual Research_
