@@ -43,5 +43,5 @@ message = paste0("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n",
                  "\n\nButuh waktu selama: ",
                  end,
                  " detik\n\nUntuk simulasi sebanyak: ",
-                 n_simu," kali")
+                 n_simu," kali\n\n")
 cat(message)
