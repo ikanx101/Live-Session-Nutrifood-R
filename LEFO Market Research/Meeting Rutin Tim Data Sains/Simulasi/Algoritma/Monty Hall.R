@@ -40,6 +40,6 @@ runtime = Sys.time() - mulai
 runtime = round(runtime,5)
 
 cat("\n\nUntuk melakukan simulasi sebanyak ",n," kali dibutuhkan waktu selama ")
-cat(runtime,"\n\n")
+print(runtime)
 # proporsi
 prop.table(table(final))
