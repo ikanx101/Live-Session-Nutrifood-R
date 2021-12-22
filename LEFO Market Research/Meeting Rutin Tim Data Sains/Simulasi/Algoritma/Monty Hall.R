@@ -39,7 +39,7 @@ for(i in 1:n){
 runtime = Sys.time() - mulai
 runtime = round(runtime,5)
 
-cat("\n\nUntuk melakukan simulasi sebanyak ",n," kali dibutuhkan waktu selama ",runtime)
-cat(" detik\n")
+cat("\n\nUntuk melakukan simulasi sebanyak ",n," kali dibutuhkan waktu selama ")
+cat(runtime,"\n\n")
 # proporsi
 prop.table(table(final))
