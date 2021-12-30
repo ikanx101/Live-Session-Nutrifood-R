@@ -5,8 +5,8 @@ a = 0
 b = 2
 c = 2
 d = 3
-nx = 10^4
-ny = 10^4
+nx = 10^2
+ny = 10^2
 f = function(x,y){2*x + y^3}
 
 # serial
@@ -51,12 +51,13 @@ int_dobel_paralel = function(dummy){
 print("Hasil Menggunakan Serial Processing:")
 int_dobel_serial(f,a,b,c,d,nx,ny)
 
-cat("\n\nHasil Menggunakan Parallel Processing:")
+print("Hasil Menggunakan Parallel Processing:")
 mclapply(100,int_dobel_paralel,mc.cores = numCores)
 
-print("\n\nHasil menggunakan parallel kedua: ")
 clusterExport(clust, c("a","b","c","d","nx","ny","fx"))
 
+print("Hasil menggunakan parallel kedua:")
 parSapply(clust, 100, int_dobel_paralel)
-cat("\n\n")
+
+print("Hasil menggunakan parallel ketiga:")
 parLapply(clust,100,int_dobel_paralel)
