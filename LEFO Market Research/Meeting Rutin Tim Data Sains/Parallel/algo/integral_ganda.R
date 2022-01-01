@@ -5,8 +5,8 @@ a = 0
 b = 2
 c = 2
 d = 3
-nx = 10^2
-ny = 10^2
+nx = 10^3
+ny = 10^3
 f = function(x,y){2*x + y^3}
 
 # serial
