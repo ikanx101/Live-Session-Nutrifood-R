@@ -1,0 +1,100 @@
+---
+title: "Virtual Machine dan Parallel Processing in R"
+subtitle: "Sebuah Learning Forum"
+author: "Ikang Fadhli"
+institute: "Market Research @nutrifood"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  beamer_presentation:
+   fig_width : 7
+   fig_height : 6
+   fig_caption : true
+   slide_level : 2
+   theme: "AnnArbor"
+   colortheme: "beaver"
+   fonttheme: "structurebold"
+classoption: "aspectratio=169"
+toc: true
+---
+
+```{r setup, include = FALSE}
+rm(list=ls())
+library(dplyr)
+library(ggplot2)
+```
+
+# MUKADIMAH
+
+## _Learning Forum_ Hari Ini
+
+Pada hari ini, kita akan membahas dan berdiskusi tentang beberapa topik, yakni:
+
+1. _Virtual Machine_
+  - _Linux OS_
+  - _Google Cloud Virtual Machine_
+1. _Parallel Processing_
+  - _Serial Processing_
+  - _Embarassingly Paralel_
+
+# _VIRTUAL MACHINE_
+
+## Apa itu _Virtual Machine_?
+
+Pada konsep _computing_, _virtual machine_ adalah _virtualization_ atau _emulation_ dari suatu sistem komputer. 
+
+_Virtual machine_ berbasis suatu arsitektur komputer tertentu dan berfungsi sama halnya dengan komputer pada biasanya.
+
+Salah satu _operating system_ yang paling sering digunakan pada _virtual machine_ adalah LINUX OS.
+
+__Android__ merupakan salah satu _mobile OS_ yang berbasis Linux.
+
+## Apa itu LINUX OS?
+
+Linux adalah _operating system_ berbasis UNIX (sama halnya dengan MacOS) yang bersifat _open source_. Dibuat oleh seorang _programmer_ bernama Linus Torvalds pada 1991. Sampai saat ini, OS Linux merupakan OS yang populer digunakan di berbagai _server_ dan _high performance computer_ di dunia.
+
+Ada banyak _distro_ Linux yang berkembang (dengan basis komunitas yang kuat) antara lain:
+
+- Ubuntu,
+- Debian,
+- Kali,
+- Arch,
+- Fedora.
+
+Setiap distro memiliki spesialisasi tertentu sesuai dengan komunitas pengembang dan tujuannya.
+
+Distro yang paling sering digunakan pada _server_ dan _HPC_ adalah Debian atau Ubuntu.
+
+## Apa itu LINUX OS?
+
+Linux memiliki dua versi, yakni:
+
+1. _Command line interface_.
+1. _Graphical user interface_.
+
+Kita bisa memilih versi mana yang hendak kita gunakan di _virtual machine_. Tapi versi __CLI__ lebih disukai karena lebih ringan dan bisa memaksimalkan kemampuan _processors_ yang dimiliki.
+
+## Apa itu LINUX OS?
+
+Linux sangat ringan, bahkan bisa dijalankan dengan ___USB drive___ tanpa harus di-_install_ terlebih dahulu di laptop/komputer.
+
+Selain itu, Linux bisa di-_install_ di berbagai komputer dan _gadget_ apapun. Misal: HP / tablet Android dan laptop Windows.
+
+Di _gadget_ Android, kita bisa mencicipi Linux CLI dan GUI dengan meng-_install_ _apps_ bernama `userLand`. Pada laptop Windows, kita bisa meng-_install_ berbagai _virtual toolbox_ (misalkan `MobaXterm`).
+
+## _Google Virtual Machine_
+
+Berbekal _credit_ yang kita dapatkan saat mengaktifkan layanan _Google Cloud Service_, kita bisa menyewa _virtual machine_ sesuai dengan kebutuhan.
+
+__Bagaimana caranya?__
+
+## _Google Virtual Machine_
+
+DEMO
+
+## `UserLand` di Android
+
+DEMO
+
+## Diskusi
+
+_Any comments?_
