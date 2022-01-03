@@ -8,11 +8,14 @@ library(tidyr)
 
 df = mtcars %>% select(mpg,am,gear) %>% nest(data = c(mpg,gear))
 
+plan(sequential)
+
 start = Sys.time()
 
 model_df = 
   df %>%
-  mutate(model = map(data, function(df){
+  mutate(model = future_map(data, function(df){
+		     Sys.sleep(5)
 		     lm(mpg ~ gear, data = df)
 		     }
 		    )

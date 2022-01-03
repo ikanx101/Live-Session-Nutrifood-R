@@ -8,15 +8,16 @@ library(tidyr)
 
 df = mtcars %>% select(mpg,am,gear) %>% nest(data = c(mpg,gear))
 
-# ini kita set agar jalan di 6 cores
-plan(multisession,workers = 7)
+# ini kita set agar jalan di 8 cores
+plan(multisession,workers = 4)
 
 start = Sys.time()
 
 model_df = 
   df %>%
   mutate(model = future_map(data, function(df){
-		     lm(mpg ~ gear, data = df)
+		     	Sys.sleep(5)
+			lm(mpg ~ gear, data = df)
 		     }
 		    )
 	)
