@@ -30,11 +30,13 @@ library(ggplot2)
 Pada hari ini, kita akan membahas dan berdiskusi tentang beberapa topik, yakni:
 
 1. _Virtual Machine_
-  - _Linux OS_
-  - _Google Cloud Virtual Machine_
+   - _Linux OS_
+   - _Google Cloud Virtual Machine_
 1. _Parallel Processing_
-  - _Serial Processing_
-  - _Embarassingly Paralel_
+   - _Serial Processing_
+   - _Embarassingly Parallel_
+   - _Parallel_ yang Sebenarnya
+
 
 # _VIRTUAL MACHINE_
 
@@ -50,7 +52,7 @@ __Android__ merupakan salah satu _mobile OS_ yang berbasis Linux.
 
 ## Apa itu LINUX OS?
 
-Linux adalah _operating system_ berbasis UNIX (sama halnya dengan MacOS) yang bersifat _open source_. Dibuat oleh seorang _programmer_ bernama Linus Torvalds pada 1991. Sampai saat ini, OS Linux merupakan OS yang populer digunakan di berbagai _server_ dan _high performance computer_ di dunia.
+Linux adalah _operating system_ berbasis UNIX (sama halnya dengan MacOS) yang bersifat _open source_. Dibuat oleh seorang _programmer_ bernama __Linus Torvalds__ pada 1991. Sampai saat ini, OS Linux merupakan OS yang populer digunakan di berbagai _server_ dan _high performance computer_ di dunia.
 
 Ada banyak _distro_ Linux yang berkembang (dengan basis komunitas yang kuat) antara lain:
 
@@ -63,6 +65,10 @@ Ada banyak _distro_ Linux yang berkembang (dengan basis komunitas yang kuat) ant
 Setiap distro memiliki spesialisasi tertentu sesuai dengan komunitas pengembang dan tujuannya.
 
 Distro yang paling sering digunakan pada _server_ dan _HPC_ adalah Debian atau Ubuntu.
+
+## _Fun Fact_
+
+__Linus Torvalds__ juga salah seorang _creator_ dari `Git`.
 
 ## Apa itu LINUX OS?
 
@@ -79,7 +85,7 @@ Linux sangat ringan, bahkan bisa dijalankan dengan ___USB drive___ tanpa harus d
 
 Selain itu, Linux bisa di-_install_ di berbagai komputer dan _gadget_ apapun. Misal: HP / tablet Android dan laptop Windows.
 
-Di _gadget_ Android, kita bisa mencicipi Linux CLI dan GUI dengan meng-_install_ _apps_ bernama `userLand`. Pada laptop Windows, kita bisa meng-_install_ berbagai _virtual toolbox_ (misalkan `MobaXterm`).
+Di _gadget_ Android, kita bisa mencicipi Linux CLI dan GUI dengan meng-_install_ _apps_ bernama `userLand`. Pada laptop Windows, kita bisa meng-_install_ berbagai _virtual box_ (misalkan `MobaXterm`).
 
 ## _Google Virtual Machine_
 
