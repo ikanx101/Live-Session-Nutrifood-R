@@ -6,7 +6,7 @@ nx = 10^8
 fx = function(x){4 * sqrt(1 - x^2)}
 
 # paralel
-hitung_pi_par = function(n){
+hitung_pi = function(n){
   mulai = Sys.time()
   xi = runif(n)
   fxi = fx(xi)
@@ -18,4 +18,4 @@ hitung_pi_par = function(n){
 }
 
 print("Hasil Menggunakan apply:")
-lapply(nx,hitung_pi_par)
+lapply(nx,hitung_pi)
