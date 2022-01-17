@@ -6,10 +6,6 @@ nx = 10^8
 fx = function(x){4 * sqrt(1 - x^2)}
 
 # paralel
-library(parallel)
-numCores = detectCores()
-
-# paralel
 hitung_pi_par = function(n){
   mulai = Sys.time()
   xi = runif(n)

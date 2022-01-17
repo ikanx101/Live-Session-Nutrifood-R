@@ -20,18 +20,20 @@ library(parallel)
 numCores = detectCores()
 
 # kita pecah
-n_pecah = nx / 5
+n_pecah = nx / 8
 
 # affinity
-affi = 1:5
+affi = 1:8
 
 # hitung waktu
 mulai = Sys.time()
 
 print("Hasil Menggunakan Parallel Processing:")
 pi = mclapply(list(n_pecah,n_pecah,n_pecah,n_pecah,
-                   n_pecah),
-              hitung_pi_par,mc.preschedule = FALSE,affinity.list = affi,mc.cores = numCores)
+                   n_pecah,n_pecah,n_pecah,n_pecah),
+              hitung_pi_par,mc.preschedule = FALSE,
+              affinity.list = affi,
+              mc.cores = numCores)
 
 pi = mean(unlist(pi))
 
