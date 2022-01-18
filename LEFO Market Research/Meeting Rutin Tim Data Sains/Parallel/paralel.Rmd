@@ -50,6 +50,27 @@ Salah satu _operating system_ yang paling sering digunakan pada _virtual machine
 
 __Android__ merupakan salah satu _mobile OS_ yang berbasis Linux.
 
+## Apa itu _Virtual Machine_?
+
+```{r out.width="40%",fig.align='center',echo=FALSE}
+nomnoml::nomnoml("
+                 [Local Machine] <--> [Virtual Machine]
+                 
+                 [Virtual Machine|
+                     [Cloud]
+                     [Intra Network]
+                     ]
+                 
+                 [Local Machine|
+                     [Laptop]
+                     [PC]
+                     [Gadget]
+                     ]
+                 ")
+```
+
+Pembahasan pada __LEFO__ kali ini dibatasi untuk _cloud VM_. Istilah lain yang sering digunakan untuk menyebut _VM_ di _cloud_ adalah _virtual private server_ (VPS).
+
 ## Apa itu LINUX OS?
 
 Linux adalah _operating system_ berbasis UNIX (sama halnya dengan MacOS) yang bersifat _open source_. Dibuat oleh seorang _programmer_ bernama __Linus Torvalds__ pada 1991. Sampai saat ini, OS Linux merupakan OS yang populer digunakan di berbagai _server_ dan _high performance computer_ di dunia.
@@ -104,3 +125,96 @@ DEMO
 ## Diskusi
 
 _Any comments?_
+
+# _PARALLEL PROCESSING_
+
+## Apa Tujuannya _Parallel Processing_?
+
+Manusia itu terobsesi dengan hal-hal yang bisa dilakukan dengan cepat. Apalagi jika sumber daya komputasi yang dimiliki sangat mumpuni.
+
+___Jika suatu komputasi bisa dilakukan lebih cepat, kenapa tidak?___
+
+## Lebih Cepat, Lebih Baik!
+
+```{r out.width="60%",fig.align='center',echo=FALSE}
+knitr::include_graphics("jk.jpg")
+```
+
+## _Serial Processing_ vs _Parallel Processing_
+
+### _Serial Processing_
+
+Adalah proses komputasi yang bersifat sekuensial. Misal suatu proses komputasi memiliki $n$ proses. Proses ke $i$ tidak bisa dilakukan hingga proses ke $i-1$ selesai ($i \leq n$).
+
+### _Parallel Processing_
+
+Adalah proses komputasi dimana semua proses yang terlibat dijalankan secara bersamaan. Misalkan suatu proses komputasi memiliki $n$ proses dijalankan bersamaan. Proses ke $i$ bisa dijalankan tanpa menunggu proses yang lain.
+
+## Analogi
+
+```{r out.width="60%",fig.align='center',echo=FALSE}
+knitr::include_graphics("mobil.jpg")
+```
+
+__Menurut kalian proses perakitan satu mobil ini berlangsung secara serial atau parallel?__
+
+## Analogi
+
+Suatu ketika, saya diminta tolong untuk memberikan informasi kepada 8 orang via _messaging_.
+
+Apa harus saya lakukan jika saya menggunakan:
+
+1. _Serial Processing_
+1. _Parallel Processing_
+
+## Analogi
+
+Dalam _parallel processing_ ada yang disebut dengan _embarassingly parallel_. Apakah se-memalukannya itu?
+
+### Contoh I
+
+Saya membuat grup WA berisi `8` orang tersebut. Lalu menginformasikannya melalui grup tersebut.
+
+### Contoh II
+
+Saya meminta tolong orang lain sehingga menggunakan `8` buah _gadgets_ untuk mengirimkan informasi tersebut kepada `8` orang secara bersamaan.
+
+### Pertanyaannya
+
+Antara contoh I dan II, mana yang memalukan?
+
+## Ide Dasar _Parallel Processing_
+
+Jika suatu proses komputasi bisa dilakukan selama $X$ detik pada _single processor_, maka jika kita memiliki $n$ buah _processors_ prosesnya seharusnya bisa dihemat menjadi $\frac{X}{n}$ detik.
+
+__Setuju? Logis gak?__
+
+## Tapi...
+
+Percepatan _runtime_ ini tidak berlaku _linear_ seperti di atas. Tapi yang jelas memang lebih cepat dibanding _serial processing_.
+
+Lantas seberapa cepat?
+
+## Sekilas tentang _Runtime_
+
+_Runtime_ suatu proses komputasi bergantung pada dua hal:
+
+1. Kompleksitas algoritma (termasuk bahasa pemrograman yang dipilih).
+1. Kapasitas _hardware_.
+
+Oleh karena itu, _runtime_ pada _parallel processing_ sangat berpengaruh pada kedua faktor di atas.
+
+## Berbicara Mengenai _Parallel Processing_
+
+Dahulu kala saat berbicara mengenal _parallel processing_, istilah ini hanya digunakan saat seseorang melakukan komputasi menggunakan _high performance computer_ (HPC). HPC merupakan "super komputer" yang dibuat dari beberapa komputer (multi _processors_) yang dibuat sedemikian rupa (menggunakan arsitektur jaringan tertentu).
+
+Namun demikian, istilah ini sekarang bisa untuk segala jenis komputer. Bahkan _gadget_ Android yang kita pakai sekarang sudah _multicores_ sehingga memungkinkan untuk melakukan _parallel processing_.
+
+## Contoh
+
+Deteksi berapa banyak _cores_ di Huawei T10s.
+
+```{r out.width="60%",fig.align='center',echo=FALSE}
+knitr::include_graphics("huawei.jpg")
+```
+
