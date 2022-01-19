@@ -1,0 +1,26 @@
+---
+title: "Virtual Machine dan Parallel Processing in R"
+subtitle: "Sebuah Learning Forum"
+author: "Ikang Fadhli"
+institute: "Market Research @nutrifood"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  beamer_presentation:
+   fig_width : 7
+   fig_height : 6
+   fig_caption : true
+   slide_level : 2
+   theme: "AnnArbor"
+   colortheme: "beaver"
+   fonttheme: "structurebold"
+classoption: "aspectratio=169"
+toc: true
+---
+
+```{r setup, include = FALSE}
+rm(list=ls())
+library(dplyr)
+library(ggplot2)
+```
+
+# Update dulu
