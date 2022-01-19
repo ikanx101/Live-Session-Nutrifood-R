@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  18 JAN 2022 13:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  18 JAN 2022 15:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1022,9 +1022,11 @@ Package pdftex.def Info: jk.jpg  used on input line 280.
 (pdftex.def)             Requested size: 260.0091pt x 146.24669pt.
 [18
 
- <./jk.jpg>]
+ <./jk.jpg>] [19
+
+]
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
-298.
+314.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1032,35 +1034,35 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
-98.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 3
+14.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-298.
+314.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-298.
+314.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 298.
+(Font)              <10.95> on input line 314.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 298.
+(Font)              <8> on input line 314.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 298.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 298
+(Font)              <6> on input line 314.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 314
 .
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 298
+LaTeX Font Info:    Trying to load font information for U+msb on input line 314
 .
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1068,41 +1070,117 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 298.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 314.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 298.
-[19
-
-]
-<mobil.jpg, id=277, 652.4375pt x 326.21875pt>
-File: mobil.jpg Graphic file (type jpg)
-<use mobil.jpg>
-Package pdftex.def Info: mobil.jpg  used on input line 306.
-(pdftex.def)             Requested size: 260.0091pt x 130.00732pt.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 314.
 [20
 
- <./mobil.jpg>] [21
+]
+<mobil.jpg, id=285, 652.4375pt x 326.21875pt>
+File: mobil.jpg Graphic file (type jpg)
+<use mobil.jpg>
+Package pdftex.def Info: mobil.jpg  used on input line 322.
+(pdftex.def)             Requested size: 260.0091pt x 130.00732pt.
+[21
+
+ <./mobil.jpg>] [22
 
 ]
 \openout4 = `paralel.vrb'.
 
-(./paralel.vrb) [22
-
-] [23
-
-] [24
-
-] [25
+(./paralel.vrb) [23
 
 ]
-<huawei.jpg, id=368, 993.7125pt x 426.59375pt>
+<dell.jpg, id=350, 1927.2pt x 1084.05pt>
+File: dell.jpg Graphic file (type jpg)
+<use dell.jpg>
+Package pdftex.def Info: dell.jpg  used on input line 371.
+(pdftex.def)             Requested size: 260.0091pt x 146.24118pt.
+[24
+
+ <./dell.jpg>] [25
+
+] [26
+
+] [27
+
+]
+<huawei.jpg, id=387, 993.7125pt x 426.59375pt>
 File: huawei.jpg Graphic file (type jpg)
 <use huawei.jpg>
-Package pdftex.def Info: huawei.jpg  used on input line 386.
+Package pdftex.def Info: huawei.jpg  used on input line 411.
 (pdftex.def)             Requested size: 260.0091pt x 111.62126pt.
-[26
+[28
 
  <./huawei.jpg>]
+\openout4 = `paralel.vrb'.
+
+(./paralel.vrb
+<runtime huawei.jpg, id=396, 1927.2pt x 1204.5pt>
+File: runtime huawei.jpg Graphic file (type jpg)
+<use runtime huawei.jpg>
+Package pdftex.def Info: runtime huawei.jpg  used on input line 5.
+(pdftex.def)             Requested size: 260.0091pt x 162.4902pt.
+) [29
+
+ <./runtime huawei.jpg>] [30
+
+] [31
+
+]
+\openout4 = `paralel.vrb'.
+
+(./paralel.vrb) [32
+
+] [33
+
+]
+\openout4 = `paralel.vrb'.
+
+(./paralel.vrb) [34
+
+]
+\openout4 = `paralel.vrb'.
+
+(./paralel.vrb) [35
+
+]
+<apply.png, id=457, 1927.2pt x 1084.05pt>
+File: apply.png Graphic file (type png)
+<use apply.png>
+Package pdftex.def Info: apply.png  used on input line 510.
+(pdftex.def)             Requested size: 325.00806pt x 182.81389pt.
+[36
+
+ <./apply.png>]
+\openout4 = `paralel.vrb'.
+
+(./paralel.vrb
+<affin.png, id=467, 1927.2pt x 1084.05pt>
+File: affin.png Graphic file (type png)
+<use affin.png>
+Package pdftex.def Info: affin.png  used on input line 8.
+(pdftex.def)             Requested size: 260.0091pt x 146.24118pt.
+) [37
+
+ <./affin.png>]
+\openout4 = `paralel.vrb'.
+
+(./paralel.vrb) [38
+
+]
+<lingkaran.png, id=486, 505.89pt x 361.35pt>
+File: lingkaran.png Graphic file (type png)
+<use lingkaran.png>
+Package pdftex.def Info: lingkaran.png  used on input line 551.
+(pdftex.def)             Requested size: 173.33498pt x 123.81125pt.
+
+Overfull \vbox (12.57442pt too high) detected at line 551
+ []
+
+[39
+
+ <./lingkaran.png (PNG copy)>]
 \tf@nav=\write6
 \openout6 = `paralel.nav'.
 
@@ -1117,29 +1195,33 @@ Package rerunfilecheck Info: File `paralel.out' has not changed.
 (rerunfilecheck)             Checksum: D58B03CEA486E8258163358DDD46AE4E;350.
  ) 
 Here is how much of TeX's memory you used:
- 23141 strings out of 480559
- 436131 string characters out of 5902712
+ 23296 strings out of 480559
+ 438319 string characters out of 5902712
  743145 words of memory out of 5000000
- 40050 multiletter control sequences out of 15000+600000
- 475567 words of font info for 123 fonts, out of 8000000 for 9000
+ 40135 multiletter control sequences out of 15000+600000
+ 476578 words of font info for 132 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  101i,15n,108p,1004b,682s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/home/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/i
-kanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}</home/ikanx_s
-erver/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></home/ikanx_server/
-.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb></home/ikanx_server/.TinyT
-eX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></home/ikanx_server/.TinyTeX/texm
-f-dist/fonts/type1/public/lm/lmssbo10.pfb></home/ikanx_server/.TinyTeX/texmf-di
-st/fonts/type1/public/lm/lmssbx10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/f
-onts/type1/public/lm/lmsso10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/
-type1/public/lm/lmsso8.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/
-public/lm/lmsy10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public
-/lm/lmtk10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lm
-tt10.pfb>
-Output written on paralel.pdf (26 pages, 685478 bytes).
+{/home/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/ho
+me/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/home/ika
+nx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/ikanx_server/
+.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/ikanx_server/.TinyTeX/t
+exmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}</home/ikanx_server/.TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmex10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fo
+nts/type1/public/lm/lmmi10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/ty
+pe1/public/lm/lmss10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/pu
+blic/lm/lmss12.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/l
+m/lmss8.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmssb
+o10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.
+pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb><
+/home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></home/
+ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/ikanx_
+server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></home/ikanx_server
+/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on paralel.pdf (39 pages, 2846308 bytes).
 PDF statistics:
- 442 PDF objects out of 1000 (max. 8388607)
- 321 compressed objects within 4 object streams
- 82 named destinations out of 1000 (max. 500000)
- 45479 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 584 PDF objects out of 1000 (max. 8388607)
+ 436 compressed objects within 5 object streams
+ 121 named destinations out of 1000 (max. 500000)
+ 45504 words of extra memory for PDF output out of 51595 (max. 10000000)
 

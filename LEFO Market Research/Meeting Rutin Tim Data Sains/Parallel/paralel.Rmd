@@ -140,6 +140,15 @@ ___Jika suatu komputasi bisa dilakukan lebih cepat, kenapa tidak?___
 knitr::include_graphics("jk.jpg")
 ```
 
+## Sekilas tentang _Runtime_
+
+_Runtime_ suatu proses komputasi bergantung pada dua hal:
+
+1. Kompleksitas algoritma (termasuk bahasa pemrograman yang dipilih).
+1. Kapasitas _hardware_ (termasuk _memmory allocation_).
+
+Oleh karena itu, _runtime_ baik _serial processing_ dan _parallel processing_ sangat berpengaruh pada kedua faktor di atas.
+
 ## _Serial Processing_ vs _Parallel Processing_
 
 ### _Serial Processing_
@@ -183,6 +192,14 @@ Saya meminta tolong orang lain sehingga menggunakan `8` buah _gadgets_ untuk men
 
 Antara contoh I dan II, mana yang memalukan?
 
+## Apakah _Serial Processing_ Buruk?
+
+```{r out.width="60%",fig.align='center',echo=FALSE}
+knitr::include_graphics("dell.jpg")
+```
+
+Sejatinya saat __R__ atau __Python__ melakukan _process_ terhadap suatu algoritma, __mereka hanya memakai 1 core komputer kita saja__.
+
 ## Ide Dasar _Parallel Processing_
 
 Jika suatu proses komputasi bisa dilakukan selama $X$ detik pada _single processor_, maka jika kita memiliki $n$ buah _processors_ prosesnya seharusnya bisa dihemat menjadi $\frac{X}{n}$ detik.
@@ -194,15 +211,6 @@ __Setuju? Logis gak?__
 Percepatan _runtime_ ini tidak berlaku _linear_ seperti di atas. Tapi yang jelas memang lebih cepat dibanding _serial processing_.
 
 Lantas seberapa cepat?
-
-## Sekilas tentang _Runtime_
-
-_Runtime_ suatu proses komputasi bergantung pada dua hal:
-
-1. Kompleksitas algoritma (termasuk bahasa pemrograman yang dipilih).
-1. Kapasitas _hardware_.
-
-Oleh karena itu, _runtime_ pada _parallel processing_ sangat berpengaruh pada kedua faktor di atas.
 
 ## Berbicara Mengenai _Parallel Processing_
 
@@ -216,5 +224,98 @@ Deteksi berapa banyak _cores_ di Huawei T10s.
 
 ```{r out.width="60%",fig.align='center',echo=FALSE}
 knitr::include_graphics("huawei.jpg")
+```
+
+## Contoh
+
+_Runtime_ untuk menjalankan `pi.serial.R` di Huawei T10s:
+
+```{r out.width="60%",fig.align='center',echo=FALSE}
+knitr::include_graphics("runtime huawei.jpg")
+```
+
+## Kita Mulai Bedah _Parallel Processing_
+
+_Runtime_ suatu proses komputasi bergantung pada dua hal:
+
+1. Kompleksitas algoritma (termasuk bahasa pemrograman yang dipilih).
+1. Kapasitas _hardware_ (termasuk _memmory allocation_).
+
+## Kapasitas _Hardware_
+
+Salah satu faktor yang berpengaruh adalah _clock_ dari _processor_. Maka semakin banyak _processors_ maka diharapkan prosesnya semakin cepat. _Memory allocation_ juga (konon) berpengaruh.
+
+Pada _Python_, _parallelism_ yang menggunakan konsep _message parsing interface_ diperlukan _middleware_ untuk menghubungkan Python dan _processors_. Kita bisa gunakan _middleware_ bernama __openMPI__.
+
+## Kompleksitas Algoritma
+
+Perhitungan kompleksitas waktu $T(n)$ diukur dari tahapan komputasi yang dibutuhkan untuk menjalankan algoritma sebagai fungsi dari _input_ $n$.
+
+Sebagai contoh, suatu algoritma yang digunakan untuk menghitung rata-rata dari suatu data $\{1,2,..,n\}$ sebagai berikut:
+
+```
+sum = 0
+for i in 1 to n:
+  sum = sum + i
+avg = sum / n
+```
+
+Memiliki kompleksitas waktu $T(n)=n$. Dihitung dari operasi mendasar di dalamnya yakni `sum = sum + i` yang diulang sebanyak $n$ kali.
+
+## Kompleksitas Algoritma
+
+Akibatnya waktu komputasi yang diperlukan menjadi lebih banyak karena __tahapan yang dilalui juga banyak__.
+
+Oleh karena itu, salah satu hal yang bisa dilakukan dalam _parallel processing_ adalah mengubah paradigma membuat algoritma, dari sekuensial ke bentuk _parallel_.
+
+## Mengubah Paradigma
+
+Bahasa pemrograman modern saat ini sudah memungkinkan komputer untuk memproses suatu _array_ secara sekaligus. Prinsip sederhana ini yang bisa digunakan dalam membuat algoritma _embarassingly parallel processing_. 
+
+Contohnya di __R__ adalah penggunaan:
+
+1. `apply()`
+1. `sapply()`
+1. `lapply()`
+
+## Penggunaan Keluarga `apply()`
+
+Penggunaan keluarga `apply()` membuat proses jauh lebih cepat karena data diproses secara _array_. Namun _memory_ yang dibutuhkan biasanya akan semakin besar.
+
+Namun, perlu dipahami bahwa yang terjadi adalah __kita tetap menggunakan 1 core saja__.
+
+## _Runtime_ dengan `apply()`
+
+```{r out.width="75%",fig.align='center',echo=FALSE}
+knitr::include_graphics("apply.png")
+```
+
+## Bagaimana Agar Memaksimalkan Semua _Cores_?
+
+Setidaknya ada berbagai cara menuliskan algoritma dan _libraries_ yang bisa melakukan _parallel processing_. Salah satu _library_ bawaan __R__ yang bisa kita pakai adalah `library(parallel)`.
+
+```{r out.width="60%",fig.align='center',echo=FALSE}
+knitr::include_graphics("affin.png")
+```
+
+## Setidaknya ada `3` Cara di `parallel`
+
+Kita bisa memanfaatkan _function_ `mclapply()` dengan memanfaatkan beberapa parameter berikut:
+
+1. Menggunakan _all cores_.
+1. Menggunakan _all cores_ dan meng-_assign_ setiap _cores_ dengan tugas-tugas tertentu.
+
+Kita bisa membuat _cluster nodes_ dan menggunakan perintah `parSapply()` dan `parLapply()`
+
+## DEMO
+
+Pada demo ini, kita akan menghitung nilai $\pi$ dengan cara melakukan integral dari fungsi berikut:
+
+$$\int_0^1 4 (1 - x^2) dx$$
+
+Secara numerik, berarti kita mencari luas dari kurva berikut:
+
+```{r out.width="40%",fig.align='center',echo=FALSE}
+knitr::include_graphics("lingkaran.png")
 ```
 

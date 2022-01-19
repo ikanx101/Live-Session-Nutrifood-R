@@ -9,7 +9,7 @@ library(tidyr)
 df = mtcars %>% select(mpg,am,gear) %>% nest(data = c(mpg,gear))
 
 # ini kita set agar jalan di 8 cores
-plan(multisession,workers = 4)
+plan(multisession,workers = 8)
 
 start = Sys.time()
 
