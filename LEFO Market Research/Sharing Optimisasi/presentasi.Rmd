@@ -1,6 +1,6 @@
 ---
-title: "Virtual Machine dan Parallel Processing in R"
-subtitle: "Sebuah Learning Forum"
+title: "Sharing Pemodelan Matematika dan Optimisasi"
+subtitle: "Intro to Operation Research"
 author: "Ikang Fadhli"
 institute: "Market Research @nutrifood"
 date: "`r format(Sys.time(), '%d %B %Y')`"
