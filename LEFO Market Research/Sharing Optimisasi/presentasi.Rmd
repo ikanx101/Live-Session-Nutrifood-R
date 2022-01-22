@@ -48,6 +48,31 @@ nomnoml::nomnoml("
 knitr::include_graphics("ecom.png")
 ```
 
+## Portofolio Diskon Produk
+
+Tercatat ada ribuan _listed products_ dari berbagai _sellers_. Dengan _budget_ sebesar Rp200 juta, produk mana saja yang pantas diberikan tambahan diskon? Berapa besar total _expected profit_ yang akan didapatkan?
+
+```{r,echo=FALSE}
+produk = c("a","b","c","d")
+budget = runif(4,10,100) %>% round(0) %>% paste0("rb")
+expected_profit = runif(4,10,100) %>% round(0) %>% paste0("rb")
+
+data.frame(produk,budget,expected_profit) %>% 
+   knitr::kable(caption = "Contoh Data Budget vs Expected Profit")
+```
+
+## _Follow Up_
+
+```{r out.width="50%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("wp.png")
+```
+
+## Akhirnya Berlanjut ke
+
+```{r out.width="50%",echo=FALSE,fig.align='center'}
+knitr::include_graphics("finanmos.png")
+```
+
 # LATAR BELAKANG
 
 ## _Real World Problem_

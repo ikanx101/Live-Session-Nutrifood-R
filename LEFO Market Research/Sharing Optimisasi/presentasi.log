@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  22 JAN 2022 08:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  22 JAN 2022 12:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -761,33 +761,103 @@ LaTeX Info: Redefining \lslig on input line 897.
 Package microtype Info: Loading configuration file microtype.cfg.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
 File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
+)) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip68
+\LTright=\skip69
+\LTpre=\skip70
+\LTpost=\skip71
+\LTchunksize=\count337
+\LTcapwidth=\dimen289
+\LT@head=\box77
+\LT@firsthead=\box78
+\LT@foot=\box79
+\LT@lastfoot=\box80
+\LT@gbox=\box81
+\LT@cols=\count338
+\LT@rows=\count339
+\c@LT@tables=\count340
+\c@LT@chunks=\count341
+\LT@p@ftn=\toks48
+) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen290
+\lightrulewidth=\dimen291
+\cmidrulewidth=\dimen292
+\belowrulesep=\dimen293
+\belowbottomsep=\dimen294
+\aboverulesep=\dimen295
+\abovetopsep=\dimen296
+\cmidrulesep=\dimen297
+\cmidrulekern=\dimen298
+\defaultaddspace=\dimen299
+\@cmidla=\count342
+\@cmidlb=\count343
+\@aboverulesep=\dimen300
+\@belowrulesep=\dimen301
+\@thisruleclass=\count344
+\@lastruleclass=\count345
+\@thisrulewidth=\dimen302
+) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen303
+\ar@mcellbox=\box82
+\extrarowheight=\dimen304
+\NC@list=\toks49
+\extratabsurround=\skip72
+\backup@length=\skip73
+\ar@cellbox=\box83
+) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/caption/caption.sty
+Package: caption 2020/10/26 v3.5g Customizing captions (AR)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/caption/caption3.sty
+Package: caption3 2020/10/21 v2.2e caption3 kernel (AR)
+\captionmargin=\dimen305
+\captionmargin@=\dimen306
+\captionwidth=\dimen307
+\caption@tempdima=\dimen308
+\caption@indent=\dimen309
+\caption@parindent=\dimen310
+\caption@hangindent=\dimen311
+Package caption Info: beamer document class detected.
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/caption/caption-beamer.sto
+File: caption-beamer.sto 2020/08/22 v2.0 Adaption of the caption package to the
+ beamer document classes (AR)
+))
+\c@caption@flags=\count346
+\c@continuedfloat=\count347
+Package caption Info: hyperref package is loaded.
+Package caption Info: Hyperref support is turned off
+(caption)             because hyperref has stopped early.
+Package caption Info: longtable package is loaded.
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/caption/ltcaption.sty
+Package: ltcaption 2020/05/30 v1.4b longtable captions (AR)
 ))
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.de
 f
 File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count337
-\l__pdf_internal_box=\box77
+\l__color_backend_stack_int=\count348
+\l__pdf_internal_box=\box84
 ) (./presentasi.aux)
 \openout1 = `presentasi.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 108.
+LaTeX Font Info:    ... okay on input line 108.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -832,7 +902,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 101.
+Package hyperref Info: Link coloring OFF on input line 108.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
@@ -842,61 +912,61 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ng.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count338
+\c@section@level=\count349
 )
-LaTeX Info: Redefining \ref on input line 101.
-LaTeX Info: Redefining \pageref on input line 101.
-LaTeX Info: Redefining \nameref on input line 101.
+LaTeX Info: Redefining \ref on input line 108.
+LaTeX Info: Redefining \pageref on input line 108.
+LaTeX Info: Redefining \nameref on input line 108.
 (./presentasi.out) (./presentasi.out)
 \@outlinefile=\write5
 \openout5 = `presentasi.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 101.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 101.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 101.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 101.
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 108.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 101.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 101.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 108.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 101.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 101.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 101.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 108.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 101.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 101.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 101.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 108.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 101.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 101.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 101.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 108.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 101.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 101.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 101.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 108.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 101.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 101.
+(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 101.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 101.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 101.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 108.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 101.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 108.
 
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/translator/translator-basic-d
 ictionary-English.dict
@@ -922,12 +992,12 @@ Dictionary: translator-numbers-dictionary, Language: English
 -dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
-LaTeX Info: Redefining \microtypecontext on input line 101.
-Package microtype Info: Applying patch `item' on input line 101.
-Package microtype Info: Applying patch `toc' on input line 101.
-Package microtype Info: Applying patch `eqnum' on input line 101.
+LaTeX Info: Redefining \microtypecontext on input line 108.
+Package microtype Info: Applying patch `item' on input line 108.
+Package microtype Info: Applying patch `toc' on input line 108.
+Package microtype Info: Applying patch `eqnum' on input line 108.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 101.
+Package microtype Warning: Unable to apply patch `footnote' on input line 108.
 
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -935,7 +1005,7 @@ Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 101.
+LaTeX Info: Redefining \showhyphens on input line 108.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -943,6 +1013,8 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: End \AtBeginDocument code.
 (./presentasi.nav) [1{/home/ikanx_server/.TinyTeX/texmf-var/fonts/map/pdftex/up
 dmap/pdftex.map}
 
@@ -952,7 +1024,7 @@ dmap/pdftex.map}
 <data sains.jpg, id=70, 897.3525pt x 577.15625pt>
 File: data sains.jpg Graphic file (type jpg)
 <use data sains.jpg>
-Package pdftex.def Info: data sains.jpg  used on input line 110.
+Package pdftex.def Info: data sains.jpg  used on input line 117.
 (pdftex.def)             Requested size: 278.83578pt x 179.3393pt.
 [3
 
@@ -963,10 +1035,10 @@ File: presentasi_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic file (type p
 df)
 <use presentasi_files/figure-beamer/unnamed-chunk-2-1.pdf>
 Package pdftex.def Info: presentasi_files/figure-beamer/unnamed-chunk-2-1.pdf  
-used on input line 115.
+used on input line 122.
 (pdftex.def)             Requested size: 278.83578pt x 170.7112pt.
 LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <14.4> not available
-(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 115.
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 122.
 
 [4
 
@@ -974,59 +1046,70 @@ LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <14.4> not available
 <ecom.png, id=98, 702.625pt x 301.125pt>
 File: ecom.png Graphic file (type png)
 <use ecom.png>
-Package pdftex.def Info: ecom.png  used on input line 120.
+Package pdftex.def Info: ecom.png  used on input line 127.
 (pdftex.def)             Requested size: 278.83578pt x 119.50592pt.
 [5
 
- <./ecom.png (PNG copy)>] [6
+ <./ecom.png (PNG copy)>]
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 152.
+[6
 
 ]
-<problem.png, id=117, 722.7pt x 406.51875pt>
-File: problem.png Graphic file (type png)
-<use problem.png>
-Package pdftex.def Info: problem.png  used on input line 131.
-(pdftex.def)             Requested size: 159.333pt x 89.62048pt.
+<wp.png, id=118, 669.50125pt x 529.98pt>
+File: wp.png Graphic file (type png)
+<use wp.png>
+Package pdftex.def Info: wp.png  used on input line 157.
+(pdftex.def)             Requested size: 199.1693pt x 157.66089pt.
 [7
 
- <./problem.png>]
-<maximini.jpg, id=129, 1445.4pt x 956.57375pt>
-File: maximini.jpg Graphic file (type jpg)
-<use maximini.jpg>
-Package pdftex.def Info: maximini.jpg  used on input line 139.
-(pdftex.def)             Requested size: 159.333pt x 105.44237pt.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 139.
-[8
-
- <./maximini.jpg>]
-<solusi.jpg, id=140, 301.125pt x 235.88126pt>
-File: solusi.jpg Graphic file (type jpg)
-<use solusi.jpg>
-Package pdftex.def Info: solusi.jpg  used on input line 149.
-(pdftex.def)             Requested size: 119.50279pt x 93.60938pt.
-[9
-
- <./solusi.jpg>]
-<model.png, id=150, 325.215pt x 184.43906pt>
-File: model.png Graphic file (type png)
-<use model.png>
-Package pdftex.def Info: model.png  used on input line 160.
-(pdftex.def)             Requested size: 139.42093pt x 79.07083pt.
-[10
-
- <./model.PNG>] [11
+ <./wp.png>] [8
 
 ]
-<hubungan.png, id=174, 536.0025pt x 357.335pt>
+<problem.png, id=140, 722.7pt x 406.51875pt>
+File: problem.png Graphic file (type png)
+<use problem.png>
+Package pdftex.def Info: problem.png  used on input line 168.
+(pdftex.def)             Requested size: 159.333pt x 89.62048pt.
+[9
+
+ <./problem.png>]
+<maximini.jpg, id=151, 1445.4pt x 956.57375pt>
+File: maximini.jpg Graphic file (type jpg)
+<use maximini.jpg>
+Package pdftex.def Info: maximini.jpg  used on input line 176.
+(pdftex.def)             Requested size: 159.333pt x 105.44237pt.
+[10
+
+ <./maximini.jpg>]
+<solusi.jpg, id=161, 301.125pt x 235.88126pt>
+File: solusi.jpg Graphic file (type jpg)
+<use solusi.jpg>
+Package pdftex.def Info: solusi.jpg  used on input line 186.
+(pdftex.def)             Requested size: 119.50279pt x 93.60938pt.
+[11
+
+ <./solusi.jpg>]
+<model.png, id=172, 325.215pt x 184.43906pt>
+File: model.png Graphic file (type png)
+<use model.png>
+Package pdftex.def Info: model.png  used on input line 197.
+(pdftex.def)             Requested size: 139.42093pt x 79.07083pt.
+[12
+
+ <./model.PNG>] [13
+
+]
+<hubungan.png, id=195, 536.0025pt x 357.335pt>
 File: hubungan.png Graphic file (type png)
 <use hubungan.png>
-Package pdftex.def Info: hubungan.png  used on input line 169.
+Package pdftex.def Info: hubungan.png  used on input line 206.
 (pdftex.def)             Requested size: 199.1693pt x 132.77893pt.
-[12
+[14
 
  <./hubungan.png>]
 LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 
-192.
+229.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1034,35 +1117,35 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-92.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 2
+29.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-192.
+229.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-192.
+229.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 192.
+(Font)              <10.95> on input line 229.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 192.
+(Font)              <8> on input line 229.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 192.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 192
+(Font)              <6> on input line 229.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 229
 .
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 192
+LaTeX Font Info:    Trying to load font information for U+msb on input line 229
 .
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -1070,34 +1153,34 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 192.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 229.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 192.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 229.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 192.
+(Font)              <9> on input line 229.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 192.
+(Font)              <5> on input line 229.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 192.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 229.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 192.
-[13
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 229.
+[15
 
 ]
 LaTeX Font Info:    Font shape `T1/lmss/bx/it' in size <6> not available
-(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 196.
+(Font)              Font shape `T1/lmss/bx/sl' tried instead on input line 233.
 
-[14
-
-] [15
-
-] [16
+[16
 
 ] [17
 
 ] [18
 
 ] [19
+
+] [20
+
+] [21
 
 ]
 \tf@nav=\write6
@@ -1114,13 +1197,13 @@ Package rerunfilecheck Info: File `presentasi.out' has not changed.
 (rerunfilecheck)             Checksum: B71CFFB6AE1DFB52F68ECA8A427F334F;1147.
  ) 
 Here is how much of TeX's memory you used:
- 22853 strings out of 480559
- 427744 string characters out of 5902712
- 739452 words of memory out of 5000000
- 39806 multiletter control sequences out of 15000+600000
- 478571 words of font info for 120 fonts, out of 8000000 for 9000
+ 24410 strings out of 480559
+ 456852 string characters out of 5902712
+ 766886 words of memory out of 5000000
+ 41323 multiletter control sequences out of 15000+600000
+ 484750 words of font info for 128 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 101i,14n,108p,1007b,619s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 101i,14n,108p,1007b,653s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/home/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</home/i
 kanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></home/ikanx_s
 erver/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></home/ikanx_server/.
@@ -1128,10 +1211,10 @@ TinyTeX/texmf-dist/fonts/type1/public/lm/lmss9.pfb></home/ikanx_server/.TinyTeX
 /texmf-dist/fonts/type1/public/lm/lmssbo10.pfb></home/ikanx_server/.TinyTeX/tex
 mf-dist/fonts/type1/public/lm/lmssbx10.pfb></home/ikanx_server/.TinyTeX/texmf-d
 ist/fonts/type1/public/lm/lmsso10.pfb>
-Output written on presentasi.pdf (19 pages, 1007402 bytes).
+Output written on presentasi.pdf (21 pages, 1123334 bytes).
 PDF statistics:
- 298 PDF objects out of 1000 (max. 8388607)
- 224 compressed objects within 3 object streams
- 61 named destinations out of 1000 (max. 500000)
- 47259 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 319 PDF objects out of 1000 (max. 8388607)
+ 239 compressed objects within 3 object streams
+ 67 named destinations out of 1000 (max. 500000)
+ 51360 words of extra memory for PDF output out of 51595 (max. 10000000)
 
