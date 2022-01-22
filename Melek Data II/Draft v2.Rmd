@@ -10,8 +10,8 @@ output:
     fig_height: 6
     fig_caption: true
     slide_level: 3
-    theme: "Madrid"
-    colortheme: "dolphin"
+    theme: "AnnArbor"
+    colortheme: "wolverine"
     fonttheme: "structurebold"
 classoption: "aspectratio=169"
 toc: true
@@ -34,13 +34,41 @@ Materi pada _training_ ini mencakup:
 
 # _INTRODUCTION TO DATA_
 
-### _Introduction to Data_
+## Apa _Sih_ Data Itu?
+
+### Definisi Data
+
+Salah satu definisi data yang sering saya pakai adalah:
 
 \begin{alertblock}{Definisi}
 Data adalah representasi faktual dari observasi (pengamatan).
 \end{alertblock}
 
 Data bisa dikelompokkan sesuai dengan tipe dan karakteristiknya. Dengan memahami tipe data yang kita hadapi, kita akan lebih mudah dalam menentukan metode analisa yang tepat. 
+
+### Data itu Seperti Apa?
+
+Pada `10` tahun yang lalu, saat kita mendengar istilah __data__. Hal yang terlintas pertama kali adalah tabel dalam program Microsoft Excel.
+
+```{r out.width="60%",echo=FALSE,fig.align='center',fig.cap="Contoh Data Ms. Excel"}
+knitr::include_graphics("excel.png")
+```
+
+### Data Excel
+
+Bentuk data seperti itu adalah bentuk data "termudah" untuk bisa dianalisa. Setidaknya kita bisa melakukan analisa seperti _pivoting_, _pareto_, dan lainnya.
+
+Namun bagaimana dengan data dengan bentuk lainnya?
+
+### Data Bentuk Lainnya
+
+Pada era digital ini, data sudah mulai bervariasi bentuknya seperti:
+
+1. _Text_,
+1. _Figures_,
+1. _Videos_,
+1. _Geolocation_,
+1. dll.
 
 # _KNOWLEDGE ABOUT DIFFERENT DATA TYPES AND FORMATS_ 
 
@@ -286,7 +314,7 @@ knitr::include_graphics("decompose.png")
 ```
 
 \column{0.25\textwidth}
-Tim sales memiliki data omset bulanan suatu produk tertentu. Dari data tersebut, bisa kita analisa tren penjualan, efek seasonal, efek promosi, pengelompokkan customer, dll.
+Tim $sales$ memiliki data omset bulanan suatu produk tertentu. Dari data tersebut, bisa kita analisa tren penjualan, efek $seasonal$, efek promosi, pengelompokkan $customer$, dll.
 
 \end{columns}
 
@@ -305,9 +333,4 @@ knitr::include_graphics("boxplot.png")
 Tim procurement hendak mengambil keputusan strategic terkait 3 vendor yang selama ini digunakan. Mereka mencoba service level antara ketiganya. Siapa yang terbaik? Apakah ketiganya masih sesuai dengan spek minimal yang dipersyaratkan?
 
 \end{columns}
-
-
-
-
-
 
