@@ -61,6 +61,30 @@ data.frame(produk,budget,expected_profit) %>%
    knitr::kable(caption = "Contoh Data Budget vs Expected Profit")
 ```
 
+## _Solving the Problem_
+
+### Simulasi
+
+Karena saya lebih familiar membuat algoritma simulasi, maka saya mencari solusi dengan cara simulasi, yakni menghitung secara _random_ semua kejadian yang muncul.
+
+### _Binary Programming_
+
+Rekan-rekan mahasiswa menyelesaikan masalah tersebut dengan cara memodelkan permasalahan tersebut sebagai _binary linear programming_.
+
+$$\max{ \sigma{profit_i \times p_i}}, p_i \in [0,1], i \in {1,2,3,..,n}$$
+
+dengan dibatasi $\sigma{budget_i \times p_i} \leq 200jt$.
+
+## _Pros vs Cons_
+
+### Simulasi
+
+_Pros_: mudah membuat algoritmanya. _Cons_: butuh waktu $> 45$ menit untuk menghasilkan solusi paling optimal.
+
+### _Binary Programming_
+
+_Pros_: _runtime_ algoritmanya $<5$ detik. _Cons_: butuh _knowledge_ untuk membuat model matematikanya.
+
 ## _Follow Up_
 
 ```{r out.width="50%",echo=FALSE,fig.align='center'}
@@ -132,6 +156,16 @@ __Riset operasi__ adalah metode antar disiplin ilmu yang digunakan untuk mengana
 ### Optimisasi
 
 Optimisasi adalah __proses mencari nilai yang optimal__ dari suatu masalah tertentu.
+
+## Pemodelan Matematika
+
+(Hampir) semua permasalahan bisa dibuatkan model matematikanya. Namun tidak semua permasalahan atau model tersebut merupakan optimisasi. Contohnya adalah __SIR Model__ untuk memodelkan penyebaran penyakit.
+
+```{r out.width="50%",fig.align="center"}
+knitr::include_graphics("sir.png")
+```
+
+## Riset Operasi
 
 # _OPERATION RESEARCH_
 
