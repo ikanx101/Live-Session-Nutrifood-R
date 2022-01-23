@@ -404,7 +404,7 @@ Berikut adalah datanya:
 data = data.frame(
   mesin =  c(1:3),
   biaya_setup = c(300,100,200),
-  biaya_proses_unit = c(2,10,5),
+  biaya_proses_per_unit = c(2,10,5),
   kapasitas = c(600,800,1200)
 )
 knitr::kable(data,align = "c",caption = "Data Mesin Filling dan Packing")
