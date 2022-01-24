@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  23 JAN 2022 16:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  24 JAN 2022 07:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1465,7 +1465,7 @@ Package rerunfilecheck Info: File `presentasi.out' has not changed.
 Here is how much of TeX's memory you used:
  25001 strings out of 480559
  466376 string characters out of 5902712
- 778474 words of memory out of 5000000
+ 778473 words of memory out of 5000000
  41672 multiletter control sequences out of 15000+600000
  490736 words of font info for 156 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -1487,7 +1487,7 @@ anx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></home/ikanx_se
 rver/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></home/ikanx_server/.
 TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></home/ikanx_server/.TinyTe
 X/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on presentasi.pdf (81 pages, 2679510 bytes).
+Output written on presentasi.pdf (81 pages, 2679637 bytes).
 PDF statistics:
  976 PDF objects out of 1000 (max. 8388607)
  742 compressed objects within 8 object streams
