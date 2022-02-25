@@ -3,7 +3,7 @@ title: "Basic Statistics & Analytics"
 subtitle: "POK Nutrifooders 2021"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
-date: "12 November 2021"
+date: "24 Februari 2022"
 output:
   xaringan::moon_reader:
     mathjax: default
@@ -19,7 +19,7 @@ output:
 ---
 layout: true
 
-<div class="my-footer"><span>POK 2021</span></div>
+<div class="my-footer"><span>Colloqium 2022</span></div>
 
 ```{r setup, include=FALSE}
 rm(list=ls())
