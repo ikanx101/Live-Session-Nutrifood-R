@@ -21,9 +21,9 @@ toc: true
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-# _CONCEPTUAL FRAMEWORK_
+# _OUTLINE TRAINING_
 
-### _CONCEPTUAL FRAMEWORK_
+### _OUTLINE TRAINING_
 
 Materi pada _training_ ini mencakup:
 
@@ -235,6 +235,13 @@ Berikut penjelasannya:
 2. `numeric`: merupakan tipe data angka berupa bilangan _real_. Tipe data ini mirip dengan data numerik di poin sebelumnya.
 3. `integer`: merupakan tipe data angka berupa bilangan bulat. Sekilas mirip dengan tipe data diskrit di poin sebelumnya. Namun di beberapa kondisi, tipe data ini bisa dijadikan data __kategorik__ sehingga kita bisa sebut tipenya menjadi `factor`.
 4. `logical`: merupakan tipe data _boolean_. Hanya berisi `TRUE` atau `FALSE`. Tipe data ini sangat berguna saat kita melakukan _if conditional_, _looping_, atau membuat _regex_ (_reguler expression_).
+
+
+## Data di Era Digital
+
+### Data di Era Digital
+
+Era digital 
 
 # BASIC KNOWLEDGE AND UNDERSTANDING DATA
 

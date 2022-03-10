@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  21 JAN 2022 14:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.9.1)  2 MAR 2022 08:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -7,7 +7,7 @@ entering extended mode
 LaTeX2e <2021-06-01> patch level 1
 L3 programming layer <2021-08-27> (/home/ikanx_server/.TinyTeX/texmf-dist/tex/l
 atex/beamer/beamer.cls
-Document Class: beamer 2021/10/18 v3.64 A class for typesetting presentations
+Document Class: beamer 2022/02/08 v3.66 A class for typesetting presentations
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasemodes.sty (/
 home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
@@ -23,11 +23,9 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 )
 \beamer@commentbox=\box52
 \beamer@modecount=\count187
-) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/iftex/ifpdf.sty
-Package: ifpdf 2019/10/25 v3.4 ifpdf legacy package. Use iftex instead.
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
-Package: iftex 2020/03/06 v1.0d TeX engine tests
-))
+) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+Package: iftex 2022/02/03 v1.0f TeX engine tests
+)
 \headdp=\dimen138
 \footheight=\dimen139
 \sidebarheight=\dimen140
@@ -95,7 +93,82 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen160
 \Gm@layoutvoffset=\dimen161
 \Gm@dimlist=\toks17
-) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/base/size11.clo
+) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/math/pgfmath.sty (/home
+/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-commo
+n.tex
+\pgfutil@everybye=\toks18
+\pgfutil@tempdima=\dimen162
+\pgfutil@tempdimb=\dimen163
+
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-commo
+n-lists.tex))
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex
+.def
+\pgfutil@abb=\box59
+)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.t
+ex (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
+)) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.
+tex
+\pgfkeys@pathtoks=\toks19
+\pgfkeys@temptoks=\toks20
+
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeysfilter
+ed.code.tex
+\pgfkeys@tmptoks=\toks21
+))) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.t
+ex
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.t
+ex
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.t
+ex
+\pgf@x=\dimen164
+\pgf@xa=\dimen165
+\pgf@xb=\dimen166
+\pgf@xc=\dimen167
+\pgf@y=\dimen168
+\pgf@ya=\dimen169
+\pgf@yb=\dimen170
+\pgf@yc=\dimen171
+\c@pgf@counta=\count277
+\c@pgf@countb=\count278
+\c@pgf@countc=\count279
+\c@pgf@countd=\count280
+)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparser.code
+.tex
+\pgfmath@dimen=\dimen172
+\pgfmath@count=\count281
+\pgfmath@box=\box60
+\pgfmath@toks=\toks22
+\pgfmath@stack@operand=\toks23
+\pgfmath@stack@operation=\toks24
+)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.c
+ode.tex
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.b
+asic.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.t
+rigonometric.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.r
+andom.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.c
+omparison.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.b
+ase.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.r
+ound.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.m
+isc.code.tex)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.i
+ntegerarithmetics.code.tex)))
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.
+tex
+\c@pgfmathroundto@lastzeros=\count282
+))) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty 
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
@@ -111,59 +184,35 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
-\Gin@req@height=\dimen162
-\Gin@req@width=\dimen163
-) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty 
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-commo
-n.tex
-\pgfutil@everybye=\toks18
-\pgfutil@tempdima=\dimen164
-\pgfutil@tempdimb=\dimen165
-
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-commo
-n-lists.tex))
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex
-.def
-\pgfutil@abb=\box59
-)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.t
-ex (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/pgf.revision.tex)
-Package: pgfrcs 2021/05/15 v3.1.9a (3.1.9a)
-))
+\Gin@req@height=\dimen173
+\Gin@req@width=\dimen174
+) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code
 .tex
 Package: pgfsys 2021/05/15 v3.1.9a (3.1.9a)
 
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.
-tex
-\pgfkeys@pathtoks=\toks19
-\pgfkeys@temptoks=\toks20
-
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/utilities/pgfkeysfilter
-ed.code.tex
-\pgfkeys@tmptoks=\toks21
-))
-\pgf@x=\dimen166
-\pgf@y=\dimen167
-\pgf@xa=\dimen168
-\pgf@ya=\dimen169
-\pgf@xb=\dimen170
-\pgf@yb=\dimen171
-\pgf@xc=\dimen172
-\pgf@yc=\dimen173
-\pgf@xd=\dimen174
-\pgf@yd=\dimen175
+tex)
+\pgf@x=\dimen175
+\pgf@y=\dimen176
+\pgf@xa=\dimen177
+\pgf@ya=\dimen178
+\pgf@xb=\dimen179
+\pgf@yb=\dimen180
+\pgf@xc=\dimen181
+\pgf@yc=\dimen182
+\pgf@xd=\dimen183
+\pgf@yd=\dimen184
 \w@pgf@writea=\write3
 \r@pgf@reada=\read2
-\c@pgf@counta=\count277
-\c@pgf@countb=\count278
-\c@pgf@countc=\count279
-\c@pgf@countd=\count280
-\t@pgf@toka=\toks22
-\t@pgf@tokb=\toks23
-\t@pgf@tokc=\toks24
-\pgf@sys@id@count=\count281
+\c@pgf@counta=\count283
+\c@pgf@countb=\count284
+\c@pgf@countc=\count285
+\c@pgf@countd=\count286
+\t@pgf@toka=\toks25
+\t@pgf@tokb=\toks26
+\t@pgf@tokc=\toks27
+\pgf@sys@id@count=\count287
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
 File: pgf.cfg 2021/05/15 v3.1.9a (3.1.9a)
 )
@@ -180,8 +229,8 @@ File: pgfsys-common-pdf.def 2021/05/15 v3.1.9a (3.1.9a)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftp
 ath.code.tex
 File: pgfsyssoftpath.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfsyssoftpath@smallbuffer@items=\count282
-\pgfsyssoftpath@bigbuffer@items=\count283
+\pgfsyssoftpath@smallbuffer@items=\count288
+\pgfsyssoftpath@bigbuffer@items=\count289
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/systemlayer/pgfsysproto
 col.code.tex
@@ -205,72 +254,37 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code
 .tex
 Package: pgfcore 2021/05/15 v3.1.9a (3.1.9a)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.t
-ex
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.t
-ex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathparser.code
-.tex
-\pgfmath@dimen=\dimen176
-\pgfmath@count=\count284
-\pgfmath@box=\box60
-\pgfmath@toks=\toks25
-\pgfmath@stack@operand=\toks26
-\pgfmath@stack@operation=\toks27
-)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.c
-ode.tex
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.b
-asic.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.t
-rigonometric.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.r
-andom.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.c
-omparison.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.b
-ase.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.r
-ound.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.m
-isc.code.tex)
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.i
-ntegerarithmetics.code.tex)))
-(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.
-tex
-\c@pgfmathroundto@lastzeros=\count285
-)) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex
-)
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex) 
+(/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoint
 s.code.tex
 File: pgfcorepoints.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@picminx=\dimen177
-\pgf@picmaxx=\dimen178
-\pgf@picminy=\dimen179
-\pgf@picmaxy=\dimen180
-\pgf@pathminx=\dimen181
-\pgf@pathmaxx=\dimen182
-\pgf@pathminy=\dimen183
-\pgf@pathmaxy=\dimen184
-\pgf@xx=\dimen185
-\pgf@xy=\dimen186
-\pgf@yx=\dimen187
-\pgf@yy=\dimen188
-\pgf@zx=\dimen189
-\pgf@zy=\dimen190
+\pgf@picminx=\dimen185
+\pgf@picmaxx=\dimen186
+\pgf@picminy=\dimen187
+\pgf@picmaxy=\dimen188
+\pgf@pathminx=\dimen189
+\pgf@pathmaxx=\dimen190
+\pgf@pathminy=\dimen191
+\pgf@pathmaxy=\dimen192
+\pgf@xx=\dimen193
+\pgf@xy=\dimen194
+\pgf@yx=\dimen195
+\pgf@yy=\dimen196
+\pgf@zx=\dimen197
+\pgf@zy=\dimen198
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathc
 onstruct.code.tex
 File: pgfcorepathconstruct.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@path@lastx=\dimen191
-\pgf@path@lasty=\dimen192
+\pgf@path@lastx=\dimen199
+\pgf@path@lasty=\dimen256
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathu
 sage.code.tex
 File: pgfcorepathusage.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@shorten@end@additional=\dimen193
-\pgf@shorten@start@additional=\dimen194
+\pgf@shorten@end@additional=\dimen257
+\pgf@shorten@start@additional=\dimen258
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescope
 s.code.tex
@@ -278,19 +292,19 @@ File: pgfcorescopes.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \pgfpic=\box61
 \pgf@hbox=\box62
 \pgf@layerbox@main=\box63
-\pgf@picture@serial@count=\count286
+\pgf@picture@serial@count=\count290
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraph
 icstate.code.tex
 File: pgfcoregraphicstate.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgflinewidth=\dimen195
+\pgflinewidth=\dimen259
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretrans
 formations.code.tex
 File: pgfcoretransformations.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@pt@x=\dimen196
-\pgf@pt@y=\dimen197
-\pgf@pt@temp=\dimen198
+\pgf@pt@x=\dimen260
+\pgf@pt@y=\dimen261
+\pgf@pt@temp=\dimen262
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick
 .code.tex
@@ -307,14 +321,14 @@ File: pgfcorepathprocessing.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrow
 s.code.tex
 File: pgfcorearrows.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgfarrowsep=\dimen199
+\pgfarrowsep=\dimen263
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade
 .code.tex
 File: pgfcoreshade.code.tex 2021/05/15 v3.1.9a (3.1.9a)
-\pgf@max=\dimen256
-\pgf@sys@shading@range@num=\count287
-\pgf@shadingcount=\count288
+\pgf@max=\dimen264
+\pgf@sys@shading@range@num=\count291
+\pgf@shadingcount=\count292
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage
 .code.tex
@@ -342,8 +356,8 @@ ode.tex
 File: pgfcorerdf.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 ))) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/xxcolor.sty
 Package: xxcolor 2003/10/24 ver 0.1
-\XC@nummixins=\count289
-\XC@countmixins=\count290
+\XC@nummixins=\count293
+\XC@countmixins=\count294
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
@@ -377,9 +391,9 @@ Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
-\@linkdim=\dimen257
-\Hy@linkcounter=\count291
-\Hy@pagecounter=\count292
+\@linkdim=\dimen265
+\Hy@linkcounter=\count295
+\Hy@pagecounter=\count296
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
@@ -394,7 +408,7 @@ Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
-\Hy@SavedSpaceFactor=\count293
+\Hy@SavedSpaceFactor=\count297
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
@@ -411,22 +425,22 @@ Package hyperref Info: Plain pages OFF on input line 4207.
 Package hyperref Info: Backreferencing OFF on input line 4212.
 Package hyperref Info: Implicit mode OFF; no redefinition of LaTeX internals.
 Package hyperref Info: Bookmarks ON on input line 4445.
-\c@Hy@tempcnt=\count294
+\c@Hy@tempcnt=\count298
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4804.
-\XeTeXLinkMargin=\dimen258
+\XeTeXLinkMargin=\dimen266
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count295
-\Field@Width=\dimen259
-\Fld@charsize=\dimen260
+\Fld@menulength=\count299
+\Field@Width=\dimen267
+\Fld@charsize=\dimen268
 Package hyperref Info: Hyper figures OFF on input line 6076.
 Package hyperref Info: Link nesting OFF on input line 6081.
 Package hyperref Info: Hyper index ON on input line 6084.
@@ -436,7 +450,7 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6101.
 Package hyperref Info: PDF/A mode OFF on input line 6106.
 LaTeX Info: Redefining \ref on input line 6146.
 LaTeX Info: Redefining \pageref on input line 6150.
-\Hy@abspage=\count296
+\Hy@abspage=\count300
 
 Package hyperref Message: Stopped early.
 
@@ -449,8 +463,8 @@ Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend pac
 kage
 with kernel methods
 )
-\Fld@listcount=\count297
-\c@bookmark@seq@number=\count298
+\Fld@listcount=\count301
+\c@bookmark@seq@number=\count302
 
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck
 .sty
@@ -486,31 +500,31 @@ Package: translator 2021-05-31 v1.12d Easy translation of strings in LaTeX
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasetwoscreens.s
 ty) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbaseoverlay.
 sty
-\beamer@argscount=\count299
+\beamer@argscount=\count303
 \beamer@lastskipcover=\skip50
-\beamer@trivlistdepth=\count300
+\beamer@trivlistdepth=\count304
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasetitle.sty)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasesection.sty
-\c@lecture=\count301
-\c@part=\count302
-\c@section=\count303
-\c@subsection=\count304
-\c@subsubsection=\count305
+\c@lecture=\count305
+\c@part=\count306
+\c@section=\count307
+\c@subsection=\count308
+\c@subsubsection=\count309
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbaseframe.sty
 \beamer@framebox=\box65
 \beamer@frametitlebox=\box66
 \beamer@zoombox=\box67
-\beamer@zoomcount=\count306
-\beamer@zoomframecount=\count307
-\beamer@frametextheight=\dimen261
-\c@subsectionslide=\count308
+\beamer@zoomcount=\count310
+\beamer@zoomframecount=\count311
+\beamer@frametextheight=\dimen269
+\c@subsectionslide=\count312
 \beamer@frametopskip=\skip51
 \beamer@framebottomskip=\skip52
 \beamer@frametopskipautobreak=\skip53
 \beamer@framebottomskipautobreak=\skip54
 \beamer@envbody=\toks29
-\framewidth=\dimen262
-\c@framenumber=\count309
+\framewidth=\dimen270
+\c@framenumber=\count313
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbaseverbatim.sty
 \beamer@verbatimfileout=\write4
@@ -518,8 +532,8 @@ sty
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbaseframesize.st
 y
 \beamer@splitbox=\box68
-\beamer@autobreakcount=\count310
-\beamer@autobreaklastheight=\dimen263
+\beamer@autobreakcount=\count314
+\beamer@autobreaklastheight=\dimen271
 \beamer@frametitletoks=\toks30
 \beamer@framesubtitletoks=\toks31
 )
@@ -539,15 +553,15 @@ y
 ty
 \bmb@box=\box71
 \bmb@colorbox=\box72
-\bmb@boxwidth=\dimen264
-\bmb@boxheight=\dimen265
-\bmb@prevheight=\dimen266
-\bmb@temp=\dimen267
-\bmb@dima=\dimen268
-\bmb@dimb=\dimen269
-\bmb@prevheight=\dimen270
+\bmb@boxwidth=\dimen272
+\bmb@boxheight=\dimen273
+\bmb@prevheight=\dimen274
+\bmb@temp=\dimen275
+\bmb@dima=\dimen276
+\bmb@dimb=\dimen277
+\bmb@prevheight=\dimen278
 )
-\beamer@blockheadheight=\dimen271
+\beamer@blockheadheight=\dimen279
 ))
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbaselocalstructu
 re.sty (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/tools/enumerate.sty
@@ -555,14 +569,14 @@ Package: enumerate 2015/07/23 v3.00 enumerate extensions (DPC)
 \@enLab=\toks33
 )
 \beamer@bibiconwidth=\skip55
-\c@figure=\count311
-\c@table=\count312
+\c@figure=\count315
+\c@table=\count316
 \abovecaptionskip=\skip56
 \belowcaptionskip=\skip57
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasenavigation.s
 ty
-\beamer@section@min@dim=\dimen272
+\beamer@section@min@dim=\dimen280
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasetheorems.sty
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
@@ -574,44 +588,44 @@ Package: amstext 2021/08/26 v2.01 AMS text
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
 \@emptytoks=\toks34
-\ex@=\dimen273
+\ex@=\dimen281
 )) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
-\pmbraise@=\dimen274
+\pmbraise@=\dimen282
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 2021/08/26 v2.02 operator names
 )
-\inf@bad=\count313
+\inf@bad=\count317
 LaTeX Info: Redefining \frac on input line 234.
-\uproot@=\count314
-\leftroot@=\count315
+\uproot@=\count318
+\leftroot@=\count319
 LaTeX Info: Redefining \overline on input line 399.
-\classnum@=\count316
-\DOTSCASE@=\count317
+\classnum@=\count320
+\DOTSCASE@=\count321
 LaTeX Info: Redefining \ldots on input line 496.
 LaTeX Info: Redefining \dots on input line 499.
 LaTeX Info: Redefining \cdots on input line 620.
 \Mathstrutbox@=\box73
 \strutbox@=\box74
-\big@size=\dimen275
+\big@size=\dimen283
 LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
-\macc@depth=\count318
-\c@MaxMatrixCols=\count319
+\macc@depth=\count322
+\c@MaxMatrixCols=\count323
 \dotsspace@=\muskip17
-\c@parentequation=\count320
-\dspbrk@lvl=\count321
+\c@parentequation=\count324
+\dspbrk@lvl=\count325
 \tag@help=\toks35
-\row@=\count322
-\column@=\count323
-\maxfields@=\count324
+\row@=\count326
+\column@=\count327
+\maxfields@=\count328
 \andhelp@=\toks36
-\eqnshift@=\dimen276
-\alignsep@=\dimen277
-\tagshift@=\dimen278
-\tagwidth@=\dimen279
-\totwidth@=\dimen280
-\lineht@=\dimen281
+\eqnshift@=\dimen284
+\alignsep@=\dimen285
+\tagshift@=\dimen286
+\tagwidth@=\dimen287
+\totwidth@=\dimen288
+\lineht@=\dimen289
 \@envbody=\toks37
 \multlinegap=\skip59
 \multlinetaggap=\skip60
@@ -630,7 +644,7 @@ Package: amsthm 2020/05/29 v2.20.6
 \thm@headsep=\skip63
 \dth@everypar=\toks44
 )
-\c@theorem=\count325
+\c@theorem=\count329
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerbasethemes.sty
 ))
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerthemedefault.sty
@@ -641,8 +655,8 @@ Package: amsthm 2020/05/29 v2.20.6
 t.sty)
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerinnerthemedefaul
 t.sty
-\beamer@dima=\dimen282
-\beamer@dimb=\dimen283
+\beamer@dima=\dimen290
+\beamer@dimb=\dimen291
 )
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/beamer/beamerouterthemedefaul
 t.sty))) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/pgf/utilities/pgfpag
@@ -650,25 +664,25 @@ es.sty
 Package: pgfpages 2011/01/05 ver 0.02
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count326
-\calc@Bcount=\count327
-\calc@Adimen=\dimen284
-\calc@Bdimen=\dimen285
+\calc@Acount=\count330
+\calc@Bcount=\count331
+\calc@Adimen=\dimen292
+\calc@Bdimen=\dimen293
 \calc@Askip=\skip64
 \calc@Bskip=\skip65
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count328
+\calc@Ccount=\count332
 \calc@Cskip=\skip66
 )
-\pgf@logicalpages=\count329
-\pgf@firstshipout=\count330
-\pgf@lastshipout=\count331
-\pgf@currentshipout=\count332
-\pgf@cpn=\count333
-\pgf@shipoutnextto=\count334
-\pgfphysicalheight=\dimen286
-\pgfphysicalwidth=\dimen287
+\pgf@logicalpages=\count333
+\pgf@firstshipout=\count334
+\pgf@lastshipout=\count335
+\pgf@currentshipout=\count336
+\pgf@cpn=\count337
+\pgf@shipoutnextto=\count338
+\pgfphysicalheight=\dimen294
+\pgfphysicalwidth=\dimen295
 \pgfpages@shipoutbox=\box75
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/lmodern.sty
 Package: lmodern 2015/05/01 v1.6.1 Latin Modern Fonts
@@ -737,14 +751,14 @@ tim
 ) (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
 \MT@toks=\toks47
-\MT@count=\count335
+\MT@count=\count339
 \MT@tempbox=\box76
 LaTeX Info: Redefining \leftprotrusion on input line 1010.
 LaTeX Info: Redefining \rightprotrusion on input line 1018.
 LaTeX Info: Redefining \textls on input line 1173.
-\MT@outer@kern=\dimen288
+\MT@outer@kern=\dimen296
 LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
-\MT@listname@count=\count336
+\MT@listname@count=\count340
 
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.de
 f
@@ -760,8 +774,8 @@ File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
 ))
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.de
 f
-File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count337
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count341
 \l__pdf_internal_box=\box77
 ) (./Draft-v2.aux)
 \openout1 = `Draft-v2.aux'.
@@ -838,7 +852,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ng.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count338
+\c@section@level=\count342
 )
 LaTeX Info: Redefining \ref on input line 114.
 LaTeX Info: Redefining \pageref on input line 114.
@@ -980,7 +994,7 @@ LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 (/home/ikanx_server/.TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<excel.png, id=205, 1483.5425pt x 711.65875pt>
+<excel.png, id=209, 1483.5425pt x 711.65875pt>
 File: excel.png Graphic file (type png)
 <use excel.png>
 Package pdftex.def Info: excel.png  used on input line 9.
@@ -996,7 +1010,7 @@ Package pdftex.def Info: excel.png  used on input line 9.
 ] [12
 
 ]
-<Draft-v2_files/figure-beamer/unnamed-chunk-2-1.pdf, id=278, 2818.53pt x 1252.6
+<Draft-v2_files/figure-beamer/unnamed-chunk-2-1.pdf, id=282, 2818.53pt x 1252.6
 8pt>
 File: Draft-v2_files/figure-beamer/unnamed-chunk-2-1.pdf Graphic file (type pdf
 )
@@ -1077,7 +1091,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 ] [20
 
 ]
-<Draft-v2_files/figure-beamer/unnamed-chunk-3-1.pdf, id=401, 1003.75pt x 582.17
+<Draft-v2_files/figure-beamer/unnamed-chunk-3-1.pdf, id=405, 1003.75pt x 582.17
 5pt>
 File: Draft-v2_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic file (type pdf
 )
@@ -1090,7 +1104,7 @@ ed on input line 350.
  <./Draft-v2_files/figure-beamer/unnamed-chunk-3-1.pdf>] [22
 
 ]
-<Draft-v2_files/figure-beamer/unnamed-chunk-4-1.pdf, id=439, 5621.0pt x 843.15p
+<Draft-v2_files/figure-beamer/unnamed-chunk-4-1.pdf, id=443, 5621.0pt x 843.15p
 t>
 File: Draft-v2_files/figure-beamer/unnamed-chunk-4-1.pdf Graphic file (type pdf
 )
@@ -1118,67 +1132,71 @@ ed on input line 392.
 
 ] [29
 
+] [30
+
+] [31
+
 ]
-<proses riset.png, id=540, 2761.31625pt x 665.48625pt>
+<proses riset.png, id=572, 2761.31625pt x 665.48625pt>
 File: proses riset.png Graphic file (type png)
 <use proses riset.png>
-Package pdftex.def Info: proses riset.png  used on input line 475.
+Package pdftex.def Info: proses riset.png  used on input line 483.
 (pdftex.def)             Requested size: 389.99452pt x 93.98994pt.
-[30
+[32
 
  <./proses riset.png>]
-<Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf, id=551, 1866.975pt x 582.1
+<Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf, id=583, 1866.975pt x 582.1
 75pt>
 File: Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf
 )
 <use Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf>
 Package pdftex.def Info: Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf  us
-ed on input line 484.
+ed on input line 492.
 (pdftex.def)             Requested size: 303.33711pt x 94.58899pt.
-[31
+[33
 
- <./Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf>] [32
-
-] [33
-
-] [34
+ <./Draft-v2_files/figure-beamer/unnamed-chunk-6-1.pdf>] [34
 
 ] [35
+
+] [36
+
+] [37
 
 ]
 \openout4 = `Draft-v2.vrb'.
 
-(./Draft-v2.vrb) [36
+(./Draft-v2.vrb) [38
 
-] [37
+] [39
 
-] [38
+] [40
 
 ]
-<decompose.png, id=677, 505.89pt x 361.35pt>
+<decompose.png, id=708, 505.89pt x 361.35pt>
 File: decompose.png Graphic file (type png)
 <use decompose.png>
-Package pdftex.def Info: decompose.png  used on input line 575.
+Package pdftex.def Info: decompose.png  used on input line 583.
 (pdftex.def)             Requested size: 292.50552pt x 208.93253pt.
 
-Overfull \vbox (4.21693pt too high) detected at line 575
- []
-
-[39
-
- <./decompose.png>] [40
-
-]
-<boxplot.png, id=706, 505.89pt x 361.35pt>
-File: boxplot.png Graphic file (type png)
-<use boxplot.png>
-Package pdftex.def Info: boxplot.png  used on input line 593.
-(pdftex.def)             Requested size: 292.50552pt x 208.93253pt.
-
-Overfull \vbox (4.21693pt too high) detected at line 593
+Overfull \vbox (4.21693pt too high) detected at line 583
  []
 
 [41
+
+ <./decompose.png>] [42
+
+]
+<boxplot.png, id=738, 505.89pt x 361.35pt>
+File: boxplot.png Graphic file (type png)
+<use boxplot.png>
+Package pdftex.def Info: boxplot.png  used on input line 601.
+(pdftex.def)             Requested size: 292.50552pt x 208.93253pt.
+
+Overfull \vbox (4.21693pt too high) detected at line 601
+ []
+
+[43
 
  <./boxplot.png (PNG copy)>]
 \tf@nav=\write6
@@ -1192,16 +1210,16 @@ Overfull \vbox (4.21693pt too high) detected at line 593
 
 (./Draft-v2.aux)
 Package rerunfilecheck Info: File `Draft-v2.out' has not changed.
-(rerunfilecheck)             Checksum: EFE756F276AD64655E3385EDE6C9A116;2944.
+(rerunfilecheck)             Checksum: 8B26342136CBC85F6AA5DF29DE2AE499;3087.
  ) 
 Here is how much of TeX's memory you used:
- 23390 strings out of 480559
- 441868 string characters out of 5902712
- 746278 words of memory out of 5000000
- 40241 multiletter control sequences out of 15000+600000
+ 23441 strings out of 480559
+ 443120 string characters out of 5902712
+ 748231 words of memory out of 5000000
+ 40278 multiletter control sequences out of 15000+600000
  484272 words of font info for 131 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 101i,15n,108p,1005b,655s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 101i,15n,108p,1005b,663s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/home/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/ho
 me/ikanx_server/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/home/ikanx_s
 erver/.TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/home/ikanx_server/.Tin
@@ -1215,10 +1233,10 @@ blic/lm/lmss8.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm
 sbx10.pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10
 .pfb></home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb><
 /home/ikanx_server/.TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on Draft-v2.pdf (41 pages, 1619699 bytes).
+Output written on Draft-v2.pdf (43 pages, 1622719 bytes).
 PDF statistics:
- 797 PDF objects out of 1000 (max. 8388607)
- 586 compressed objects within 6 object streams
- 123 named destinations out of 1000 (max. 500000)
- 52079 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 831 PDF objects out of 1000 (max. 8388607)
+ 612 compressed objects within 7 object streams
+ 129 named destinations out of 1000 (max. 500000)
+ 52117 words of extra memory for PDF output out of 61914 (max. 10000000)
 
