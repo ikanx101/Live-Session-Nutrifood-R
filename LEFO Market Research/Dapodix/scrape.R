@@ -16,7 +16,7 @@ scrape_sekolah = function(url){
 }
 
 # set path ambil data dulu
-setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Dapodix/SBY")
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Dapodix/bogor")
 
 # ambil semua file html
 urls = list.files(pattern = "html")
@@ -33,4 +33,4 @@ for(i in 1:length(urls)){
 
 # set path untuk save
 setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Dapodix")
-write.csv(data_all,"SBY.csv")
+write.csv(data_all,"bogor.csv")
