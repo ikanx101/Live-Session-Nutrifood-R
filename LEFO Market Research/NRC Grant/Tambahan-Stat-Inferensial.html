@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Basic Statistics &amp; Analytics</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Ikang Fadhli" />
+    <script src="libs/header-attrs-2.13/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/fc.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/fc-fonts.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+    <script src="libs/es6shim-0.35.6/es6shim.js"></script>
+    <script src="libs/es7shim-6.0.0/es7shim.js"></script>
+    <script src="libs/graphre-0.1.3/graphre.js"></script>
+    <script src="libs/nomnoml-1.4.0/nomnoml.js"></script>
+    <script src="libs/nomnoml-binding-0.2.5/nomnoml.js"></script>
+    <link rel="stylesheet" href="footer-header.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Basic Statistics &amp; Analytics
+## Colloqium: Statistika Inferensial
+### Ikang Fadhli
+### Nutrifood Indonesia
+### 24 Februari 2022
+
+---
+
+layout: true
+
+&lt;div class="my-footer"&gt;&lt;span&gt;Colloqium Nutrifood&lt;/span&gt;&lt;/div&gt;
+
+
+
+---
+
+class: center, middle, inverse
+# Statistika Inferensi
+## Uji Hipotesis
+
+---
+class: middle
+# Statistika Inferensi
+## Uji Hipotesis
+
+Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara statistik.
+
+.pull-left[
+### Beberapa uji signifikansi yang sering digunakan:
+
+1. Beda dua proporsi.
+2. Beda rata - rata dari satu sampel (z-test dan t-test).
+2. Beda rata - rata dari dua sampel (z-test dan t-test).
+3. Beda rata - rata dari tiga atau lebih sampel (Annova).
+]
+
+--
+
+.pull-right[
+### Langkah - langkah uji hipotesis:
+
+- Tentukan hipotesis nol dan hipotesis tandingan.
+    - Notasi: `\(H_0\)` dan `\(H_1\)`
+    - Hipotesis nol adalah hipotesis yang mengandung unsur sama dengan.
+- Hitung statistik uji atau p-value.
+- Kesimpulan: Tolak `\(H_0\)` jika `\(p_{value} &lt; 0.05\)`.
+    - Kenapa dipilih nilai `0.05`?
+    - Nilai tersebut sebenarnya bisa kita ganti tergantung seberapa besar atau kecil akurasi pengujian yang kita lakukan.
+    - Nilai `0.05` yang digunakan biasanya lazim dipakai pada banyak kasus.
+    - Penjelasan terkait nilai `0.05` atau `\(\alpha\)` atau yang biasa disebut sebagai ___significance level___ bisa rekan-rekan cari di berbagai sumber.
+- Tuliskan kesimpulan dengan kalimat non matematis.
+]
+
+---
+class: middle
+# Statistika Inferensi
+
+.pull-left[
+## Contoh:
+Suatu produk makanan berencana untuk memasang iklan di NET TV dan Indosiar. Sebelumnya, mereka mendapatkan data bahwa `44,7%` target marketnya menonton NET TV sementara `42,5%` target marketnya menonton Indosiar.
+
+### Di stasiun TV mana mereka sebaiknya memasang iklan?
+]
+
+--
+
+.pull-right[
+## Jawaban:
+
+Persentase yang tinggi belum cukup untuk membuat kesimpulan bahwa NET TV lebih banyak ditonton dibanding Indosiar. Secara statistik, harus dibuktikan terlebih dahulu bahwa NET TV lebih tinggi dan signifikan perbedaannya!
+]
+
+--
+
+### Nama uji: 
+
+#### __Uji beda dua proporsi__.
+
+---
+class: middle
+# Statistika Inferensi
+## Z-Test vs T-test
+
+Kapan pakai Z-Test? Kapan pakai T-Test?
+
+1. Menggunakan __z-test__: digunakan jika kita mengetahui parameter variansi dari populasi.
+1. Menggunakan __t-test__: digunakan jika kita tidak mengetahui parameter variansi dari populasi sehingga variansi populasi akan kita dekati dengan variansi dari _sample_.
+
+---
+class: middle
+# Statistika Inferensi
+## Uji Beda Rata-Rata Dua Sampel
+
+Perlu saya ingatkan kembali bahwa __uji mean 2 sample__ ada dua jenis, yakni:
+
+1. Uji untuk dua data berpasangan: dilakukan jika __subjek penelitian sama dan ingin melihat apakah perlakuan yang ada memberikan dampak terhadap perubahan mean data atau tidak__. Contoh: peneliti hendak menguji apakah ada perbedaan nilai _pre test_ dan _post test_ dari suatu kelompok murid dalam mengikuti suatu pelatihan. Pada uji ini, kedua _sample_ wajib memiliki jumlah baris yang sama.
+1. Uji untuk data independen: dilakukan jika __dua kelompok sample yang diuji tidak saling berkaitan sama sekali__. Pada uji ini, tidak ada keharusan jumlah baris data dari kedua _sample_ harus sama (bisa berbeda).
+
+---
+# Statistika Inferensi
+## Antara Parametrik dan Non Parametrik
+
+
+
+.pull-left[
+
+&lt;img src="parnonpar.png" width="90%" /&gt;
+
+]
+
+.pull-right[
+
+&gt; ___Selama ini kita banyak mempelajari dan mendiskusikan mengenai statistika parametrik. Padahal ada limitasi pada analisa parametrik.___
+
+### Kesimpulan:
+
+- Sesuaikan metode analisa dengan ketersediaan data dan distribusi dari data.
+- Analisa yang ada pada parametrik juga bisa dilakukan dengan non parametrik.
+
+]
+
+---
+class: middle
+# Parametrik vs Non Parametrik
+
+
+
+.pull-left[
+
+&lt;img src="parnonpar new.png" width="60%" /&gt;
+
+]
+
+.pull-right[
+
+## ___Gunakan sesuai kebutuhan!___
+
+]
+
+---
+
+class: middle, center, inverse
+
+## Terima Kasih
+# Nutrifood Indonesia
+
+### _find me at:_ ikanx101.com
+
+---
+
+class: middle,center,inverse
+# CONTOH-CONTOH KASUS YANG SERING DITEMUI
+## Berikut adalah beberapa contoh kasus yang sering ditemui saat _colloqium_
+
+---
+
+# CONTOH I
+
+### Saya hendak membandingkan _service level_ antara dua _supplier_.
+
+# CONTOH II
+
+### Saya hendak membandingkan _service level_ antara tiga _supplier_.
+
+# CONTOH III
+
+### Saya hendak membandingkan apakah _service level_ suatu _supplier_ sudah sesuai dengan spek standar Nutrifood.
+
+# CONTOH IV
+
+### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "18:10",
+"slideNumberFormat": "%current%",
+"highlightStyle": "ir-black",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

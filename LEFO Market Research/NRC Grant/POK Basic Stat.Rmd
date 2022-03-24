@@ -19,7 +19,7 @@ output:
 ---
 layout: true
 
-<div class="my-footer"><span>Colloqium 2022</span></div>
+<div class="my-footer"><span>Colloqium Nutrifood</span></div>
 
 ```{r setup, include=FALSE}
 rm(list=ls())
