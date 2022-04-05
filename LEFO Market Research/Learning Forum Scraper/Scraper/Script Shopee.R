@@ -1,25 +1,20 @@
 # set working directory
-# setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/Learning Forum Scraper")
-
-# kode ini saya gunakan untuk live sharing
-# tidak dibutuhkan untuk web scraper
-# library(remotes)
-# s <- livecode::serve_file()
+setwd("~/Documents/Live-Session-Nutrifood-R/LEFO Market Research/Learning Forum Scraper/Scraper")
 
 # wajib!
 # instalasi libraries
 # cukup sekali seumur hidup
 # dplyr
 # install.packages("dplyr")
-# chromote
+# RSelenium
 # untuk bisa menjalankan skrip, butuh Google Chrome yang terinstall di laptop masing-masing
-# install.packages("remotes")
-# remotes::install_github("rstudio/chromote")
 
 # silakan ikuti (ketik) mulai dari baris ini ke bawah!
 # panggil libraries
-library(chromote) # web scraping
-library(dplyr) # buat data manipulation
+library(RSelenium)  # web scraping
+library(rvest)      # web scraping
+library(dplyr)      # buat data manipulation
+library(jsonlite)   # buat membaca JSON
 
 # hapus environment
 rm(list=ls())
@@ -38,66 +33,64 @@ rm(list=ls())
 # 2. koneksi internet yang stabil
 
 # ====================================
-# Contoh
-url = "https://shopee.co.id/Zwitsal-Eau-De-Toilette-100-Ml-Parfum-Eau-De-Toilette-Parfum-Pakaian-Aroma-Bayi-i.14318452.4132994147"
+# contoh
+link = "https://shopee.co.id/Zwitsal-Eau-De-Toilette-100-Ml-Parfum-Eau-De-Toilette-Parfum-Pakaian-Aroma-Bayi-i.14318452.4132994147"
 
-# bikin skrip utk scraping
-
-# langkah pertama
-# set user agent
-uastring = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36"
-
-# langkah kedua
-# setting untuk mengaktifkan chromote
-b = ChromoteSession$new()
-b$Network$setUserAgentOverride(userAgent = uastring)
-b$view()
-cookies = b$Network$getCookies()
-b$Network$setCookies(cookies = cookies$cookies)
-
-# langkah ketiga
-scrape_shopee = function(link){
-  # navigate
-  b$Page$navigate(link)
-  Sys.sleep(15)
-  
-  # digunakan untuk extract nama produk
-  x <- b$Runtime$evaluate('document.querySelector(".attM6y span").innerText')
-  nama = x$result$value
-  nama = ifelse(is.null(nama),NA,nama)
-  
-  # digunakan untuk extract informasi terjual
-  x <- b$Runtime$evaluate('document.querySelector(".aca9MM").innerText')
-  terjual = x$result$value
-  terjual = ifelse(is.null(terjual),NA,terjual)
-  
-  # digunakan untuk extract harga
-  x <- b$Runtime$evaluate('document.querySelector("._1HEBVl").innerText')
-  harga = x$result$value
-  harga = ifelse(is.null(harga),NA,harga)
-  
-  # digunakan untuk extract rating
-  x <- b$Runtime$evaluate('document.querySelector("._1mYa1t").innerText')
-  rating = x$result$value
-  rating = ifelse(is.null(rating),NA,rating)
-  
-  # digunakan untuk extract nama toko
-  x <- b$Runtime$evaluate('document.querySelector("._3uf2ae").innerText')
-  toko = x$result$value
-  toko = ifelse(is.null(toko),NA,toko)
-  
-  # time stamp aja, kapan kita melakukan ini
-  waktu_scrape = Sys.time()
-  
-  # digunakan untuk membuat tabel
-  data = data.frame(link,nama,terjual,rating,harga,toko,waktu_scrape)
-  return(data)
+# ====================================
+# function untuk mengubah menjadi api shopee
+apifier = function(url){
+  t1 = strsplit(url,split = "-i.") %>% unlist()
+  t2 = strsplit(t1[2],split = "\\.") %>% unlist
+  api = paste0("https://shopee.co.id/api/v4/item/get?itemid=",t2[2],"&shopid=",t2[1])
+  return(api)
 }
 
 
-# langkah keempat
-# saatnya kita scrape
-data_hasil_scrape = scrape_shopee(url)
+# ====================================
+# memulai Selenium
+# memulai selenium
+driver <- RSelenium::rsDriver(browser = "chrome",
+                              chromever = "99.0.4844.35" )
+remote_driver <- driver[["client"]] 
+
+# membuka situs yang sudah dijadikan api
+api_new = apifier(link)
+remote_driver$navigate(api_new)
+
+# json parser
+data_produk = 
+  remote_driver$getPageSource()[[1]] %>% 
+  gsub('<html><head></head><body><pre style=\"word-wrap: break-word; white-space: pre-wrap;\">',"",.) %>% 
+  gsub("</pre></body></html>","",.) %>% 
+  fromJSON()
+
+# membuka situs asli utk mendapatkan toko
+remote_driver$navigate(link)
+nama_toko = 
+  remote_driver$getPageSource()[[1]] %>% 
+  read_html %>% 
+  html_nodes("._1wVLAc") %>% 
+  html_text()
+
+output = data.frame(
+  nama_produk = data_produk$data$name,
+  terjual = data_produk$data$sold,
+  harga = data_produk$data$price,
+  brand = data_produk$data$brand,
+  kategori = data_produk$data$categories$display_name %>% paste0(collapse = ", "),
+  rating = data_produk$data$item_rating$rating_star,
+  id_toko = data_produk$data$shopid,
+  nama_toko = nama_toko,
+  lokasi_toko = data_produk$data$shop_location,
+  official_y_n = data_produk$data$is_official_shop
+)
+
+output
+
+
+
+
+
 
 
 
