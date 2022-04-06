@@ -32,10 +32,12 @@ breaker = function(){
     html_nodes("a") %>% 
     html_attr("href")
   break_ = break_[grepl("page",break_)] %>% unique()
-  break_ = ifelse(identical(break_, character(0)),
-                  break_,
-                  paste0("https://www.happyfresh.id",break_))
-  return(break_)
+  if(identical(break_, character(0))){
+    break_new = break_
+  } else if(!identical(break_, character(0))){
+    break_new = paste0("https://www.happyfresh.id",break_)
+  }
+  return(break_new)
 }
 # function II
 # digunakan untuk ekstrak informasi katalog
@@ -76,7 +78,7 @@ ikang = 1
 # import url happyfresh dari amel
 list_url = readLines("list_url.txt")
 # uji coba dulu dengan url grand lucky scbd
-tes_url = list_url[5]
+tes_url = list_url[10]
 tes_url
 
 # ==============================================================================
@@ -107,11 +109,11 @@ for(i in 1:length(url_cari)){
 # summary
 data_final = 
   do.call(rbind,temp) %>% 
-  filter(grepl("hilo|slim|l men|lmen|l-men|nutrisari",
+  filter(grepl("hilo|slim|l men|lmen|l-men|nutrisari|lokalate",
                nama_produk,
                ignore.case = T)) %>% 
   filter(!grepl("oreal",
                 nama_produk,
                 ignore.case = T))
 
-data_final %>% write.csv("Produk NFI Grand Lucky SCBD.csv")
+data_final %>% write.csv("Produk NFI Primo Level 21 Bali.csv")
