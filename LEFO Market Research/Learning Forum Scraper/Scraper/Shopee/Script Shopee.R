@@ -16,13 +16,6 @@ library(jsonlite)   # buat membaca JSON
 # hapus environment
 rm(list=ls())
 
-# pastikan koneksi internet stabil
-
-# ====================================
-# contoh url produk
-url_produk = "https://shopee.co.id/Zwitsal-Eau-De-Toilette-100-Ml-Parfum-Eau-De-Toilette-Parfum-Pakaian-Aroma-Bayi-i.14318452.4132994147"
-
-
 # ====================================
 # memulai Selenium
 # saat baris perintah ini dijalankan, akan muncul window chrome baru di desktop
@@ -34,8 +27,9 @@ remote_driver = driver[["client"]]
 # ====================================
 # function untuk mengubah menjadi api shopee
 apifier = function(url){
-  t1 = strsplit(url,split = "-i.") %>% unlist()
-  t2 = strsplit(t1[2],split = "\\.") %>% unlist
+  t1 = strsplit(url,split = "-i.",fixed = T) %>% unlist() # perubahan ada di penambahan fixed = TRUE
+  t2 = strsplit(t1[2],split = "\\?") %>% unlist()
+  t2 = strsplit(t2[1],split = "\\.") %>% unlist()
   api = paste0("https://shopee.co.id/api/v4/item/get?itemid=",t2[2],"&shopid=",t2[1])
   return(api)
 }
@@ -55,17 +49,25 @@ scraper_shopee = function(link){
     gsub('<html><head></head><body><pre style=\"word-wrap: break-word; white-space: pre-wrap;\">',"",.) %>% 
     gsub("</pre></body></html>","",.) %>% 
     fromJSON()
+  # jeda tunggu
+  Sys.sleep(runif(1,3,6))
   
-  Sys.sleep(3)
   # tahap II
   # membuka situs asli utk mendapatkan toko
   remote_driver$navigate(link)
-  Sys.sleep(3)
+  # jeda tunggu
+  Sys.sleep(runif(1,3,6))
   nama_toko = 
     remote_driver$getPageSource()[[1]] %>% 
     read_html %>% 
     html_nodes("._1wVLAc") %>% 
     html_text()
+  # jika nama toko kosong
+  nama_toko = ifelse(length(nama_toko) == 0,NA,nama_toko)
+  
+  # jika nama brand tidak ada alias NULL
+  brand = data_produk$data$brand
+  brand = ifelse(is.null(brand),"NA",brand)
   
   # tahap III
   # agregasi data
@@ -73,7 +75,9 @@ scraper_shopee = function(link){
     nama_produk = data_produk$data$name,
     terjual = data_produk$data$historical_sold,
     harga = data_produk$data$price/100000,
-    brand = data_produk$data$brand,
+    harga_min = data_produk$data$price_min/100000,
+    harga_max = data_produk$data$price_max/100000,
+    brand = brand,
     kategori = data_produk$data$categories$display_name %>% paste0(collapse = ", "),
     rating = data_produk$data$item_rating$rating_star,
     id_toko = data_produk$data$shopid,
@@ -87,7 +91,14 @@ scraper_shopee = function(link){
 
 # ====================================
 # contoh penggunaan function scraper ini
-scraper_shopee(url_produk)
+# scraper_shopee(url_produk)
 
+link_txt = readLines("Shopee/List Shopee Vegan.txt")
+link_txt = link_txt[1:592] # ini saya hapus yang tidak perlu ya
 
+temporary = vector("list",length(link_txt))
+for(i in 1:length(link_txt)){
+  temporary[[i]] = scraper_shopee(link_txt[i])
+  print(paste0("Produk ke-",i," DONE"))
+}
 
