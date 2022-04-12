@@ -56,9 +56,11 @@ scraper_shopee = function(link){
     gsub("</pre></body></html>","",.) %>% 
     fromJSON()
   
+  Sys.sleep(3)
   # tahap II
   # membuka situs asli utk mendapatkan toko
   remote_driver$navigate(link)
+  Sys.sleep(3)
   nama_toko = 
     remote_driver$getPageSource()[[1]] %>% 
     read_html %>% 
@@ -69,8 +71,8 @@ scraper_shopee = function(link){
   # agregasi data
   output = data.frame(
     nama_produk = data_produk$data$name,
-    terjual = data_produk$data$sold,
-    harga = data_produk$data$price,
+    terjual = data_produk$data$historical_sold,
+    harga = data_produk$data$price/100000,
     brand = data_produk$data$brand,
     kategori = data_produk$data$categories$display_name %>% paste0(collapse = ", "),
     rating = data_produk$data$item_rating$rating_star,
