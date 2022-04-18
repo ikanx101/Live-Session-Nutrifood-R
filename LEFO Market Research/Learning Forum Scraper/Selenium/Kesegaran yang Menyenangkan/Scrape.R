@@ -1,7 +1,17 @@
 # ==============================================================================
 # HAPPY FRESH SCRAPER
 # use it wisely
+#
+#
+# cara kerja
+# si happy fresh ini agakunik karena dia gak bisa pakai metode direct link
+# semuanya harus dilakukan dengan cara klik dan ketik - hit enter
+# makanya ada beberapa teknik ketik - hit enter yang digunakan untuk mencari produk
+#
+# by: ikanx101.com
 # ==============================================================================
+
+
 
 # ==============================================================================
 # persiapan-persiapan
@@ -161,7 +171,8 @@ if(page == 2){
 }
 
 
-# summary
+# ==============================================================================
+# agregasi data
 data_final = 
   do.call(rbind,temp) %>% 
   filter(grepl("hilo|slim|l men|lmen|l-men|nutrisari|lokalate",
@@ -169,6 +180,10 @@ data_final =
                ignore.case = T)) %>% 
   filter(!grepl("oreal",
                 nama_produk,
-                ignore.case = T))
+                ignore.case = T)) %>% 
+  mutate(harga_final = gsub("[A-z]","",harga_final),
+         harga_final = gsub("\\,","",harga_final),
+         harga_final = as.numeric)
+
 
 data_final %>% write.csv("Produk NFI.csv")
