@@ -171,4 +171,4 @@ data_final =
                 nama_produk,
                 ignore.case = T))
 
-data_final %>% write.csv("Produk NFI Primo Level 21 Bali.csv")
+data_final %>% write.csv("Produk NFI.csv")
