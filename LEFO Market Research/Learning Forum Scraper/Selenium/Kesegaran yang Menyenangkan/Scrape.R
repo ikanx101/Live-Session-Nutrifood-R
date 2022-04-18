@@ -23,22 +23,14 @@ remote_driver = driver[["client"]]
 
 # ==============================================================================
 # kita buat function yang berguna terlebih dahulu
+
 # function I
-# digunakan untuk mencari break page
-breaker = function(){
-  break_ = 
-    remote_driver$getPageSource()[[1]] %>% 
-    read_html() %>%
-    html_nodes("a") %>% 
-    html_attr("href")
-  break_ = break_[grepl("page",break_)] %>% unique()
-  if(identical(break_, character(0))){
-    break_new = break_
-  } else if(!identical(break_, character(0))){
-    break_new = paste0("https://www.happyfresh.id",break_)
-  }
-  return(break_new)
+# digunakan untuk membuka situs happyfresh
+openizer = function(url){
+  remote_driver$navigate(url)
+  Sys.sleep(3)
 }
+
 # function II
 # digunakan untuk ekstrak informasi katalog
 katalogizer = function(){
@@ -52,23 +44,77 @@ katalogizer = function(){
     } 
   return(output)
 }
+
 # function III
-# digunakan untuk membuka situs happyfresh
-openizer = function(url){
-  remote_driver$navigate(url)
-  Sys.sleep(3)
+cari_ts = function(url_depan){
+  openizer(url_depan)
+  cari_produk = remote_driver$findElement(using = 'css', value = '#searchbar-input')
+  cari_produk$sendKeysToElement(list("tropicana slim",key = "enter"))
+  Sys.sleep(2)
 }
+
 # function IV
-# digunakan untuk mencari produk nutrifood
-cari_brand = function(url){
-  final_url = paste0(url,
-                     c("/search?q=tropicana%20slim",
-                       "/search?q=nutrisari",
-                       "/search?q=l-men",
-                       "/search?q=hilo",
-                       "/search?q=lokalate")
-                     )
-  return(final_url)
+cari_ns = function(url_depan){
+  openizer(url_depan)
+  cari_produk = remote_driver$findElement(using = 'css', value = '#searchbar-input')
+  cari_produk$sendKeysToElement(list("nutrisari",key = "enter"))
+  Sys.sleep(2)
+}
+
+# function V
+cari_lmen = function(url_depan){
+  openizer(url_depan)
+  cari_produk = remote_driver$findElement(using = 'css', value = '#searchbar-input')
+  cari_produk$sendKeysToElement(list("l-men",key = "enter"))
+  Sys.sleep(2)
+}
+
+# function VI
+cari_hilo = function(url_depan){
+  openizer(url_depan)
+  cari_produk = remote_driver$findElement(using = 'css', value = '#searchbar-input')
+  cari_produk$sendKeysToElement(list("hilo",key = "enter"))
+  Sys.sleep(2)
+}
+
+# function VII
+cari_lokalate = function(url_depan){
+  openizer(url_depan)
+  cari_produk = remote_driver$findElement(using = 'css', value = '#searchbar-input')
+  cari_produk$sendKeysToElement(list("lokalate",key = "enter"))
+  Sys.sleep(2)
+}
+
+# function VIII
+next_page_2 = function(){
+  # next page
+  next_page = remote_driver$findElement(using = 'css', value = '#__next > div.jsx-3148673454.body > div > div:nth-child(2) > div.jsx-2435173250.col-md-9 > div > div > div:nth-child(5) > div > div > ul > li:nth-child(2) > a')
+  next_page$clickElement()
+  Sys.sleep(2)
+}
+
+# function IX
+next_page_3 = function(){
+  # next page
+  next_page = remote_driver$findElement(using = 'css', value = '#__next > div.jsx-3148673454.body > div > div:nth-child(2) > div.jsx-2435173250.col-md-9 > div > div > div:nth-child(5) > div > div > ul > li:nth-child(4) > a')
+  next_page$clickElement()
+  Sys.sleep(2)
+}
+
+# function X
+breaker = function(){
+  break_ = 
+    remote_driver$getPageSource()[[1]] %>% 
+    read_html() %>%
+    html_nodes("a") %>% 
+    html_attr("href")
+  break_ = break_[grepl("page",break_)] %>% unique()
+  if(identical(break_, character(0))){
+    break_new = break_
+  } else if(!identical(break_, character(0))){
+    break_new = paste0("https://www.happyfresh.id",break_)
+  }
+  return(length(break_new))
 }
 
 # ==============================================================================
@@ -77,34 +123,43 @@ temp = vector("list")
 ikang = 1
 # import url happyfresh dari amel
 list_url = readLines("list_url.txt")
-# uji coba dulu dengan url grand lucky scbd
-tes_url = list_url[10]
-tes_url
+# uji coba dulu untuk situs pertama
+i = 1
 
 # ==============================================================================
-# kita cari dulu semua produk nutrifood di sana
-url_cari = cari_brand(tes_url)
-
-for(i in 1:length(url_cari)){
-  # selenium mulai dari sini
-  openizer(url_cari[i])
-  print("Page utama done")
-  # ambil katalog pertama
+# cari TS
+cari_ts(list_url[i])
+# scrape katalog halaman pertama
+temp[[ikang]] = katalogizer()
+# set counter
+ikang = ikang + 1
+# how many page?
+page = breaker()
+# jika hanya ada dua page
+if(page == 1){
+  # next page
+  next_page_2()
+  # scrape katalog halaman berikutnya
   temp[[ikang]] = katalogizer()
   # set counter
   ikang = ikang + 1
-  # mencari break
-  next_page = breaker()
-  
-  if(length(next_page > 0)){
-    for(j in 1:length(next_page)){
-      openizer(next_page[j])
-      print("Page child done")
-      temp[[ikang]] = katalogizer()
-      ikang = ikang + 1
-    }
-  }
 }
+# jika hanya ada tiga page
+if(page == 2){
+  # next page
+  next_page_2()
+  # scrape katalog halaman berikutnya
+  temp[[ikang]] = katalogizer()
+  # set counter
+  ikang = ikang + 1
+  # next page
+  next_page_3()
+  # scrape katalog halaman berikutnya
+  temp[[ikang]] = katalogizer()
+  # set counter
+  ikang = ikang + 1
+}
+
 
 # summary
 data_final = 
