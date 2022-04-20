@@ -62,7 +62,7 @@ url = "https://www.tokopedia.com/pikowa/klem-klip-kabel-rapi-dinding-5set-tempel
         Sys.sleep(10)
         
         # digunakan untuk extract nama produk
-        x <- b$Runtime$evaluate('document.querySelector(".css-1wtrxts").innerText')
+        x <- b$Runtime$evaluate('document.querySelector(".css-t9du53").innerText')
         nama = x$result$value
         nama = ifelse(is.null(nama),NA,nama)
         
