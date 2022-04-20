@@ -19,11 +19,11 @@ output:
 ---
 layout: true
 
-<div class="my-footer"><span>Colloqium Nutrifood</span></div>
+<div class="my-footer"><span>POK Nutrifood</span></div>
 
 ```{r setup, include=FALSE}
 rm(list=ls())
-setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant")
+#setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/NRC Grant")
 library(dplyr)
 library(ggplot2)
 library(ggpubr)

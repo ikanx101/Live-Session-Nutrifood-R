@@ -1,9 +1,9 @@
 ---
-title: "Basic Statistics & Analytics"
-subtitle: "Colloqium: Statistika Inferensial"
+title: "Colloqium: Basic Statistics & Analytics"
+subtitle: "Statistika Inferensial"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
-date: "24 Februari 2022"
+date: "20 April 2022"
 output:
   xaringan::moon_reader:
     mathjax: default
@@ -41,18 +41,18 @@ class: middle
 
 Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara statistik.
 
-.pull-left[
 ### Beberapa uji signifikansi yang sering digunakan:
 
 1. Beda dua proporsi.
 2. Beda rata - rata dari satu sampel (z-test dan t-test).
 2. Beda rata - rata dari dua sampel (z-test dan t-test).
 3. Beda rata - rata dari tiga atau lebih sampel (Annova).
-]
 
---
+---
+class: middle
+# Statistika Inferensi
+## Uji Hipotesis
 
-.pull-right[
 ### Langkah - langkah uji hipotesis:
 
 - Tentukan hipotesis nol dan hipotesis tandingan.
@@ -65,7 +65,7 @@ Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara sta
     - Nilai `0.05` yang digunakan biasanya lazim dipakai pada banyak kasus.
     - Penjelasan terkait nilai `0.05` atau $\alpha$ atau yang biasa disebut sebagai ___significance level___ bisa rekan-rekan cari di berbagai sumber.
 - Tuliskan kesimpulan dengan kalimat non matematis.
-]
+
 
 ---
 class: middle
@@ -94,6 +94,15 @@ Persentase yang tinggi belum cukup untuk membuat kesimpulan bahwa NET TV lebih b
 
 ---
 class: middle
+# Uji Dua Proporsi
+
+```{r,echo=FALSE}
+prop.test(c(447,425),c(1000,1000))
+```
+
+Didapatkan $p-value = 0.3437$. Oleh karena $p-value > \alpha$, maka $H_0$ tidak ditolak!
+---
+class: middle
 # Statistika Inferensi
 ## Z-Test vs T-test
 
@@ -111,6 +120,101 @@ Perlu saya ingatkan kembali bahwa __uji mean 2 sample__ ada dua jenis, yakni:
 
 1. Uji untuk dua data berpasangan: dilakukan jika __subjek penelitian sama dan ingin melihat apakah perlakuan yang ada memberikan dampak terhadap perubahan mean data atau tidak__. Contoh: peneliti hendak menguji apakah ada perbedaan nilai _pre test_ dan _post test_ dari suatu kelompok murid dalam mengikuti suatu pelatihan. Pada uji ini, kedua _sample_ wajib memiliki jumlah baris yang sama.
 1. Uji untuk data independen: dilakukan jika __dua kelompok sample yang diuji tidak saling berkaitan sama sekali__. Pada uji ini, tidak ada keharusan jumlah baris data dari kedua _sample_ harus sama (bisa berbeda).
+
+---
+class: middle, center, inverse
+
+# BEBERAPA CONTOH
+## Kasus di Colloqium yang Melibatkan Statistika Inferensi
+
+---
+class: middle
+
+# CONTOH I
+
+### Saya hendak membandingkan _service level_ antara dua _supplier_.
+
+```{r,echo=FALSE,fig.retina=10,fig.width=15,fig.height=5}
+df = data.frame(supplier = rep(c("Supplier 1",
+                                 "Supplier 2"),100),
+                service_level = runif(100,1,10) %>% round())
+
+df %>% 
+  ggplot(aes(group = supplier,
+             y = service_level)) +
+  geom_boxplot(color = "steelblue",
+               fill = "grey",
+               alpha = .4,
+               size = 1.5,
+               notch = T) +
+  theme_minimal() +
+  labs(title = "Boxplot Service Level Per Supplier",
+       x = "Supplier",
+       y = "Service Level") +
+  theme(axis.text.x = element_blank(),
+        axis.title = element_text(size = 15),
+        plot.title = element_text(size = 25))
+```
+
+---
+class: middle
+
+# CONTOH II
+
+### Saya hendak membandingkan _service level_ antara tiga _supplier_.
+
+```{r,echo=FALSE,fig.retina=10,fig.width=15,fig.height=5}
+df = data.frame(supplier = rep(c("Supplier 1",
+                                 "Supplier 2",
+                                 "Supplier 3"),180),
+                service_level = runif(180,1,10) %>% round())
+
+df %>% 
+  ggplot(aes(group = supplier,
+             y = service_level)) +
+  geom_boxplot(color = "steelblue",
+               fill = "grey",
+               alpha = .4,
+               size = 1.5,
+               notch = T) +
+  theme_minimal() +
+  labs(title = "Boxplot Service Level Per Supplier",
+       x = "Supplier",
+       y = "Service Level") +
+  theme(axis.text.x = element_blank(),
+        axis.title = element_text(size = 15),
+        plot.title = element_text(size = 25))
+```
+
+---
+class: middle
+
+# CONTOH III
+
+### Saya hendak membandingkan apakah _service level_ suatu _supplier_ sudah sesuai dengan spek standar Nutrifood.
+
+```{r,echo=FALSE,fig.retina=10,fig.width=15,fig.height=5}
+df %>% 
+  ggplot(aes(x = service_level)) +
+  geom_density(size = 2) +
+  theme_minimal() +
+  labs(title = "Sebaran Data Service Level Supplier",
+       x = "Service Level") +
+  geom_vline(xintercept = 7,
+             color = "darkred",
+             size = 2.5) +
+  theme(axis.text = element_blank(),
+        axis.title.y = element_blank(),
+        axis.title = element_text(size = 15),
+        plot.title = element_text(size = 25))
+```
+
+---
+class: middle
+
+# CONTOH IV
+
+### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
 
 ---
 # Statistika Inferensi
@@ -177,29 +281,6 @@ knitr::include_graphics("parnonpar new.png")
 
 ]
 
----
-
-class: middle,center,inverse
-# CONTOH-CONTOH KASUS YANG SERING DITEMUI
-## Berikut adalah beberapa contoh kasus yang sering ditemui saat _colloqium_
-
----
-
-# CONTOH I
-
-### Saya hendak membandingkan _service level_ antara dua _supplier_.
-
-# CONTOH II
-
-### Saya hendak membandingkan _service level_ antara tiga _supplier_.
-
-# CONTOH III
-
-### Saya hendak membandingkan apakah _service level_ suatu _supplier_ sudah sesuai dengan spek standar Nutrifood.
-
-# CONTOH IV
-
-### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
 
 ---
 class: middle, center, inverse
