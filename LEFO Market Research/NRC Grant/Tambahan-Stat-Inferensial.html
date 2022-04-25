@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Basic Statistics &amp; Analytics</title>
+    <title>Colloqium: Basic Statistics &amp; Analytics</title>
     <meta charset="utf-8" />
     <meta name="author" content="Ikang Fadhli" />
+    <meta name="date" content="2022-04-20" />
     <script src="libs/header-attrs-2.13/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link href="libs/remark-css-0.0.1/fc.css" rel="stylesheet" />
@@ -20,11 +21,11 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Basic Statistics &amp; Analytics
-## Colloqium: Statistika Inferensial
+# Colloqium: Basic Statistics &amp; Analytics
+## Statistika Inferensial
 ### Ikang Fadhli
 ### Nutrifood Indonesia
-### 24 Februari 2022
+### 20 April 2022
 
 ---
 
@@ -47,18 +48,18 @@ class: middle
 
 Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara statistik.
 
-.pull-left[
 ### Beberapa uji signifikansi yang sering digunakan:
 
 1. Beda dua proporsi.
 2. Beda rata - rata dari satu sampel (z-test dan t-test).
 2. Beda rata - rata dari dua sampel (z-test dan t-test).
 3. Beda rata - rata dari tiga atau lebih sampel (Annova).
-]
 
---
+---
+class: middle
+# Statistika Inferensi
+## Uji Hipotesis
 
-.pull-right[
 ### Langkah - langkah uji hipotesis:
 
 - Tentukan hipotesis nol dan hipotesis tandingan.
@@ -71,7 +72,7 @@ Statistika inferensi: pengambilan keputusan berdasarkan uji hipotesis secara sta
     - Nilai `0.05` yang digunakan biasanya lazim dipakai pada banyak kasus.
     - Penjelasan terkait nilai `0.05` atau `\(\alpha\)` atau yang biasa disebut sebagai ___significance level___ bisa rekan-rekan cari di berbagai sumber.
 - Tuliskan kesimpulan dengan kalimat non matematis.
-]
+
 
 ---
 class: middle
@@ -100,6 +101,26 @@ Persentase yang tinggi belum cukup untuk membuat kesimpulan bahwa NET TV lebih b
 
 ---
 class: middle
+# Uji Dua Proporsi
+
+
+```
+## 
+## 	2-sample test for equality of proportions with continuity correction
+## 
+## data:  c(447, 425) out of c(1000, 1000)
+## X-squared = 0.89669, df = 1, p-value = 0.3437
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.02245493  0.06645493
+## sample estimates:
+## prop 1 prop 2 
+##  0.447  0.425
+```
+
+Didapatkan `\(p-value = 0.3437\)`. Oleh karena `\(p-value &gt; \alpha\)`, maka `\(H_0\)` tidak ditolak!
+---
+class: middle
 # Statistika Inferensi
 ## Z-Test vs T-test
 
@@ -117,6 +138,46 @@ Perlu saya ingatkan kembali bahwa __uji mean 2 sample__ ada dua jenis, yakni:
 
 1. Uji untuk dua data berpasangan: dilakukan jika __subjek penelitian sama dan ingin melihat apakah perlakuan yang ada memberikan dampak terhadap perubahan mean data atau tidak__. Contoh: peneliti hendak menguji apakah ada perbedaan nilai _pre test_ dan _post test_ dari suatu kelompok murid dalam mengikuti suatu pelatihan. Pada uji ini, kedua _sample_ wajib memiliki jumlah baris yang sama.
 1. Uji untuk data independen: dilakukan jika __dua kelompok sample yang diuji tidak saling berkaitan sama sekali__. Pada uji ini, tidak ada keharusan jumlah baris data dari kedua _sample_ harus sama (bisa berbeda).
+
+---
+class: middle, center, inverse
+
+# BEBERAPA CONTOH
+## Kasus di Colloqium yang Melibatkan Statistika Inferensi
+
+---
+class: middle
+
+# CONTOH I
+
+### Saya hendak membandingkan _service level_ antara dua _supplier_.
+
+&lt;img src="Tambahan-Stat-Inferensial_files/figure-html/unnamed-chunk-2-1.png" width="1080" /&gt;
+
+---
+class: middle
+
+# CONTOH II
+
+### Saya hendak membandingkan _service level_ antara tiga _supplier_.
+
+&lt;img src="Tambahan-Stat-Inferensial_files/figure-html/unnamed-chunk-3-1.png" width="1080" /&gt;
+
+---
+class: middle
+
+# CONTOH III
+
+### Saya hendak membandingkan apakah _service level_ suatu _supplier_ sudah sesuai dengan spek standar Nutrifood.
+
+&lt;img src="Tambahan-Stat-Inferensial_files/figure-html/unnamed-chunk-4-1.png" width="1080" /&gt;
+
+---
+class: middle
+
+# CONTOH IV
+
+### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
 
 ---
 # Statistika Inferensi
@@ -159,39 +220,14 @@ class: middle
 
 ]
 
----
 
+---
 class: middle, center, inverse
 
 ## Terima Kasih
 # Nutrifood Indonesia
 
 ### _find me at:_ ikanx101.com
-
----
-
-class: middle,center,inverse
-# CONTOH-CONTOH KASUS YANG SERING DITEMUI
-## Berikut adalah beberapa contoh kasus yang sering ditemui saat _colloqium_
-
----
-
-# CONTOH I
-
-### Saya hendak membandingkan _service level_ antara dua _supplier_.
-
-# CONTOH II
-
-### Saya hendak membandingkan _service level_ antara tiga _supplier_.
-
-# CONTOH III
-
-### Saya hendak membandingkan apakah _service level_ suatu _supplier_ sudah sesuai dengan spek standar Nutrifood.
-
-# CONTOH IV
-
-### Saya hendak melihat apakah _improvement_ yang saya lakukan bisa menaikkan _sales_ atau tidak.
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
