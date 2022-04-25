@@ -1,6 +1,6 @@
 ---
 title: "Basic Statistics & Analytics"
-subtitle: "POK Nutrifooders 2021"
+subtitle: "POK Nutrifooders 2022"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
 date: "24 Februari 2022"
@@ -19,7 +19,7 @@ output:
 ---
 layout: true
 
-<div class="my-footer"><span>Colloqium Nutrifood</span></div>
+<div class="my-footer"><span>POK Nutrifood</span></div>
 
 ```{r setup, include=FALSE}
 rm(list=ls())
