@@ -23,7 +23,6 @@ driver = RSelenium::rsDriver(browser = "chrome",
                              chromever = "99.0.4844.35" )
 remote_driver = driver[["client"]] 
 
-
 # ====================================
 # function untuk mengubah menjadi api shopee
 apifier = function(url){
@@ -94,7 +93,7 @@ scraper_shopee = function(link){
 # scraper_shopee(url_produk)
 
 link_txt = readLines("Shopee/List Shopee Vegan.txt")
-link_txt = link_txt[1:592] # ini saya hapus yang tidak perlu ya
+link_txt = link_txt[1] # ini saya hapus yang tidak perlu ya
 
 temporary = vector("list",length(link_txt))
 for(i in 1:length(link_txt)){
