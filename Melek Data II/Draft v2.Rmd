@@ -241,7 +241,11 @@ Berikut penjelasannya:
 
 ### Data di Era Digital
 
-Era digital 
+Era digital seperti sekarang membuat arus penambahan data sangatlah kencang. Akibatnya muncul tiga masalah utama terkait data:
+
+1. Di mana mencari datanya? Bagaimana cara mengambilnya?
+1. Tidak semua data yang ada bersih.
+1. Bagaimana mengesktrak _insights_ dari data?
 
 # BASIC KNOWLEDGE AND UNDERSTANDING DATA
 
