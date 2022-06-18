@@ -71,6 +71,11 @@ for(i in 1:n){
   hasil[[i]] =  cbind(temp_1,temp_2)
 }
 
+# gabung hasilnya
 final = do.call(rbind,hasil)
 
+# ini hasilnya yaa
 final
+
+# export ke csv
+write.csv(final,"hasil_akhir.csv")
