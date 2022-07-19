@@ -23,7 +23,7 @@ knitr::include_graphics("poto.png")
 
 [_Journal link_](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8978863) didapatkan dari [___IEEE Xplore___](https://ieeexplore.ieee.org/).
 
-Prinsipnya mirip dengan [Pemilihan Portofolio Diskon Produk BliBli.com](https://ikanx101.com/blog/binary-marketplace/).
+Prinsipnya mirip dengan [Pemilihan Portofolio Diskon Produk di Marketplace](https://ikanx101.com/blog/binary-marketplace/).
 
 ## _Intro_
 
@@ -126,7 +126,7 @@ knitr::include_graphics("parameter.png")
 
 :::
 
-### Implementation in Nutrifood
+### Implementation in NFI
 
 1. Online / offline direct marketing activities.
 1. TV ads placement.
