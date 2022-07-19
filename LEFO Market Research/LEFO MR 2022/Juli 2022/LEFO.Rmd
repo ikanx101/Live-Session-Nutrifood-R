@@ -23,6 +23,8 @@ knitr::include_graphics("poto.png")
 
 [_Journal link_](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8978863) didapatkan dari [___IEEE Xplore___](https://ieeexplore.ieee.org/).
 
+Prinsipnya mirip dengan [Pemilihan Portofolio Diskon Produk BliBli.com](https://ikanx101.com/blog/binary-marketplace/).
+
 ## _Intro_
 
 ### _Abstract_
@@ -92,3 +94,41 @@ $$\sum_{j \in J} \sum_{i \in I_j} p_{ij} x_{ij}$$
 
 Memaksimalkan _profit_ dari _customer_ yang dipilih DMA-nya.
 
+## _Parameters and Decision Variables_
+
+
+```{r out.width="40%",fig.retina=10,echo=FALSE,fig.align='center'}
+knitr::include_graphics("parameter.png")
+```
+
+## _Key Take Points_
+
+::: columns
+
+:::: {.column width=50%}
+
+### Advantages
+
+1. The expected proﬁt could be improved by __54%__ on average.
+1. Robust method.
+1. Optimal solution guaranteed.
+
+::::
+
+:::: {.column width=50%}
+
+### Disadvantages
+
+1. `Table I` calculation maybe difficult (or maybe too simple).
+1. Customize constraint modelling.
+
+::::
+
+:::
+
+### Implementation in Nutrifood
+
+1. Online / offline direct marketing activities.
+1. TV ads placement.
+
+## _Thank You_
