@@ -1,8 +1,8 @@
 ---
-title       : Training Data Science
-subtitle    : Introduction to R
+title       : Hotel Preference Rank based on Online Customer Review
+subtitle    : Learning Forum
 author      : Ikang Fadhli
-job         : find me at ikanx101.com
+job         : Market Research Nutrifood
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
@@ -18,30 +18,14 @@ assets      : {assets: ../../assets}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+```{r,echo=FALSE}
+knitr::include_graphics("Cover.jpg")
+```
+
+
 --- .segue bg:grey
+
+# PENDAHULUAN
+
 --- .class #id
-
-## R Markdown
-
-This is an R Markdown presentation. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
-
-## Slide with Bullets
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-## Slide with R Output
-
-```{r cars, echo = TRUE}
-summary(cars)
-```
-
-## Slide with Plot
-
-```{r pressure}
-plot(pressure)
-```
 
