@@ -14,15 +14,11 @@ biglogo     : nf big.png
 assets      : {assets: ../../assets}
 --- 
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
+
 
 ## _Journal Title_
 
-```{r,echo=FALSE,fig.align='center'}
-knitr::include_graphics("Cover.jpg")
-```
+<img src="Cover.jpg" title="plot of chunk unnamed-chunk-1" alt="plot of chunk unnamed-chunk-1" style="display: block; margin: auto;" />
 
 - Andry Alamsyah: Presiden AIDI (Asosiasi Ilmuwan Data Indonesia).
 - Apriandito: Sekjen AIDI dan Admin Komunitas R Indonesia.
@@ -31,9 +27,7 @@ knitr::include_graphics("Cover.jpg")
 
 ## _Abstract_
 
-```{r,echo=FALSE,fig.align='center'}
-knitr::include_graphics("Abstrak.jpg")
-```
+<img src="Abstrak.jpg" title="plot of chunk unnamed-chunk-2" alt="plot of chunk unnamed-chunk-2" style="display: block; margin: auto;" />
 
 --- .class #id
 
@@ -76,9 +70,7 @@ Sebelum melakukan _text analysis_, perlu dilakukan tiga hal berikut ini:
 
 Dikumpulkan data perhotel, lalu dibagi menjadi _train dataset_ dan _test dataset_ dengan aturan `70-30`. Kemudian dibuat model untuk mengklasifikasi lima dimensi.
 
-```{r,echo=FALSE,fig.align='center'}
-knitr::include_graphics("tabel.png")
-```
+<img src="tabel.png" title="plot of chunk unnamed-chunk-3" alt="plot of chunk unnamed-chunk-3" style="display: block; margin: auto;" />
 
 --- .class #id
 
@@ -86,9 +78,7 @@ knitr::include_graphics("tabel.png")
 
 Seberapa bagus model _text classification_ dihitung dari beberapa parameter. Dimulai dari membuat _confusion matrix_ sebagai berikut:
 
-```{r out.width="40%",echo=FALSE,fig.align='center'}
-knitr::include_graphics("confusion.png")
-```
+<img src="confusion.png" title="plot of chunk unnamed-chunk-4" alt="plot of chunk unnamed-chunk-4" width="40%" style="display: block; margin: auto;" />
 
 --- .class #id
 
@@ -108,17 +98,13 @@ $$Kappa = \frac{P(A) - P(E)}{1-P(E)}$$
 
 ## _Model Evaluation Results_
 
-```{r out.width="70%",echo=FALSE,fig.align='center'}
-knitr::include_graphics("tabel model.png")
-```
+<img src="tabel model.png" title="plot of chunk unnamed-chunk-5" alt="plot of chunk unnamed-chunk-5" width="70%" style="display: block; margin: auto;" />
 
 --- .class #id
 
 ## _Model Classification Results_
 
-```{r out.width="70%",echo=FALSE,fig.align='center'}
-knitr::include_graphics("class result.png")
-```
+<img src="class result.png" title="plot of chunk unnamed-chunk-6" alt="plot of chunk unnamed-chunk-6" width="70%" style="display: block; margin: auto;" />
 
 --- .class #id
 
