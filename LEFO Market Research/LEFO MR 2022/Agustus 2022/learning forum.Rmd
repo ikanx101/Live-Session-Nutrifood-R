@@ -1,7 +1,7 @@
 ---
 title       : Hotel Preference Rank based on Online Customer Review
 subtitle    : Learning Forum
-author      : Ikang Fadhli
+author      : XMA
 job         : Market Research Nutrifood
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
