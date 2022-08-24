@@ -3,7 +3,7 @@ title: "Basic Statistics & Analytics"
 subtitle: "POK Nutrifooders 2022"
 author: "Ikang Fadhli"
 institute: "Nutrifood Indonesia"
-date: "24 Februari 2022"
+date: "24 Agustus 2022"
 output:
   xaringan::moon_reader:
     mathjax: default
