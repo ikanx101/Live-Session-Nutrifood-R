@@ -1,0 +1,294 @@
+---
+title: "Catatan Geomarketing"
+subtitle: "Sebuah Usaha untuk Menguasai"
+author: "Ikang Fadhli"
+date: "2022-09-23"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 5
+    toc_float: 
+        collapsed: false
+    number_sections: true
+    theme: spacelab
+    highlight: pygments
+    fig_caption: yes
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+rm(list=ls())
+
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(ggsflabel)
+library(ggspatial)
+```
+
+# Basic Knowledge GIS
+
+## Geographic Information Systems
+
+Ada 4 fitur utama dari GIS, yakni:
+
+1. Create geographic data.
+1. Manage spatial data in a database.
+1. Analyze and find patterns.
+1. Map Visualization.
+
+## Well-Known Text (WKT)
+
+WKT adalah _markup text_ untuk _represent_ objek _vector geometry_.
+
+Ada tiga _markups_, yakni:
+
+### `POINT`
+
+Misalkan `POINT(3 3)`
+
+```{r out.width="40%",fig.align='center',fig.retina=10}
+data.frame(x = 3,
+           y = 3) %>%
+  ggplot(aes(x,y)) +
+  geom_point() +
+  xlim(0,6) +
+  ylim(0,6) +
+  theme_linedraw()
+```
+
+### `LINESTRING`
+
+Misalkan `LINESTRING (1 4, 3 3, 5 5)`
+
+```{r out.width="40%",fig.align='center',fig.retina=10}
+ggplot() +
+  annotate("segment",
+           x = 1,
+           y = 4,
+           xend = 3,
+           yend = 3) +
+  annotate("segment",
+           x = 3,
+           y = 3,
+           xend = 5,
+           yend = 5) +
+  geom_point(aes(x = 1,
+                 y = 4)) +
+  geom_point(aes(x = 3,
+                 y = 3)) +
+  geom_point(aes(x = 5,
+                 y = 5)) +
+  xlim(0,6) +
+  ylim(0,6) +
+  theme_linedraw()
+```
+
+### `POLYGON`
+
+Misalkan `POLYGON (1 4, 2 2, 4 1, 5 5, 1 4)`
+
+```{r out.width="40%",fig.align='center',fig.retina=10}
+data.frame(x = c(1,2,4,5,1),
+           y = c(4,2,1,5,4)) %>% 
+  ggplot() +
+  annotate("segment",
+           x = 1,
+           y = 4,
+           xend = 2,
+           yend = 2) +
+  annotate("segment",
+           x = 2,
+           y = 2,
+           xend = 4,
+           yend = 1) +
+  annotate("segment",
+           x = 4,
+           y = 1,
+           xend = 5,
+           yend = 5) +
+  annotate("segment",
+           x = 5,
+           y = 5,
+           xend = 1,
+           yend = 4) +
+  geom_point(aes(x,y)) +
+  xlim(0,6) +
+  ylim(0,6) +
+  theme_linedraw()
+```
+
+## _Shapefiles_
+
+Berikut adalah beberapa tipe file yang digunakan pada GIS, yakni:
+
+```{r}
+data.frame(
+  tipe = c(".shp",".dbf",".prj",".shx"),
+  features = c("shape format; the feature geometry",
+               "attribute format; attributes for each shape, stored as two-dimensional table",
+               "projection description, using a well-known text representation of coordinate reference systems",
+               "shape index format; a positional index of the feature geometry to allow seeking forwards and backwards quickly")) %>% 
+  knitr::kable(caption = "Shapefiles")
+```
+
+## _Libraries_ yang Digunakan
+
+```
+install.packages("sf")
+install.packages("dplyr")
+install.packages("ggplot2")
+library(sf)
+library(dplyr)
+library(ggplot2)
+```
+
+# _Data Visualization with Maps_
+
+## Membuat _Maps_
+
+Sekarang kita akan membuat _maps_ dari data `GIS`. Data yang digunakan berasal dari `library(spData)`. Contoh:
+
+```{r,warning=FALSE,message=FALSE}
+library(spData)
+
+ggplot(data = us_states) +
+  geom_sf()
+```
+
+Sekarang kita coba lihat isi dari data `us_states` berikut ini:
+
+```{r,warning=FALSE,message=FALSE}
+us_states
+
+str(us_states)
+```
+
+Terlihat ada dua tipe data, yakni: `sf` dan `data.frame`.
+
+## Membuat _Maps_ dengan Label
+
+Sekarang kita akan membuat maps dengan label sebagai pelengkap:
+
+```{r,warning=FALSE,message=FALSE}
+ggplot(data = us_states) +
+  geom_sf() +
+  geom_sf_text(aes(label=NAME))
+```
+
+
+Karena bentuknya acak tak jelas, kita bisa pakai `repel` dengan cara meng-_install_ terlebih dahulu dengan cara:
+
+```
+devtools::install_github("yutannihilation/ggsflabel")
+library(ggsflabel)
+```
+
+Berikut adalah hasilnya:
+
+```{r,warning=FALSE,message=FALSE}
+ggplot(data = us_states) +
+  geom_sf() +
+  geom_sf_text_repel(aes(label=NAME), 
+                     nudge_y=0.5, 
+                     size=3, 
+                     color="red")
+```
+
+## _Graduated Symbol Map_
+
+Kita bisa menggunakan berbagai parameter untuk memodifikasi gambar _maps_.
+
+```{r,warning=FALSE,message=FALSE}
+ggplot(us_states)+
+  geom_sf(fill = "steelblue", 
+          size = 1, 
+          color = "red")
+
+ggplot(us_states)+
+  geom_sf(aes(fill=total_pop_10))
+
+ggplot(us_states)+
+  geom_sf(aes(fill=total_pop_15))+
+  scale_fill_continuous(low="#D2E9FF", high="#003D79")
+```
+
+
+## _Basic Elements Maps_
+
+Kita bisa melakukan _overlay maps_ sama seperti `ggplot2`. Ini sebagai contoh data _New Zealand_ dan kita _overlay_ dengan top `101` titik tertinggi. Berikut adalah hasilnya:
+
+```{r,warning=FALSE,message=FALSE}
+ggplot() +
+  geom_sf(data=nz) +
+  geom_sf(data=nz_height, color="red")
+```
+
+### Menambahkan _Arrow_ dan Skala
+
+Untuk menambahkan elemen peta, kita bisa menggunakan _library_ baru ini:
+
+```
+install.packages("ggspatial")
+library(ggspatial)
+```
+
+```{r,warning=FALSE,message=FALSE}
+ggplot()+
+  geom_sf(data=nz)+
+  annotation_scale(location="br")+
+  annotation_north_arrow(location="tl")
+```
+
+### Mengubah _Linetype_ dan _Shape_
+
+```{r,warning=FALSE,message=FALSE}
+ggplot() +
+  geom_sf(data=nz, color="blue", linetype="dashed") +
+  geom_sf(data=nz_height, color="red", size=2, shape=4)
+```
+
+Berikut adalah beberapa poin penting:
+
+```{r out.width="50%"}
+knitr::include_graphics("download.png")
+```
+
+
+[_Some important publication_](https://rpubs.com/Chia-JungYEH/717514).
+
+
+[_Another important publication_](https://geocompr.robinlovelace.net/adv-map.html)
+
+[_Another_](https://www.rumusstatistik.com/2019/03/download-peta-wilayah-administrasi.html)
+
+
+Dari [RasyidStat](https://medium.com/data-science-indo/membuat-visualisasi-peta-menggunakan-ggplot2-sf-529203cb79eb)
+
+
+[library(indonesia)](https://github.com/rasyidstat/indonesia)
+
+```{r}
+library(indonesia)
+
+# get indonesia map for 'provinsi' level
+indonesia_provinsi <- id_map("indonesia", "provinsi")
+
+# get indonesia map for 'kota' level
+indonesia_kota <- id_map("indonesia", "kota")
+
+# get jakarta map for 'kelurahan' level
+jakarta_kelurahan <- id_map("jakarta", "kelurahan")
+
+
+```
+
+
+[ini bagus nih](https://rpubs.com/mghozyah/project-uas-gis-semester-6)
+
+
+[situsnya](https://gadm.org/download_country.html)
+
+
