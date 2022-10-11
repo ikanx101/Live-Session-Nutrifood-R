@@ -54,7 +54,7 @@ sigmaL = sd(D)
 # sigmaL = diff(range(D))
 
 nomrs_inv = qnorm(service_level)
-ss = nomrs_inv + sigmaL
+ss = nomrs_inv * sigmaL
 # rop = dL + ss
 dL = mean(D)
 rop = dL + ss
