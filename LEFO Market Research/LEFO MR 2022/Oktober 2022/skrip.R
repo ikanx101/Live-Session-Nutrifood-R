@@ -7,6 +7,9 @@ library(dplyr)
 library(ggplot2)
 
 # auto replenishment
+# asumsi:
+    # kapasitas gudang diabaikan
+    # ordering cost sudah fix berapapun item dikirim
 # langkah kerja
     # fase 1: 
         # analisa demand utk finished goods.
@@ -41,12 +44,15 @@ ordering_cost = 550000
 stock_out_cost = 400
 
 # misalkan demand
-D = runif(20,0:1) * 10 
+D = runif(30,0,3) * 10 
 D = round(D,0)
 
 # hitung ROP
 # ss = normsinv(CSL) * sigmaL
 sigmaL = sd(D)
+# salah satu modifikasinya adalah dengan mengubah ss dengan menggunakan range alih2 standar deviasi
+# sigmaL = diff(range(D))
+
 nomrs_inv = qnorm(service_level)
 ss = nomrs_inv + sigmaL
 # rop = dL + ss
@@ -65,28 +71,28 @@ rop
 eoq
 ss
 
-eoq = 30
 
 # kita mulai simulasinya
-days = 1:20
+days = 1:30
 begin_stok = c(0)
 order_recv = c(0)
 avail_stock = c(0)
 demand = D
 # bikin rumah utk variabel dependen
-full_filled = rep(NA,20)
-ending_stock = rep(NA,20)
-stock_outage = rep(NA,20)
-place_order = rep(NA,20)
-lead_time = rep(NA,20)
-order_arrive_at = rep(NA,20)
+full_filled = rep(NA,30)
+ending_stock = rep(NA,30)
+stock_outage = rep(NA,30)
+place_order = rep(NA,30)
+lead_time = rep(NA,30)
+order_arrive_at = rep(NA,30)
 
 # untuk hari 1
 i = 1
 
 # perhitungan demand berapa yang bisa dipenuhi
+# asumsi bisa dipenuhi sebagian
 full_filled[i] = ifelse(avail_stock[i] < demand[i],
-                        0,
+                        avail_stock[i],
                         demand[i])
 # perhitungan ending stok
 ending_stock[i] = avail_stock[i] - full_filled[i]                     
@@ -104,7 +110,7 @@ order_arrive_at[i] = ifelse(place_order[i] == 1,
                             0)
 
 # kita mulai looping hari kedua
-for(i in 2:20){
+for(i in 2:2){
     # stok hari i adalah stok hari i-1
     begin_stok[i] = ending_stock[i-1]
     # jika order arrive, maka order sama dengan eoq
@@ -116,7 +122,7 @@ for(i in 2:20){
     
     # perhitungan demand berapa yang bisa dipenuhi
     full_filled[i] = ifelse(avail_stock[i] < demand[i],
-                            0,
+                            avail_stock[i],
                             demand[i])
     # perhitungan ending stok
     ending_stock[i] = avail_stock[i] - full_filled[i]                     
@@ -135,10 +141,66 @@ for(i in 2:20){
                                 
 }
 
+
+# kita mulai looping hari ketiga dan seterusnya
+for(i in 3:30){
+    # stok hari i adalah stok hari i-1
+    begin_stok[i] = ending_stock[i-1]
+    # jika order arrive, maka order sama dengan eoq
+    if(i == order_arrive_at[i-1] | i == order_arrive_at[i-2]){order_recv[i] = eoq}
+    else{order_recv[i] = 0}
+    
+    # hitung saldo sekarang
+    avail_stock[i] = begin_stok[i] + order_recv[i]
+    
+    # perhitungan demand berapa yang bisa dipenuhi
+    full_filled[i] = ifelse(avail_stock[i] < demand[i],
+                            avail_stock[i],
+                            demand[i])
+    # perhitungan ending stok
+    ending_stock[i] = avail_stock[i] - full_filled[i]                     
+    # outage atau tidak
+    stock_outage[i] = demand[i] - full_filled[i]
+    # perlu pesan lagi atau tidak?
+    place_order[i] = ifelse(ending_stock[i] <= ss,
+                            1,
+                            0)
+    # lead time pengiriman
+    lead_time[i] = sample(leadtime_min:leadtime_max,1)
+    # order akan datang kapan
+    order_arrive_at[i] = ifelse(place_order[i] == 1 & order_arrive_at[i-1] == 0,
+                                i + lead_time[i],
+                                0)
+                                
+}
+
+
 df = data.frame(
     begin_stok,order_recv,avail_stock,
     demand,full_filled,ending_stock,
     stock_outage,place_order,
     lead_time,order_arrive_at)
 
+df = 
+    df %>%
+    mutate(carrying_cost = ending_stock * carrying_cost_per_unit,
+           ordering_cost = ifelse(place_order == 1 & order_arrive_at != 0,
+                                  place_order * ordering_cost,
+                                  0),
+           stock_outage_cost = stock_outage * stock_out_cost
+          ) %>%
+    mutate(total_cost = carrying_cost + ordering_cost + stock_outage_cost)
+
+# Kesimpulan
+  # 1. ROP teoritis tidak berpengaruh.
+  # 2. EOQ teoritis tidak selamanya memberikan cost yang minimal.
+  # 3. Safety stock menjadi hal krusial.
+# Rekomendasi
+  # Jika dihendaki EOQ menjadi flexibel dan wajib dilakukan saat ROP, maka perlu dibuat simulasi lebih lanjut.
+
+cost_semua = sum(df$total_cost) / 1000000
+cost_semua = round(cost_semua,3)
+pesan = paste0("Total cost yang dikeluarkan saat EOQ = ",eoq," adalah: Rp",cost_semua," juta",
+               "\nSafety stock hasil perhitungan = ",round(ss,0))
+cat(pesan)
 View(df)
