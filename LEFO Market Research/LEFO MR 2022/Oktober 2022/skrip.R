@@ -41,7 +41,7 @@ leadtime_min = 1
 leadtime_max = 2
 carrying_cost_per_unit = 3780
 ordering_cost = 550000
-stock_out_cost = 400
+stock_out_cost = 400 # per unit
 
 # misalkan demand
 D = runif(30,0,3) * 10 
