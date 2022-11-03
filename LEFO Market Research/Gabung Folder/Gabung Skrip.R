@@ -12,9 +12,10 @@ nama_files = list.files(folder_path,pattern = ".xlsx")
 
 # kita ambil dataframe trus kita kasih nama_files sebagai kolom
 draft_hasil = vector("list",length(nama_files))
+
 for(y in 1:length(nama_files)){
   temp = read_excel(paste0(folder_path,nama_files[y]))
-  temp$keterangan = nama_files[y]
+  temp$keterangan = nama_files[y] # simpan ke dalam variabel tertentu
   draft_hasil[[y]] = temp
 }
 
