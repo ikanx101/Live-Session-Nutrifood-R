@@ -77,7 +77,62 @@ We investigate data of shoe sales in Indonesia using the web mining method on on
 has an impact on product sales.
 
 ```{r,echo=FALSE}
+nomnoml::nomnoml("
+                 [Tokopedia] -> [Scraping]
+                 [Scraping] -> [Pre Processing]
+                 [Pre Processing] -> [Modelling]
+                 [Modelling] -> [Prediction]
+                 ")
+```
 
+## CHAID Analysis
+
+::: columns
+
+:::: {.column width=50%}
+
+There are several steps to make a decision tree using the CHAID algorithm which are:
+
+1. Merging. Category merging can be done on an independent variable that has more than two categories that are related.
+2. Splitting. In this part independent variable which used as the best split node. Splitting was conducted with a p-value on each independent variable.
+3. Stopping. The decision tree should be terminated by the rules. If there is no significant independent variable or if a tree reaches a maximum value limit of the tree defined specifications.
+
+::::
+
+:::: {.column width=50%}
+
+```{r out.width="50%",echo=FALSE,fig.cap="CHAID Flowchart",fig.align='center'}
+knitr::include_graphics("chaid.png")
+```
+
+::::
+
+::: 
+
+
+## CHAID
+
+In CHAID analysis, the following are the components of the decision tree:
+
+- _Root Node_: The root node contains the dependent variable or target variable. For example, a bank can predict the credit card risk based upon information like age, income, number of credit cards, etc. In this example, credit card risk is the target variable and the remaining factors are the predictor variables.
+- _Parent's Node_: The algorithm splits the target variable into two or more categories. These categories are called parent nodes or initial nodes. For the bank example, high, medium, and low categories are the parent's nodes.
+- _Child Node_: Independent variable categories which come below the parent's categories in the CHAID analysis tree are called the child node.
+- _Terminal Node_: The last categories of the CHAID analysis tree are called the terminal node. In the CHAID analysis tree, the category that is a major influence on the dependent variable comes first and the less important category comes last. Thus, it is called the terminal node.
+
+## CHAID Modelling
+
+Menggunakan data yang telah dikategorisasi terlebih dahulu.
+
+```{r out.width="50%",echo=FALSE,fig.cap="Model CHAID",fig.align='center'}
+knitr::include_graphics("model.png")
 ```
 
 
+## Prediction {.bigger}
+
+With terminal and classification patterns, we can predict sales. For illustration, if we sell shoes at Rp 62.000 with 80 viewers and classified as "Sneakers", there is a 98,2% probability that the shoes will be sold 1-143 unit, 1.3% probability that the shoes will be sold 155-287 unit, 0.3% probability that the shoes will be sold 431-573 unit, and 0.2% probability that the shoes will be sold 860-1002 unit.
+
+
+## Discussion
+
+CHAID sudah digunakan pada _project_ Lenny, MB, dan Rendy.
