@@ -1,0 +1,49 @@
+---
+title: <b>CLUSTERING</b>
+subtitle: Uji Coba
+author: 
+  - name: Ikang Fadhli
+    affiliation: "ikanx101.com"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+dev: png
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: 
+        collapsed: false
+        smooth_scroll: true
+    number_sections: false
+    theme: journal
+    highlight: haddock
+    fig_caption: yes
+    code_folding: show
+---
+
+```{r, include=FALSE}
+setwd("/root/Live-Session-Nutrifood-R/LEFO Market Research/Clustering")
+
+# membersihkan global environment
+rm(list=ls())
+# load semua libraries yang dibutuhkan
+library(dplyr)
+library(cluster)
+library(factoextra)
+library(ggplot2)
+library(readxl)
+```
+
+# _Introduction_
+
+Kita akan coba lakukan _clustering_ dengan beberapa metode yah, seperti:
+
+1. _Hierarchical clustering_,
+1. _K-Means clustering_, dan
+1. _DB Scan clustering_.
+
+# _Workflow_
+
+```{r,fig.cap="Langkah Kerja"}
+knitr::include_graphics("workflow.png")
+```
+
