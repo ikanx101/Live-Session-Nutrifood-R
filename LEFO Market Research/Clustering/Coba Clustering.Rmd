@@ -41,7 +41,7 @@ Kita akan coba lakukan _clustering_ dengan beberapa metode yah, seperti:
 
 1. _Hierarchical clustering_,
 1. _K-Means clustering_, dan
-1. _DB Scan clustering_.
+1. _DBScan clustering_.
 
 # _Workflow_
 
@@ -211,4 +211,46 @@ Terlampir dalam _file_ yang saya beri nama `hier.xlsx`.
 
 ```{r}
 df_final %>% openxlsx::write.xlsx(file = "hier.xlsx")
+```
+
+# _DBScan Clustering_
+
+Berikut adalah hasil _clustering_ dengan menggunakan metode _DBScan_. Salah satu langkah yang perlu dilakukan adalah menentukan nilai $eps$ yang paling optimal.
+
+```{r}
+# kita hanya akan pilih data numerik saja
+# mengulang proses karena df_final sebelumnya sudah ada campuran k-means
+data_cl = df %>% select(where(is.numeric))
+
+dbscan::kNNdistplot(data_cl, k = 30)
+abline(h = 1.4, lty = 2, col = "red")
+```
+
+Dipilih nilai $eps = 1.4$ sebagai parameter pembentukan _DBScan_.
+
+```{r}
+# memanggil libraries
+library(fpc)
+library(dbscan)
+
+# membuat clustering DBScan
+# set sed agar reproducible
+set.seed(20921004)
+Dbscan_cl = dbscan(data_cl, eps = 0.35, minPts = 5)
+
+# menambahkan cluster ke dalam dataset
+data_cl$cluster = Dbscan_cl$cluster
+
+# menghitung ada berapa banyak cluster yang ada
+data_cl$cluster %>% unique() %>% length()
+```
+
+Tercatat ada __140__ buah _cluster_ yang terbentuk. 
+
+## _Export_ Hasil _DBScan Clustering_
+
+Terlampir dalam _file_ yang saya beri nama `dbs.xlsx`.
+
+```{r}
+data_cl %>% openxlsx::write.xlsx(file = "dbs.xlsx")
 ```
