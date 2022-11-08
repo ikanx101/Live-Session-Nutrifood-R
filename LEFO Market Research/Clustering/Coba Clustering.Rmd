@@ -69,8 +69,10 @@ Sedangkan berikut adalah data numerik yang akan dimasukkan ke analisa _clusterin
 head(df_final,10) %>% DT::datatable()
 ```
 
+## _Pairs Plot_
+
 ```{r}
-summary(df_final)
+pairs(df_final)
 ```
 
 # _k-Means Clustering_
@@ -111,3 +113,61 @@ gap_stat = clusGap(df_final, FUN = kmeans, nstart = 10,K.max = 10, B = 10)
 gap = fviz_gap_stat(gap_stat)
 plot(gap)
 ```
+
+Dari _plot_ di atas didapatkan bahwa $k = 6$.
+
+## Kesimpulan Nilai $k$
+
+Kita akan coba membuat _k-Means clustering_ saat nilai $k = 2,3,6$.
+
+```{r}
+# k-means clustering
+kmeans_2 = kmeans(df_final, 2, nstart = 25)
+kmeans_3 = kmeans(df_final, 3, nstart = 25)
+kmeans_6 = kmeans(df_final, 6, nstart = 25)
+
+# save hasil cluster ke data awal
+df_final$k_means_2 = kmeans_2$cluster
+df_final$k_means_3 = kmeans_3$cluster
+df_final$k_means_6 = kmeans_6$cluster
+
+```
+
+### Hasil $k=2$
+
+```{r}
+# center dari masing-masing cluster
+kmeans_2$centers
+
+# berapa banyak isi dari cluster
+table(df_final$k_means_2)
+```
+
+### Hasil $k=3$
+
+```{r}
+# center dari masing-masing cluster
+kmeans_3$centers
+
+# berapa banyak isi dari cluster
+table(df_final$k_means_3)
+```
+
+### Hasil $k=6$
+
+```{r}
+# center dari masing-masing cluster
+kmeans_6$centers
+
+# berapa banyak isi dari cluster
+table(df_final$k_means_6)
+```
+
+## _Export_ Hasil _K-Means Clustering_
+
+Terlampir dalam _file_ yang saya beri nama `kmeans.xlsx`.
+
+```{r}
+df_final %>% openxlsx::write.xlsx(file = "kmeans.xlsx")
+```
+
