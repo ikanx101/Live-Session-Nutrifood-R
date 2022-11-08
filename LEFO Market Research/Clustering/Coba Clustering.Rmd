@@ -21,7 +21,7 @@ output:
 ---
 
 ```{r, include=FALSE}
-setwd("/root/Live-Session-Nutrifood-R/LEFO Market Research/Clustering")
+setwd("/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/Clustering")
 
 # membersihkan global environment
 rm(list=ls())
@@ -31,6 +31,8 @@ library(cluster)
 library(factoextra)
 library(ggplot2)
 library(readxl)
+
+sht = excel_sheets("data josh.xlsx")
 ```
 
 # _Introduction_
@@ -47,3 +49,22 @@ Kita akan coba lakukan _clustering_ dengan beberapa metode yah, seperti:
 knitr::include_graphics("workflow.png")
 ```
 
+# Data yang Digunakan
+
+Berikut adalah _sample_ 10 data yang akan telah terkumpul:
+
+```{r}
+df = read_excel("data josh.xlsx",sheet = sht[6],skip = 2) %>% 
+     janitor::clean_names()
+
+head(df,10) %>% knitr::kable()
+
+# kita hanya akan pilih data numerik saja
+df_final = df %>% select(where(is.numeric))
+```
+
+Sedangkan berikut adalah data numerik yang akan dimasukkan ke analisa _clustering_:
+
+```{r}
+head(df_final,10) %>% knitr::kable()
+```
