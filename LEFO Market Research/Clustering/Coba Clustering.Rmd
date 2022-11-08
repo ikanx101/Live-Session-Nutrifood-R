@@ -171,3 +171,44 @@ Terlampir dalam _file_ yang saya beri nama `kmeans.xlsx`.
 df_final %>% openxlsx::write.xlsx(file = "kmeans.xlsx")
 ```
 
+# _Hierarchical clustering_
+
+Berikut ini adalah pembuatan _hierarchical clustering_.
+
+```{r}
+# kita hanya akan pilih data numerik saja
+# mengulang proses karena df_final sebelumnya sudah ada campuran k-means
+df_final = df %>% select(where(is.numeric))
+
+# Finding distance matrix
+distance_mat = dist(df_final, method = 'euclidean')
+
+# Fitting Hierarchical clustering Model
+set.seed(240)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "average")
+Hierar_cl
+ 
+# Plotting dendrogram
+plot(Hierar_cl)
+```
+
+Saya akan pecah dendogram di atas menjadi 6 cluster utama.
+
+```{r}
+# Pemecahan menjadi 6 cluster
+fit = cutree(Hierar_cl, k = 6)
+plot(Hierar_cl)
+table(fit)
+rect.hclust(Hierar_cl, k = 6, border = "red")
+
+# save hasil cluster ke data awal
+df_final$hi_cluster = fit
+```
+
+## _Export_ Hasil _Hierarchical Clustering_
+
+Terlampir dalam _file_ yang saya beri nama `hier.xlsx`.
+
+```{r}
+df_final %>% openxlsx::write.xlsx(file = "hier.xlsx")
+```
