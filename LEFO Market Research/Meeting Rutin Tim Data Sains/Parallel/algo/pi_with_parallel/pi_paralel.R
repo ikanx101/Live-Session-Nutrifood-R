@@ -1,7 +1,8 @@
 rm(list=ls())
+library(tictoc)
 
 # initial condition
-nx = 10^8
+nx = 10^9
 
 fx = function(x){4 * sqrt(1 - x^2)}
 
@@ -11,15 +12,14 @@ numCores = detectCores()
 
 # paralel
 hitung_pi_par = function(n){
-  mulai = Sys.time()
   xi = runif(n)
   fxi = fx(xi)
   pi_numerik = mean(fxi)
-  waktu = Sys.time() - mulai
-  output = list("Perhitungan pi" = pi_numerik,
-		"Runtime" = waktu)
+  output = list("Perhitungan pi" = pi_numerik)
   return(output)
 }
 
 print("Hasil Menggunakan Parallel Processing:")
+tic()
 mclapply(nx,hitung_pi_par,mc.cores = numCores)
+toc()
