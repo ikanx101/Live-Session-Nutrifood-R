@@ -14,8 +14,8 @@ rm(list=ls())
 
 options(scipen = 99)
 
-match = "saudi v mexico"
-json_ad = "https://fdh-api.fifa.com/v1/stats/match/133030/teams.json"
+match = "japan v spain"
+json_ad = "https://fdh-api.fifa.com/v1/stats/match/133035/teams.json"
 
 # ======================================================================
 nama_rda = paste0(match,".rda")
@@ -23,14 +23,15 @@ nama_tim = strsplit(match,split = " ") %>% unlist()
 nama_tim_1 = nama_tim[1]
 nama_tim_2 = nama_tim[3]
 
+n_size = 110
 
 tes = read_json(json_ad)
-nama_var_1 = rep(NA,110)
+nama_var_1 = rep(NA,n_size)
 nama_var_2 = nama_var_1
 tim_1 = nama_var_1
 tim_2 = nama_var_1
 
-for(i in 1:110){
+for(i in 1:n_size){
   nama_var_1[i] = tes[[2]][[i]][1] %>% as.character()
   tim_1[i] = tes[[2]][[i]][2] %>% as.numeric()
   
@@ -38,7 +39,7 @@ for(i in 1:110){
   tim_2[i] = tes[[3]][[i]][2] %>% as.numeric()
 }
 
-temp = matrix(NA,ncol = 110,nrow = 1) %>% as.data.frame()
+temp = matrix(NA,ncol = n_size,nrow = 1) %>% as.data.frame()
 
 # dataframe pertama
 temp_1 = temp
@@ -54,7 +55,7 @@ temp_2 = temp_2 %>% mutate(negara = nama_tim_2)
 final = bind_rows(temp_1,temp_2) %>% janitor::clean_names()
 
 # final check
-final$status = c("lose","win")
-final %>% select(possession,goals,negara,status)
+final$status = c("win","lose")
+final %>% select(goals,negara,status)
 
 save(final,file = nama_rda)

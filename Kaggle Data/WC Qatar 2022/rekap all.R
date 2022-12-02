@@ -13,8 +13,8 @@ for(i in 1:length(list_rda)){
   print(i)
 }
 
-final_data = do.call(rbind,temp) %>% mutate(negara = ifelse(negara == "jepang","japan",negara),
-                                            negara = ifelse(negara == "jerman","germany",negara))
+final_data = do.call(bind_rows,temp) %>% mutate(negara = ifelse(negara == "jepang","japan",negara),
+                                                negara = ifelse(negara == "jerman","germany",negara))
 final_data$negara %>% unique() %>% sort()
 
 save(final_data,file = "~/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all/all.rda")

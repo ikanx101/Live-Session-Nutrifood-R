@@ -157,16 +157,17 @@ final_data$negara %>% unique() %>% sort()
 match = 
   final_data %>%
   select(-status) %>% 
-  filter(negara %in% c("kroasia","belgia","canada","maroko")) %>% 
+  filter(negara %in% c("ghana","uruguay","korea","portugal")) %>% 
   group_by(negara) %>% 
   summarise_all(mean) %>% 
   ungroup()
 
-prediksi = predict(model_GLMNet, newdata = match,type="prob") %>% 
+prediksi = predict(gbmFit1, 
+                   newdata = match,type="prob") %>% 
            as.data.frame()
 data.frame(negara = match$negara,
            win_prob = prediksi$`1` * 100,
-           lose_prob = prediksi$`0` * 100) %>% 
+           not_win_prob = prediksi$`0` * 100) %>% 
   mutate(win_prob = round(win_prob,1),
-         lose_prob = round(lose_prob,1))
+         not_win_prob = round(not_win_prob,1))
 
