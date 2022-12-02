@@ -162,7 +162,7 @@ match =
   summarise_all(mean) %>% 
   ungroup()
 
-prediksi = predict(gbmFit1, 
+prediksi = predict(model_GLMNet, 
                    newdata = match,type="prob") %>% 
            as.data.frame()
 data.frame(negara = match$negara,
