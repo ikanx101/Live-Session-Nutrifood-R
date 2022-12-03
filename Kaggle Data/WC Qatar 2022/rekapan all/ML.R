@@ -154,10 +154,21 @@ rekap %>% arrange(desc(akurasi_test))
 # prediksi pertandingan nanti malam
 load("all.rda")
 final_data$negara %>% unique() %>% sort()
-match = 
+match_split = 
   final_data %>%
   select(-status) %>% 
-  filter(negara %in% c("ghana","uruguay","korea","portugal")) %>% 
+  filter(negara %in% c("netherland","usa","argentina","australia")) %>% 
+  group_split(negara) 
+
+# ambil dua pertandingan terbaik
+for(i in 1:4){
+  temp = match_split[[i]]
+  temp = temp %>% arrange(desc(goals)) %>% head(2)
+  match_split[[i]] = temp
+}
+
+match = 
+  do.call(rbind,match_split) %>% 
   group_by(negara) %>% 
   summarise_all(mean) %>% 
   ungroup()

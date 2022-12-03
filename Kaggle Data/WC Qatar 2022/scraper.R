@@ -14,8 +14,8 @@ rm(list=ls())
 
 options(scipen = 99)
 
-match = "japan v spain"
-json_ad = "https://fdh-api.fifa.com/v1/stats/match/133035/teams.json"
+match = "cameroon v brazil"
+json_ad = "https://fdh-api.fifa.com/v1/stats/match/133038/teams.json"
 
 # ======================================================================
 nama_rda = paste0(match,".rda")
