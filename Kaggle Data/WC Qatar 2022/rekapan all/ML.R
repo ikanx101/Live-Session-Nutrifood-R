@@ -11,6 +11,9 @@ setwd("~/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all")
 library(dplyr)
 library(caret)
 
+modelnames = paste(names(getModelInfo()), collapse=',  ')
+modelnames
+  
 # ==========================================================
 load("all.rda")
 write.csv(final_data,"data WC.csv")
@@ -135,6 +138,7 @@ train_pred = predict(model_parRF, newdata = training)
 table(train_pred,training$status)
 akurasi_parRF_train = mean(train_pred == training$status) * 100
 
+
 # ==========================================================
 # kita bikin rekap
 rekap = data.frame(
@@ -157,7 +161,7 @@ final_data$negara %>% unique() %>% sort()
 match_split = 
   final_data %>%
   select(-status) %>% 
-  filter(negara %in% c("france","poland","england","senegal")) %>% 
+  filter(negara %in% c("japan","kroasia","brazil","korea")) %>% 
   group_split(negara) 
 
 # ambil dua pertandingan terbaik
