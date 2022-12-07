@@ -106,7 +106,6 @@ table(train_pred,training$status)
 akurasi_GLMNet_train = mean(train_pred == training$status) * 100
 
 # ==========================================================
-# sampai sini belum diinstall
 # model Earth
 model_EARTH = train(status ~ ., 
                      data = training, 
@@ -123,8 +122,8 @@ akurasi_EARTH_train = mean(train_pred == training$status) * 100
 
 # ==========================================================
 model_NB = train(status ~ ., 
-                    data = training, 
-                    method='naive_bayes')
+                 data = training, 
+                 method='naive_bayes')
 
 prediksi = predict(model_NB, newdata = testing)
 table(prediksi,testing$status)
@@ -176,7 +175,7 @@ match_split =
   group_split(negara) 
 
 # ambil dua pertandingan terbaik
-for(i in 1:4){
+for(i in 1:length(match_split)){
   temp = match_split[[i]]
   temp = temp %>% arrange(desc(goals)) %>% head(3)
   match_split[[i]] = temp
@@ -195,4 +194,5 @@ data.frame(negara = match$negara,
            win_prob = prediksi$`1` * 100,
            not_win_prob = prediksi$`0` * 100) %>% 
   mutate(win_prob = round(win_prob,1),
-         not_win_prob = round(not_win_prob,1))
+         not_win_prob = round(not_win_prob,1)) %>%
+  arrange(desc(win_prob))
