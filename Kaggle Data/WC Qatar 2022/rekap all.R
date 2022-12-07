@@ -1,6 +1,6 @@
 rm(list=ls())
 
-setwd("~/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022")
+setwd("/root/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022")
 
 library(dplyr)
 library(tidyr)
@@ -17,4 +17,4 @@ final_data = do.call(bind_rows,temp) %>% mutate(negara = ifelse(negara == "jepan
                                                 negara = ifelse(negara == "jerman","germany",negara))
 final_data$negara %>% unique() %>% sort()
 
-save(final_data,file = "~/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all/all.rda")
+save(final_data,file = "/root/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all/all.rda")

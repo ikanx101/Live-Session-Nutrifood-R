@@ -6,7 +6,7 @@ set.seed(20921004)
 # https://topepo.github.io/caret/available-models.html
 
 options(scipen = 99)
-setwd("~/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all")
+setwd("/root/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all")
 
 library(dplyr)
 library(caret)
