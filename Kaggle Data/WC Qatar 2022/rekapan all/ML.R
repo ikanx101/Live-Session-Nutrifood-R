@@ -8,9 +8,11 @@ set.seed(20921004)
 options(scipen = 99)
 setwd("/root/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all")
 
+# libraries yang dipergunakan dalam perhitungan prediksi ini
 library(dplyr)
 library(caret)
 
+# semua model yang ada di caret
 modelnames = paste(names(getModelInfo()), collapse=',  ')
 modelnames
   
@@ -18,10 +20,11 @@ modelnames
 load("all.rda")
 write.csv(final_data,"data WC.csv")
 
+# kita preprocessing dulu dengan mengubah win dan `not win`
 final_data = final_data %>% select(-negara,-goals) %>% mutate(status = ifelse(status == "win",1,0),
                                                        status = as.factor(status))
 
-
+# membuat train dan test dataset
 inTraining = createDataPartition(final_data$status, p = .7, list = FALSE)
 training = final_data[ inTraining,]
 testing  = final_data[-inTraining,]
@@ -49,6 +52,9 @@ table(train_pred,training$status)
 akurasi_GBM_train = mean(train_pred == training$status) * 100
 
 # ==========================================================
+# install package random forest yang lama
+# url_lib = "https://cran.r-project.org/src/contrib/Archive/randomForest/randomForest_4.6-14.tar.gz"
+# install.packages(url_lib, repos=NULL, type="source") 
 # model 2 random forest
 model_rf = train(status ~ .,
                  data = training, 
@@ -66,6 +72,7 @@ akurasi_RF_train = mean(train_pred == training$status) * 100
 
 
 # ==========================================================
+# model SVMRadial
 model_SVMRadial = train(status ~ ., 
                         data = training, 
                         method='svmRadial', 
@@ -82,6 +89,7 @@ table(train_pred,training$status)
 akurasi_SVMRadial_train = mean(train_pred == training$status) * 100
 
 # ==========================================================
+# model GLM NET
 model_GLMNet = train(status ~ ., 
                         data = training, 
                         method='glmnet', 
@@ -98,6 +106,8 @@ table(train_pred,training$status)
 akurasi_GLMNet_train = mean(train_pred == training$status) * 100
 
 # ==========================================================
+# sampai sini belum diinstall
+# model Earth
 model_EARTH = train(status ~ ., 
                      data = training, 
                      method='earth')
@@ -161,7 +171,8 @@ final_data$negara %>% unique() %>% sort()
 match_split = 
   final_data %>%
   select(-status) %>% 
-  filter(negara %in% c("maroko","spain","portugal","swiss")) %>% 
+  filter(negara %in% c("kroasia","brazil","netherland","argentina",
+                       "maroko","portugal","england","france")) %>% 
   group_split(negara) 
 
 # ambil dua pertandingan terbaik
@@ -185,4 +196,3 @@ data.frame(negara = match$negara,
            not_win_prob = prediksi$`0` * 100) %>% 
   mutate(win_prob = round(win_prob,1),
          not_win_prob = round(not_win_prob,1))
-
