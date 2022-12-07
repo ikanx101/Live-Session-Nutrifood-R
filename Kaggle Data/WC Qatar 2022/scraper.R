@@ -14,8 +14,8 @@ rm(list=ls())
 
 options(scipen = 99)
 
-match = "brazil v korea"
-json_ad = "https://fdh-api.fifa.com/v1/stats/match/128073/teams.json"
+match = "portugal v swiss"
+json_ad = "https://fdh-api.fifa.com/v1/stats/match/128075/teams.json"
 
 # ======================================================================
 nama_rda = paste0(match,".rda")
@@ -45,17 +45,17 @@ temp = matrix(NA,ncol = n_size,nrow = 1) %>% as.data.frame()
 temp_1 = temp
 colnames(temp_1) = nama_var_1
 temp_1[1,] = tim_1
-temp_1 = temp_1 %>% mutate(negara = nama_tim_2)
+temp_1 = temp_1 %>% mutate(negara = nama_tim_1)
 # dataframe kedua
 temp_2 = temp
 colnames(temp_2) = nama_var_2
 temp_2[1,] = tim_2
-temp_2 = temp_2 %>% mutate(negara = nama_tim_1)
+temp_2 = temp_2 %>% mutate(negara = nama_tim_2)
 
 final = bind_rows(temp_1,temp_2) %>% janitor::clean_names()
 
 # final check
-final$status = c("lose","win")
+final$status = c("win","lose")
 final %>% select(possession,goals,negara,status)
 
 save(final,file = nama_rda)
