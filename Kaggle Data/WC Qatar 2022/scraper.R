@@ -14,8 +14,8 @@ rm(list=ls())
 
 options(scipen = 99)
 
-match = "england v senegal"
-json_ad = "https://fdh-api.fifa.com/v1/stats/match/128070/teams.json"
+match = "brazil v korea"
+json_ad = "https://fdh-api.fifa.com/v1/stats/match/128073/teams.json"
 
 # ======================================================================
 nama_rda = paste0(match,".rda")
@@ -56,6 +56,6 @@ final = bind_rows(temp_1,temp_2) %>% janitor::clean_names()
 
 # final check
 final$status = c("lose","win")
-final %>% select(goals,negara,status)
+final %>% select(possession,goals,negara,status)
 
 save(final,file = nama_rda)

@@ -161,13 +161,13 @@ final_data$negara %>% unique() %>% sort()
 match_split = 
   final_data %>%
   select(-status) %>% 
-  filter(negara %in% c("japan","kroasia","brazil","korea")) %>% 
+  filter(negara %in% c("maroko","spain","portugal","swiss")) %>% 
   group_split(negara) 
 
 # ambil dua pertandingan terbaik
 for(i in 1:4){
   temp = match_split[[i]]
-  temp = temp %>% arrange(desc(goals)) %>% head(2)
+  temp = temp %>% arrange(desc(goals)) %>% head(3)
   match_split[[i]] = temp
 }
 
