@@ -1,4 +1,4 @@
-setwd("~/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022")
+setwd("/cloud/project/Kaggle Data/WC Qatar 2022")
 
 rm(list=ls())
 
@@ -14,8 +14,8 @@ rm(list=ls())
 
 options(scipen = 99)
 
-match = "portugal v swiss"
-json_ad = "https://fdh-api.fifa.com/v1/stats/match/128075/teams.json"
+match = "maroko v portugal"
+json_ad = "https://fdh-api.fifa.com/v1/stats/match/128079/teams.json"
 
 # ======================================================================
 nama_rda = paste0(match,".rda")
