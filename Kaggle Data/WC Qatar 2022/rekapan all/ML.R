@@ -6,7 +6,7 @@ set.seed(20921004)
 # https://topepo.github.io/caret/available-models.html
 
 options(scipen = 99)
-setwd("/root/Live-Session-Nutrifood-R/Kaggle Data/WC Qatar 2022/rekapan all")
+setwd("/cloud/project/Kaggle Data/WC Qatar 2022/rekapan all")
 
 # libraries yang dipergunakan dalam perhitungan prediksi ini
 library(dplyr)
@@ -106,7 +106,7 @@ table(train_pred,training$status)
 akurasi_GLMNet_train = mean(train_pred == training$status) * 100
 
 # ==========================================================
-# model Earth
+# model Multivariate Adaptive Regression Spline
 model_EARTH = train(status ~ ., 
                      data = training, 
                      method='earth')
@@ -169,15 +169,14 @@ load("all.rda")
 final_data$negara %>% unique() %>% sort()
 match_split = 
   final_data %>%
-  select(-status) %>% 
-  filter(negara %in% c("kroasia","brazil","netherland","argentina",
-                       "maroko","portugal","england","france")) %>% 
+  select(-status) %>%
+  filter(negara %in% c("kroasia","france","maroko","argentina")) %>% 
   group_split(negara) 
 
 # ambil dua pertandingan terbaik
 for(i in 1:length(match_split)){
   temp = match_split[[i]]
-  temp = temp %>% arrange(desc(goals)) %>% head(3)
+  temp = temp %>% arrange(desc(goals)) %>% head(5)
   match_split[[i]] = temp
 }
 
