@@ -1,0 +1,54 @@
+---
+title: "Laporan Market Research"
+subtitle: "Post Campaign Research"
+author: "Ikang Fadhli"
+date: "`r format(Sys.Date(),'%d %B %Y')`"
+output: 
+  ioslides_presentation:
+    widescreen: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+rm(list=ls())
+
+library(dplyr)
+library(ggplot2)
+
+load("hasil_interview.rda")
+
+# function tabulasi
+tabulasi = function(var){
+  df %>% 
+  group_by(.data[[var]]) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  mutate(persen = n / sum(n) * 100,
+         persen = round(persen,1),
+         label = paste0(persen,"%"))
+}
+
+```
+
+# PENDAHULUAN
+
+## Latar Belakang
+
+## Tujuan
+
+## Metode Riset
+
+# TEMUAN HASIL RISET
+
+## Profil Responden
+
+```{r,echo=FALSE,fig.retina=10,fig.height=7,fig.width=10}
+var = "gender"
+tabulasi(var)
+
+var1 = "gender"
+var2 = "usia"
+table(df[[var1]],df[[var2]])
+```
+
+
