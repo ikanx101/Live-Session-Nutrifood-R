@@ -1,5 +1,3 @@
-setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/KampusX BMR")
-
 rm(list=ls())
 
 library(dplyr)
