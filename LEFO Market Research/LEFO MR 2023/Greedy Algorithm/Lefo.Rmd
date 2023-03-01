@@ -391,4 +391,56 @@ rotasi_konstraksi_pusat_kan(x0,rot,r,x_bintang)
 ```
 
 
+---
+
+```{r,include=FALSE}
+rm(list=ls())
+
+df = mtcars %>% select(mpg,wt)
+row.names(df) = NULL
+```
+
+
+# SOAL YANG DIKERJAKAN
+
+## Regresi Linear
+
+Berikut adalah data yang kita gunakan:
+
+```{r}
+df
+```
+
+Kita akan membuat kurva regresi linear dari data di atas:
+
+```{r}
+df %>% 
+  ggplot(aes(y = mpg,
+             x = wt)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+Dari grafik di atas, jika kita buat persamaan regresi linearnya dengan _base_ di __R__ adalah sebagai berikut:
+
+```{r}
+model = lm (mpg ~ wt,data = df)
+
+model
+```
+
+
+Salah satu parameter _goodness of fit_ dari model regresi adalah dengan _mean absolute error_ (__MAE__). __MAE__ dari model di atas kita hitung sebagai berikut:
+
+
+```{r}
+Metrics::mae(df$mpg, predict(model))
+```
+
+Pertanyaannya:
+
+> Apakah kita bisa membuat model dengan __MAE__ yang lebih kecil dibandingkan persamaan di atas?
+
+
+
 
