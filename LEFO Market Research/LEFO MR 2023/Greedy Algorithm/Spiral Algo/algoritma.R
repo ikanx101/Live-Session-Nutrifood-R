@@ -15,10 +15,10 @@ source("rotator.R")
 numcore = 7
 
 # banyaknya calon solusi yang hendak di-generate
-n_calon_solusi = 70
+n_calon_solusi = 7*50
 
 # berapa banyak SDOA dilakukan
-n_SDOA  = 30
+n_SDOA  = 60
 
 # kita buat rumahnya terlebih dahulu
 
