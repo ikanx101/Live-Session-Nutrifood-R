@@ -35,7 +35,7 @@ ro_kon = function(list){
   Xt_2 = list
   # kita rotasikan dan konstraksikan
   X2 = mat_rotasi %*% (Xt_2 - center_1)
-  X2 = center_1 + (.8 * X2)
+  X2 = center_1 + (.7 * X2)
   return(X2)
 }
 # ==============================================================================
