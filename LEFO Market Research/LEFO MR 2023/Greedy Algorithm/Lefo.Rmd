@@ -28,16 +28,6 @@ library(tidyr)
 library(ggplot2)
 ```
 
-# INTRO
-
-## Definisi _Greedy Optimization Algorithm_
-
-Apa itu _greedy_?
-
-
----
-
-
 # _THE ALGORITHMS_
 
 ## _Spiral Optimization Algorithm_

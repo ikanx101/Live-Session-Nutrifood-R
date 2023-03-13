@@ -12,16 +12,13 @@ library(ggplot2)
 source("rotator.R")
 
 # kita set corenya berapa
-numcore = 7
+numcore = 5
 
 # banyaknya calon solusi yang hendak di-generate
-n_calon_solusi = 7*50
+n_calon_solusi = 5
 
 # berapa banyak SDOA dilakukan
 n_SDOA  = 60
-
-# kita buat rumahnya terlebih dahulu
-
 # ==============================================================================
 
 
@@ -61,7 +58,10 @@ bikin_grafik = function(list){
   plot = data.frame(x,y) %>% 
          ggplot(aes(x,y)) + geom_point(shape = 4) + 
          ylim(-50,50) + xlim(-50,50) + 
-         geom_point(aes(y = 37.285,x = -5.344),color = "red",size = 2.5)
+         geom_point(aes(y = 37.285,x = -5.344),color = "red",size = 2.5) +
+         labs(title    = "Ilustrasi Pencarian Solusi Optimal",
+              subtitle = "Dengan Spiral Dynamic Optimization Algorithm") +
+         theme_minimal()
   print(plot)
 }
 # ==============================================================================
@@ -87,7 +87,7 @@ for(iter in 1:n_SDOA){
   
   # plot
   bikin_grafik(calon_solusi)
-  Sys.sleep(.5)
+  Sys.sleep(.1)
   
   # kita lakukan rotasi dan kontraksi
   calon_solusi_new = mcmapply(ro_kon,calon_solusi,mc.cores = numcore)

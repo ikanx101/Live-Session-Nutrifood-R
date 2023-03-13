@@ -13,7 +13,7 @@ library(ggplot2)
 numcore = 7
 
 # kita set berapa banyak food source
-n_scout = 7*50
+n_scout = 7
 
 # kita set berapa banyak iterasi
 n_iterasi = 10
