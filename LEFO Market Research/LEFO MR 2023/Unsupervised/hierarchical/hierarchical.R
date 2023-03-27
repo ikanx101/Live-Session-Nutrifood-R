@@ -5,9 +5,9 @@ library(cluster)
 library(factoextra)
 library(ggplot2)
 
-setwd("/workspaces/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/hierarchical")
+setwd("/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/hierarchical")
 
-df = read.csv("donat.csv") %>% janitor::clean_names() %>%
+df = read.csv("hi.csv") %>% janitor::clean_names() %>%
      select(x_2,y) %>%
      rename(x = x_2)
 
@@ -20,17 +20,17 @@ Hierar_cl = hclust(distance_mat, method = "single")
 # pake single ini
  
 # Plotting dendrogram
-png('hie.png')
+# png('hie.png')
 plot(Hierar_cl)
-dev.off()
+# dev.off()
 
 # Pemecahan menjadi 3 cluster
-fit = cutree(Hierar_cl, k = 3)
+fit = cutree(Hierar_cl, k = 2)
 table(fit)
-png('hie final.png')
+# png('hie final.png')
 plot(Hierar_cl)
-rect.hclust(Hierar_cl, k = 3, border = "red")
-dev.off()
+rect.hclust(Hierar_cl, k = 2, border = "red")
+# dev.off()
 
 # save hasil cluster ke data awal
 data_hc = df
@@ -41,4 +41,5 @@ hie_plot =
   data_hc %>%
   ggplot(aes(x,y,color = as.factor(cluster))) +
   geom_point()
-ggsave(hie_plot,file = "hierarki final.png")
+hie_plot
+# ggsave(hie_plot,file = "hierarki final.png")
