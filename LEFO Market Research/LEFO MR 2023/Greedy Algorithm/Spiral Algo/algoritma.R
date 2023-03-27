@@ -12,10 +12,10 @@ library(ggplot2)
 source("rotator.R")
 
 # kita set corenya berapa
-numcore = 5
+numcore = 2
 
 # banyaknya calon solusi yang hendak di-generate
-n_calon_solusi = 5
+n_calon_solusi = 10
 
 # berapa banyak SDOA dilakukan
 n_SDOA  = 60
@@ -87,7 +87,7 @@ for(iter in 1:n_SDOA){
   
   # plot
   bikin_grafik(calon_solusi)
-  Sys.sleep(.1)
+  Sys.sleep(.5)
   
   # kita lakukan rotasi dan kontraksi
   calon_solusi_new = mcmapply(ro_kon,calon_solusi,mc.cores = numcore)
