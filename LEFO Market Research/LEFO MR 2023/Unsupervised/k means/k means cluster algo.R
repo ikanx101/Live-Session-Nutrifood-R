@@ -7,10 +7,10 @@ library(ggplot2)
 library(factoextra)
 
 # set working directory
-setwd("/workspaces/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised")
+setwd("/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/k means")
 
 # import data
-df = read.csv("compact disks.csv") %>% janitor::clean_names() %>%
+df = read.csv("dual disks.csv") %>% janitor::clean_names() %>%
      select(-x) %>%
      rename(x = x_2)
 
@@ -19,21 +19,22 @@ plt =
   df %>%
   ggplot(aes(x,y)) +
   geom_point()
-ggsave(plt,file = "cluster.png")
+plt
+# ggsave(plt,file = "cluster.png")
 
 elbow = fviz_nbclust(df, kmeans, method = "wss")
-png("elbow.png")
+# png("elbow.png")
 plot(elbow)
-dev.off()
+# dev.off()
 
 # sillhouette method dan plotnya
 siluet = fviz_nbclust(df, kmeans, method = "silhouette")
-png("siluet.png")
+# png("siluet.png")
 plot(siluet)
-dev.off()
+# dev.off()
 
 # k-means clustering
-final = kmeans(df, 4, nstart = 25)
+final = kmeans(df, 2, nstart = 25)
 
 # center dari masing-masing cluster
 final$centers
@@ -49,4 +50,5 @@ plt =
   data_kmeans %>%
   ggplot(aes(x,y)) +
   geom_point(aes(color = as.factor(cluster)))
-ggsave(plt,file = "4 means cluster.png")
+plt
+# ggsave(plt,file = "4 means cluster.png")
