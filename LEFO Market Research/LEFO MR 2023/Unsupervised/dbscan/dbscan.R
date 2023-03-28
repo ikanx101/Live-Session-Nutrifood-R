@@ -14,16 +14,25 @@ df = read.csv("donat density.csv") %>% janitor::clean_names() %>%
 
 colnames(df)
 
-dbscan::kNNdistplot(data_cl, k = 30)
-abline(h = .35, lty = 2, col = "red")
+df |>
+  ggplot(aes(x,y)) +
+  geom_point()
+
+dbscan::kNNdistplot(df, k = 30)
+abline(h = .25, lty = 2, col = "red")
 
 # membuat clustering DBScan
 # set sed agar reproducible
 set.seed(20921004)
-Dbscan_cl = dbscan(data_cl, eps = 0.35, minPts = 5)
+Dbscan_cl = dbscan(df, eps = 0.25, minPts = 5)
 
 # menambahkan cluster ke dalam dataset
-data_cl$cluster = Dbscan_cl$cluster
+df$cluster_new = Dbscan_cl$cluster
 
 # menghitung ada berapa banyak cluster yang ada
-data_cl$cluster %>% unique() %>% length()
+df$cluster_new %>% unique() %>% length()
+
+df |>
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster_new)),
+             size = 2)
