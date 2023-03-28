@@ -1,11 +1,18 @@
 # membersihkan global environment
 rm(list=ls())
+setwd("/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/dbscan")
 
 # memanggil semua libraries pada komputasi ini
 library(dplyr)
 library(ggplot2)
 library(fpc)
 library(dbscan)
+
+# ambil data
+df = read.csv("donat density.csv") %>% janitor::clean_names() %>% 
+     select(-x) %>% rename(x = x_2)
+
+colnames(df)
 
 dbscan::kNNdistplot(data_cl, k = 30)
 abline(h = .35, lty = 2, col = "red")
