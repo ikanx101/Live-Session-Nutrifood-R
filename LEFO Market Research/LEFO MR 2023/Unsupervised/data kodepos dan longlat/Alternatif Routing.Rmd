@@ -1,0 +1,126 @@
+---
+title: "Alternatif Pengelompokan Rute Area Pengiriman Transporter"
+subtitle: "Percobaan Berbagai Algoritma Clustering"
+author: "Ikang Fadhli"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# bebersih global environment
+rm(list=ls())
+setwd("/cloud/project/LEFO Market Research/LEFO MR 2023/Unsupervised/data kodepos dan longlat")
+
+# libraries
+library(dplyr)
+library(tidyr)
+library(cluster)
+library(caret)
+library(factoextra)
+library(ggplot2)
+library(sf)
+library(maps)
+
+# mengambil data
+df      = 
+  read.csv("dbase kodepos longlat.csv") %>%
+  janitor::clean_names() %>%
+  select(-x,-url,-kode_pos) %>% 
+  distinct() %>% 
+  arrange(provinsi,kota_kab,kecamatan) %>% 
+  filter(grepl("jawa|banten|karta|bogor",provinsi,ignore.case = T))
+
+# reserve lat dan long
+data_n2 = df %>% select(lat,lng)
+
+# Finding distance matrix
+distance_mat = dist(data_n2, method = 'euclidean')
+```
+
+# Pendahuluan
+
+Beberapa waktu yang lalu, kita telah berdiskusi tentang _routing_ yang dimiliki oleh tim DTA dan _proposed routing_ yang dibuat berdasarkan algoritma tertentu. Kali ini kita akan mencoba beberapa alternatif pengelompokkan _routing_.
+
+## Area yang Dicover Pada Laporan Ini
+
+Kita akan buat _routing_ untuk area yang ada di pulau Jawa saja sesuai dengan `data train`.
+
+```{r,echo=FALSE,fig.align='center',fig.retina=8,fig.height=3}
+world_map <- map_data("world") |> 
+             filter(region == "Indonesia") |>
+             filter(subregion == "Java")
+
+ggplot() +
+  geom_polygon(data = world_map,
+               aes(x = long, y = lat, group = group),
+               fill="lightgray", colour = "gray") +
+  geom_point(data = df,
+             aes(x = lat,y = lng)) +
+  theme_void()
+```
+
+## Algoritma yang Digunakan
+
+Untuk mengelompokkan titik area di atas, kita gunakan dua alternatif algoritma berikut ini:
+
+1. _Single link hierarchical clustering_,
+1. _DBScan clustering_.
+
+# Hasil Pengelompokan
+
+## _Single Link_
+
+```{r,echo=FALSE,fig.align='center',fig.retina=8,fig.height=4}
+# Fitting Hierarchical clustering Model
+set.seed(10104074)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "single")
+Hierar_cl
+plot(Hierar_cl)
+```
+
+Dari dendogram di atas terlihat ada 3 cluster besar, yakni:
+
+```{r,echo=FALSE,fig.align='center',fig.retina=8,fig.height=4}
+# Pemecahan menjadi k cluster
+# banyak cluster
+n_cluster = 3
+
+# kita fit ke modelnya
+fit = cutree(Hierar_cl, k = n_cluster)
+plot(Hierar_cl)
+rect.hclust(Hierar_cl, k = n_cluster, border = "steelblue")
+```
+
+Berikut adalah visualisasinya:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.retina=8,fig.height=3}
+# save hasil cluster ke data awal
+df$cluster_metode_1 = fit
+
+# kita arrange dulu
+df %>% 
+  ggplot(aes(lat,lng)) +
+  geom_polygon(data = world_map,
+               aes(x = long, y = lat, group = group),
+               fill="lightgray", colour = "gray") +
+  geom_point(aes(color = as.factor(cluster_metode_1))) +
+  ggrepel::geom_text_repel(aes(label = cluster_metode_1),
+                           size = 2) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+Agar _route_ bisa lebih _detail_, kita akan bagi dendogram lebih _deep_ sehingga _route_ final yang didapat adalah sebagai berikut:
+
+```{r,echo=FALSE,fig.align='center',fig.retina=8,fig.height=4}
+# Pemecahan menjadi k cluster
+# banyak cluster
+n_cluster = 13
+
+# kita fit ke modelnya
+fit = cutree(Hierar_cl, k = n_cluster)
+plot(Hierar_cl)
+rect.hclust(Hierar_cl, k = n_cluster, border = "steelblue")
+```
