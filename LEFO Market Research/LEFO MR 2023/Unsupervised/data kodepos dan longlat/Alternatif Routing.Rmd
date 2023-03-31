@@ -22,6 +22,8 @@ library(factoextra)
 library(ggplot2)
 library(sf)
 library(maps)
+library(fpc)
+library(dbscan)
 
 # mengambil data
 df      = 
@@ -63,10 +65,7 @@ ggplot() +
 
 ## Algoritma yang Digunakan
 
-Untuk mengelompokkan titik area di atas, kita gunakan dua alternatif algoritma berikut ini:
-
-1. _Single link hierarchical clustering_,
-1. _DBScan clustering_.
+Untuk mengelompokkan titik area di atas, kita gunakan algoritma _Single link hierarchical clustering_.
 
 # Hasil Pengelompokan
 
