@@ -97,7 +97,7 @@ Berikut adalah visualisasinya:
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.retina=8,fig.height=3}
 # save hasil cluster ke data awal
-df$cluster_metode_1 = fit
+df$cluster = fit
 
 # kita arrange dulu
 df %>% 
@@ -105,22 +105,136 @@ df %>%
   geom_polygon(data = world_map,
                aes(x = long, y = lat, group = group),
                fill="lightgray", colour = "gray") +
-  geom_point(aes(color = as.factor(cluster_metode_1))) +
-  ggrepel::geom_text_repel(aes(label = cluster_metode_1),
+  geom_point(aes(color = as.factor(cluster))) +
+  ggrepel::geom_text_repel(aes(label = cluster),
                            size = 2) +
   theme_void() +
   theme(legend.position = "none")
 ```
 
-Agar _route_ bisa lebih _detail_, kita akan bagi dendogram lebih _deep_ sehingga _route_ final yang didapat adalah sebagai berikut:
+Agar _route_ bisa lebih _detail_ dan baik, kita akan bagi ketiga cluster di atas dan membuat _dendogram_ yang lebih detail. Khusus pada _cluster 3_, kita akan biarkan _as it is_.
 
-```{r,echo=FALSE,fig.align='center',fig.retina=8,fig.height=4}
+```{r,include=FALSE}
+data_cluster_3 = df %>% filter(cluster == 3) %>% mutate(cluster = 1)
+```
+
+### Pemisahan Cluster 1
+
+Kita akan pisah area yang ada di cluster 1 menjadi 7 cluster sebagai berikut:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center'}
+# data filtered
+data_cluster_1 = df %>% filter(cluster == 1) %>% select(-cluster)
+data_n2        = data_cluster_1 %>% select(lat,lng)
+# Finding distance matrix
+distance_mat = dist(data_n2, method = 'euclidean')
+
+# Fitting Hierarchical clustering Model
+set.seed(10104074)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "single")
+# plot(Hierar_cl)
+
 # Pemecahan menjadi k cluster
 # banyak cluster
-n_cluster = 13
+n_cluster = 7
 
 # kita fit ke modelnya
 fit = cutree(Hierar_cl, k = n_cluster)
 plot(Hierar_cl)
 rect.hclust(Hierar_cl, k = n_cluster, border = "steelblue")
+```
+
+Berikut adalah visualisasinya:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.retina=8,fig.height=3}
+# save hasil cluster ke data awal
+data_cluster_1$cluster = fit
+
+world_map_filter = world_map %>% filter(long <= 108.7)
+# kita arrange dulu
+data_cluster_1 %>% 
+  ggplot(aes(lat,lng)) +
+  geom_polygon(data = world_map_filter,
+               aes(x = long, y = lat, group = group),
+               fill="lightgray", colour = "gray") +
+  geom_point(aes(color = as.factor(cluster))) +
+  ggrepel::geom_text_repel(aes(label = cluster),
+                           size = 2) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+### Pemisahan Cluster 2
+
+Kita akan pisah area yang ada di cluster 2 menjadi 8 cluster sebagai berikut:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center'}
+# data filtered
+data_cluster_2 = df %>% filter(cluster == 2) %>% select(-cluster)
+data_n2        = data_cluster_2 %>% select(lat,lng)
+# Finding distance matrix
+distance_mat = dist(data_n2, method = 'euclidean')
+
+# Fitting Hierarchical clustering Model
+set.seed(10104074)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "single")
+# plot(Hierar_cl)
+
+# Pemecahan menjadi k cluster
+# banyak cluster
+n_cluster = 8
+
+# kita fit ke modelnya
+fit = cutree(Hierar_cl, k = n_cluster)
+plot(Hierar_cl)
+rect.hclust(Hierar_cl, k = n_cluster, border = "steelblue")
+```
+
+Berikut adalah visualisasinya:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.retina=8,fig.height=3}
+# save hasil cluster ke data awal
+data_cluster_2$cluster = fit
+
+world_map_filter = world_map %>% filter(long >= 108.7 & long <= 111.3)
+# kita arrange dulu
+data_cluster_2 %>% 
+  ggplot(aes(lat,lng)) +
+  geom_polygon(data = world_map_filter,
+               aes(x = long, y = lat, group = group),
+               fill="lightgray", colour = "gray") +
+  geom_point(aes(color = as.factor(cluster))) +
+  ggrepel::geom_text_repel(aes(label = cluster),
+                           size = 2) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+### Cluster Final Metode _Single Link_
+
+Berikut adalah cluster final yang dihasilkan:
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.retina=8,fig.height=3}
+# kita gabung
+# simpan df 1
+df_final       = data_cluster_1
+# kita tambahin nomor cluster ke df 2
+data_cluster_2 = data_cluster_2 %>% mutate(cluster = cluster + max(df_final$cluster))
+df_final       = rbind(df_final,data_cluster_2)
+# kita tambahin nomor cluster ke df 3
+data_cluster_3 = data_cluster_3 %>% mutate(cluster = cluster + max(df_final$cluster))
+df_final       = rbind(df_final,data_cluster_3)
+
+
+# kita arrange dulu
+df_final %>% 
+  ggplot(aes(lat,lng)) +
+  geom_polygon(data = world_map,
+               aes(x = long, y = lat, group = group),
+               fill="lightgray", colour = "gray") +
+  geom_point(aes(color = as.factor(cluster))) +
+  ggrepel::geom_text_repel(aes(label = cluster),
+                           size = 2) +
+  theme_void() +
+  theme(legend.position = "none")
 ```
