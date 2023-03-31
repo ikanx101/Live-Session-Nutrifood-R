@@ -237,3 +237,8 @@ df_final %>%
   theme_void() +
   theme(legend.position = "none")
 ```
+
+
+```{r,include=FALSE}
+df_final %>% openxlsx::write.xlsx("hasil cluster.xlsx")
+```
