@@ -204,5 +204,117 @@ plt =
 plt
 ```
 
+Terlihat bahwa ada beberapa titik data yang _overlap_ masuk ke _cluster_ lainnya.
+
+---
+
+# _Hierarchical Clustering_
+
+## Contoh I
+
+```{r,fig.align='center',fig.retina=7}
+rm(list=ls())
+df = read.csv("/cloud/project/LEFO Market Research/LEFO MR 2023/Unsupervised/hierarchical/donat.csv") %>% 
+     janitor::clean_names() %>%
+     select(x_2,y) %>%
+     rename(x = x_2)
+
+# membuat grafik
+plt = 
+  df %>%
+  ggplot(aes(x,y)) +
+  geom_point()
+plt
+
+# Finding distance matrix
+distance_mat = dist(df, method = 'euclidean')
+```
+
+### _Single Link_
+
+```{r,fig.align='center',fig.retina=7}
+# Fitting Hierarchical clustering Model
+set.seed(240)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "single")
+
+plot(Hierar_cl)
+
+# Pemecahan menjadi 3 cluster
+fit = cutree(Hierar_cl, k = 3)
+table(fit)
+plot(Hierar_cl)
+rect.hclust(Hierar_cl, k = 3, border = "red")
+
+# save hasil cluster ke data awal
+data_hc = df
+data_hc$cluster = fit
+
+# berapa banyak isi dari cluster
+hie_plot = 
+  data_hc %>%
+  ggplot(aes(x,y,color = as.factor(cluster))) +
+  geom_point()
+hie_plot
+
+```
+
+### _Complete Link_
+
+```{r,fig.align='center',fig.retina=7}
+# Fitting Hierarchical clustering Model
+set.seed(240)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "complete")
+
+plot(Hierar_cl)
+
+# Pemecahan menjadi 3 cluster
+fit = cutree(Hierar_cl, k = 6)
+table(fit)
+plot(Hierar_cl)
+rect.hclust(Hierar_cl, k = 6, border = "red")
+
+# save hasil cluster ke data awal
+data_hc = df
+data_hc$cluster = fit
+
+# berapa banyak isi dari cluster
+hie_plot = 
+  data_hc %>%
+  ggplot(aes(x,y,color = as.factor(cluster))) +
+  geom_point()
+hie_plot
+
+```
+
+### _Average Link_
+
+```{r,fig.align='center',fig.retina=7}
+# Fitting Hierarchical clustering Model
+set.seed(240)  # Setting seed
+Hierar_cl = hclust(distance_mat, method = "average")
+
+plot(Hierar_cl)
+
+# Pemecahan menjadi 3 cluster
+fit = cutree(Hierar_cl, k = 4)
+table(fit)
+plot(Hierar_cl)
+rect.hclust(Hierar_cl, k = 4, border = "red")
+
+# save hasil cluster ke data awal
+data_hc = df
+data_hc$cluster = fit
+
+# berapa banyak isi dari cluster
+hie_plot = 
+  data_hc %>%
+  ggplot(aes(x,y,color = as.factor(cluster))) +
+  geom_point()
+hie_plot
+
+```
+
+
+
 
 
