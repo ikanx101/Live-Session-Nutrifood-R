@@ -1,0 +1,125 @@
+---
+title: "Beberapa Contoh Metode Clustering dengan R"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+setwd("/cloud/project/LEFO Market Research/LEFO MR 2023/Unsupervised")
+```
+
+# _Introduction_
+
+Berikut adalah beberapa _showcase_ contoh penerapan metode _clustering_ dengan __R__.
+
+# _K-Means Clustering_
+
+```{r,include=FALSE}
+rm(list=ls())
+
+# libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(factoextra)
+```
+
+## Contoh Kasus I
+
+```{r,fig.align='center',fig.retina=7}
+# import data
+df = read.csv("/cloud/project/LEFO Market Research/LEFO MR 2023/Unsupervised/k means/compact disks.csv") %>% 
+     janitor::clean_names() %>%
+     select(-x) %>%
+     rename(x = x_2)
+
+# kita bikin visualisasinya terlebih dahulu
+plt = 
+  df %>%
+  ggplot(aes(x,y)) +
+  geom_point()
+plt
+
+```
+
+Jika melihat langsung data di atas, kita sudah bisa pastikan bahwa ada $k = 4$ buah _cluster_.
+
+> Namun bagaimana jika kita gunakan _elbow method_ dan _silhouette method_ untuk menentukan berapa banyaknya $k$?
+
+### _Elbow Method_
+
+```{r}
+elbow = fviz_nbclust(df, kmeans, method = "wss")
+plot(elbow)
+```
+
+### _Silhouette Method_
+
+```{r}
+siluet = fviz_nbclust(df, kmeans, method = "silhouette")
+plot(siluet)
+```
+
+### Kesimpulan Sementara
+
+Penentuan $k$ menggunakan _elbow_ dan _silhouette method_ bisa berpotensi _miss leading_.
+
+#### Jika $k=5$
+
+```{r}
+# k-means clustering
+final = kmeans(df, 5, nstart = 25)
+
+# center dari masing-masing cluster
+final$centers
+
+# save hasil cluster ke data awal
+data_kmeans = df
+data_kmeans$cluster = final$cluster
+
+# berapa banyak isi dari cluster
+table(data_kmeans$cluster)
+
+plt = 
+  data_kmeans %>%
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster)))
+plt
+
+```
+
+#### Jika $k=6$
+
+```{r}
+# k-means clustering
+final = kmeans(df, 6, nstart = 25)
+
+# center dari masing-masing cluster
+final$centers
+
+# save hasil cluster ke data awal
+data_kmeans = df
+data_kmeans$cluster = final$cluster
+
+# berapa banyak isi dari cluster
+table(data_kmeans$cluster)
+
+plt = 
+  data_kmeans %>%
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster)))
+plt
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
