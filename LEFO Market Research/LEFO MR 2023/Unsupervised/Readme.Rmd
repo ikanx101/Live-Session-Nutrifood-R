@@ -113,13 +113,96 @@ plt
 ```
 
 
+### Jawaban yang Benar
 
+Seharusnya $k=4$.
 
+```{r}
+# k-means clustering
+final = kmeans(df, 4, nstart = 25)
 
+# center dari masing-masing cluster
+final$centers
 
+# save hasil cluster ke data awal
+data_kmeans = df
+data_kmeans$cluster = final$cluster
 
+# berapa banyak isi dari cluster
+table(data_kmeans$cluster)
 
+plt = 
+  data_kmeans %>%
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster)))
+plt
 
+```
+
+> Lantas bagaimana jika kita tidak bisa menentukan banyaknya $k$ secara visual dan hanya bisa mengandalkan _elbow_ dan _silhouette method_?
+
+```{r,include=FALSE}
+rm(list=ls())
+```
+
+## Contoh Kasus II
+
+```{r,fig.align='center',fig.retina=7}
+# import data
+df = read.csv("/cloud/project/LEFO Market Research/LEFO MR 2023/Unsupervised/k means/dual disks.csv") %>% 
+     janitor::clean_names() %>%
+     select(-x) %>%
+     rename(x = x_2)
+
+# kita bikin visualisasinya terlebih dahulu
+plt = 
+  df %>%
+  ggplot(aes(x,y)) +
+  geom_point()
+plt
+
+```
+
+Jika melihat langsung data di atas, kita sudah bisa pastikan bahwa ada $k = 2$ buah _cluster_.
+
+> Namun bagaimana jika kita gunakan _elbow method_ dan _silhouette method_ untuk menentukan berapa banyaknya $k$?
+
+### _Elbow Method_
+
+```{r}
+elbow = fviz_nbclust(df, kmeans, method = "wss")
+plot(elbow)
+```
+
+### _Silhouette Method_
+
+```{r}
+siluet = fviz_nbclust(df, kmeans, method = "silhouette")
+plot(siluet)
+```
+
+Kedua metode tersebut konklusif menyatakan $k=2$, sehingga:
+
+```{r,fig.align='center',fig.retina=7}
+# k-means clustering
+final = kmeans(df, 2, nstart = 25)
+
+# center dari masing-masing cluster
+final$centers
+
+# save hasil cluster ke data awal
+data_kmeans = df
+data_kmeans$cluster = final$cluster
+
+# berapa banyak isi dari cluster
+table(data_kmeans$cluster)
+
+plt = 
+  data_kmeans %>%
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster)))
+plt
+```
 
 
 
