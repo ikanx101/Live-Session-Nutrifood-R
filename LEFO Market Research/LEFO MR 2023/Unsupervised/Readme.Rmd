@@ -22,11 +22,14 @@ library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(factoextra)
+library(fpc)
+library(dbscan)
+
 ```
 
 ## Contoh Kasus I
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # import data
 df = read.csv("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/k means/compact disks.csv") %>% 
      janitor::clean_names() %>%
@@ -147,7 +150,7 @@ rm(list=ls())
 
 ## Contoh Kasus II
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # import data
 df = read.csv("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/k means/dual disks.csv") %>% 
      janitor::clean_names() %>%
@@ -183,7 +186,7 @@ plot(siluet)
 
 Kedua metode tersebut konklusif menyatakan $k=2$, sehingga:
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # k-means clustering
 final = kmeans(df, 2, nstart = 25)
 
@@ -212,7 +215,7 @@ Terlihat bahwa ada beberapa titik data yang _overlap_ masuk ke _cluster_ lainnya
 
 ## Contoh I
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 rm(list=ls())
 df = read.csv("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/hierarchical/donat.csv") %>% 
      janitor::clean_names() %>%
@@ -232,7 +235,7 @@ distance_mat = dist(df, method = 'euclidean')
 
 ### _Single Link_
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # Fitting Hierarchical clustering Model
 set.seed(240)  # Setting seed
 Hierar_cl = hclust(distance_mat, method = "single")
@@ -260,7 +263,7 @@ hie_plot
 
 ### _Complete Link_
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # Fitting Hierarchical clustering Model
 set.seed(240)  # Setting seed
 Hierar_cl = hclust(distance_mat, method = "complete")
@@ -288,7 +291,7 @@ hie_plot
 
 ### _Average Link_
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # Fitting Hierarchical clustering Model
 set.seed(240)  # Setting seed
 Hierar_cl = hclust(distance_mat, method = "average")
@@ -316,7 +319,7 @@ hie_plot
 
 ## Contoh II
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 rm(list=ls())
 df = read.csv("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/hierarchical/hi.csv") %>% 
      janitor::clean_names() %>%
@@ -336,7 +339,7 @@ distance_mat = dist(df, method = 'euclidean')
 
 ### _Single Link_
 
-```{r,fig.align='center',fig.retina=7}
+```{r,fig.align='center',fig.retina=4}
 # Fitting Hierarchical clustering Model
 set.seed(240)  # Setting seed
 Hierar_cl = hclust(distance_mat, method = "single")
@@ -361,6 +364,56 @@ hie_plot =
 hie_plot
 
 ```
+
+---
+
+# _DBScan_
+
+## Contoh I
+
+```{r,fig.align='center',fig.retina=4}
+rm(list=ls())
+
+# ambil data
+df = read.csv("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/dbscan/donat density.csv") %>%
+     janitor::clean_names() %>% 
+     select(-x) %>% rename(x = x_2)
+
+df |>
+  ggplot(aes(x,y)) +
+  geom_point()
+
+```
+
+Bagaimana agar kita bisa mendapatkan _cluster_ yang terbaik? Kita akan gunakan _DBScan_. Langkah pertama adalah menentukan `h` yang teroptimal saat grafik `NN distance`-nya meningkat tinggi.
+
+```{r,fig.align='center',fig.retina=4}
+dbscan::kNNdistplot(df, k = 30)
+abline(h = .25, lty = 2, col = "red")
+```
+
+Kita akan pilih `h = .25`.
+
+```{r,fig.align='center',fig.retina=4}
+# membuat clustering DBScan
+# set sed agar reproducible
+set.seed(20921004)
+Dbscan_cl = dbscan(df, eps = 0.25, minPts = 5)
+
+# menambahkan cluster ke dalam dataset
+df$cluster_new = Dbscan_cl$cluster
+
+# menghitung ada berapa banyak cluster yang ada
+df$cluster_new %>% unique() %>% length()
+
+df |>
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster_new)),
+             size = 2)
+
+```
+
+
 
 
 

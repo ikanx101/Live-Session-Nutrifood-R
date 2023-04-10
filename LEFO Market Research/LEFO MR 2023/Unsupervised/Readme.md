@@ -475,3 +475,61 @@ hie_plot
 ```
 
 <img src="Readme_files/figure-gfm/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" />
+
+------------------------------------------------------------------------
+
+# *DBScan*
+
+## Contoh I
+
+``` r
+rm(list=ls())
+
+# ambil data
+df = read.csv("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/dbscan/donat density.csv") %>%
+     janitor::clean_names() %>% 
+     select(-x) %>% rename(x = x_2)
+
+df |>
+  ggplot(aes(x,y)) +
+  geom_point()
+```
+
+<img src="Readme_files/figure-gfm/unnamed-chunk-19-1.png" width="672" style="display: block; margin: auto;" />
+
+Bagaimana agar kita bisa mendapatkan *cluster* yang terbaik? Kita akan
+gunakan *DBScan*. Langkah pertama adalah menentukan `h` yang teroptimal
+saat grafik `NN distance`-nya meningkat tinggi.
+
+``` r
+dbscan::kNNdistplot(df, k = 30)
+abline(h = .25, lty = 2, col = "red")
+```
+
+<img src="Readme_files/figure-gfm/unnamed-chunk-20-1.png" width="672" style="display: block; margin: auto;" />
+
+Kita akan pilih `h = .25`.
+
+``` r
+# membuat clustering DBScan
+# set sed agar reproducible
+set.seed(20921004)
+Dbscan_cl = dbscan(df, eps = 0.25, minPts = 5)
+
+# menambahkan cluster ke dalam dataset
+df$cluster_new = Dbscan_cl$cluster
+
+# menghitung ada berapa banyak cluster yang ada
+df$cluster_new %>% unique() %>% length()
+```
+
+    ## [1] 13
+
+``` r
+df |>
+  ggplot(aes(x,y)) +
+  geom_point(aes(color = as.factor(cluster_new)),
+             size = 2)
+```
+
+<img src="Readme_files/figure-gfm/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;" />
