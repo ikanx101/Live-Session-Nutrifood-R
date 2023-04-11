@@ -43,3 +43,14 @@ hie_plot =
   geom_point()
 hie_plot
 # ggsave(hie_plot,file = "hierarki final.png")
+
+
+data_validasi = 
+  data_hc %>% 
+  arrange(cluster) %>% 
+  select(-cluster)
+
+matriks = dist(data_validasi,diag = T,upper = T)
+
+df <- melt(as.matrix(matriks), varnames = c("row", "col"))
+df %>% ggplot(aes(x = row,y = col)) + geom_tile(aes(fill = value)) 
