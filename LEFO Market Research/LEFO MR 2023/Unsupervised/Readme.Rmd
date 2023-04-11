@@ -41,7 +41,7 @@ plt =
   df %>%
   ggplot(aes(x,y)) +
   geom_point()
-plt
+plt + coord_equal()
 
 ```
 
