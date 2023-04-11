@@ -10,7 +10,7 @@ library(factoextra)
 setwd("/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Unsupervised/k means")
 
 # import data
-df = read.csv("dual disks.csv") %>% janitor::clean_names() %>%
+df = read.csv("compact disks.csv") %>% janitor::clean_names() %>%
      select(-x) %>%
      rename(x = x_2)
 
@@ -34,7 +34,7 @@ plot(siluet)
 # dev.off()
 
 # k-means clustering
-final = kmeans(df, 2, nstart = 25)
+final = kmeans(df, 4, nstart = 25)
 
 # center dari masing-masing cluster
 final$centers
@@ -52,3 +52,5 @@ plt =
   geom_point(aes(color = as.factor(cluster)))
 plt
 # ggsave(plt,file = "4 means cluster.png")
+
+
