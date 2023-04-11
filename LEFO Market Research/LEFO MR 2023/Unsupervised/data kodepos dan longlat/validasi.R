@@ -25,4 +25,4 @@ df %>% ggplot(aes(x = row,y = col)) +
        geom_tile(aes(fill = value)) + 
        scale_fill_gradient(low = "darkgreen",high = "darkred") +
        theme_void() +
-       theme(legend.position = "none")
+       theme(legend.position = "none") + coord_equal()
