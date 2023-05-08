@@ -23,6 +23,6 @@ matriks = dist(data_validasi,diag = T,upper = T)
 df <- melt(as.matrix(matriks), varnames = c("row", "col"))
 df %>% ggplot(aes(x = row,y = col)) + 
        geom_tile(aes(fill = value)) + 
-       scale_fill_gradient(low = "darkgreen",high = "darkred") +
+       scale_fill_gradient(low = "blue",high = "darkred") +
        theme_void() +
        theme(legend.position = "none") + coord_equal()
