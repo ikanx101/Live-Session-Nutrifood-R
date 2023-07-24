@@ -82,6 +82,7 @@ ui <- fluidPage(
               infoBoxOutput(outputId = "totalresponden", width = 5)
               )
           ),
+          br(),
           fluidRow(
             box(
               plotOutput("plt_1")
