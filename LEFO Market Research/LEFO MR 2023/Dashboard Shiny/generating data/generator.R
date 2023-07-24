@@ -59,12 +59,11 @@ tv_temp = c("trans7",
             "mnc tv",
             "inews",
             "tv one",
-            "indosiar",
-            "") 
+            "indosiar") 
 
 # generator untuk stasiun tv
 tv_gen = function(n_resp){
-    sample(tv_temp,4,replace = F,prob = c(.4,.3,.5,.2,.3,.2,.3,.1,.1,.2))
+    sample(tv_temp,4,replace = F,prob = c(.4,.3,.5,.2,.3,.2,.2,.1,.1))
 }
 
 input_tv        = vector("list",n_resp)
