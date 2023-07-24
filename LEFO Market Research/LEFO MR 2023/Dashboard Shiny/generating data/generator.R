@@ -9,6 +9,8 @@ rm(list=ls())
     # ses
     # awareness (tom)
     # awareness (unaided)
+    # user ts
+    # user ns
 
 # libraries yang digunakan
 library(dplyr)
@@ -20,7 +22,7 @@ library(parallel)
 n_core = 5
 
 # banyak responden
-n_resp = n_core * 300
+n_resp = n_core * 400
 # ============================================================================
 
 
@@ -58,7 +60,7 @@ tv_temp = c("trans7",
             "inews",
             "tv one",
             "indosiar",
-            NA) 
+            "") 
 
 # generator untuk stasiun tv
 tv_gen = function(n_resp){
@@ -70,14 +72,28 @@ tv              = mclapply(input_tv,tv_gen,mc.cores = n_core)
 df_tv           = do.call(rbind,tv) |> as.data.frame()
 colnames(df_tv) = c("tom","unaided_1","unaided_2","unaided_3")
 
+# user ns dan ts
+user_ts_gen = function(n_resp){
+    sample(c("ya","tidak"),n_resp,replace = T,prob = c(.6,.4))
+}
+
+user_ns_gen = function(n_resp){
+    sample(c("ya","tidak"),n_resp,replace = T,prob = c(.8,.2))
+}
+
+
 # rekap
 df_survey = 
  data.frame(
-    nama  = mcmapply(nama_gen,n_resp,mc.cores = n_core) |> as.character(),
-    usia  = mcmapply(usia_gen,n_resp,mc.cores = n_core) |> as.character(),
-    area  = mcmapply(area_gen,n_resp,mc.cores = n_core) |> as.character(),
-    ses   = mcmapply(ses_gen,n_resp,mc.cores = n_core) |> as.character()
+    nama    = mcmapply(nama_gen,n_resp,mc.cores = n_core) |> as.character(),
+    usia    = mcmapply(usia_gen,n_resp,mc.cores = n_core) |> as.character(),
+    area    = mcmapply(area_gen,n_resp,mc.cores = n_core) |> as.character(),
+    ses     = mcmapply(ses_gen,n_resp,mc.cores = n_core) |> as.character(),
+    user_ts = mcmapply(user_ts_gen,n_resp,mc.cores = n_core) |> as.character(),
+    user_ns = mcmapply(user_ns_gen,n_resp,mc.cores = n_core) |> as.character()
  ) |>
  cbind(df_tv)
 
-write.csv(df_survey,row.names = F,"/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Dashboard Shiny/generating data/data.survey.csv")
+write.csv(df_survey,
+          row.names = F,
+          "/home/ikanx101/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/Dashboard Shiny/generating data/data.survey.csv")
