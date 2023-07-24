@@ -9,7 +9,7 @@ rm(list=ls())
 # kita masukin teks feedingnya terlebih dahulu
 load("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/LLM/markov chain/data 1.rda")
 
-texts = much_ado[2:900]
+texts = much_ado[2:1300]
 
 #texts
 
@@ -81,13 +81,14 @@ create_model <- function(chars, max_length){
     compile(
       loss = "categorical_crossentropy", 
       metric = c("accuracy"),
-      optimizer = optimizer_rmsprop(learning_rate = 0.15)
+      optimizer = optimizer_rmsprop(learning_rate = 0.05)
     )
 }
 
 fit_model <- function(model, vectors, epochs){
   model %>% keras::fit(
-    vectors$x, vectors$y,
+    vectors$x, 
+    vectors$y,
     batch_size = 258,
     validation_split = 0.15,
     epochs = epochs
@@ -146,7 +147,7 @@ generate_phrase <- function(model, text, chars, max_length, diversity){
 # tahap 9
 model <- create_model(chars, max_length)
 
-fit_model(model, vectors,100)
+fit_model(model, vectors,200)
 
 
 # tahap 10
