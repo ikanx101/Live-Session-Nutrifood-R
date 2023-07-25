@@ -10,7 +10,7 @@ test  = read.csv("test.csv") %>% select(-id)
 
 # proses resampling data
 n_data   = nrow(train)
-n_sample = sample(n_data,400,replace = T)
+n_sample = sample(n_data,350,replace = T)
 
 data_new = train[n_sample,]
 train     = rbind(train,data_new)
@@ -36,8 +36,8 @@ model %>%
   layer_dense(units = 1986,activation = 'sigmoid',
               input_shape = c(ncol(train_matrix))) %>%
   layer_dense(units = 21, activation = 'softmax') %>%
-  layer_dense(units = 12, activation = 'sigmoid') %>%
-  layer_dense(units = 2, activation = 'softmax')
+  layer_dense(units = 12, activation = 'softmax') %>%
+  layer_dense(units = 2, activation = 'sigmoid')
 
 summary(model)
 
@@ -52,10 +52,10 @@ fitModel =
   model %>%
   keras::fit(train_matrix,
              train_label_clean,
-             epochs = 50,
-             batch_size = 30,
-             steps_per_epoch = 10,
-             validation_split = 0.15)
+             epochs = 70,
+             batch_size = 40,
+             steps_per_epoch = 25,
+             validation_split = 0.2)
 
 
 # evaluasi dengan train
@@ -73,4 +73,4 @@ pred_test   = predict(model, test_matrix) %>% k_argmax() %>% as.vector()
 jawaban = data.frame(id     = 1:160,
                      target = pred_test)
 
-write.csv(jawaban,"submisi_1.csv",row.names = F)
+write.csv(jawaban,"submisi_4.csv",row.names = F)

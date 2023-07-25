@@ -9,12 +9,12 @@ rm(list=ls())
 # kita masukin teks feedingnya terlebih dahulu
 load("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/LLM/markov chain/data 1.rda")
 
-texts = much_ado[2:1300]
+texts = much_ado
 
 #texts
 
 # tahap 2
-max_length <- 5
+max_length <- 4
 
 text =
   texts %>% 
@@ -61,7 +61,7 @@ vectorize <- function(data, chars, max_length){
 }
 
 vectors <- vectorize(dataset, chars, max_length)
-vectors
+vectors$y[1:10]
 
 
 # tahap 6

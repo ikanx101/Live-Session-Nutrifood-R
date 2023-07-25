@@ -32,6 +32,12 @@ nama_gen = function(n_resp){
     randomNames(n_resp)
 }
 
+# gender
+gender_gen = function(n_resp){
+  gender_temp = c("M","F")
+  sample(gender_temp,n_resp,replace = T,prob = c(.5,.5))
+}
+
 # usia
 usia_gen = function(n_resp){
     usia_temp = c("11 - 15 th","16 - 20 th","21 - 25 th","26 - 30 th","> 30 th")
@@ -85,6 +91,7 @@ user_ns_gen = function(n_resp){
 df_survey = 
  data.frame(
     nama    = mcmapply(nama_gen,n_resp,mc.cores = n_core) |> as.character(),
+    gender  = mcmapply(gender_gen,n_resp,mc.cores = n_core) |> as.character(),
     usia    = mcmapply(usia_gen,n_resp,mc.cores = n_core) |> as.character(),
     area    = mcmapply(area_gen,n_resp,mc.cores = n_core) |> as.character(),
     ses     = mcmapply(ses_gen,n_resp,mc.cores = n_core) |> as.character(),
