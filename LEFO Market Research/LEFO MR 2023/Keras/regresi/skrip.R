@@ -71,11 +71,11 @@ y = target %>% as.matrix()
 head(x)
 
 model = keras_model_sequential() %>% 
-  layer_dense(units = 64, activation="relu", input_shape = ncol(x)) %>% 
-  layer_dense(units = 32, activation = "relu") %>% 
-  layer_dense(units = 16, activation = "relu") %>% 
-  layer_dense(units = 8, activation = "relu") %>% 
-  layer_dense(units = 1, activation="linear")
+  layer_dense(units = 86, activation="relu", input_shape = ncol(x)) %>% 
+  layer_dense(units = 21, activation = "relu") %>% 
+  layer_dense(units = 12, activation = "relu") %>% 
+  layer_dense(units = 6,  activation = "relu") %>% 
+  layer_dense(units = 1,  activation = "linear")
 
 model %>% compile(
   loss = "mse",
@@ -102,6 +102,7 @@ df %>%
 
 
 # ===================================
+# preskidi
 a = -3
 b = 0
 df = data.frame(x = seq(a,b,by = delta))
