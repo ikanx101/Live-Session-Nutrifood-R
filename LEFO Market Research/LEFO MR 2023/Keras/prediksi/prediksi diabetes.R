@@ -11,7 +11,7 @@ colnames(data) = tolower(colnames(data))
 
 # proses resampling data
 n_data   = nrow(data)
-n_sample = sample(n_data,50000,replace = T)
+n_sample = sample(n_data,10,replace = T)
 
 data_new = data[n_sample,]
 data = rbind(data,data_new)
@@ -42,7 +42,7 @@ data_1 =
 
 # set minimal n for train data
 set.seed(10104074)
-n = 15000
+n = 200
 
 id_0 = sample(nrow(data_0),n,replace = F)
 data_0_1 = data_0[id_0,]
@@ -70,11 +70,12 @@ test_matrix = as.matrix(test_df[-ncol(train_df)])
 
 model = keras_model_sequential()
 model %>%
-  layer_dense(units = 1986,activation = 'relu',
+  layer_dense(units = 1986,activation = 'sigmoid',
               input_shape = c(ncol(train_matrix))) %>%
   layer_dense(units = 21, activation = 'sigmoid') %>%
   layer_dense(units = 12, activation = 'sigmoid') %>%
-  layer_dense(units = 2, activation = 'softmax')
+  layer_dense(units = 7, activation = 'relu') %>%
+  layer_dense(units = 2, activation = 'sigmoid')
 
 summary(model)
 
@@ -89,9 +90,9 @@ fitModel =
   model %>%
   keras::fit(train_matrix,
              train_label_clean,
-             epochs = 1000,
-             batch_size = 25,
-             steps_per_epoch = 30,
+             epochs = 90,
+             batch_size = 30,
+             steps_per_epoch = 10,
              validation_split = 0.15)
 
 
