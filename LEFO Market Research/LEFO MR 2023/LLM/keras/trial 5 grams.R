@@ -147,7 +147,7 @@ generate_phrase <- function(model, text, chars, max_length, diversity){
 # tahap 9
 model <- create_model(chars, max_length)
 
-fit_model(model, vectors,200)
+fit_model(model, vectors,10)
 
 
 # tahap 10
