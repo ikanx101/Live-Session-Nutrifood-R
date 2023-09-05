@@ -9,12 +9,12 @@ rm(list=ls())
 # kita masukin teks feedingnya terlebih dahulu
 load("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/LLM/markov chain/data 1.rda")
 
-texts = much_ado
+texts = much_ado[1:3]
 
 #texts
 
 # tahap 2
-max_length <- 4
+max_length <- 5
 
 text =
   texts %>% 
@@ -61,12 +61,12 @@ vectorize <- function(data, chars, max_length){
 }
 
 vectors <- vectorize(dataset, chars, max_length)
-vectors$y[1:10]
+vectors$y
 
 
 # tahap 6
-tes = list(sentence  = dataset$sentence[50],
-           next_char = dataset$next_char[50])
+tes = list(sentence  = dataset$sentence[1],
+           next_char = dataset$next_char[1])
 
 tes
 pred_donk = vectorize(tes,chars,max_length)
