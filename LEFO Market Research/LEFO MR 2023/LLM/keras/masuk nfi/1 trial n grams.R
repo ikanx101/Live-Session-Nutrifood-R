@@ -21,9 +21,9 @@ texts    =
   df_input %>% 
   mutate(teks = tolower(layak_dirumah_kedua),
          #teks = gsub("[0-9]","",teks),
-         teks = gsub("\\,","",teks),
-         teks = gsub("\\.","",teks),
-         teks = gsub("[[:punct:]]","",teks),
+         teks = gsub("\\,","koma",teks),
+         teks = gsub("\\.","eos",teks),
+         teks = gsub("[[:punct:]]"," ",teks),
          teks = stringr::str_trim(teks),
          teks = gsub("aku","saya",teks),
          teks = paste0("saya layak di rumah kedua karena ",teks)) %>% 
@@ -141,29 +141,30 @@ fit_model <- function(model, vectors, epochs){
     vectors$x, 
     vectors$y,
     batch_size = 258,
-    validation_split = 0.15,
+    validation_split = 0.10,
+    learning_rate = .25,
     epochs = epochs
   )
   NULL
 }
 
 # tahap 9
-model <- create_model(chars, max_length)
-
+model = create_model(chars, max_length)
+# model = load_model_hdf5("keras model nutrifood.h5")
 
 
 n_sample = length(dataset$sentence)
 
-for(i in 1:5){
+for(i in 1:2){
   # kita sampling dulu
-  sampling = sample(n_sample,800,replace = F)
+  sampling = sample(n_sample,100,replace = F)
   # ambil
   d_1 = list(sentence  = dataset$sentence[sampling],
              next_char = dataset$next_char[sampling])
   # ubah
   vectors <- vectorize(d_1)
   # train
-  fit_model(model, vectors,50)
+  fit_model(model, vectors,20)
   print(i)
   Sys.sleep(5)
 }
@@ -175,7 +176,7 @@ tes
 chars[mana]
 
 save_model_hdf5(model,"keras model nutrifood.h5")
-# model = load_model_hdf5("keras model nutrifood.h5")
+
 
 # tahap 10
 # generate dari teks
@@ -229,5 +230,5 @@ generate_input <- function(model, text, chars, max_length, diversity,input){
 }
 
 input = "saya adalah orang yang"
-diversity = .9
+diversity = .99
 generate_input(model, text, chars, max_length, diversity,input)
