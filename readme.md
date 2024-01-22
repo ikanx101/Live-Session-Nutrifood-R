@@ -23,13 +23,3 @@ Setiap kita bekerja dengan menggunakan **R**, berikut adalah
 langkah-langkah standar yang biasa dilakukan:
 
 ![](readme_files/figure-gfm/unnamed-chunk-1-1.png)<!-- -->
-
-## **Discord**
-
-Punya akun *Discord*? Kalau belum, silakan *download apps*-nya di
-[sini](https://discord.com/).
-
-*Available* untuk **iOS**, **Android**, **Windows**, dan **Linux**.
-
-*Join discord* **Nutrifood x R** di *link* [berikut
-ini](https://discord.gg/zy9XJgsf).
