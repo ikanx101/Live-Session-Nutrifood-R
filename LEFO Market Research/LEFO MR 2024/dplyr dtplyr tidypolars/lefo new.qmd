@@ -125,7 +125,7 @@ Kali ini kita akan membandingkan performa dari tiga *libraries* terkait *data ma
 
 - Kita akan melihat konsumsi _memory_ dan _runtime_ dalam mengolah data jutaan baris.
 
-## Data _Dummy_
+## Data Sintetis
 
 Berikut adalah skrip yang digunakan untuk _generate random data_:
 
