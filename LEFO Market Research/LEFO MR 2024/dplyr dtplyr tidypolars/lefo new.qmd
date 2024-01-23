@@ -153,7 +153,7 @@ Kita akan gunakan tiga *libraries* dengan prinsip *tidy* dan akan kita bandingka
 
 Keduanya akan kita ukur menggunakan `library(bench)`.
 
-# _FUNCTION_ MASING-MASING _LIBRARIES_
+# *FUNCTION* MASING-MASING *LIBRARIES*
 
 ## `library(dplyr)`
 
@@ -208,7 +208,7 @@ proses_tidypolars <- function(data) {
 proses_tidypolars(df_input)
 ```
 
-# ADU _RUNTIME_ DAN KONSUMSI *MEMORY*
+# ADU *RUNTIME* DAN KONSUMSI *MEMORY*
 
 ## Konsumsi *Memory*
 
