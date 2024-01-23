@@ -19,7 +19,7 @@ format:
     toc: true
     toc-title: Agenda Kita Hari Ini
     toc-depth: 1
-    output-location: column-fragment
+    output-location: column
     code-overflow: scroll
 editor: visual
 execute: 
@@ -119,27 +119,122 @@ Kita bisa mempercepat *runtime* proses *data manipulation* dengan cara:
 
 Kali ini kita akan membandingkan performa dari tiga *libraries* terkait *data manipulation* tapi tetap menggunakan prinsip *tidy*, yakni:
 
-1. `dplyr` : _library_ favorit kita semua.
-1. `dtplyr` : _library_ konektor pengubah `data.table` menjadi _object_ `dplyr`
-1. `tidypolar`: _library_ konektor pengubah _polars_ menjadi _object_ `dplyr`.
+1.  `dplyr` : *library* favorit kita semua.
+2.  `dtplyr` : *library* konektor pengubah `data.table` menjadi *object* `dplyr`
+3.  `tidypolar`: *library* konektor pengubah *polars* menjadi *object* `dplyr`.
 
-- Kita akan melihat konsumsi _memory_ dan _runtime_ dalam mengolah data jutaan baris.
+-   Kita akan melihat konsumsi *memory* dan *runtime* dalam mengolah data jutaan baris.
 
 ## Data Sintetis
 
-Berikut adalah skrip yang digunakan untuk _generate random data_:
+Berikut adalah skrip yang digunakan untuk *generate random data*:
 
 ```{r}
 n_generate = 10^7
 df_input <- data.frame(
-  grup = sample(LETTERS[1:6], n_generate, replace = TRUE),
+  grup = sample(LETTERS[1:6], 
+                n_generate, 
+                replace = TRUE),
   nilai = rnorm(n_generate)
 )
 df_input |> head(10)
 ```
 
+Ada dua kolom pada data tersebut, yakni: `grup` berisi **enam** buah kelompok dan `nilai` berisi *random normal-distributed value*.
 
+## Tujuan *Data Manipulation* {.center}
 
+> Kita akan membuat skrip **R** yang bertujuan untuk menghitung *mean* dan standar deviasi dari masing-masing grup pada data tersebut.
 
+Kita akan gunakan tiga *libraries* dengan prinsip *tidy* dan akan kita bandingkan:
+
+1.  *Runtime*.
+2.  Konsumsi *memory*.
+
+Keduanya akan kita ukur menggunakan `library(bench)`.
+
+# _FUNCTION_ MASING-MASING _LIBRARIES_
+
+## `library(dplyr)`
+
+```{r}
+# definisikan proses dengan dplyr
+proses_dplyr <- function(data) {
+  data %>%
+    group_by(grup) %>%
+    summarize(
+      rata_rata = mean(nilai),
+      std_dev   = sd(nilai)
+    ) %>% 
+    ungroup()
+}
+
+proses_dplyr(df_input)
+```
+
+## `library(dtplyr)`
+
+```{r}
+# definisikan proses dengan dtplyr
+proses_dtplyr <- function(data) {
+  data |>
+    dtplyr::lazy_dt() |> 
+    group_by(grup) |>
+    summarise(
+      rata_rata = mean(nilai),
+      std_dev   = sd(nilai)
+    ) %>% 
+    ungroup() 
+}
+
+proses_dtplyr(df_input)
+```
+
+## `library(tidypolars)`
+
+```{r}
+# definisikan proses dengan tidypolars
+proses_tidypolars <- function(data) {
+  data |>
+    as_polars_df() |> 
+    group_by(grup) |>
+    summarise(
+      rata_rata = mean(nilai),
+      std_dev   = sd(nilai)
+    ) %>% 
+    ungroup() 
+}
+
+proses_tidypolars(df_input)
+```
+
+# ADU _RUNTIME_ DAN KONSUMSI *MEMORY*
+
+## Konsumsi *Memory*
+
+Kita akan ulangi sebanyak `10` kali percobaan:
+
+```{r}
+# Pengukuran waktu dan memori
+bench_result <- bench::mark(
+  proses_dplyr(df_input),
+  proses_dtplyr(df_input),
+  proses_tidypolars(df_input),
+  iterations = 10,
+  check = F,
+  memory = T
+)
+
+bench_result %>% 
+  select(expression,
+         mem_alloc,
+         total_time,
+         median) %>% 
+  knitr::kable()
+```
+
+# KESIMPULAN {.center}
+
+Apa yang bisa kita pelajari hari ini?
 
 # TERIMA KASIH {.unnumbered .unlisted}

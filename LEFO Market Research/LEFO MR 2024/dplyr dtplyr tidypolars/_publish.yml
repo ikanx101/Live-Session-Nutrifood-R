@@ -1,0 +1,4 @@
+- source: lefo new.qmd
+  quarto-pub:
+    - id: efad99ba-ff62-4ea0-bbb6-9e3281459972
+      url: 'https://ikanx101.quarto.pub/adu-cepat'
