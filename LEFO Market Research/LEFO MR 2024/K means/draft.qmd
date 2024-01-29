@@ -1,0 +1,134 @@
+---
+title: "Tutorial K-Means Menggunakan Data mtcars"
+subtitle: "Menggunakan R"
+author: Ikang Fadhli
+institute: Nutrifood Indonesia
+format: 
+  html:
+    code-block-bg: true
+    code-block-border-left: true
+    code-fold: true
+    code-tools:
+      source: true
+      toggle: false
+      caption: none
+    theme: sketchy
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-title: Content
+    highlight-style: atom-one
+editor: visual
+execute: 
+  echo: true
+  warning: false
+  error: false
+---
+
+```{r}
+#| echo: false
+
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2024/K means")
+rm(list=ls())
+```
+
+# Cara Melakukan __K-Means Clustering__
+
+Saya akan gunakan data `mtcars` yang ada secara _default_ di __R__.
+
+## Panggil _Libraries_
+
+```{r}
+library(dplyr) # data manipulation
+library(tidyr) # data manipulation
+library(factoextra) # clustering
+library(caret) # data rescaling
+```
+
+## _Import_ Data
+
+Tidak semua variabel di `mtcars` akan digunakan.
+
+```{r}
+data            = mtcars %>% select(mpg,cyl,disp,hp)
+row.names(data) = NULL
+data 
+```
+
+## _Rescaling_
+
+```{r}
+# kita pakai bantuan dari library caret
+preProcess_range_model = preProcess(data, method='scale')
+data = predict(preProcess_range_model, newdata = data) 
+
+# hasil rescaling
+data
+```
+
+## Penentuan Nilai $k$
+
+### _Elbow_
+
+```{r}
+elbow = fviz_nbclust(data, kmeans, method = "wss")
+plot(elbow)
+```
+
+Dari _elbow_ secara visual bisa dilihat bahwa nilai $k=4$.
+
+### _Silhouette_
+
+```{r}
+siluet = fviz_nbclust(data, kmeans, method = "silhouette")
+plot(siluet)
+```
+
+Dari _silhouette_ bisa dilihat bahwa nilai $k=10$.
+
+## ___K-Means Clustering___
+
+### _Clustering_ jika $k=4$
+
+```{r}
+# k-means clustering
+final = kmeans(data, 4, nstart = 25)
+
+# center dari masing-masing cluster
+final$centers %>% knitr::kable()
+
+# save hasil cluster ke data awal
+data_kmeans = data
+data_kmeans$cluster = final$cluster
+
+# hasil clustering
+data_kmeans %>% knitr::kable()
+
+# berapa banyak isi dari cluster
+table(data_kmeans$cluster)
+```
+
+### _Clustering_ jika $k=10$
+
+```{r}
+# k-means clustering
+final = kmeans(data, 10, nstart = 25)
+
+# center dari masing-masing cluster
+final$centers %>% knitr::kable()
+
+# save hasil cluster ke data awal
+data_kmeans = data
+data_kmeans$cluster = final$cluster
+
+# hasil clustering
+data_kmeans %>% knitr::kable()
+
+# berapa banyak isi dari cluster
+table(data_kmeans$cluster)
+```
+
+
+
+
+

@@ -1,0 +1,4 @@
+- source: draft.qmd
+  quarto-pub:
+    - id: ac53db47-5990-43e3-9c62-f6d1e1ff7c29
+      url: 'https://ikanx101.quarto.pub/tutorial-k-means-menggunakan-data-mtcars'
