@@ -19,7 +19,7 @@ format:
     toc: true
     toc-title: Agenda Kita Hari Ini
     toc-depth: 1
-    output-location: column
+    output-location: slide
     code-overflow: scroll
 editor: visual
 execute: 
@@ -28,6 +28,8 @@ execute:
 ---
 
 # PENDAHULUAN {.center}
+
+# MASALAH {.center .unlisted}
 
 Apa Masalah Kita Tahun Ini?
 
@@ -46,7 +48,7 @@ Saya membagi *flow* kerja pembuatan *report* market riset sebagai berikut:
 3.  Membuat *report* dengan `quarto`.
 4.  Membuat *inline reporting* dengan `library(epoxy)`.
 
-## Silakan _Install Libraries_ Berikut Ini {.center}
+## Silakan *Install Libraries* Berikut Ini {.center}
 
 ```{r}
 library(dplyr)
@@ -56,28 +58,76 @@ library(ggplot2)
 library(epoxy)
 ```
 
-_Install libraries_ dengan cara: `install.packages("nama library")`.
+*Install libraries* dengan cara: `install.packages("nama library")`.
 
-## Data yang Digunakan {.center}
+## Data yang Digunakan {.center .smaller}
+
+Kita buat data sintetis sebagai berikut:
 
 ```{r}
 n_resp = 200
 id     = 1:n_resp
 gender = sample(c("pria","wanita"),n_resp,replace = T)
-usia   = sample(c("< 15 th","16 - 20 th","21 - 25 th","26 - 30 th","> 30 th"),n_resp,
-                prob = c(.1,.2,.4,.2,2),
-                replace = T)
+usia   = sample(c("< 15 th","16 - 20 th","21 - 25 th","26 - 30 th","> 30 th"),
+                n_resp,prob = c(.1,.2,.4,.2,2),replace = T)
 aware  = sample(c("ya","tidak"),prob = c(.3,.7),n_resp,replace = T)
-st_tv  = sample()
-df     =data.frame(gender,usia,aware)
+tv_1   = sample(c(0,1),prob = c(.1,.9),n_resp,replace = T)
+tv_2   = sample(c(0,1),prob = c(.3,.7),n_resp,replace = T)
+tv_3   = sample(c(0,1),prob = c(.5,.5),n_resp,replace = T)
+tv_4   = sample(c(0,1),prob = c(.7,.3),n_resp,replace = T)
+tv_5   = sample(c(0,1),prob = c(.99,.01),n_resp,replace = T)
+
+df     = data.frame(id,gender,usia,aware,tv_1,tv_2,tv_3,tv_4,tv_5) %>% 
+  mutate(tv_1 = ifelse(tv_1 == 1,"RCTI",NA),
+         tv_2 = ifelse(tv_2 == 1,"SCTV",NA),
+         tv_3 = ifelse(tv_3 == 1,"METRO",NA),
+         tv_4 = ifelse(tv_4 == 1,"INDOSIAR",NA),
+         tv_5 = ifelse(tv_5 == 1,"NET",NA))
+
+df %>% head(15) %>% 
+  knitr::kable(align   = "c",caption = "Sample 15 Data Responden") %>% 
+  kableExtra::kable_styling(font_size = 14)
 ```
 
-# `library(expss)`
+Kita akan membuat *report* dari data di atas.
 
-# TAHAP I
+MEMBUAT TABULASI
 
-# TAHAP I
+# `library(expss)` {.center .unlisted}
 
-# TAHAP I
+## Tabulasi Sederhana {.center}
 
-# TAHAP I
+*Real number*
+
+```{r}
+df %>% 
+  tab_cells(gender) %>% 
+  tab_stat_cases() %>% 
+  tab_pivot() %>% 
+  set_caption("Real Number Jenis Kelamin") 
+```
+
+## Tabulasi Sederhana {.center}
+
+*Percentage*
+
+```{r}
+df %>% 
+  tab_cells(gender) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Percentage Jenis Kelamin")
+```
+
+## Tabulasi Sederhana {.center}
+
+*Real Number and Percentage*
+
+```{r}
+df %>% 
+  tab_cells(gender) %>% 
+  tab_stat_cases() %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  set_caption("Real Number and Percentage Jenis Kelamin")
+```
