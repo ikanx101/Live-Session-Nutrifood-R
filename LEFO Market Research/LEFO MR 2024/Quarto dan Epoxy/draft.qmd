@@ -1,0 +1,83 @@
+---
+title: "Reporting using R Studio"
+subtitle: "expss, dplyr, ggplot2, epoxy, dan quarto"
+author: ikanx101.com
+institute: Market Research Dept. Nutrifood
+format: 
+  revealjs:
+    theme: blood
+    logo: logo.png
+    css: logo.css
+    slide-number: true
+    footer: Sebuah Learning Forum Market Riset
+    incremental: true
+    show-slide-number: all
+    transition: convex
+    width: 1280
+    height: 720
+    highlight-style: arrow-dark
+    toc: true
+    toc-title: Agenda Kita Hari Ini
+    toc-depth: 1
+    output-location: column
+    code-overflow: scroll
+editor: visual
+execute: 
+  echo: true
+  warning: false
+---
+
+# PENDAHULUAN {.center}
+
+Apa Masalah Kita Tahun Ini?
+
+## Tujuan {.center}
+
+-   Mempercepat *workflow* pengerjaan *report* market riset.
+-   Saling *sharing best practice* pengerjaan *report* market riset.
+-   Tentunya menggunakan **R** atau **R Studio**.
+
+## Tahapan *Workflow* {.center}
+
+Saya membagi *flow* kerja pembuatan *report* market riset sebagai berikut:
+
+1.  Membuat tabulasi dengan `library(expss)` atau `library(dplyr)`.
+2.  Membuat visualisasi dengan `library(ggplot2)`.
+3.  Membuat *report* dengan `quarto`.
+4.  Membuat *inline reporting* dengan `library(epoxy)`.
+
+## Silakan _Install Libraries_ Berikut Ini {.center}
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(expss)
+library(ggplot2)
+library(epoxy)
+```
+
+_Install libraries_ dengan cara: `install.packages("nama library")`.
+
+## Data yang Digunakan {.center}
+
+```{r}
+n_resp = 200
+id     = 1:n_resp
+gender = sample(c("pria","wanita"),n_resp,replace = T)
+usia   = sample(c("< 15 th","16 - 20 th","21 - 25 th","26 - 30 th","> 30 th"),n_resp,
+                prob = c(.1,.2,.4,.2,2),
+                replace = T)
+aware  = sample(c("ya","tidak"),prob = c(.3,.7),n_resp,replace = T)
+st_tv  = sample()
+df     =data.frame(gender,usia,aware)
+```
+
+# `library(expss)`
+
+# TAHAP I
+
+# TAHAP I
+
+# TAHAP I
+
+# TAHAP I
