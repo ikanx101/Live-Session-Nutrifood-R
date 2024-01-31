@@ -19,7 +19,7 @@ format:
     toc: true
     toc-title: Agenda Kita Hari Ini
     toc-depth: 1
-    output-location: slide
+    output-location: column
     code-overflow: scroll
 editor: visual
 execute: 
@@ -53,9 +53,12 @@ Saya membagi *flow* kerja pembuatan *report* market riset sebagai berikut:
 ```{r}
 library(dplyr)
 library(tidyr)
+library(reshape2)
+library(janitor)
 library(expss)
 library(ggplot2)
 library(epoxy)
+library(openxlsx)
 ```
 
 *Install libraries* dengan cara: `install.packages("nama library")`.
@@ -65,11 +68,12 @@ library(epoxy)
 Kita buat data sintetis sebagai berikut:
 
 ```{r}
-n_resp = 200
+n_resp = 500
 id     = 1:n_resp
 gender = sample(c("pria","wanita"),n_resp,replace = T)
 usia   = sample(c("< 15 th","16 - 20 th","21 - 25 th","26 - 30 th","> 30 th"),
                 n_resp,prob = c(.1,.2,.4,.2,2),replace = T)
+usia   = factor(usia,levels = c("< 15 th","16 - 20 th","21 - 25 th","26 - 30 th","> 30 th"))
 aware  = sample(c("ya","tidak"),prob = c(.3,.7),n_resp,replace = T)
 tv_1   = sample(c(0,1),prob = c(.1,.9),n_resp,replace = T)
 tv_2   = sample(c(0,1),prob = c(.3,.7),n_resp,replace = T)
@@ -91,43 +95,370 @@ df %>% head(15) %>%
 
 Kita akan membuat *report* dari data di atas.
 
-MEMBUAT TABULASI
+# MEMBUAT TABULASI
 
-# `library(expss)` {.center .unlisted}
+## `library(expss)` {.center .smaller}
 
-## Tabulasi Sederhana {.center}
+## Tabulasi Sederhana {.center .smaller}
 
 *Real number*
 
 ```{r}
-df %>% 
+tabel_1 = 
+  df %>% 
   tab_cells(gender) %>% 
   tab_stat_cases() %>% 
   tab_pivot() %>% 
   set_caption("Real Number Jenis Kelamin") 
+
+tabel_1
 ```
 
-## Tabulasi Sederhana {.center}
+## Tabulasi Sederhana {.center .smaller}
 
 *Percentage*
 
 ```{r}
-df %>% 
+tabel_2 = 
+  df %>% 
   tab_cells(gender) %>% 
   tab_stat_cpct() %>% 
   tab_pivot() %>% 
   set_caption("Percentage Jenis Kelamin")
+
+tabel_2
 ```
 
-## Tabulasi Sederhana {.center}
+## Tabulasi Sederhana {.center .smaller}
 
 *Real Number and Percentage*
 
 ```{r}
-df %>% 
+tabel_3 = 
+  df %>% 
   tab_cells(gender) %>% 
   tab_stat_cases() %>% 
   tab_stat_cpct() %>% 
   tab_pivot() %>% 
   set_caption("Real Number and Percentage Jenis Kelamin")
+
+tabel_3
+```
+
+## Tabulasi Sederhana {.center .smaller}
+
+*Real number*
+
+```{r}
+tabel_4 = 
+  df %>% 
+  tab_cells(gender,usia) %>% 
+  tab_stat_cases() %>%
+  tab_pivot()
+
+tabel_4
+```
+
+## Crosstabulasi Sederhana {.center .smaller}
+
+*Percentage*
+
+```{r}
+tabel_5 = 
+  df %>% 
+  tab_cells(usia) %>% 
+  tab_cols(gender,total()) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  tab_caption("Crosstabulasi gender vs usia")
+
+tabel_5
+```
+
+## Crosstabulasi Sederhana {.center .smaller}
+
+*Percentage*
+
+```{r}
+tabel_6 =
+  df %>% 
+  tab_cells(gender) %>% 
+  tab_cols(aware,total()) %>% 
+  tab_stat_cpct() %>% 
+  tab_pivot() %>% 
+  tab_caption("Crosstabulasi gender vs awareness")
+
+tabel_6
+```
+
+## Tabulasi *Multiple Responses* {.center .smaller}
+
+*Percentage*
+
+```{r}
+tabel_7 = 
+  df %>% 
+  tab_cells(mrset(tv_1 %to% tv_5)) %>% 
+  tab_stat_cpct() %>%
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  tab_caption("Stasiun TV")
+
+tabel_7
+```
+
+## Crosstabulasi *Multiple Responses* {.center .smaller}
+
+*Percentage*
+
+```{r}
+tabel_8 =
+  df %>% 
+  tab_cells(mrset(tv_1 %to% tv_5)) %>%
+  tab_cols(gender,total()) %>% 
+  tab_stat_cpct() %>%
+  tab_sort_desc() %>% 
+  tab_pivot() %>% 
+  tab_caption("Crosstabulasi stasiun TV vs gender")
+
+tabel_8
+```
+
+## Crosstabulasi *Multiple Responses* {.center .smaller}
+
+*Percentage* dengan tambahan signifikansi
+
+```{r}
+tabel_9 =
+  df %>% 
+  tab_cells(usia) %>%
+  tab_cols(gender,total()) %>% 
+  tab_stat_cpct() %>%
+  tab_sort_desc() %>% 
+  tab_last_sig_cpct() %>% 
+  tab_pivot() %>% 
+  tab_caption("Crosstabulasi stasiun TV vs gender")
+
+tabel_9
+```
+
+## Crosstabulasi *Multiple Responses* dengan Filter Usia {.center .smaller}
+
+```{r}
+tabel_10 =
+  df %>% 
+  filter(aware == "ya") %>% 
+  tab_cells(usia) %>%
+  tab_cols(gender,total()) %>% 
+  tab_stat_cpct() %>%
+  tab_sort_desc() %>% 
+  tab_last_sig_cpct() %>% 
+  tab_pivot() %>% 
+  tab_caption("Base: responden yang aware")
+
+# Percentage dengan tambahan signifikansi: crosstabulasi stasiun TV vs gender
+tabel_10
+```
+
+## *Save Into Excel File*
+
+```{r}
+#| output-location: default
+
+# kita bikin workbook-nya
+wb = createWorkbook()
+
+# kita masukkan datanya
+tabel_all = list(tabel_1,tabel_2,tabel_3,
+                 tabel_4,tabel_5,tabel_6,
+                 tabel_7,tabel_8,tabel_9)
+
+# bikin sheet
+nama_sheet = paste0("tabulasi all")
+sh = addWorksheet(wb, nama_sheet)
+
+# masukin semua tabel ke sheet tersebut
+xl_write(tabel_all, wb, sh)
+
+# export ke Excel
+saveWorkbook(wb, "hasil tabulasi new.xlsx", overwrite = TRUE)
+```
+
+## _Wrap Up!_ {.center}
+
+::: columns
+::: {.column width="50%"}
+### _Advantages_
+
+- Mirip _syntax_ `SPSS`.
+- Baik untuk uji statistik dan signifikansi langsung.
+- Format tabel jika di-_export_ ke `Ms. Excel` __terbaik__.
+
+:::
+::: {.column width="50%"}
+### _Disadvantages_
+
+- Agak rumit untuk di-_render_ langsung ke _output_ `markdown`.
+- Agak rumit untuk digabungkan ke skrip visualisasi `ggplot2`.
+
+:::
+:::
+
+## `library(dplyr)` dan `library(janitor)` {.center .smaller}
+
+## Tabulasi Sederhana {.center .smaller}
+
+*Real number* dan *Percentage*: Alternatif 1
+
+```{r}
+tabel_1 = 
+  df %>% 
+  group_by(gender) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  mutate(persen = n / sum(n) * 100,
+         persen = round(persen,2)) %>% 
+  janitor::adorn_totals()
+
+tabel_1
+```
+
+## Tabulasi Sederhana {.center .smaller}
+
+*Real number* dan *Percentage*: Alternatif 2
+
+```{r}
+tabel_1 = 
+  df %>% 
+  count(gender) %>% 
+  mutate(persen = prop.table(n) * 100) %>% 
+  adorn_totals()
+
+tabel_1
+```
+
+## Tabulasi Sederhana {.center .smaller}
+
+*Real number* dan *Percentage*: Alternatif 3
+
+```{r}
+tabel_1 = 
+  df %>% 
+  tabyl(gender) %>% 
+  adorn_pct_formatting(digits = 2)
+
+tabel_1
+```
+
+## Crosstabulasi Sederhana {.center .smaller}
+
+*Real number* dan *Percentage*: Alternatif 1
+
+```{r}
+tabel_1 = 
+  df %>% 
+  group_by(gender,aware) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  group_by(gender) %>% 
+  mutate(persen = n / sum(n) * 100,
+         persen = round(persen,2)) %>% 
+  ungroup() 
+
+tabel_1
+```
+
+## Crosstabulasi Sederhana {.center .smaller}
+
+*Real number* dan *Percentage*: Alternatif 2
+
+```{r}
+tabel_2 = 
+  df %>% 
+  tabyl(aware,gender) %>% 
+  adorn_totals(c("row","col")) %>%
+  adorn_percentages() %>%
+  adorn_pct_formatting(digits = 2)
+
+tabel_2
+```
+
+## Crosstabulasi Sederhana {.center .smaller}
+
+*Real number* dan *Percentage*: Alternatif 3
+
+```{r}
+tabel_3 = 
+  df %>%
+  count(gender,aware) %>%
+  group_by(gender) %>% 
+  mutate(n = prop.table(n) * 100) %>%
+  ungroup() %>% 
+  pivot_wider(names_from = gender, values_from = n, values_fill = 0)
+
+tabel_3
+```
+
+## Tabulasi *Multiple Responses* {.center .smaller}
+
+*Real number* dan *Percentage*
+
+```{r}
+df %>%
+  select(id,tv_1,tv_2,tv_3,tv_4,tv_5) %>% 
+  melt(id.vars = "id") %>% 
+  filter(!is.na(value)) %>% 
+  count(value) %>% 
+  mutate(persen = n / nrow(df) * 100,
+         persen = round(persen,2))
+```
+
+## Tabulasi *Multiple Responses* {.center .smaller}
+
+*Real number* dan *Percentage*
+
+```{r}
+df %>%
+  select(id,gender,tv_1,tv_2,tv_3,tv_4,tv_5) %>% 
+  melt(id.vars = c("id","gender")) %>% 
+  filter(!is.na(value)) %>% 
+  count(gender,value) %>% 
+  group_by(gender) %>% 
+  mutate(persen = n / nrow(df) * 100,
+         persen = round(persen,2)) %>%
+  ungroup() %>% 
+  pivot_wider(names_from = gender, values_from = persen) %>% 
+  adorn_totals()
+```
+
+## _Wrap Up!_ {.center}
+
+::: columns
+::: {.column width="50%"}
+### _Advantages_
+
+- Tidak ada uji statistik dan signifikansi secara langsung.
+
+:::
+::: {.column width="50%"}
+### _Disadvantages_
+
+- Bisa langsung _render_ langsung ke _output_ `markdown` menggunakan `knitr`.
+- Sangat mudah untuk digabungkan ke skrip visualisasi `ggplot2`.
+
+:::
+:::
+
+# VISUALISASI
+
+## `library(ggplot2)` {.center .smaller}
+
+## Kenapa Harus Menggunakan `ggplot2`?
+
+```{mermaid}
+flowchart LR
+  A[Raw Data] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
 ```
