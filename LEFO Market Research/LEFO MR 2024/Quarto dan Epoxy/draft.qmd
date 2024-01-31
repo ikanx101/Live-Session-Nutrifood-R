@@ -559,7 +559,7 @@ Per Januari 2024 saya mengucapkan *Goodbye to Xaringan*.
 
 ## _Features!_ {.center}
 
-1. _Multiple formats_; mulai dari _presentation_, pdf, _books_, _web_, _manuscripts_, dan lain-lain.
+1. _Multiple formats_; mulai dari _presentation_, pdf, _books_, _web_, _manuscripts_, _dashboard_, dan lain-lain.
 1. _Multiple features!_  Bisa dicek di [_Quarto guides_](https://quarto.org/docs/guide/).
 
 ## _Inline Reporting_ Menggunakan `library(epoxy)` {.center}
