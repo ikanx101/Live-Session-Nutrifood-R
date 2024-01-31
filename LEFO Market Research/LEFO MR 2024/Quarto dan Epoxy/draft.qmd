@@ -48,6 +48,25 @@ Saya membagi *flow* kerja pembuatan *report* market riset sebagai berikut:
 3.  Membuat *report* dengan `quarto`.
 4.  Membuat *inline reporting* dengan `library(epoxy)`.
 
+## Kenapa Harus Menggunakan **R**? {.center}
+
+```{mermaid}
+%%| echo: false
+flowchart LR
+  A[Raw Data] --> B(Data Prep)
+  B --> C(expss)
+  B --> D(dplyr janitor)
+  C --> E[Tabulasi]
+  D --> E
+  E --> F[Saved to Excel]
+  E --> G[Data Viz]
+  G --> H[Saved to png/jpeg]
+  G --> I[Report w/ markdown]
+  I --> J[Full report]
+  F --> K(Buat report pptx manual)
+  H --> K
+```
+
 ## Silakan *Install Libraries* Berikut Ini {.center}
 
 ```{r}
@@ -284,23 +303,22 @@ xl_write(tabel_all, wb, sh)
 saveWorkbook(wb, "hasil tabulasi new.xlsx", overwrite = TRUE)
 ```
 
-## _Wrap Up!_ {.center}
+## *Wrap Up!* {.center}
 
 ::: columns
 ::: {.column width="50%"}
-### _Advantages_
+### *Advantages*
 
-- Mirip _syntax_ `SPSS`.
-- Baik untuk uji statistik dan signifikansi langsung.
-- Format tabel jika di-_export_ ke `Ms. Excel` __terbaik__.
-
+-   Mirip *syntax* `SPSS`.
+-   Baik untuk uji statistik dan signifikansi langsung.
+-   Format tabel jika di-*export* ke `Ms. Excel` **terbaik**.
 :::
+
 ::: {.column width="50%"}
-### _Disadvantages_
+### *Disadvantages*
 
-- Agak rumit untuk di-_render_ langsung ke _output_ `markdown`.
-- Agak rumit untuk digabungkan ke skrip visualisasi `ggplot2`.
-
+-   Agak rumit untuk di-*render* langsung ke *output* `markdown`.
+-   Agak rumit untuk digabungkan ke skrip visualisasi `ggplot2`.
 :::
 :::
 
@@ -431,34 +449,176 @@ df %>%
   adorn_totals()
 ```
 
-## _Wrap Up!_ {.center}
+## *Wrap Up!* {.center}
 
 ::: columns
 ::: {.column width="50%"}
-### _Advantages_
+### *Advantages*
 
-- Tidak ada uji statistik dan signifikansi secara langsung.
-
+-   Tidak ada uji statistik dan signifikansi secara langsung.
 :::
+
 ::: {.column width="50%"}
-### _Disadvantages_
+### *Disadvantages*
 
-- Bisa langsung _render_ langsung ke _output_ `markdown` menggunakan `knitr`.
-- Sangat mudah untuk digabungkan ke skrip visualisasi `ggplot2`.
-
+-   Bisa langsung *render* langsung ke *output* `markdown` menggunakan `knitr`.
+-   Sangat mudah untuk digabungkan ke skrip visualisasi `ggplot2`.
 :::
 :::
 
 # VISUALISASI
 
-## `library(ggplot2)` {.center .smaller}
+## Pertanyaannya: {.center}
 
-## Kenapa Harus Menggunakan `ggplot2`?
+#### Lebih ribet gak sih harus bikin data viz pake `library(ggplot2)` ?
 
-```{mermaid}
-flowchart LR
-  A[Raw Data] --> B(Round edge)
-  B --> C{Decision}
-  C --> D[Result one]
-  C --> E[Result two]
+## Jawabannya {.center}
+
+#### *Tergantung!*
+
+-   Bisa jadi lebih cepat.
+-   Bisa jadi lebih lambat.
+-   TAPI:
+    -   Untuk data yang selalu bertambah dan *report* yang berulang, pengerjaannya akan lebih cepat!
+    -   *Reproducibility!*
+
+## *Tips and Trick* {.center}
+
+Buat *custom function!*
+
+## Contoh
+
+```{r}
+bikinin.pie.chart.dari.data.saya.donk=function(data,variabel,pertanyaan,sub.judul){
+  # bikin tabulasi
+  tabulasi=data %>% tab_cells(variabel) %>% tab_stat_cpct() %>% tab_pivot()
+  # merapikan tabulasi
+  tabulasi$dummy=strsplit(tabulasi$row_labels,'\\|')
+  for(i in 1:length(tabulasi$dummy))
+  {tabulasi$row_labels[i]=unlist(tabulasi$dummy[i])[2]}
+  tabulasi=data.frame(tabulasi)
+  tabulasi=tabulasi[-3]
+  colnames(tabulasi)=c('ket','percent')
+  tabulasi$percent=round(tabulasi$percent,2)
+  n = as.numeric(tabulasi %>% filter(grepl('total',ket,ignore.case=T)) %>% 
+                   summarise(n=sum(percent))) #ambil base buat kepentingan chart
+  tabulasi = tabulasi %>% 
+    filter(!grepl('total',ket,ignore.case=T)) #tabulasi final untuk chart
+  tabulasi = tabulasi %>% filter(!is.na(ket))
+  
+  # buat caption
+  if(n>30){
+    label_n=paste0(tabulasi$ket,
+                   ', ',
+                   tabulasi$percent,'%')
+    caption_n = paste0('PERCENTAGE - n = ',n)
+  } else{
+    label_n=paste0(tabulasi$ket,', ',
+                   round(tabulasi$percent*n/100,0),
+                   ' (',
+                   tabulasi$percent,'%)')
+    caption_n = paste0('REAL NUMBER - n = ',n,', indikasi')
+  }
+  
+  # buat visualisasi
+  ggplot(tabulasi,aes(x='',y=percent,fill=ket,label=label_n)) + 
+    geom_bar(stat='identity',color = "black") + 
+    coord_polar("y", start=0) +
+    scale_fill_brewer(palette="Pastel2") + 
+    theme_minimal() + 
+    theme(panel.grid=element_blank(),axis.title.y=element_blank(),
+          axis.title.x=element_blank(),legend.position = 'none',
+          plot.title = element_text(size=17),
+          plot.subtitle = element_text(size=13),
+          plot.caption=element_text(size=12),
+          axis.text.y = element_blank(),
+          axis.text.x = element_blank()) +
+    geom_label(position = position_stack(vjust = 0.5),size=4.5) +
+    labs(caption = caption_n) +
+    labs(title=pertanyaan,subtitle = sub.judul)
+}
+  
+bikinin.pie.chart.dari.data.saya.donk(df,df$gender,"Gender responden?","base: all resp")
 ```
+
+## Contoh
+
+```{r}
+bikinin.pie.chart.dari.data.saya.donk(df,df$aware,"Awareness responden?","base: all resp")
+```
+
+# *REPORTING*
+
+## *Welcome to Quarto* {.center}
+
+Per Januari 2024 saya mengucapkan *Goodbye to Xaringan*.
+
+![](sharingan.png){fig-align="center" width="370" height="133"}
+
+## *Slides* ini Dibuat dengan Quarto! {.center}
+
+## _Features!_ {.center}
+
+1. _Multiple formats_; mulai dari _presentation_, pdf, _books_, _web_, _manuscripts_, dan lain-lain.
+1. _Multiple features!_  Bisa dicek di [_Quarto guides_](https://quarto.org/docs/guide/).
+
+## _Inline Reporting_ Menggunakan `library(epoxy)` {.center}
+
+## Misalkan Data _Summary_ {.center}
+
+```{r}
+summary_df = 
+  df %>% 
+  summarise(n_resp   = length(id),
+            n_pria   = length(id[gender == "pria"]),
+            n_wanita = length(id[gender == "wanita"]),
+            n_aware  = length(id[aware == "ya"])
+            )
+
+summary_df %>% knitr::kable()
+```
+
+
+## `epoxy` Demo {.center .smaller}
+
+Kita bisa menuliskan skrip `epoxy` sebagai berikut:
+
+```
+Total responden yang telah diwawancara adalah sebesar {summary_df$n_resp}. Terdiri dari {summary_df$n_pria} orang responden pria dan {summary_df$n_wanita} orang responden wanita. 
+
+> Kita dapatkan {summary_df$n_aware} orang _aware_ terhadap iklan produk __X__ dari total {summary_df$n_resp} orang responden.
+```
+
+Hasilnya adalah:
+
+```{epoxy}
+Total responden yang telah diwawancara adalah sebesar {summary_df$n_resp}. Terdiri dari {summary_df$n_pria} orang responden pria dan {summary_df$n_wanita} orang responden wanita. 
+
+> Kita dapatkan {summary_df$n_aware} orang _aware_ terhadap iklan produk __X__ dari total {summary_df$n_resp} orang responden.
+```
+
+
+## _Another Example_ {.center .smaller}
+
+```{r}
+summary_df = 
+  df %>% 
+  tabyl(usia,aware)
+
+summary_df %>% knitr::kable()
+```
+
+Kita bisa menuliskan:
+
+```
+#```{epoxy .data = summary_df}
+1. Para responden {usia}, kita dapatkan {ya} orang _aware_ dan {tidak} orang _unaware_ terhadap iklan.
+```
+
+## _Results_ {.center .smaller}
+
+```{epoxy .data = summary_df}
+1. Para responden {usia}, kita dapatkan {ya} orang _aware_ dan {tidak} orang _unaware_ terhadap iklan.
+```
+
+# TERIMA KASIH {.center .unlisted .unnumbered}

@@ -1,0 +1,4 @@
+- source: draft.qmd
+  quarto-pub:
+    - id: 64f1f016-d376-4498-98d8-d1fdd341aee9
+      url: 'https://ikanx101.quarto.pub/reporting-using-r-studio'
