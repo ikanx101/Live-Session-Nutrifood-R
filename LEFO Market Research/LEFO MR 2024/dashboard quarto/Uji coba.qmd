@@ -1,0 +1,57 @@
+---
+title: "Uji coba"
+subtitle: "subtitle"
+author: "Ikang"
+institute: "Nutrifood"
+format: dashboard
+server: shiny
+---
+
+```{r}
+#| context: setup
+library(ggplot2)
+library(shiny)
+library(dplyr)
+
+df = mtcars
+row.names(df) = NULL
+
+sil_sel = df |> pull(cyl) |> unique() |> sort()
+
+```
+
+# {.sidebar}
+
+```{r}
+selectInput('cyl_sel', 'Silinder', sil_sel) 
+```
+
+# Plot
+
+```{r}
+plotOutput('plot')
+```
+
+
+```{r}
+#| context: server
+
+dataset <- reactive({
+  df |>
+    filter(cyl %in% input$cyl_sel)
+})
+ 
+output$plot <- renderPlot({
+  
+  p = 
+    dataset() |>
+    ggplot(aes(x = mpg,y = hp)) +
+    geom_point()
+  
+  p
+})
+
+```
+
+
+
