@@ -1,0 +1,332 @@
+---
+title: "Math Behind the Indonesian Election"
+subtitle: "Sebuah Bahan Diskusi"
+author: Ikang Fadhli
+institute: ikanx101.com
+format: 
+  revealjs:
+    theme: sky
+    logo: logo.png
+    css: logo.css
+    slide-number: true
+    footer: Saling Sharing SMUN 1 Bekasi 2004
+    incremental: true
+    show-slide-number: all
+    transition: convex
+    width: 1280
+    height: 720
+    highlight-style: arrow-dark
+    #toc: true
+    #toc-title: Agenda Kita Hari Ini
+    #toc-depth: 1
+    output-location: column
+    code-overflow: scroll
+editor: visual
+execute: 
+  echo: false
+  warning: false
+---
+
+# *BACKGROUND* {.center}
+
+PEMILU SEBENTAR LAGI!
+
+# KITA *POLLING* DULU {.center}
+
+PEMILU ITU *PREDICTABLE* ATAU *UNPREDICTABLE* ?
+
+## Pernah Lihat Berita Berikut Ini? {.center}
+
+### **Caleg kurang biaya**
+
+![](gb1.png){fig-align="center" width="450"}
+
+## Pernah Lihat Berita Berikut Ini? {.center}
+
+### **Caleg pinjam uang**
+
+![](gb2.png){fig-align="center" width="450"}
+
+## Pernah Lihat Berita Berikut Ini? {.center}
+
+### **Calon kepala daerah butuh uang**
+
+![](gb3.png){fig-align="center" width="450"}
+
+## Pernah Lihat Berita Berikut Ini? {.center}
+
+### **Butuh modal uang untuk nyaleg**
+
+![](gb4.png){fig-align="center" width="450"}
+
+# TUNGGU DULU!
+
+-   Saya mau tanya:
+    -   Apakah kalian tahu cara menghitung kursi legislatif?
+    -   Apakah para caleg tahu cara menghitung kursi legislatif?
+
+```{r}
+#| echo: false
+
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+```
+
+## PERHATIKAN DATA BERIKUT INI {.center .smaller}
+
+Hasil Rekapitulasi Suara Dapil Jawa Barat I
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-dpi: 800
+#| fig-height: 8
+# ambil file dulu
+file = "REKAP SUARA NASIONAL.xlsx"
+sht = excel_sheets(file)
+df = read_excel(file,sheet = sht[1])
+
+# ini datanya
+df = df |> filter(wilayah == "JAWA BARAT I")
+df_plt = 
+  df |>
+  reshape2::melt(id.vars = "wilayah") |>
+  mutate(partai = gsub("\\_","",variable)) |>
+  mutate(partai = toupper(partai)) |>
+  mutate(persen = value / sum(value) * 100,
+         persen = round(persen,2),
+         label  = paste0(persen,"%"))
+
+df_plt |>
+  ggplot(aes(x = reorder(partai,persen),
+             y = persen)) +
+  geom_col(color = "black",
+           aes(fill = persen)) +
+  geom_text(aes(label = label,
+                y     = persen + 1.1),
+            size = 3.25) +
+  scale_fill_gradient(low = "darkred",high = "steelblue") +
+  coord_flip() +
+  ylim(0,22) +
+  labs(title = "Rekapitulasi Suara Pemilu 2019 di Jawa Barat I",
+       subtitle = "Sumber data: kpu.go.id",
+       caption = paste0("Total suara sah = 1.696.022\nScraped n Viz using R\nikanx101.com")) +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+```
+:::
+
+::: {.column width="50%"}
+#### Diketahui:
+
+-   Dapil Jawa Barat I memiliki 7 kursi DPR untuk diperebutkan.
+-   Pertanyaannya:
+    -   Bagaimana cara menghitung partai apa mendapatkan kursi berapa?
+:::
+:::
+
+## Penentuan Kursi {.center .smaller}
+
+::: columns
+::: {.column width="50%"}
+#### Distribusi Proporsional
+
+Perhatikan rumus berikut ini:
+
+$$\text{# kursi} = \text{% partai } \times 7$$
+
+-   Apakah seperti itu cara menghitungnya?
+    -   Tentu tidak
+:::
+
+::: {.column width="50%"}
+```{r}
+tabel_jabar = df_plt %>% 
+  mutate(kursi = round(persen * 7 / 100,1),
+         kursi_round = round(kursi,0)) %>% 
+  arrange(desc(kursi)) %>% 
+  select(partai,kursi,kursi_round)
+
+tabel_jabar %>% 
+  knitr::kable(caption = "Perolehan Kursi dengan Rumus Proporsi",
+               align   = "c") %>% 
+  kableExtra::kable_styling(font_size = 15) 
+
+```
+:::
+:::
+
+## BUKAN SEPERTI ITU CARA MENGHITUNG KURSI LEGISLATIF! {.center .smaller}
+
+## Lantas bagaimana caranya? {.center}
+
+### Pernah mendengar **Metode Sainte-Laguë**?
+
+## **Metode Sainte-Laguë** {.center}
+
+![](saint%20lague.png){fig-align="center" width="550"}
+
+Proses penghitungan kursi legislatif menggunakan metode ini mengedepankan prinsip ***fairness***.
+
+# DEMO PERHITUNGAN {.center}
+
+## APAKAH BENAR-BENAR *KEADILAN SOSIAL BAGI SELURUH RAKYAT INDONESIA* DITEGAKKAN? {.center .smaller}
+
+## BAGAIMANA *MENGAKALI* SAINT LAGUE? {.center .smaller}
+
+## Jawab {.center}
+
+> Membuat UU pemilu berisi *parliamentary threshold* sebesar: **4%**
+
+## Apakah ada *key point(s)* yang bisa kita dapatkan? {.center}
+
+# PREDIKSI PEROLEHAN SUARA PARTAI {.center .smaller}
+
+## Apakah bisa kita memberikan suatu nilai kepada partai (misal **X**) ? {.center}
+
+## JAWABANNYA : BISA! {.center}
+
+Dengan dua pendekatan:
+
+1.  Historikal hasil pemilu 2019
+2.  Distribusi hasil pemilu 2019
+
+```{r}
+rm(list=ls())
+file = "Rekomendasi Suara Parpol dan Caleg per DAPIL.xlsx"
+df   = read_excel(file)
+```
+
+## CARA PERTAMA {.center}
+
+Kita kembali ke *Excel* perhitungan Saint Lague!
+
+## CARA PERTAMA {.center}
+
+::: {style="font-size: 50%;"}
+Dari perhitungan di *excel* sebelumnya, kita bisa menghitung untuk semua DAPIL, berapa suara minimum yang harus didapatkan agar mendapatkan **satu kursi** di Senayan.
+:::
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| fig-dpi: 800
+#| fig-height: 7
+
+df %>% 
+  arrange(desc(rekomendasi_parpol)) %>% 
+  head(10) %>% 
+  ggplot(aes(x = reorder(dapil,rekomendasi_parpol),
+             y = rekomendasi_parpol)) +
+  geom_col(color = "black",
+           aes(fill = rekomendasi_parpol)) +
+  geom_label(aes(label = rekomendasi_parpol,
+                 y     = rekomendasi_parpol + 10),
+             size = 3.25) +
+  scale_fill_gradient(low = "darkred",high = "steelblue") +
+  coord_flip() +
+  labs(title = "Rekapitulasi Rekomendasi Suara Minimal\nAgar Partai Bisa Mendapatkan Minimal Satu Kursi DPR",
+       subtitle = "Sumber data: kpu.go.id",
+       caption = paste0("Top 10 Dapil dengan Minimal Suara yang Terbesar Harus Diraih\nCalculated n Viz using R\nikanx101.com")) +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| fig-dpi: 800
+#| fig-height: 7
+
+df %>% 
+  arrange(desc(rekomendasi_parpol)) %>% 
+  tail(10) %>% 
+  ggplot(aes(x = reorder(dapil,rekomendasi_parpol),
+             y = rekomendasi_parpol)) +
+  geom_col(color = "black",
+           aes(fill = rekomendasi_parpol)) +
+  geom_label(aes(label = rekomendasi_parpol,
+                 y     = rekomendasi_parpol + 10),
+             size = 3.25) +
+  scale_fill_gradient(low = "darkred",high = "steelblue") +
+  coord_flip() +
+  labs(title = "Rekapitulasi Rekomendasi Suara Minimal\nAgar Partai Bisa Mendapatkan Minimal Satu Kursi DPR",
+       subtitle = "Sumber data: kpu.go.id",
+       caption = paste0("Top 10 Dapil dengan Minimal Suara yang Terkecil Harus Diraih\nCalculated n Viz using R\nikanx101.com")) +
+  theme_minimal() +
+  theme(axis.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+
+```
+:::
+:::
+
+## CARA KEDUA {.center}
+
+Pernah mendengar **Benford's Law** ?
+
+## *Benford's Law* {.center}
+
+![](https://raw.githubusercontent.com/ikanx101/ikanx101.github.io/master/_posts/advance%20analysis/benford%20law/post_files/figure-gfm/unnamed-chunk-1-1.png){width="500"}
+
+## *Benford's Law* {.center .smaller}
+
+::: {style="font-size: 50%;"}
+Apakah berlaku juga untuk data Pemilu 2019?
+
+```{r}
+#| fig-dpi: 800
+#| fig-height: 4
+
+rm(list=ls())
+library(parallel)
+n_core = detectCores()
+
+# ambil file dulu
+file = "REKAP SUARA NASIONAL.xlsx"
+sht = excel_sheets(file)
+df = read_excel(file,sheet = sht[1])
+
+df_split = 
+  df %>% 
+  reshape2::melt(id.vars = "wilayah") %>% 
+  group_split(wilayah) 
+
+i = 1
+temp = df_split[[i]]
+
+bikin_urutan = function(temp){
+  temp %>% 
+  arrange(desc(value)) %>% 
+  mutate(persen = value/sum(value) * 100,
+         persen = round(persen,2)) %>% 
+  mutate(urut = 1:length(persen)) %>% 
+  select(urut,persen)
+}
+
+final_temp = mclapply(df_split,bikin_urutan,mc.cores = n_core)
+
+final = do.call(rbind,final_temp)
+
+final %>% 
+  ggplot(aes(group = urut,
+             y = persen)) +
+  geom_boxplot(size = 1) +
+  theme_bw() +
+  theme(axis.text.x = element_blank())
+
+```
+
+Dengan memanfaatkan **hukum** ini dan perhitungan *Saint Lague*, kita bisa menghitung minimal suara per Dapil untuk mendapatkan satu kursi.
+:::
+
+# PLUS-PLUS {.center}
+
+## Strategi Nyaleg dengan **GenAI** {.center}
