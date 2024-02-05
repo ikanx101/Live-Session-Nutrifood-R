@@ -1,6 +1,6 @@
 ---
 title: "Reporting using R Studio"
-subtitle: "expss, dplyr, ggplot2, epoxy, dan quarto"
+subtitle: "expss, dplyr, janitor, ggplot2, epoxy, dan quarto"
 author: ikanx101.com
 institute: Market Research Dept. Nutrifood
 format: 
@@ -51,7 +51,7 @@ Saya membagi *flow* kerja pembuatan *report* market riset sebagai berikut:
 ## Kenapa Harus Menggunakan **R**? {.center}
 
 ```{mermaid}
-%%| echo: false
+%%| echo: true
 flowchart LR
   A[Raw Data] --> B(Data Prep)
   B --> C(expss)
@@ -243,7 +243,7 @@ tabel_8 =
 tabel_8
 ```
 
-## Crosstabulasi *Multiple Responses* {.center .smaller}
+## Crosstabulasi Sederhana {.center .smaller}
 
 *Percentage* dengan tambahan signifikansi
 
@@ -261,7 +261,7 @@ tabel_9 =
 tabel_9
 ```
 
-## Crosstabulasi *Multiple Responses* dengan Filter Usia {.center .smaller}
+## Crosstabulasi Sederhana dengan Filter Usia {.center .smaller}
 
 ```{r}
 tabel_10 =
@@ -359,6 +359,8 @@ tabel_1
 
 *Real number* dan *Percentage*: Alternatif 3
 
+`tabyl` merupakan _function_ dari `library(janitor)`.
+
 ```{r}
 tabel_1 = 
   df %>% 
@@ -453,13 +455,13 @@ df %>%
 
 ::: columns
 ::: {.column width="50%"}
-### *Advantages*
+### *Disadvantages*
 
 -   Tidak ada uji statistik dan signifikansi secara langsung.
 :::
 
 ::: {.column width="50%"}
-### *Disadvantages*
+### *Advantages*
 
 -   Bisa langsung *render* langsung ke *output* `markdown` menggunakan `knitr`.
 -   Sangat mudah untuk digabungkan ke skrip visualisasi `ggplot2`.
@@ -557,14 +559,14 @@ Per Januari 2024 saya mengucapkan *Goodbye to Xaringan*.
 
 ## *Slides* ini Dibuat dengan Quarto! {.center}
 
-## _Features!_ {.center}
+## *Features!* {.center}
 
-1. _Multiple formats_; mulai dari _presentation_, pdf, _books_, _web_, _manuscripts_, _dashboard_, dan lain-lain.
-1. _Multiple features!_  Bisa dicek di [_Quarto guides_](https://quarto.org/docs/guide/).
+1.  *Multiple formats*; mulai dari *presentation*, pdf, *books*, *web*, *manuscripts*, *dashboard*, dan lain-lain.
+2.  *Multiple features!* Bisa dicek di [*Quarto guides*](https://quarto.org/docs/guide/).
 
-## _Inline Reporting_ Menggunakan `library(epoxy)` {.center}
+## *Inline Reporting* Menggunakan `library(epoxy)` {.center}
 
-## Misalkan Data _Summary_ {.center}
+## Misalkan Data *Summary* {.center}
 
 ```{r}
 summary_df = 
@@ -578,12 +580,11 @@ summary_df =
 summary_df %>% knitr::kable()
 ```
 
-
 ## `epoxy` Demo {.center .smaller}
 
 Kita bisa menuliskan skrip `epoxy` sebagai berikut:
 
-```
+```         
 Total responden yang telah diwawancara adalah sebesar {summary_df$n_resp}. Terdiri dari {summary_df$n_pria} orang responden pria dan {summary_df$n_wanita} orang responden wanita. 
 
 > Kita dapatkan {summary_df$n_aware} orang _aware_ terhadap iklan produk __X__ dari total {summary_df$n_resp} orang responden.
@@ -597,8 +598,7 @@ Total responden yang telah diwawancara adalah sebesar {summary_df$n_resp}. Terdi
 > Kita dapatkan {summary_df$n_aware} orang _aware_ terhadap iklan produk __X__ dari total {summary_df$n_resp} orang responden.
 ```
 
-
-## _Another Example_ {.center .smaller}
+## *Another Example* {.center .smaller}
 
 ```{r}
 summary_df = 
@@ -610,12 +610,12 @@ summary_df %>% knitr::kable()
 
 Kita bisa menuliskan:
 
-```
+```         
 #```{epoxy .data = summary_df}
 1. Para responden {usia}, kita dapatkan {ya} orang _aware_ dan {tidak} orang _unaware_ terhadap iklan.
 ```
 
-## _Results_ {.center .smaller}
+## *Results* {.center .smaller}
 
 ```{epoxy .data = summary_df}
 1. Para responden {usia}, kita dapatkan {ya} orang _aware_ dan {tidak} orang _unaware_ terhadap iklan.

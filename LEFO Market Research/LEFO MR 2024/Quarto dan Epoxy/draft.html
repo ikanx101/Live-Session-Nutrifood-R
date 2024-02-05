@@ -398,7 +398,7 @@
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Reporting using R Studio</h1>
-  <p class="subtitle">expss, dplyr, ggplot2, epoxy, dan quarto</p>
+  <p class="subtitle">expss, dplyr, janitor, ggplot2, epoxy, dan quarto</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -452,7 +452,22 @@ ikanx101.com
 </section>
 <section id="kenapa-harus-menggunakan-r" class="slide level2 center">
 <h2>Kenapa Harus Menggunakan <strong>R</strong>?</h2>
-<div class="cell" data-reveal="true" data-layout-align="default">
+<div class="cell columns column-output-location" data-reveal="true" data-layout-align="default">
+<div class="column">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href=""></a>flowchart LR</span>
+<span id="cb1-2"><a href=""></a>  A[Raw Data] --&gt; B(Data Prep)</span>
+<span id="cb1-3"><a href=""></a>  B --&gt; C(expss)</span>
+<span id="cb1-4"><a href=""></a>  B --&gt; D(dplyr janitor)</span>
+<span id="cb1-5"><a href=""></a>  C --&gt; E[Tabulasi]</span>
+<span id="cb1-6"><a href=""></a>  D --&gt; E</span>
+<span id="cb1-7"><a href=""></a>  E --&gt; F[Saved to Excel]</span>
+<span id="cb1-8"><a href=""></a>  E --&gt; G[Data Viz]</span>
+<span id="cb1-9"><a href=""></a>  G --&gt; H[Saved to png/jpeg]</span>
+<span id="cb1-10"><a href=""></a>  G --&gt; I[Report w/ markdown]</span>
+<span id="cb1-11"><a href=""></a>  I --&gt; J[Full report]</span>
+<span id="cb1-12"><a href=""></a>  F --&gt; K(Buat report pptx manual)</span>
+<span id="cb1-13"><a href=""></a>  H --&gt; K</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
@@ -476,19 +491,20 @@ ikanx101.com
 </div>
 </div>
 </div>
+</div>
 </section>
 <section id="silakan-install-libraries-berikut-ini" class="slide level2 center">
 <h2>Silakan <em>Install Libraries</em> Berikut Ini</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb1-2"><a href=""></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb1-3"><a href=""></a><span class="fu">library</span>(reshape2)</span>
-<span id="cb1-4"><a href=""></a><span class="fu">library</span>(janitor)</span>
-<span id="cb1-5"><a href=""></a><span class="fu">library</span>(expss)</span>
-<span id="cb1-6"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-7"><a href=""></a><span class="fu">library</span>(epoxy)</span>
-<span id="cb1-8"><a href=""></a><span class="fu">library</span>(openxlsx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb2-2"><a href=""></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb2-3"><a href=""></a><span class="fu">library</span>(reshape2)</span>
+<span id="cb2-4"><a href=""></a><span class="fu">library</span>(janitor)</span>
+<span id="cb2-5"><a href=""></a><span class="fu">library</span>(expss)</span>
+<span id="cb2-6"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-7"><a href=""></a><span class="fu">library</span>(epoxy)</span>
+<span id="cb2-8"><a href=""></a><span class="fu">library</span>(openxlsx)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 
 </div>
@@ -500,29 +516,29 @@ ikanx101.com
 <p>Kita buat data sintetis sebagai berikut:</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>n_resp <span class="ot">=</span> <span class="dv">500</span></span>
-<span id="cb2-2"><a href=""></a>id     <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>n_resp</span>
-<span id="cb2-3"><a href=""></a>gender <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"pria"</span>,<span class="st">"wanita"</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-4"><a href=""></a>usia   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"&lt; 15 th"</span>,<span class="st">"16 - 20 th"</span>,<span class="st">"21 - 25 th"</span>,<span class="st">"26 - 30 th"</span>,<span class="st">"&gt; 30 th"</span>),</span>
-<span id="cb2-5"><a href=""></a>                n_resp,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">2</span>,.<span class="dv">4</span>,.<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">replace =</span> T)</span>
-<span id="cb2-6"><a href=""></a>usia   <span class="ot">=</span> <span class="fu">factor</span>(usia,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"&lt; 15 th"</span>,<span class="st">"16 - 20 th"</span>,<span class="st">"21 - 25 th"</span>,<span class="st">"26 - 30 th"</span>,<span class="st">"&gt; 30 th"</span>))</span>
-<span id="cb2-7"><a href=""></a>aware  <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"ya"</span>,<span class="st">"tidak"</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">7</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-8"><a href=""></a>tv_1   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">9</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-9"><a href=""></a>tv_2   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">7</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-10"><a href=""></a>tv_3   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-11"><a href=""></a>tv_4   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">7</span>,.<span class="dv">3</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-12"><a href=""></a>tv_5   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">99</span>,.<span class="dv">01</span>),n_resp,<span class="at">replace =</span> T)</span>
-<span id="cb2-13"><a href=""></a></span>
-<span id="cb2-14"><a href=""></a>df     <span class="ot">=</span> <span class="fu">data.frame</span>(id,gender,usia,aware,tv_1,tv_2,tv_3,tv_4,tv_5) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-15"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">tv_1 =</span> <span class="fu">ifelse</span>(tv_1 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"RCTI"</span>,<span class="cn">NA</span>),</span>
-<span id="cb2-16"><a href=""></a>         <span class="at">tv_2 =</span> <span class="fu">ifelse</span>(tv_2 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"SCTV"</span>,<span class="cn">NA</span>),</span>
-<span id="cb2-17"><a href=""></a>         <span class="at">tv_3 =</span> <span class="fu">ifelse</span>(tv_3 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"METRO"</span>,<span class="cn">NA</span>),</span>
-<span id="cb2-18"><a href=""></a>         <span class="at">tv_4 =</span> <span class="fu">ifelse</span>(tv_4 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"INDOSIAR"</span>,<span class="cn">NA</span>),</span>
-<span id="cb2-19"><a href=""></a>         <span class="at">tv_5 =</span> <span class="fu">ifelse</span>(tv_5 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"NET"</span>,<span class="cn">NA</span>))</span>
-<span id="cb2-20"><a href=""></a></span>
-<span id="cb2-21"><a href=""></a>df <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-22"><a href=""></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align   =</span> <span class="st">"c"</span>,<span class="at">caption =</span> <span class="st">"Sample 15 Data Responden"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-23"><a href=""></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>n_resp <span class="ot">=</span> <span class="dv">500</span></span>
+<span id="cb3-2"><a href=""></a>id     <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>n_resp</span>
+<span id="cb3-3"><a href=""></a>gender <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"pria"</span>,<span class="st">"wanita"</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-4"><a href=""></a>usia   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"&lt; 15 th"</span>,<span class="st">"16 - 20 th"</span>,<span class="st">"21 - 25 th"</span>,<span class="st">"26 - 30 th"</span>,<span class="st">"&gt; 30 th"</span>),</span>
+<span id="cb3-5"><a href=""></a>                n_resp,<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">2</span>,.<span class="dv">4</span>,.<span class="dv">2</span>,<span class="dv">2</span>),<span class="at">replace =</span> T)</span>
+<span id="cb3-6"><a href=""></a>usia   <span class="ot">=</span> <span class="fu">factor</span>(usia,<span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"&lt; 15 th"</span>,<span class="st">"16 - 20 th"</span>,<span class="st">"21 - 25 th"</span>,<span class="st">"26 - 30 th"</span>,<span class="st">"&gt; 30 th"</span>))</span>
+<span id="cb3-7"><a href=""></a>aware  <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"ya"</span>,<span class="st">"tidak"</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">7</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-8"><a href=""></a>tv_1   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">1</span>,.<span class="dv">9</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-9"><a href=""></a>tv_2   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">3</span>,.<span class="dv">7</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-10"><a href=""></a>tv_3   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">5</span>,.<span class="dv">5</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-11"><a href=""></a>tv_4   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">7</span>,.<span class="dv">3</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-12"><a href=""></a>tv_5   <span class="ot">=</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>),<span class="at">prob =</span> <span class="fu">c</span>(.<span class="dv">99</span>,.<span class="dv">01</span>),n_resp,<span class="at">replace =</span> T)</span>
+<span id="cb3-13"><a href=""></a></span>
+<span id="cb3-14"><a href=""></a>df     <span class="ot">=</span> <span class="fu">data.frame</span>(id,gender,usia,aware,tv_1,tv_2,tv_3,tv_4,tv_5) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-15"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">tv_1 =</span> <span class="fu">ifelse</span>(tv_1 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"RCTI"</span>,<span class="cn">NA</span>),</span>
+<span id="cb3-16"><a href=""></a>         <span class="at">tv_2 =</span> <span class="fu">ifelse</span>(tv_2 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"SCTV"</span>,<span class="cn">NA</span>),</span>
+<span id="cb3-17"><a href=""></a>         <span class="at">tv_3 =</span> <span class="fu">ifelse</span>(tv_3 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"METRO"</span>,<span class="cn">NA</span>),</span>
+<span id="cb3-18"><a href=""></a>         <span class="at">tv_4 =</span> <span class="fu">ifelse</span>(tv_4 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"INDOSIAR"</span>,<span class="cn">NA</span>),</span>
+<span id="cb3-19"><a href=""></a>         <span class="at">tv_5 =</span> <span class="fu">ifelse</span>(tv_5 <span class="sc">==</span> <span class="dv">1</span>,<span class="st">"NET"</span>,<span class="cn">NA</span>))</span>
+<span id="cb3-20"><a href=""></a></span>
+<span id="cb3-21"><a href=""></a>df <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">15</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-22"><a href=""></a>  knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="at">align   =</span> <span class="st">"c"</span>,<span class="at">caption =</span> <span class="st">"Sample 15 Data Responden"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-23"><a href=""></a>  kableExtra<span class="sc">::</span><span class="fu">kable_styling</span>(<span class="at">font_size =</span> <span class="dv">14</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -544,28 +560,17 @@ ikanx101.com
 <tbody>
 <tr class="odd">
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">pria</td>
-<td style="text-align: center;">26 - 30 th</td>
+<td style="text-align: center;">wanita</td>
+<td style="text-align: center;">&lt; 15 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">METRO</td>
-<td style="text-align: center;">INDOSIAR</td>
+<td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">2</td>
-<td style="text-align: center;">pria</td>
-<td style="text-align: center;">&gt; 30 th</td>
-<td style="text-align: center;">tidak</td>
-<td style="text-align: center;">RCTI</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">INDOSIAR</td>
-<td style="text-align: center;">NET</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
 <td style="text-align: center;">wanita</td>
 <td style="text-align: center;">&gt; 30 th</td>
 <td style="text-align: center;">tidak</td>
@@ -575,21 +580,32 @@ ikanx101.com
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">pria</td>
-<td style="text-align: center;">21 - 25 th</td>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">wanita</td>
+<td style="text-align: center;">&gt; 30 th</td>
 <td style="text-align: center;">ya</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
+<td style="text-align: center;">METRO</td>
 <td style="text-align: center;">NA</td>
+<td style="text-align: center;">NA</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">wanita</td>
+<td style="text-align: center;">26 - 30 th</td>
+<td style="text-align: center;">tidak</td>
+<td style="text-align: center;">RCTI</td>
+<td style="text-align: center;">NA</td>
+<td style="text-align: center;">METRO</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">5</td>
 <td style="text-align: center;">pria</td>
-<td style="text-align: center;">&gt; 30 th</td>
+<td style="text-align: center;">&lt; 15 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
@@ -599,8 +615,8 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: center;">6</td>
-<td style="text-align: center;">pria</td>
-<td style="text-align: center;">&gt; 30 th</td>
+<td style="text-align: center;">wanita</td>
+<td style="text-align: center;">21 - 25 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
@@ -611,44 +627,44 @@ ikanx101.com
 <tr class="odd">
 <td style="text-align: center;">7</td>
 <td style="text-align: center;">wanita</td>
-<td style="text-align: center;">&gt; 30 th</td>
+<td style="text-align: center;">26 - 30 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
-<td style="text-align: center;">METRO</td>
+<td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">8</td>
 <td style="text-align: center;">wanita</td>
-<td style="text-align: center;">21 - 25 th</td>
-<td style="text-align: center;">tidak</td>
+<td style="text-align: center;">&gt; 30 th</td>
+<td style="text-align: center;">ya</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
+<td style="text-align: center;">METRO</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">9</td>
 <td style="text-align: center;">wanita</td>
-<td style="text-align: center;">&gt; 30 th</td>
+<td style="text-align: center;">26 - 30 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
-<td style="text-align: center;">SCTV</td>
 <td style="text-align: center;">NA</td>
-<td style="text-align: center;">INDOSIAR</td>
+<td style="text-align: center;">METRO</td>
+<td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">wanita</td>
+<td style="text-align: center;">pria</td>
 <td style="text-align: center;">&gt; 30 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
-<td style="text-align: center;">METRO</td>
+<td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
@@ -659,30 +675,30 @@ ikanx101.com
 <td style="text-align: center;">ya</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
+<td style="text-align: center;">METRO</td>
 <td style="text-align: center;">NA</td>
-<td style="text-align: center;">INDOSIAR</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">12</td>
-<td style="text-align: center;">wanita</td>
-<td style="text-align: center;">&gt; 30 th</td>
-<td style="text-align: center;">ya</td>
+<td style="text-align: center;">pria</td>
+<td style="text-align: center;">26 - 30 th</td>
+<td style="text-align: center;">tidak</td>
+<td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">NA</td>
-<td style="text-align: center;">SCTV</td>
 <td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
+<td style="text-align: center;">INDOSIAR</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">13</td>
-<td style="text-align: center;">wanita</td>
+<td style="text-align: center;">pria</td>
 <td style="text-align: center;">&gt; 30 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
-<td style="text-align: center;">NA</td>
-<td style="text-align: center;">NA</td>
+<td style="text-align: center;">METRO</td>
+<td style="text-align: center;">INDOSIAR</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="even">
@@ -691,19 +707,19 @@ ikanx101.com
 <td style="text-align: center;">&gt; 30 th</td>
 <td style="text-align: center;">tidak</td>
 <td style="text-align: center;">RCTI</td>
+<td style="text-align: center;">SCTV</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
-<td style="text-align: center;">INDOSIAR</td>
 <td style="text-align: center;">NA</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">15</td>
-<td style="text-align: center;">pria</td>
+<td style="text-align: center;">wanita</td>
 <td style="text-align: center;">&gt; 30 th</td>
-<td style="text-align: center;">tidak</td>
+<td style="text-align: center;">ya</td>
 <td style="text-align: center;">RCTI</td>
 <td style="text-align: center;">SCTV</td>
-<td style="text-align: center;">METRO</td>
+<td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 <td style="text-align: center;">NA</td>
 </tr>
@@ -730,14 +746,14 @@ ikanx101.com
 <p><em>Real number</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
-<span id="cb3-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb3-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-4"><a href=""></a>  <span class="fu">tab_stat_cases</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb3-6"><a href=""></a>  <span class="fu">set_caption</span>(<span class="st">"Real Number Jenis Kelamin"</span>) </span>
-<span id="cb3-7"><a href=""></a></span>
-<span id="cb3-8"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
+<span id="cb4-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-4"><a href=""></a>  <span class="fu">tab_stat_cases</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-5"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb4-6"><a href=""></a>  <span class="fu">set_caption</span>(<span class="st">"Real Number Jenis Kelamin"</span>) </span>
+<span id="cb4-7"><a href=""></a></span>
+<span id="cb4-8"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -757,11 +773,11 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;pria&nbsp;</td>
-<td style="text-align: right;">242</td>
+<td style="text-align: right;">254</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;wanita&nbsp;</td>
-<td style="text-align: right;">258</td>
+<td style="text-align: right;">246</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
@@ -779,14 +795,14 @@ ikanx101.com
 <p><em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>tabel_2 <span class="ot">=</span> </span>
-<span id="cb4-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb4-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-4"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb4-5"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb4-6"><a href=""></a>  <span class="fu">set_caption</span>(<span class="st">"Percentage Jenis Kelamin"</span>)</span>
-<span id="cb4-7"><a href=""></a></span>
-<span id="cb4-8"><a href=""></a>tabel_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>tabel_2 <span class="ot">=</span> </span>
+<span id="cb5-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-4"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href=""></a>  <span class="fu">set_caption</span>(<span class="st">"Percentage Jenis Kelamin"</span>)</span>
+<span id="cb5-7"><a href=""></a></span>
+<span id="cb5-8"><a href=""></a>tabel_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -806,11 +822,11 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;pria&nbsp;</td>
-<td style="text-align: right;">48.4</td>
+<td style="text-align: right;">50.8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;wanita&nbsp;</td>
-<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">49.2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
@@ -828,15 +844,15 @@ ikanx101.com
 <p><em>Real Number and Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>tabel_3 <span class="ot">=</span> </span>
-<span id="cb5-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb5-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-4"><a href=""></a>  <span class="fu">tab_stat_cases</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb5-7"><a href=""></a>  <span class="fu">set_caption</span>(<span class="st">"Real Number and Percentage Jenis Kelamin"</span>)</span>
-<span id="cb5-8"><a href=""></a></span>
-<span id="cb5-9"><a href=""></a>tabel_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>tabel_3 <span class="ot">=</span> </span>
+<span id="cb6-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb6-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href=""></a>  <span class="fu">tab_stat_cases</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb6-7"><a href=""></a>  <span class="fu">set_caption</span>(<span class="st">"Real Number and Percentage Jenis Kelamin"</span>)</span>
+<span id="cb6-8"><a href=""></a></span>
+<span id="cb6-9"><a href=""></a>tabel_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -856,11 +872,11 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;pria&nbsp;</td>
-<td style="text-align: right;">242.0</td>
+<td style="text-align: right;">254.0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;wanita&nbsp;</td>
-<td style="text-align: right;">258.0</td>
+<td style="text-align: right;">246.0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
@@ -868,11 +884,11 @@ ikanx101.com
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;pria&nbsp;</td>
-<td style="text-align: right;">48.4</td>
+<td style="text-align: right;">50.8</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;wanita&nbsp;</td>
-<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">49.2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
@@ -890,13 +906,13 @@ ikanx101.com
 <p><em>Real number</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>tabel_4 <span class="ot">=</span> </span>
-<span id="cb6-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb6-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender,usia) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href=""></a>  <span class="fu">tab_stat_cases</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href=""></a>  <span class="fu">tab_pivot</span>()</span>
-<span id="cb6-6"><a href=""></a></span>
-<span id="cb6-7"><a href=""></a>tabel_4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>tabel_4 <span class="ot">=</span> </span>
+<span id="cb7-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender,usia) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href=""></a>  <span class="fu">tab_stat_cases</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href=""></a>  <span class="fu">tab_pivot</span>()</span>
+<span id="cb7-6"><a href=""></a></span>
+<span id="cb7-7"><a href=""></a>tabel_4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -913,11 +929,11 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;pria&nbsp;</td>
-<td style="text-align: right;">242</td>
+<td style="text-align: right;">254</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;wanita&nbsp;</td>
-<td style="text-align: right;">258</td>
+<td style="text-align: right;">246</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
@@ -928,19 +944,19 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&lt; 15 th&nbsp;</td>
-<td style="text-align: right;">18</td>
+<td style="text-align: right;">20</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;16 - 20 th&nbsp;</td>
-<td style="text-align: right;">43</td>
+<td style="text-align: right;">30</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;21 - 25 th&nbsp;</td>
-<td style="text-align: right;">66</td>
+<td style="text-align: right;">76</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;26 - 30 th&nbsp;</td>
-<td style="text-align: right;">39</td>
+<td style="text-align: right;">40</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&gt; 30 th&nbsp;</td>
@@ -962,15 +978,15 @@ ikanx101.com
 <p><em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>tabel_5 <span class="ot">=</span> </span>
-<span id="cb7-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb7-3"><a href=""></a>  <span class="fu">tab_cells</span>(usia) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-4"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi gender vs usia"</span>)</span>
-<span id="cb7-8"><a href=""></a></span>
-<span id="cb7-9"><a href=""></a>tabel_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>tabel_5 <span class="ot">=</span> </span>
+<span id="cb8-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href=""></a>  <span class="fu">tab_cells</span>(usia) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-4"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb8-7"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi gender vs usia"</span>)</span>
+<span id="cb8-8"><a href=""></a></span>
+<span id="cb8-9"><a href=""></a>tabel_5</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -999,43 +1015,43 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&lt; 15 th&nbsp;</td>
-<td style="text-align: right;">2.9</td>
-<td style="text-align: right;">4.3</td>
+<td style="text-align: right;">3.9</td>
+<td style="text-align: right;">4.1</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">3.6</td>
+<td style="text-align: right;">4.0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;16 - 20 th&nbsp;</td>
-<td style="text-align: right;">9.9</td>
-<td style="text-align: right;">7.4</td>
+<td style="text-align: right;">7.1</td>
+<td style="text-align: right;">4.9</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">8.6</td>
+<td style="text-align: right;">6.0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;21 - 25 th&nbsp;</td>
-<td style="text-align: right;">11.2</td>
-<td style="text-align: right;">15.1</td>
+<td style="text-align: right;">12.2</td>
+<td style="text-align: right;">18.3</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">13.2</td>
+<td style="text-align: right;">15.2</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;26 - 30 th&nbsp;</td>
-<td style="text-align: right;">9.9</td>
-<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">7.1</td>
+<td style="text-align: right;">8.9</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">7.8</td>
+<td style="text-align: right;">8.0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&gt; 30 th&nbsp;</td>
-<td style="text-align: right;">66.1</td>
-<td style="text-align: right;">67.4</td>
+<td style="text-align: right;">69.7</td>
+<td style="text-align: right;">63.8</td>
 <td style="text-align: right;">&nbsp;</td>
 <td style="text-align: right;">66.8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">242</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">258</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">254</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">246</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">500</td>
 </tr>
@@ -1051,15 +1067,15 @@ ikanx101.com
 <p><em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>tabel_6 <span class="ot">=</span></span>
-<span id="cb8-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href=""></a>  <span class="fu">tab_cols</span>(aware,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb8-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb8-7"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi gender vs awareness"</span>)</span>
-<span id="cb8-8"><a href=""></a></span>
-<span id="cb8-9"><a href=""></a>tabel_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>tabel_6 <span class="ot">=</span></span>
+<span id="cb9-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href=""></a>  <span class="fu">tab_cells</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-4"><a href=""></a>  <span class="fu">tab_cols</span>(aware,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb9-7"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi gender vs awareness"</span>)</span>
+<span id="cb9-8"><a href=""></a></span>
+<span id="cb9-9"><a href=""></a>tabel_6</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1088,22 +1104,22 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;pria&nbsp;</td>
-<td style="text-align: right;">47.9</td>
-<td style="text-align: right;">49.4</td>
+<td style="text-align: right;">49.3</td>
+<td style="text-align: right;">54.2</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">48.4</td>
+<td style="text-align: right;">50.8</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;wanita&nbsp;</td>
-<td style="text-align: right;">52.1</td>
-<td style="text-align: right;">50.6</td>
+<td style="text-align: right;">50.7</td>
+<td style="text-align: right;">45.8</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">51.6</td>
+<td style="text-align: right;">49.2</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">336</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">164</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">347</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">153</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">500</td>
 </tr>
@@ -1119,15 +1135,15 @@ ikanx101.com
 <p><em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>tabel_7 <span class="ot">=</span> </span>
-<span id="cb9-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href=""></a>  <span class="fu">tab_cells</span>(<span class="fu">mrset</span>(tv_1 <span class="sc">%to%</span> tv_5)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb9-5"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-7"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Stasiun TV"</span>)</span>
-<span id="cb9-8"><a href=""></a></span>
-<span id="cb9-9"><a href=""></a>tabel_7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>tabel_7 <span class="ot">=</span> </span>
+<span id="cb10-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href=""></a>  <span class="fu">tab_cells</span>(<span class="fu">mrset</span>(tv_1 <span class="sc">%to%</span> tv_5)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Stasiun TV"</span>)</span>
+<span id="cb10-8"><a href=""></a></span>
+<span id="cb10-9"><a href=""></a>tabel_7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1144,27 +1160,27 @@ ikanx101.com
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;RCTI&nbsp;</td>
-<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">91.1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;SCTV&nbsp;</td>
-<td style="text-align: right;">72.0</td>
+<td style="text-align: right;">72.7</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;METRO&nbsp;</td>
-<td style="text-align: right;">49.9</td>
+<td style="text-align: right;">52.7</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;INDOSIAR&nbsp;</td>
-<td style="text-align: right;">29.2</td>
+<td style="text-align: right;">29.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;NET&nbsp;</td>
-<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">0.8</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;#Total cases&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">497</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">495</td>
 </tr>
 </tbody>
 </table>
@@ -1178,16 +1194,16 @@ ikanx101.com
 <p><em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>tabel_8 <span class="ot">=</span></span>
-<span id="cb10-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb10-3"><a href=""></a>  <span class="fu">tab_cells</span>(<span class="fu">mrset</span>(tv_1 <span class="sc">%to%</span> tv_5)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-7"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb10-8"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi stasiun TV vs gender"</span>)</span>
-<span id="cb10-9"><a href=""></a></span>
-<span id="cb10-10"><a href=""></a>tabel_8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>tabel_8 <span class="ot">=</span></span>
+<span id="cb11-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href=""></a>  <span class="fu">tab_cells</span>(<span class="fu">mrset</span>(tv_1 <span class="sc">%to%</span> tv_5)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb11-8"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi stasiun TV vs gender"</span>)</span>
+<span id="cb11-9"><a href=""></a></span>
+<span id="cb11-10"><a href=""></a>tabel_8</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1213,45 +1229,45 @@ ikanx101.com
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;RCTI&nbsp;</td>
-<td style="text-align: right;">90.5</td>
-<td style="text-align: right;">90.2</td>
+<td style="text-align: right;">90.9</td>
+<td style="text-align: right;">91.4</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">90.3</td>
+<td style="text-align: right;">91.1</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;SCTV&nbsp;</td>
-<td style="text-align: right;">71.1</td>
-<td style="text-align: right;">72.9</td>
+<td style="text-align: right;">74.2</td>
+<td style="text-align: right;">71.2</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">72.0</td>
+<td style="text-align: right;">72.7</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;METRO&nbsp;</td>
-<td style="text-align: right;">51.2</td>
-<td style="text-align: right;">48.6</td>
+<td style="text-align: right;">54.0</td>
+<td style="text-align: right;">51.4</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">49.9</td>
+<td style="text-align: right;">52.7</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;INDOSIAR&nbsp;</td>
-<td style="text-align: right;">29.8</td>
 <td style="text-align: right;">28.6</td>
+<td style="text-align: right;">30.5</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">29.2</td>
+<td style="text-align: right;">29.5</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;NET&nbsp;</td>
-<td style="text-align: right;">2.1</td>
-<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">0.4</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">0.8</td>
 </tr>
 <tr class="even">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;#Total cases&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">242</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">255</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">252</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">243</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">497</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">495</td>
 </tr>
 </tbody>
 </table>
@@ -1260,22 +1276,22 @@ ikanx101.com
 </div>
 </div>
 </section>
-<section id="crosstabulasi-multiple-responses-1" class="slide level2 center smaller">
-<h2>Crosstabulasi <em>Multiple Responses</em></h2>
+<section id="crosstabulasi-sederhana-2" class="slide level2 center smaller">
+<h2>Crosstabulasi Sederhana</h2>
 <p><em>Percentage</em> dengan tambahan signifikansi</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>tabel_9 <span class="ot">=</span></span>
-<span id="cb11-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb11-3"><a href=""></a>  <span class="fu">tab_cells</span>(usia) <span class="sc">%&gt;%</span></span>
-<span id="cb11-4"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb11-6"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-7"><a href=""></a>  <span class="fu">tab_last_sig_cpct</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-8"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb11-9"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi stasiun TV vs gender"</span>)</span>
-<span id="cb11-10"><a href=""></a></span>
-<span id="cb11-11"><a href=""></a>tabel_9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>tabel_9 <span class="ot">=</span></span>
+<span id="cb12-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href=""></a>  <span class="fu">tab_cells</span>(usia) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-5"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-7"><a href=""></a>  <span class="fu">tab_last_sig_cpct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb12-9"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Crosstabulasi stasiun TV vs gender"</span>)</span>
+<span id="cb12-10"><a href=""></a></span>
+<span id="cb12-11"><a href=""></a>tabel_9</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1313,49 +1329,49 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&gt; 30 th&nbsp;</td>
-<td style="text-align: right;">66.1&nbsp;</td>
+<td style="text-align: right;">69.7&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">67.4&nbsp;</td>
+<td style="text-align: right;">63.8&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
 <td style="text-align: right;">66.8&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;21 - 25 th&nbsp;</td>
-<td style="text-align: right;">11.2&nbsp;</td>
+<td style="text-align: right;">12.2&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">15.1&nbsp;</td>
+<td style="text-align: right;">18.3&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">13.2&nbsp;</td>
+<td style="text-align: right;">15.2&nbsp;</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;16 - 20 th&nbsp;</td>
-<td style="text-align: right;">9.9&nbsp;</td>
+<td style="text-align: right;">7.1&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">7.4&nbsp;</td>
+<td style="text-align: right;">4.9&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">8.6&nbsp;</td>
+<td style="text-align: right;">6.0&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;26 - 30 th&nbsp;</td>
-<td style="text-align: right;">9.9&nbsp;</td>
+<td style="text-align: right;">7.1&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">5.8&nbsp;</td>
+<td style="text-align: right;">8.9&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">7.8&nbsp;</td>
+<td style="text-align: right;">8.0&nbsp;</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&lt; 15 th&nbsp;</td>
-<td style="text-align: right;">2.9&nbsp;</td>
+<td style="text-align: right;">3.9&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">4.3&nbsp;</td>
+<td style="text-align: right;">4.1&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">3.6&nbsp;</td>
+<td style="text-align: right;">4.0&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">242&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">254&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">258&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">246&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">500&nbsp;</td>
 </tr>
@@ -1366,23 +1382,23 @@ ikanx101.com
 </div>
 </div>
 </section>
-<section id="crosstabulasi-multiple-responses-dengan-filter-usia" class="slide level2 center smaller">
-<h2>Crosstabulasi <em>Multiple Responses</em> dengan Filter Usia</h2>
+<section id="crosstabulasi-sederhana-dengan-filter-usia" class="slide level2 center smaller">
+<h2>Crosstabulasi Sederhana dengan Filter Usia</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a>tabel_10 <span class="ot">=</span></span>
-<span id="cb12-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb12-3"><a href=""></a>  <span class="fu">filter</span>(aware <span class="sc">==</span> <span class="st">"ya"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-4"><a href=""></a>  <span class="fu">tab_cells</span>(usia) <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-6"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb12-7"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-8"><a href=""></a>  <span class="fu">tab_last_sig_cpct</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-9"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb12-10"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Base: responden yang aware"</span>)</span>
-<span id="cb12-11"><a href=""></a></span>
-<span id="cb12-12"><a href=""></a><span class="co"># Percentage dengan tambahan signifikansi: crosstabulasi stasiun TV vs gender</span></span>
-<span id="cb12-13"><a href=""></a>tabel_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>tabel_10 <span class="ot">=</span></span>
+<span id="cb13-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href=""></a>  <span class="fu">filter</span>(aware <span class="sc">==</span> <span class="st">"ya"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href=""></a>  <span class="fu">tab_cells</span>(usia) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href=""></a>  <span class="fu">tab_cols</span>(gender,<span class="fu">total</span>()) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href=""></a>  <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href=""></a>  <span class="fu">tab_sort_desc</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-8"><a href=""></a>  <span class="fu">tab_last_sig_cpct</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-9"><a href=""></a>  <span class="fu">tab_pivot</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb13-10"><a href=""></a>  <span class="fu">tab_caption</span>(<span class="st">"Base: responden yang aware"</span>)</span>
+<span id="cb13-11"><a href=""></a></span>
+<span id="cb13-12"><a href=""></a><span class="co"># Percentage dengan tambahan signifikansi: crosstabulasi stasiun TV vs gender</span></span>
+<span id="cb13-13"><a href=""></a>tabel_10</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1420,51 +1436,51 @@ ikanx101.com
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&gt; 30 th&nbsp;</td>
-<td style="text-align: right;">64.2 &nbsp;</td>
+<td style="text-align: right;">66.3&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">74.7&nbsp;</td>
+<td style="text-align: right;">70.0&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">69.5&nbsp;</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">&nbsp;&nbsp;&nbsp;16 - 20 th&nbsp;</td>
-<td style="text-align: right;">11.1 &nbsp;</td>
-<td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">9.6&nbsp;</td>
-<td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">10.4&nbsp;</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">&nbsp;&nbsp;&nbsp;26 - 30 th&nbsp;</td>
-<td style="text-align: right;">11.1 B</td>
-<td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">2.4&nbsp;</td>
-<td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">6.7&nbsp;</td>
+<td style="text-align: right;">68.0&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;21 - 25 th&nbsp;</td>
-<td style="text-align: right;">9.9 &nbsp;</td>
+<td style="text-align: right;">14.5&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
+<td style="text-align: right;">12.9&nbsp;</td>
+<td style="text-align: right;">&nbsp;</td>
+<td style="text-align: right;">13.7&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&nbsp;&nbsp;&nbsp;16 - 20 th&nbsp;</td>
 <td style="text-align: right;">8.4&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">9.1&nbsp;</td>
+<td style="text-align: right;">5.7&nbsp;</td>
+<td style="text-align: right;">&nbsp;</td>
+<td style="text-align: right;">7.2&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&nbsp;&nbsp;&nbsp;26 - 30 th&nbsp;</td>
+<td style="text-align: right;">7.2&nbsp;</td>
+<td style="text-align: right;">&nbsp;</td>
+<td style="text-align: right;">7.1&nbsp;</td>
+<td style="text-align: right;">&nbsp;</td>
+<td style="text-align: right;">7.2&nbsp;</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">&nbsp;&nbsp;&nbsp;&lt; 15 th&nbsp;</td>
-<td style="text-align: right;">3.7 &nbsp;</td>
-<td style="text-align: right;">&nbsp;</td>
-<td style="text-align: right;">4.8&nbsp;</td>
+<td style="text-align: right;">3.6&nbsp;</td>
 <td style="text-align: right;">&nbsp;</td>
 <td style="text-align: right;">4.3&nbsp;</td>
+<td style="text-align: right;">&nbsp;</td>
+<td style="text-align: right;">3.9&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left; border-bottom: 2px solid grey;">&nbsp;&nbsp;&nbsp;#Total cases&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">81 &nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">83&nbsp;</td>
 <td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
-<td style="text-align: right; border-bottom: 2px solid grey;">164&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">70&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">&nbsp;</td>
+<td style="text-align: right; border-bottom: 2px solid grey;">153&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -1476,23 +1492,23 @@ ikanx101.com
 <section id="save-into-excel-file" class="slide level2">
 <h2><em>Save Into Excel File</em></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># kita bikin workbook-nya</span></span>
-<span id="cb13-2"><a href=""></a>wb <span class="ot">=</span> <span class="fu">createWorkbook</span>()</span>
-<span id="cb13-3"><a href=""></a></span>
-<span id="cb13-4"><a href=""></a><span class="co"># kita masukkan datanya</span></span>
-<span id="cb13-5"><a href=""></a>tabel_all <span class="ot">=</span> <span class="fu">list</span>(tabel_1,tabel_2,tabel_3,</span>
-<span id="cb13-6"><a href=""></a>                 tabel_4,tabel_5,tabel_6,</span>
-<span id="cb13-7"><a href=""></a>                 tabel_7,tabel_8,tabel_9)</span>
-<span id="cb13-8"><a href=""></a></span>
-<span id="cb13-9"><a href=""></a><span class="co"># bikin sheet</span></span>
-<span id="cb13-10"><a href=""></a>nama_sheet <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"tabulasi all"</span>)</span>
-<span id="cb13-11"><a href=""></a>sh <span class="ot">=</span> <span class="fu">addWorksheet</span>(wb, nama_sheet)</span>
-<span id="cb13-12"><a href=""></a></span>
-<span id="cb13-13"><a href=""></a><span class="co"># masukin semua tabel ke sheet tersebut</span></span>
-<span id="cb13-14"><a href=""></a><span class="fu">xl_write</span>(tabel_all, wb, sh)</span>
-<span id="cb13-15"><a href=""></a></span>
-<span id="cb13-16"><a href=""></a><span class="co"># export ke Excel</span></span>
-<span id="cb13-17"><a href=""></a><span class="fu">saveWorkbook</span>(wb, <span class="st">"hasil tabulasi new.xlsx"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="co"># kita bikin workbook-nya</span></span>
+<span id="cb14-2"><a href=""></a>wb <span class="ot">=</span> <span class="fu">createWorkbook</span>()</span>
+<span id="cb14-3"><a href=""></a></span>
+<span id="cb14-4"><a href=""></a><span class="co"># kita masukkan datanya</span></span>
+<span id="cb14-5"><a href=""></a>tabel_all <span class="ot">=</span> <span class="fu">list</span>(tabel_1,tabel_2,tabel_3,</span>
+<span id="cb14-6"><a href=""></a>                 tabel_4,tabel_5,tabel_6,</span>
+<span id="cb14-7"><a href=""></a>                 tabel_7,tabel_8,tabel_9)</span>
+<span id="cb14-8"><a href=""></a></span>
+<span id="cb14-9"><a href=""></a><span class="co"># bikin sheet</span></span>
+<span id="cb14-10"><a href=""></a>nama_sheet <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">"tabulasi all"</span>)</span>
+<span id="cb14-11"><a href=""></a>sh <span class="ot">=</span> <span class="fu">addWorksheet</span>(wb, nama_sheet)</span>
+<span id="cb14-12"><a href=""></a></span>
+<span id="cb14-13"><a href=""></a><span class="co"># masukin semua tabel ke sheet tersebut</span></span>
+<span id="cb14-14"><a href=""></a><span class="fu">xl_write</span>(tabel_all, wb, sh)</span>
+<span id="cb14-15"><a href=""></a></span>
+<span id="cb14-16"><a href=""></a><span class="co"># export ke Excel</span></span>
+<span id="cb14-17"><a href=""></a><span class="fu">saveWorkbook</span>(wb, <span class="st">"hasil tabulasi new.xlsx"</span>, <span class="at">overwrite =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="wrap-up" class="slide level2 center">
@@ -1522,21 +1538,21 @@ ikanx101.com
 <p><em>Real number</em> dan <em>Percentage</em>: Alternatif 1</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
-<span id="cb14-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb14-3"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-4"><a href=""></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb14-5"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb14-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb14-7"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-8"><a href=""></a>  janitor<span class="sc">::</span><span class="fu">adorn_totals</span>()</span>
-<span id="cb14-9"><a href=""></a></span>
-<span id="cb14-10"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
+<span id="cb15-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href=""></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb15-5"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb15-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb15-7"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-8"><a href=""></a>  janitor<span class="sc">::</span><span class="fu">adorn_totals</span>()</span>
+<span id="cb15-9"><a href=""></a></span>
+<span id="cb15-10"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code> gender   n persen
-   pria 242   48.4
- wanita 258   51.6
+   pria 254   50.8
+ wanita 246   49.2
   Total 500  100.0</code></pre>
 </div>
 </div>
@@ -1547,18 +1563,18 @@ ikanx101.com
 <p><em>Real number</em> dan <em>Percentage</em>: Alternatif 2</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
-<span id="cb16-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb16-3"><a href=""></a>  <span class="fu">count</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> <span class="fu">prop.table</span>(n) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href=""></a>  <span class="fu">adorn_totals</span>()</span>
-<span id="cb16-6"><a href=""></a></span>
-<span id="cb16-7"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
+<span id="cb17-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href=""></a>  <span class="fu">count</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> <span class="fu">prop.table</span>(n) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-5"><a href=""></a>  <span class="fu">adorn_totals</span>()</span>
+<span id="cb17-6"><a href=""></a></span>
+<span id="cb17-7"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code> gender   n persen
-   pria 242   48.4
- wanita 258   51.6
+   pria 254   50.8
+ wanita 246   49.2
   Total 500  100.0</code></pre>
 </div>
 </div>
@@ -1567,96 +1583,97 @@ ikanx101.com
 <section id="tabulasi-sederhana-6" class="slide level2 center smaller">
 <h2>Tabulasi Sederhana</h2>
 <p><em>Real number</em> dan <em>Percentage</em>: Alternatif 3</p>
+<p><code>tabyl</code> merupakan <em>function</em> dari <code>library(janitor)</code>.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
-<span id="cb18-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href=""></a>  <span class="fu">tabyl</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb18-4"><a href=""></a>  <span class="fu">adorn_pct_formatting</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb18-5"><a href=""></a></span>
-<span id="cb18-6"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
+<span id="cb19-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href=""></a>  <span class="fu">tabyl</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb19-4"><a href=""></a>  <span class="fu">adorn_pct_formatting</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb19-5"><a href=""></a></span>
+<span id="cb19-6"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code> gender   n percent
-   pria 242  48.40%
- wanita 258  51.60%</code></pre>
-</div>
-</div>
-</div>
-</section>
-<section id="crosstabulasi-sederhana-2" class="slide level2 center smaller">
-<h2>Crosstabulasi Sederhana</h2>
-<p><em>Real number</em> dan <em>Percentage</em>: Alternatif 1</p>
-<div class="cell columns column-output-location">
-<div class="column">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
-<span id="cb20-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb20-3"><a href=""></a>  <span class="fu">group_by</span>(gender,aware) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-4"><a href=""></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-5"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb20-6"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb20-8"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb20-9"><a href=""></a>  <span class="fu">ungroup</span>() </span>
-<span id="cb20-10"><a href=""></a></span>
-<span id="cb20-11"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div><div class="column">
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 4 × 4
-  gender aware     n persen
-  &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
-1 pria   tidak   161   66.5
-2 pria   ya       81   33.5
-3 wanita tidak   175   67.8
-4 wanita ya       83   32.2</code></pre>
+   pria 254  50.80%
+ wanita 246  49.20%</code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="crosstabulasi-sederhana-3" class="slide level2 center smaller">
 <h2>Crosstabulasi Sederhana</h2>
-<p><em>Real number</em> dan <em>Percentage</em>: Alternatif 2</p>
+<p><em>Real number</em> dan <em>Percentage</em>: Alternatif 1</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href=""></a>tabel_2 <span class="ot">=</span> </span>
-<span id="cb22-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb22-3"><a href=""></a>  <span class="fu">tabyl</span>(aware,gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb22-4"><a href=""></a>  <span class="fu">adorn_totals</span>(<span class="fu">c</span>(<span class="st">"row"</span>,<span class="st">"col"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb22-5"><a href=""></a>  <span class="fu">adorn_percentages</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb22-6"><a href=""></a>  <span class="fu">adorn_pct_formatting</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span>
-<span id="cb22-7"><a href=""></a></span>
-<span id="cb22-8"><a href=""></a>tabel_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>tabel_1 <span class="ot">=</span> </span>
+<span id="cb21-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href=""></a>  <span class="fu">group_by</span>(gender,aware) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-4"><a href=""></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb21-5"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb21-6"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb21-8"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-9"><a href=""></a>  <span class="fu">ungroup</span>() </span>
+<span id="cb21-10"><a href=""></a></span>
+<span id="cb21-11"><a href=""></a>tabel_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
-<pre><code> aware   pria wanita   Total
- tidak 47.92% 52.08% 100.00%
-    ya 49.39% 50.61% 100.00%
- Total 48.40% 51.60% 100.00%</code></pre>
+<pre><code># A tibble: 4 × 4
+  gender aware     n persen
+  &lt;chr&gt;  &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;
+1 pria   tidak   171   67.3
+2 pria   ya       83   32.7
+3 wanita tidak   176   71.5
+4 wanita ya       70   28.5</code></pre>
 </div>
 </div>
 </div>
 </section>
 <section id="crosstabulasi-sederhana-4" class="slide level2 center smaller">
 <h2>Crosstabulasi Sederhana</h2>
+<p><em>Real number</em> dan <em>Percentage</em>: Alternatif 2</p>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>tabel_2 <span class="ot">=</span> </span>
+<span id="cb23-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href=""></a>  <span class="fu">tabyl</span>(aware,gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href=""></a>  <span class="fu">adorn_totals</span>(<span class="fu">c</span>(<span class="st">"row"</span>,<span class="st">"col"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb23-5"><a href=""></a>  <span class="fu">adorn_percentages</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb23-6"><a href=""></a>  <span class="fu">adorn_pct_formatting</span>(<span class="at">digits =</span> <span class="dv">2</span>)</span>
+<span id="cb23-7"><a href=""></a></span>
+<span id="cb23-8"><a href=""></a>tabel_2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output cell-output-stdout">
+<pre><code> aware   pria wanita   Total
+ tidak 49.28% 50.72% 100.00%
+    ya 54.25% 45.75% 100.00%
+ Total 50.80% 49.20% 100.00%</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="crosstabulasi-sederhana-5" class="slide level2 center smaller">
+<h2>Crosstabulasi Sederhana</h2>
 <p><em>Real number</em> dan <em>Percentage</em>: Alternatif 3</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a>tabel_3 <span class="ot">=</span> </span>
-<span id="cb24-2"><a href=""></a>  df <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href=""></a>  <span class="fu">count</span>(gender,aware) <span class="sc">%&gt;%</span></span>
-<span id="cb24-4"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb24-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">prop.table</span>(n) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb24-6"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb24-7"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
-<span id="cb24-8"><a href=""></a></span>
-<span id="cb24-9"><a href=""></a>tabel_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>tabel_3 <span class="ot">=</span> </span>
+<span id="cb25-2"><a href=""></a>  df <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href=""></a>  <span class="fu">count</span>(gender,aware) <span class="sc">%&gt;%</span></span>
+<span id="cb25-4"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb25-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">n =</span> <span class="fu">prop.table</span>(n) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb25-6"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb25-7"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> n, <span class="at">values_fill =</span> <span class="dv">0</span>)</span>
+<span id="cb25-8"><a href=""></a></span>
+<span id="cb25-9"><a href=""></a>tabel_3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   aware  pria wanita
   &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;
-1 tidak  66.5   67.8
-2 ya     33.5   32.2</code></pre>
+1 tidak  67.3   71.5
+2 ya     32.7   28.5</code></pre>
 </div>
 </div>
 </div>
@@ -1666,21 +1683,21 @@ ikanx101.com
 <p><em>Real number</em> dan <em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href=""></a>  <span class="fu">select</span>(id,tv_1,tv_2,tv_3,tv_4,tv_5) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href=""></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">"id"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-4"><a href=""></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-5"><a href=""></a>  <span class="fu">count</span>(value) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb26-7"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href=""></a>  <span class="fu">select</span>(id,tv_1,tv_2,tv_3,tv_4,tv_5) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-3"><a href=""></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="st">"id"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-4"><a href=""></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href=""></a>  <span class="fu">count</span>(value) <span class="sc">%&gt;%</span> </span>
+<span id="cb27-6"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb27-7"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>      value   n persen
-1: INDOSIAR 145   29.0
-2:    METRO 248   49.6
-3:      NET   7    1.4
-4:     RCTI 449   89.8
-5:     SCTV 358   71.6</code></pre>
+1: INDOSIAR 146   29.2
+2:    METRO 261   52.2
+3:      NET   4    0.8
+4:     RCTI 451   90.2
+5:     SCTV 360   72.0</code></pre>
 </div>
 </div>
 </div>
@@ -1690,30 +1707,31 @@ ikanx101.com
 <p><em>Real number</em> dan <em>Percentage</em></p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a>df <span class="sc">%&gt;%</span></span>
-<span id="cb28-2"><a href=""></a>  <span class="fu">select</span>(id,gender,tv_1,tv_2,tv_3,tv_4,tv_5) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-3"><a href=""></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"id"</span>,<span class="st">"gender"</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-4"><a href=""></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-5"><a href=""></a>  <span class="fu">count</span>(gender,value) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-6"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb28-8"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb28-9"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb28-10"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> persen) <span class="sc">%&gt;%</span> </span>
-<span id="cb28-11"><a href=""></a>  <span class="fu">adorn_totals</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>df <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href=""></a>  <span class="fu">select</span>(id,gender,tv_1,tv_2,tv_3,tv_4,tv_5) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href=""></a>  <span class="fu">melt</span>(<span class="at">id.vars =</span> <span class="fu">c</span>(<span class="st">"id"</span>,<span class="st">"gender"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-4"><a href=""></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(value)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-5"><a href=""></a>  <span class="fu">count</span>(gender,value) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-6"><a href=""></a>  <span class="fu">group_by</span>(gender) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-7"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">persen =</span> n <span class="sc">/</span> <span class="fu">nrow</span>(df) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb29-8"><a href=""></a>         <span class="at">persen =</span> <span class="fu">round</span>(persen,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-9"><a href=""></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb29-10"><a href=""></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> gender, <span class="at">values_from =</span> persen) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-11"><a href=""></a>  <span class="fu">adorn_totals</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output cell-output-stdout">
 <pre><code>    value    n  pria wanita
  INDOSIAR   72  14.4     NA
-    METRO  124  24.8   24.8
-      NET    5   1.0     NA
-     RCTI  219  43.8     NA
-     SCTV  172  34.4     NA
- INDOSIAR   73    NA   14.6
-      NET    2    NA    0.4
-     RCTI  230    NA   46.0
-     SCTV  186    NA   37.2
-    Total 1083 118.4  123.0</code></pre>
+    METRO  136  27.2     NA
+      NET    3   0.6     NA
+     RCTI  229  45.8     NA
+     SCTV  187  37.4     NA
+ INDOSIAR   74    NA   14.8
+    METRO  125    NA   25.0
+      NET    1    NA    0.2
+     RCTI  222    NA   44.4
+     SCTV  173    NA   34.6
+    Total 1222 125.4  119.0</code></pre>
 </div>
 </div>
 </div>
@@ -1722,12 +1740,12 @@ ikanx101.com
 <h2><em>Wrap Up!</em></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="advantages-1"><em>Advantages</em></h3>
+<h3 id="disadvantages-1"><em>Disadvantages</em></h3>
 <ul>
 <li class="fragment">Tidak ada uji statistik dan signifikansi secara langsung.</li>
 </ul>
 </div><div class="column" style="width:50%;">
-<h3 id="disadvantages-1"><em>Disadvantages</em></h3>
+<h3 id="advantages-1"><em>Advantages</em></h3>
 <ul>
 <li class="fragment">Bisa langsung <em>render</em> langsung ke <em>output</em> <code>markdown</code> menggunakan <code>knitr</code>.</li>
 <li class="fragment">Sangat mudah untuk digabungkan ke skrip visualisasi <code>ggplot2</code>.</li>
@@ -1765,56 +1783,56 @@ ikanx101.com
 <h2>Contoh</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>bikinin.pie.chart.dari.data.saya.donk<span class="ot">=</span><span class="cf">function</span>(data,variabel,pertanyaan,sub.judul){</span>
-<span id="cb30-2"><a href=""></a>  <span class="co"># bikin tabulasi</span></span>
-<span id="cb30-3"><a href=""></a>  tabulasi<span class="ot">=</span>data <span class="sc">%&gt;%</span> <span class="fu">tab_cells</span>(variabel) <span class="sc">%&gt;%</span> <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> <span class="fu">tab_pivot</span>()</span>
-<span id="cb30-4"><a href=""></a>  <span class="co"># merapikan tabulasi</span></span>
-<span id="cb30-5"><a href=""></a>  tabulasi<span class="sc">$</span>dummy<span class="ot">=</span><span class="fu">strsplit</span>(tabulasi<span class="sc">$</span>row_labels,<span class="st">'</span><span class="sc">\\</span><span class="st">|'</span>)</span>
-<span id="cb30-6"><a href=""></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tabulasi<span class="sc">$</span>dummy))</span>
-<span id="cb30-7"><a href=""></a>  {tabulasi<span class="sc">$</span>row_labels[i]<span class="ot">=</span><span class="fu">unlist</span>(tabulasi<span class="sc">$</span>dummy[i])[<span class="dv">2</span>]}</span>
-<span id="cb30-8"><a href=""></a>  tabulasi<span class="ot">=</span><span class="fu">data.frame</span>(tabulasi)</span>
-<span id="cb30-9"><a href=""></a>  tabulasi<span class="ot">=</span>tabulasi[<span class="sc">-</span><span class="dv">3</span>]</span>
-<span id="cb30-10"><a href=""></a>  <span class="fu">colnames</span>(tabulasi)<span class="ot">=</span><span class="fu">c</span>(<span class="st">'ket'</span>,<span class="st">'percent'</span>)</span>
-<span id="cb30-11"><a href=""></a>  tabulasi<span class="sc">$</span>percent<span class="ot">=</span><span class="fu">round</span>(tabulasi<span class="sc">$</span>percent,<span class="dv">2</span>)</span>
-<span id="cb30-12"><a href=""></a>  n <span class="ot">=</span> <span class="fu">as.numeric</span>(tabulasi <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">'total'</span>,ket,<span class="at">ignore.case=</span>T)) <span class="sc">%&gt;%</span> </span>
-<span id="cb30-13"><a href=""></a>                   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">sum</span>(percent))) <span class="co">#ambil base buat kepentingan chart</span></span>
-<span id="cb30-14"><a href=""></a>  tabulasi <span class="ot">=</span> tabulasi <span class="sc">%&gt;%</span> </span>
-<span id="cb30-15"><a href=""></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">'total'</span>,ket,<span class="at">ignore.case=</span>T)) <span class="co">#tabulasi final untuk chart</span></span>
-<span id="cb30-16"><a href=""></a>  tabulasi <span class="ot">=</span> tabulasi <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ket))</span>
-<span id="cb30-17"><a href=""></a>  </span>
-<span id="cb30-18"><a href=""></a>  <span class="co"># buat caption</span></span>
-<span id="cb30-19"><a href=""></a>  <span class="cf">if</span>(n<span class="sc">&gt;</span><span class="dv">30</span>){</span>
-<span id="cb30-20"><a href=""></a>    label_n<span class="ot">=</span><span class="fu">paste0</span>(tabulasi<span class="sc">$</span>ket,</span>
-<span id="cb30-21"><a href=""></a>                   <span class="st">', '</span>,</span>
-<span id="cb30-22"><a href=""></a>                   tabulasi<span class="sc">$</span>percent,<span class="st">'%'</span>)</span>
-<span id="cb30-23"><a href=""></a>    caption_n <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">'PERCENTAGE - n = '</span>,n)</span>
-<span id="cb30-24"><a href=""></a>  } <span class="cf">else</span>{</span>
-<span id="cb30-25"><a href=""></a>    label_n<span class="ot">=</span><span class="fu">paste0</span>(tabulasi<span class="sc">$</span>ket,<span class="st">', '</span>,</span>
-<span id="cb30-26"><a href=""></a>                   <span class="fu">round</span>(tabulasi<span class="sc">$</span>percent<span class="sc">*</span>n<span class="sc">/</span><span class="dv">100</span>,<span class="dv">0</span>),</span>
-<span id="cb30-27"><a href=""></a>                   <span class="st">' ('</span>,</span>
-<span id="cb30-28"><a href=""></a>                   tabulasi<span class="sc">$</span>percent,<span class="st">'%)'</span>)</span>
-<span id="cb30-29"><a href=""></a>    caption_n <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">'REAL NUMBER - n = '</span>,n,<span class="st">', indikasi'</span>)</span>
-<span id="cb30-30"><a href=""></a>  }</span>
-<span id="cb30-31"><a href=""></a>  </span>
-<span id="cb30-32"><a href=""></a>  <span class="co"># buat visualisasi</span></span>
-<span id="cb30-33"><a href=""></a>  <span class="fu">ggplot</span>(tabulasi,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">''</span>,<span class="at">y=</span>percent,<span class="at">fill=</span>ket,<span class="at">label=</span>label_n)) <span class="sc">+</span> </span>
-<span id="cb30-34"><a href=""></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
-<span id="cb30-35"><a href=""></a>    <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start=</span><span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb30-36"><a href=""></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">"Pastel2"</span>) <span class="sc">+</span> </span>
-<span id="cb30-37"><a href=""></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
-<span id="cb30-38"><a href=""></a>    <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>(),<span class="at">axis.title.y=</span><span class="fu">element_blank</span>(),</span>
-<span id="cb30-39"><a href=""></a>          <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),<span class="at">legend.position =</span> <span class="st">'none'</span>,</span>
-<span id="cb30-40"><a href=""></a>          <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">17</span>),</span>
-<span id="cb30-41"><a href=""></a>          <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>),</span>
-<span id="cb30-42"><a href=""></a>          <span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
-<span id="cb30-43"><a href=""></a>          <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb30-44"><a href=""></a>          <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb30-45"><a href=""></a>    <span class="fu">geom_label</span>(<span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>),<span class="at">size=</span><span class="fl">4.5</span>) <span class="sc">+</span></span>
-<span id="cb30-46"><a href=""></a>    <span class="fu">labs</span>(<span class="at">caption =</span> caption_n) <span class="sc">+</span></span>
-<span id="cb30-47"><a href=""></a>    <span class="fu">labs</span>(<span class="at">title=</span>pertanyaan,<span class="at">subtitle =</span> sub.judul)</span>
-<span id="cb30-48"><a href=""></a>}</span>
-<span id="cb30-49"><a href=""></a>  </span>
-<span id="cb30-50"><a href=""></a><span class="fu">bikinin.pie.chart.dari.data.saya.donk</span>(df,df<span class="sc">$</span>gender,<span class="st">"Gender responden?"</span>,<span class="st">"base: all resp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a>bikinin.pie.chart.dari.data.saya.donk<span class="ot">=</span><span class="cf">function</span>(data,variabel,pertanyaan,sub.judul){</span>
+<span id="cb31-2"><a href=""></a>  <span class="co"># bikin tabulasi</span></span>
+<span id="cb31-3"><a href=""></a>  tabulasi<span class="ot">=</span>data <span class="sc">%&gt;%</span> <span class="fu">tab_cells</span>(variabel) <span class="sc">%&gt;%</span> <span class="fu">tab_stat_cpct</span>() <span class="sc">%&gt;%</span> <span class="fu">tab_pivot</span>()</span>
+<span id="cb31-4"><a href=""></a>  <span class="co"># merapikan tabulasi</span></span>
+<span id="cb31-5"><a href=""></a>  tabulasi<span class="sc">$</span>dummy<span class="ot">=</span><span class="fu">strsplit</span>(tabulasi<span class="sc">$</span>row_labels,<span class="st">'</span><span class="sc">\\</span><span class="st">|'</span>)</span>
+<span id="cb31-6"><a href=""></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(tabulasi<span class="sc">$</span>dummy))</span>
+<span id="cb31-7"><a href=""></a>  {tabulasi<span class="sc">$</span>row_labels[i]<span class="ot">=</span><span class="fu">unlist</span>(tabulasi<span class="sc">$</span>dummy[i])[<span class="dv">2</span>]}</span>
+<span id="cb31-8"><a href=""></a>  tabulasi<span class="ot">=</span><span class="fu">data.frame</span>(tabulasi)</span>
+<span id="cb31-9"><a href=""></a>  tabulasi<span class="ot">=</span>tabulasi[<span class="sc">-</span><span class="dv">3</span>]</span>
+<span id="cb31-10"><a href=""></a>  <span class="fu">colnames</span>(tabulasi)<span class="ot">=</span><span class="fu">c</span>(<span class="st">'ket'</span>,<span class="st">'percent'</span>)</span>
+<span id="cb31-11"><a href=""></a>  tabulasi<span class="sc">$</span>percent<span class="ot">=</span><span class="fu">round</span>(tabulasi<span class="sc">$</span>percent,<span class="dv">2</span>)</span>
+<span id="cb31-12"><a href=""></a>  n <span class="ot">=</span> <span class="fu">as.numeric</span>(tabulasi <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="fu">grepl</span>(<span class="st">'total'</span>,ket,<span class="at">ignore.case=</span>T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-13"><a href=""></a>                   <span class="fu">summarise</span>(<span class="at">n=</span><span class="fu">sum</span>(percent))) <span class="co">#ambil base buat kepentingan chart</span></span>
+<span id="cb31-14"><a href=""></a>  tabulasi <span class="ot">=</span> tabulasi <span class="sc">%&gt;%</span> </span>
+<span id="cb31-15"><a href=""></a>    <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(<span class="st">'total'</span>,ket,<span class="at">ignore.case=</span>T)) <span class="co">#tabulasi final untuk chart</span></span>
+<span id="cb31-16"><a href=""></a>  tabulasi <span class="ot">=</span> tabulasi <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ket))</span>
+<span id="cb31-17"><a href=""></a>  </span>
+<span id="cb31-18"><a href=""></a>  <span class="co"># buat caption</span></span>
+<span id="cb31-19"><a href=""></a>  <span class="cf">if</span>(n<span class="sc">&gt;</span><span class="dv">30</span>){</span>
+<span id="cb31-20"><a href=""></a>    label_n<span class="ot">=</span><span class="fu">paste0</span>(tabulasi<span class="sc">$</span>ket,</span>
+<span id="cb31-21"><a href=""></a>                   <span class="st">', '</span>,</span>
+<span id="cb31-22"><a href=""></a>                   tabulasi<span class="sc">$</span>percent,<span class="st">'%'</span>)</span>
+<span id="cb31-23"><a href=""></a>    caption_n <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">'PERCENTAGE - n = '</span>,n)</span>
+<span id="cb31-24"><a href=""></a>  } <span class="cf">else</span>{</span>
+<span id="cb31-25"><a href=""></a>    label_n<span class="ot">=</span><span class="fu">paste0</span>(tabulasi<span class="sc">$</span>ket,<span class="st">', '</span>,</span>
+<span id="cb31-26"><a href=""></a>                   <span class="fu">round</span>(tabulasi<span class="sc">$</span>percent<span class="sc">*</span>n<span class="sc">/</span><span class="dv">100</span>,<span class="dv">0</span>),</span>
+<span id="cb31-27"><a href=""></a>                   <span class="st">' ('</span>,</span>
+<span id="cb31-28"><a href=""></a>                   tabulasi<span class="sc">$</span>percent,<span class="st">'%)'</span>)</span>
+<span id="cb31-29"><a href=""></a>    caption_n <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">'REAL NUMBER - n = '</span>,n,<span class="st">', indikasi'</span>)</span>
+<span id="cb31-30"><a href=""></a>  }</span>
+<span id="cb31-31"><a href=""></a>  </span>
+<span id="cb31-32"><a href=""></a>  <span class="co"># buat visualisasi</span></span>
+<span id="cb31-33"><a href=""></a>  <span class="fu">ggplot</span>(tabulasi,<span class="fu">aes</span>(<span class="at">x=</span><span class="st">''</span>,<span class="at">y=</span>percent,<span class="at">fill=</span>ket,<span class="at">label=</span>label_n)) <span class="sc">+</span> </span>
+<span id="cb31-34"><a href=""></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>,<span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span> </span>
+<span id="cb31-35"><a href=""></a>    <span class="fu">coord_polar</span>(<span class="st">"y"</span>, <span class="at">start=</span><span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb31-36"><a href=""></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette=</span><span class="st">"Pastel2"</span>) <span class="sc">+</span> </span>
+<span id="cb31-37"><a href=""></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> </span>
+<span id="cb31-38"><a href=""></a>    <span class="fu">theme</span>(<span class="at">panel.grid=</span><span class="fu">element_blank</span>(),<span class="at">axis.title.y=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb31-39"><a href=""></a>          <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),<span class="at">legend.position =</span> <span class="st">'none'</span>,</span>
+<span id="cb31-40"><a href=""></a>          <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">17</span>),</span>
+<span id="cb31-41"><a href=""></a>          <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">13</span>),</span>
+<span id="cb31-42"><a href=""></a>          <span class="at">plot.caption=</span><span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb31-43"><a href=""></a>          <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb31-44"><a href=""></a>          <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb31-45"><a href=""></a>    <span class="fu">geom_label</span>(<span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>),<span class="at">size=</span><span class="fl">4.5</span>) <span class="sc">+</span></span>
+<span id="cb31-46"><a href=""></a>    <span class="fu">labs</span>(<span class="at">caption =</span> caption_n) <span class="sc">+</span></span>
+<span id="cb31-47"><a href=""></a>    <span class="fu">labs</span>(<span class="at">title=</span>pertanyaan,<span class="at">subtitle =</span> sub.judul)</span>
+<span id="cb31-48"><a href=""></a>}</span>
+<span id="cb31-49"><a href=""></a>  </span>
+<span id="cb31-50"><a href=""></a><span class="fu">bikinin.pie.chart.dari.data.saya.donk</span>(df,df<span class="sc">$</span>gender,<span class="st">"Gender responden?"</span>,<span class="st">"base: all resp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1830,7 +1848,7 @@ ikanx101.com
 <h2>Contoh</h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href=""></a><span class="fu">bikinin.pie.chart.dari.data.saya.donk</span>(df,df<span class="sc">$</span>aware,<span class="st">"Awareness responden?"</span>,<span class="st">"base: all resp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a><span class="fu">bikinin.pie.chart.dari.data.saya.donk</span>(df,df<span class="sc">$</span>aware,<span class="st">"Awareness responden?"</span>,<span class="st">"base: all resp"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1873,15 +1891,15 @@ ikanx101.com
 <h2>Misalkan Data <em>Summary</em></h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href=""></a>summary_df <span class="ot">=</span> </span>
-<span id="cb32-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb32-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">n_resp   =</span> <span class="fu">length</span>(id),</span>
-<span id="cb32-4"><a href=""></a>            <span class="at">n_pria   =</span> <span class="fu">length</span>(id[gender <span class="sc">==</span> <span class="st">"pria"</span>]),</span>
-<span id="cb32-5"><a href=""></a>            <span class="at">n_wanita =</span> <span class="fu">length</span>(id[gender <span class="sc">==</span> <span class="st">"wanita"</span>]),</span>
-<span id="cb32-6"><a href=""></a>            <span class="at">n_aware  =</span> <span class="fu">length</span>(id[aware <span class="sc">==</span> <span class="st">"ya"</span>])</span>
-<span id="cb32-7"><a href=""></a>            )</span>
-<span id="cb32-8"><a href=""></a></span>
-<span id="cb32-9"><a href=""></a>summary_df <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href=""></a>summary_df <span class="ot">=</span> </span>
+<span id="cb33-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">n_resp   =</span> <span class="fu">length</span>(id),</span>
+<span id="cb33-4"><a href=""></a>            <span class="at">n_pria   =</span> <span class="fu">length</span>(id[gender <span class="sc">==</span> <span class="st">"pria"</span>]),</span>
+<span id="cb33-5"><a href=""></a>            <span class="at">n_wanita =</span> <span class="fu">length</span>(id[gender <span class="sc">==</span> <span class="st">"wanita"</span>]),</span>
+<span id="cb33-6"><a href=""></a>            <span class="at">n_aware  =</span> <span class="fu">length</span>(id[aware <span class="sc">==</span> <span class="st">"ya"</span>])</span>
+<span id="cb33-7"><a href=""></a>            )</span>
+<span id="cb33-8"><a href=""></a></span>
+<span id="cb33-9"><a href=""></a>summary_df <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <table>
@@ -1896,9 +1914,9 @@ ikanx101.com
 <tbody>
 <tr class="odd">
 <td style="text-align: right;">500</td>
-<td style="text-align: right;">242</td>
-<td style="text-align: right;">258</td>
-<td style="text-align: right;">164</td>
+<td style="text-align: right;">254</td>
+<td style="text-align: right;">246</td>
+<td style="text-align: right;">153</td>
 </tr>
 </tbody>
 </table>
@@ -1914,9 +1932,9 @@ ikanx101.com
 &gt; Kita dapatkan {summary_df$n_aware} orang _aware_ terhadap iklan produk __X__ dari total {summary_df$n_resp} orang responden.</code></pre>
 <p>Hasilnya adalah:</p>
 <div class="cell">
-<p>Total responden yang telah diwawancara adalah sebesar 500. Terdiri dari 242 orang responden pria dan 258 orang responden wanita.</p>
+<p>Total responden yang telah diwawancara adalah sebesar 500. Terdiri dari 254 orang responden pria dan 246 orang responden wanita.</p>
 <blockquote>
-<p>Kita dapatkan 164 orang <em>aware</em> terhadap iklan produk <strong>X</strong> dari total 500 orang responden.</p>
+<p>Kita dapatkan 153 orang <em>aware</em> terhadap iklan produk <strong>X</strong> dari total 500 orang responden.</p>
 </blockquote>
 </div>
 </section>
@@ -1924,11 +1942,11 @@ ikanx101.com
 <h2><em>Another Example</em></h2>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href=""></a>summary_df <span class="ot">=</span> </span>
-<span id="cb34-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
-<span id="cb34-3"><a href=""></a>  <span class="fu">tabyl</span>(usia,aware)</span>
-<span id="cb34-4"><a href=""></a></span>
-<span id="cb34-5"><a href=""></a>summary_df <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href=""></a>summary_df <span class="ot">=</span> </span>
+<span id="cb35-2"><a href=""></a>  df <span class="sc">%&gt;%</span> </span>
+<span id="cb35-3"><a href=""></a>  <span class="fu">tabyl</span>(usia,aware)</span>
+<span id="cb35-4"><a href=""></a></span>
+<span id="cb35-5"><a href=""></a>summary_df <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <table>
@@ -1942,28 +1960,28 @@ ikanx101.com
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">&lt; 15 th</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">6</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">16 - 20 th</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">17</td>
+<td style="text-align: right;">19</td>
+<td style="text-align: right;">11</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">21 - 25 th</td>
-<td style="text-align: right;">51</td>
-<td style="text-align: right;">15</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">21</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">26 - 30 th</td>
-<td style="text-align: right;">28</td>
+<td style="text-align: right;">29</td>
 <td style="text-align: right;">11</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">&gt; 30 th</td>
-<td style="text-align: right;">220</td>
-<td style="text-align: right;">114</td>
+<td style="text-align: right;">230</td>
+<td style="text-align: right;">104</td>
 </tr>
 </tbody>
 </table>
@@ -1978,11 +1996,11 @@ ikanx101.com
 <h2><em>Results</em></h2>
 <div class="cell">
 <ol type="1">
-<li class="fragment">Para responden &lt; 15 th, kita dapatkan 7 orang <em>aware</em> dan 11 orang <em>unaware</em> terhadap iklan.</li>
-<li class="fragment">Para responden 16 - 20 th, kita dapatkan 17 orang <em>aware</em> dan 26 orang <em>unaware</em> terhadap iklan.</li>
-<li class="fragment">Para responden 21 - 25 th, kita dapatkan 15 orang <em>aware</em> dan 51 orang <em>unaware</em> terhadap iklan.</li>
-<li class="fragment">Para responden 26 - 30 th, kita dapatkan 11 orang <em>aware</em> dan 28 orang <em>unaware</em> terhadap iklan.</li>
-<li class="fragment">Para responden &gt; 30 th, kita dapatkan 114 orang <em>aware</em> dan 220 orang <em>unaware</em> terhadap iklan.</li>
+<li class="fragment">Para responden &lt; 15 th, kita dapatkan 6 orang <em>aware</em> dan 14 orang <em>unaware</em> terhadap iklan.</li>
+<li class="fragment">Para responden 16 - 20 th, kita dapatkan 11 orang <em>aware</em> dan 19 orang <em>unaware</em> terhadap iklan.</li>
+<li class="fragment">Para responden 21 - 25 th, kita dapatkan 21 orang <em>aware</em> dan 55 orang <em>unaware</em> terhadap iklan.</li>
+<li class="fragment">Para responden 26 - 30 th, kita dapatkan 11 orang <em>aware</em> dan 29 orang <em>unaware</em> terhadap iklan.</li>
+<li class="fragment">Para responden &gt; 30 th, kita dapatkan 104 orang <em>aware</em> dan 230 orang <em>unaware</em> terhadap iklan.</li>
 </ol>
 </div>
 </section></section>
