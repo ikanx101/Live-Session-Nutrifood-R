@@ -4,6 +4,7 @@ library(dplyr)
 library(keras)
 library(tensorflow)
 library(caret)
+library(janitor)
 
 # import data
 data = read.csv("https://raw.githubusercontent.com/ikanx101/Live-Session-Nutrifood-R/master/Kaggle%20Data/Diabetes/raw%20data/diabetes.csv") 
@@ -11,13 +12,14 @@ colnames(data) = tolower(colnames(data))
 
 # proses resampling data
 n_data   = nrow(data)
-n_sample = sample(n_data,10,replace = T)
+n_sample = sample(n_data,40,replace = T)
 
 data_new = data[n_sample,]
-data = rbind(data,data_new)
+data     = rbind(data,data_new)
 # ===================================
 
-
+# bikin tabulasi dulu
+data %>% tabyl(outcome)
 
 save_dulu = data$outcome
 data =
@@ -30,7 +32,7 @@ data = predict(preProcess_range_model, newdata = data) #variabel targetnya hilan
 data$outcome = save_dulu
 
 head(data)
-table(data$outcome)
+tabyl(data$outcome)
 
 # kita pisah pecah dua
 data_0 = 
@@ -42,7 +44,7 @@ data_1 =
 
 # set minimal n for train data
 set.seed(10104074)
-n = 200
+n = 150
 
 id_0 = sample(nrow(data_0),n,replace = F)
 data_0_1 = data_0[id_0,]
@@ -58,9 +60,11 @@ test_df = rbind(data_0_2,data_1_2)
 
 # let's see
 # train
-train_label_raw = train_df$outcome
-train_label_clean = to_categorical(train_label_raw)
+train_label_raw = train_df$outcome 
+train_label_clean = to_categorical(train_label_raw,num_classes = 2)
 train_matrix = as.matrix(train_df[-ncol(train_df)])
+
+to_categorical(train_label_raw,num_classes = 1)
 
 # test
 test_label_raw = test_df$outcome
