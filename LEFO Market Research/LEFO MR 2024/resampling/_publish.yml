@@ -1,0 +1,4 @@
+- source: draft.qmd
+  quarto-pub:
+    - id: a1bdff02-4ab8-4816-a8d8-35fbb93cb03f
+      url: 'https://ikanx101.quarto.pub/resampling-dengan-prinsip-simulasi-monte-carlo'

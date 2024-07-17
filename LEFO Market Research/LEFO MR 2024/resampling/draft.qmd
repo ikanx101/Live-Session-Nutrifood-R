@@ -692,10 +692,6 @@ animate(plt,duration = 60)
 ```
 
 
-
-
-
-
 # _HANDS ON_ {.center}
 
 _Yuk mari kita kemon cobain_
