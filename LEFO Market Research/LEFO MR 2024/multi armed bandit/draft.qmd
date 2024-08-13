@@ -5,7 +5,7 @@ author: ikanx101.com
 institute: Market Research Dept. Nutrifood
 format: 
   revealjs:
-    theme: night
+    theme: simple
     logo: logo.png
     css: logo.css
     slide-number: true
@@ -53,9 +53,13 @@ n_core = detectCores()
 
 ### *multi armed bandit?*
 
-## Kita buat contoh berikut ini! {.center}
+## _Misalkan:_ {.center}
 
+Misalkan, Anda dipindahtugaskan ke suatu area tertentu selama __300 hari__. Karena suatu alasan, setiap malam Anda hanya akan bisa makan di restoran / tempat makan saja.
 
+Di area tersebut ada __tiga buah restoran / tempat makan__. Anda sama sekali __tidak punya informasi apapun terkait restoran tersebut__ (menu, harga, rasa, _ambience_, dll).
+
+Bagaimana caranya Anda bisa menemukan 
 
 ## Masalah {.center}
 
