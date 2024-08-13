@@ -16,7 +16,7 @@ format:
     width: 1280
     height: 720
     highlight-style: arrow-dark
-    toc: true
+    toc: false
     toc-title: Agenda Kita Hari Ini
     toc-depth: 1
     output-location: column
@@ -41,11 +41,21 @@ library(ggplot2)
 library(gganimate)
 
 n_core = detectCores()
-
-
 ```
 
 # INTRO {.center}
+
+## Latar Belakang {.center}
+
+![](wa.png){fig-align="center"}
+
+## Apa itu {.center}
+
+### *multi armed bandit?*
+
+## Kita buat contoh berikut ini! {.center}
+
+
 
 ## Masalah {.center}
 
