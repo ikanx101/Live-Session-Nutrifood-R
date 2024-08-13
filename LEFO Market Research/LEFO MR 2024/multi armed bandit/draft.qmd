@@ -1,0 +1,52 @@
+---
+title: "Multi Armed Bandit"
+subtitle: "Sebuah Learning Forum"
+author: ikanx101.com
+institute: Market Research Dept. Nutrifood
+format: 
+  revealjs:
+    theme: night
+    logo: logo.png
+    css: logo.css
+    slide-number: true
+    footer: Sebuah Learning Forum
+    incremental: true
+    show-slide-number: all
+    transition: convex
+    width: 1280
+    height: 720
+    highlight-style: arrow-dark
+    toc: true
+    toc-title: Agenda Kita Hari Ini
+    toc-depth: 1
+    output-location: column
+    code-overflow: scroll
+editor: visual
+execute: 
+  echo: true
+  warning: false
+---
+
+```{r}
+#| include: false
+
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2024/multi armed bandit")
+
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(parallel)
+library(janitor)
+library(ggplot2)
+library(gganimate)
+
+n_core = detectCores()
+
+
+```
+
+# INTRO {.center}
+
+## Masalah {.center}
+
+# TERIMA KASIH
