@@ -355,12 +355,151 @@ ikanx101.com
 <h2>Apa itu</h2>
 <h3 id="multi-armed-bandit"><em>multi armed bandit?</em></h3>
 </section>
-<section id="kita-buat-contoh-berikut-ini" class="slide level2 center">
-<h2>Kita buat contoh berikut ini!</h2>
-<p>Misalkan, Anda dipindah tugaskan ke suatu area tertentu selama 300 hari. Di area tersebut ada tiga buah restoran / tempat makan. Anda sama sekali tidak punya informasi apapun terkait restoran tersebut (harga, rasa, <em>ambience</em>, dll).</p>
+<section id="misalkan" class="slide level2 center">
+<h2><em>Misalkan:</em></h2>
+<p>Anda dipindahtugaskan ke suatu area tertentu selama <strong>30 hari</strong>. Karena suatu alasan, setiap malam Anda hanya bisa makan di restoran / tempat makan saja.</p>
+<p>Di area tersebut ada <strong>tiga buah restoran / tempat makan</strong>. Anda sama sekali <strong>tidak punya informasi apapun terkait restoran tersebut</strong> (menu, harga, rasa, <em>ambience</em>, dll).</p>
+<div class="fragment">
+<p>Bagaimana caranya Anda bisa menemukan tempat makan favorit?</p>
+</div>
 </section>
-<section id="masalah" class="slide level2 center">
-<h2>Masalah</h2>
+<section id="beberapa-istilah-penting" class="slide level2 center">
+<h2>Beberapa Istilah Penting</h2>
+<p>Tempat makan terfavorit adalah <strong>tempat makan yang memberikan nilai</strong> <strong><em>happiness</em></strong> <strong>tertinggi di makanan-makanan yang dikonsumsi oleh Anda</strong>.</p>
+<p>Nilai <strong>happiness</strong> merupakan simplifikasi dan gabungan dari nilai rasa dan harga dari setiap menu makanan.</p>
+<p>Selain itu, ada istilah <em>regret</em> yang berarti nilai yang “hilang” (kerugian) saat kita kehilangan kesempatan untuk mengkonsumsi makanan lain yang lebih enak daripada yang kita pilih.</p>
+</section>
+<section id="simulasi" class="slide level2 center">
+<h2>Simulasi</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<h4 id="resto-a">Resto A</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="resto1.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<p>Restoran ini memiliki 15 buah menu.</p>
+</div><div class="column" style="width:33%;">
+<h4 id="resto-b">Resto B</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="resto2.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<p>Restoran ini memiliki 17 buah menu.</p>
+</div><div class="column" style="width:33%;">
+<h4 id="resto-c">Resto C</h4>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="resto3.jpg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+<p>Restoran ini memiliki 13 buah menu.</p>
+</div></div>
+</section>
+<section id="key-take-points-dari-simulasi" class="slide level2 center">
+<h2><em>Key Take Points</em> dari Simulasi</h2>
+<p>Kita tidak mengetahui distribusi <em>happiness</em> dari masing-masing restoran.</p>
+<div class="fragment">
+<p>Sampai kita mencoba terlebih dahulu masing-masing menu.</p>
+</div>
+</section>
+<section class="slide level2">
+
+<p>Seandainya kita mengetahui distribusi nilai <em>hapiness</em> dari masing-masing resto sebagai berikut:</p>
+
+<img data-src="draft_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"><p>Apakah <em>decision making process</em> kita berbeda?</p>
+<div class="fragment">
+<p>Kita bisa memilih restoran B yang memiliki nilai <em>happiness</em> yang besar.</p>
+</div>
+</section>
+<section id="key-take-points-dari-simulasi-1" class="slide level2 center smaller">
+<h2><em>Key Take Points</em> dari Simulasi</h2>
+<p>Ada kalanya kita:</p>
+<ul>
+<li class="fragment"><strong><em>Looking for another resto</em></strong> ATAU</li>
+<li class="fragment"><strong><em>Stay with the best resto we had so far</em></strong></li>
+</ul>
+<div class="fragment">
+<p>Oleh karena itu ada istilah <em>exploration</em> dan <em>exploitation</em>.</p>
+<p>Kedua istilah ini sering digunakan dalam hal <em>data science</em> (termasuk dalam pengembangan <strong>Nutrex</strong>).</p>
+</div>
+</section>
+<section id="key-take-points-dari-simulasi-2" class="slide level2 center">
+<h2><em>Key Take Points</em> dari Simulasi</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="exploration"><em>Exploration</em></h3>
+<p><em>Looking another option inside same resto</em>.</p>
+</div><div class="column" style="width:50%;">
+<h3 id="exploitation"><em>Exploitation</em></h3>
+<p><em>Looking another option in another resto</em>.</p>
+</div></div>
+</section>
+<section id="menemukan-the-best-restaurant" class="slide level2 center">
+<h2>Menemukan <em>The Best Restaurant</em></h2>
+<h3 id="please-share-your-strategy"><em>Please share your strategy!</em></h3>
+</section>
+<section id="menemukan-the-best-restaurant-1" class="slide level2 center">
+<h2>Menemukan <em>The Best Restaurant</em></h2>
+<p>Untuk menentukan strategi mana yang lebih baik di antara yang lain, kita bisa mengukur seberapa kecil <em>regret</em> yang bisa kita raih dari strategi tersebut.</p>
+<p><em>Regret</em> didefinisikan sebagai selisih antara <em>max total happiness</em> yang bisa didapatkan (<em>expected</em>) dengan <em>total happiness</em> yang didapatkan pada strategi tersebut.</p>
+</section>
+<section id="menemukan-strategies" class="slide level2 center smaller">
+<h2>Menemukan <em>Strategies</em></h2>
+<p>Ingat kembali grafik berikut:</p>
+
+<img data-src="draft_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
+<section id="menemukan-strategies-1" class="slide level2 center smaller">
+<h2>Menemukan <em>Strategies</em></h2>
+<h3 id="expected-max-happiness"><em>Expected Max Happiness</em></h3>
+<p><em>Expected happiness</em> tertinggi didapatkan jika kita selalu memilih restoran <strong>B</strong> selama 60 hari.</p>
+<p><span class="math display">\[\text{happiness} = 30 \times \text{median happiness}_B\]</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>          V1   V2   V3
+resto      A    B    C
+median_ 9.40 8.61 5.35</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 282</code></pre>
+</div>
+</div>
+</section>
+<section id="naive-strategies" class="slide level2 center smaller">
+<h2><em>Naive Strategies</em></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="explore-only">Explore Only</h3>
+<p>Selama masing-masing 20 hari, kita akan <em>explor</em> ke masing-masing restoran.</p>
+<p><span class="math display">\[\text{regret}_\text{total} = \sum_{i = A}^C 10 \times \text{median happiness}_i\]</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 48.4</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<h3 id="exploit-only">Exploit Only</h3>
+<p>Selama tiga hari pertama, kita akan mencoba masing-masing satu menu dari tiap restoran. Restoran yang memiliki nilai <em>happiness</em> terbaik akan kita pilih selama sisa 57 hari ke depan.</p>
+<p><span class="math display">\[\text{regret}_\text{total} = \sum_{i = A}^C \text{happiness}_i + 57 \times \text{happiness}_{\text{best 3 days}}\]</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  resto happiness
+  &lt;chr&gt;     &lt;dbl&gt;
+1 A         10.5 
+2 B          4.36
+3 C          4.86</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -21.5</code></pre>
+</div>
+</div>
+</div></div>
+<h3 id="section"></h3>
 </section></section>
 <section id="terima-kasih" class="title-slide slide level1 center">
 <h1>TERIMA KASIH</h1>

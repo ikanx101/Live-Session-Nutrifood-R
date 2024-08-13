@@ -23,7 +23,7 @@ format:
     code-overflow: scroll
 editor: visual
 execute: 
-  echo: true
+  echo: false
   warning: false
 ---
 
@@ -55,12 +55,241 @@ n_core = detectCores()
 
 ## _Misalkan:_ {.center}
 
-Misalkan, Anda dipindahtugaskan ke suatu area tertentu selama __300 hari__. Karena suatu alasan, setiap malam Anda hanya akan bisa makan di restoran / tempat makan saja.
+Anda dipindahtugaskan ke suatu area tertentu selama __30 hari__. Karena suatu alasan, setiap malam Anda hanya bisa makan di restoran / tempat makan saja.
 
 Di area tersebut ada __tiga buah restoran / tempat makan__. Anda sama sekali __tidak punya informasi apapun terkait restoran tersebut__ (menu, harga, rasa, _ambience_, dll).
 
-Bagaimana caranya Anda bisa menemukan 
+. . .
 
-## Masalah {.center}
+Bagaimana caranya Anda bisa menemukan tempat makan favorit?
+
+## Beberapa Istilah Penting {.center}
+
+Tempat makan terfavorit adalah __tempat makan yang memberikan nilai__ ___happiness___ __tertinggi di makanan-makanan yang dikonsumsi oleh Anda__.
+
+Nilai __happiness__ merupakan simplifikasi dan gabungan dari nilai rasa dan harga dari setiap menu makanan.
+
+Selain itu, ada istilah _regret_ yang berarti nilai yang "hilang" (kerugian) saat kita kehilangan kesempatan untuk mengkonsumsi makanan lain yang lebih enak daripada yang kita pilih.
+
+## Simulasi {.center}
+
+::: columns
+::: {.column width="33%"}
+
+#### Resto A
+
+![](resto1.jpg){fig-align="center"}
+
+Restoran ini memiliki 15 buah menu.
+
+:::
+::: {.column width="33%"}
+
+#### Resto B
+
+![](resto2.jpg){fig-align="center"}
+
+Restoran ini memiliki 17 buah menu.
+
+:::
+::: {.column width="33%"}
+
+#### Resto C
+
+![](resto3.jpg){fig-align="center"}
+
+Restoran ini memiliki 13 buah menu.
+
+:::
+:::
+
+## _Key Take Points_ dari Simulasi {.center}
+
+Kita tidak mengetahui distribusi _happiness_ dari masing-masing restoran.
+
+. . .
+
+Sampai kita mencoba terlebih dahulu masing-masing menu.
+
+---
+
+Seandainya kita mengetahui distribusi nilai _hapiness_ dari masing-masing resto sebagai berikut:
+
+```{r}
+rm(list=ls())
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(ggridges)
+
+n_a = 15
+n_b = 17
+n_c = 13
+
+resto_a = rnorm(n_a,10,5) %>% round(2)
+resto_b = rnorm(n_b,8,4) %>% round(2)
+resto_c = rnorm(n_c,5,2) %>% round(2)
+
+df = data.frame(resto = c(rep("A",n_a),
+                          rep("B",n_b),
+                          rep("C",n_c)),
+                happiness = c(resto_a,resto_b,resto_c))
+
+plt = 
+  df %>% 
+  ggplot(aes(x = happiness)) +
+  geom_boxplot() +
+  facet_wrap(~resto,ncol = 1,nrow = 3) +
+  labs(title = "Boxplot Sebaran Nilai Happiness per Restoran")
+
+plt
+
+df_split = df %>% group_split(resto)
+
+lengkapin = function(input){
+  input %>% 
+    mutate(menu = paste("Menu ",1:nrow(input))) %>% 
+    relocate(menu,.before = happiness)
+}
+
+df_hasil = lapply(df_split, lengkapin)
+df_hasil = data.table::rbindlist(df_hasil)
+df_hasil %>%  write.csv("simulasi.csv",row.names = F)
+```
+
+Apakah _decision making process_ kita berbeda?
+
+. . .
+
+Kita bisa memilih restoran B yang memiliki nilai _happiness_ yang besar.
+
+## _Key Take Points_ dari Simulasi {.center .smaller}
+
+Ada kalanya kita:
+
+- ___Looking for another resto___ ATAU
+- ___Stay with the best resto we had so far___
+
+. . .
+
+Oleh karena itu ada istilah _exploration_ dan _exploitation_.
+
+Kedua istilah ini sering digunakan dalam hal _data science_ (termasuk dalam pengembangan __Nutrex__).
+
+
+## _Key Take Points_ dari Simulasi {.center}
+
+::: columns
+::: {.column width="50%"}
+
+### _Exploration_
+
+_Looking another option inside same resto_.
+
+:::
+::: {.column width="50%"}
+
+### _Exploitation_
+
+_Looking another option in another resto_.
+
+:::
+:::
+
+
+## Menemukan _The Best Restaurant_ {.center}
+
+### _Please share your strategy!_
+
+## Menemukan _The Best Restaurant_ {.center}
+
+Untuk menentukan strategi mana yang lebih baik di antara yang lain, kita bisa mengukur seberapa kecil _regret_ yang bisa kita raih dari strategi tersebut.
+
+_Regret_ didefinisikan sebagai selisih antara _max total happiness_ yang bisa didapatkan (_expected_) dengan _total happiness_ yang didapatkan pada strategi tersebut.
+
+## Menemukan _Strategies_ {.center .smaller}
+
+Ingat kembali grafik berikut:
+
+```{r}
+plt
+```
+
+## Menemukan _Strategies_ {.center .smaller}
+
+### _Expected Max Happiness_
+
+_Expected happiness_ tertinggi didapatkan jika kita selalu memilih restoran __B__ selama 60 hari.
+
+$$\text{happiness} = 30 \times \text{median happiness}_B$$
+
+```{r}
+mean_df = 
+  df %>% 
+  group_by(resto) %>% 
+  summarise(median_ = mean(happiness)) %>% 
+  ungroup() %>% 
+  mutate(median_ = round(median_,2))
+
+mean_df %>% t() %>% as.data.frame()
+```
+
+```{r}
+skor    = mean_df %>% pull(median_)
+max_hap = max(skor) * 30
+max_hap
+```
+
+## _Naive Strategies_ {.center .smaller}
+
+::: columns
+::: {.column width="50%"}
+
+### Explore Only
+
+Selama masing-masing 20 hari, kita akan _explor_ ke masing-masing restoran.
+
+$$\text{regret}_\text{total} = \sum_{i = A}^C 10 \times \text{median happiness}_i$$
+
+```{r}
+regret = 
+  mean_df %>% 
+  mutate(regret = median_ * 10) %>% 
+  summarise(sum(regret)) %>% 
+  as.numeric()
+
+max_hap - regret
+```
+
+:::
+::: {.column width="50%"}
+### Exploit Only
+
+Selama tiga hari pertama, kita akan mencoba masing-masing satu menu dari tiap restoran. Restoran yang memiliki nilai _happiness_ terbaik akan kita pilih selama sisa `r 60-3` hari ke depan.
+
+$$\text{regret}_\text{total} = \sum_{i = A}^C \text{happiness}_i + 57 \times \text{happiness}_{\text{best 3 days}}$$
+
+```{r}
+exploit = 
+  df %>% 
+  mutate(pilih = runif(nrow(df),0,2)) %>% 
+  group_by(resto) %>% 
+  filter(pilih == max(pilih)) %>% 
+  ungroup() %>% 
+  select(-pilih)
+
+exploit
+
+regret = sum(exploit$happiness) + 27 * (exploit$happiness %>% max())
+
+max_hap - regret
+```
+
+:::
+:::
+
+###
+
 
 # TERIMA KASIH
