@@ -5,7 +5,7 @@ author: ikanx101.com
 institute: Market Research Dept. Nutrifood
 format: 
   revealjs:
-    theme: simple
+    theme: sky
     logo: logo.png
     css: logo.css
     slide-number: true
@@ -15,7 +15,7 @@ format:
     transition: convex
     width: 1280
     height: 720
-    highlight-style: arrow-dark
+    highlight-style: github
     toc: false
     toc-title: Agenda Kita Hari Ini
     toc-depth: 1
@@ -29,6 +29,8 @@ execute:
 
 ```{r}
 #| include: false
+
+# https://quarto.org/docs/output-formats/html-code.html
 
 setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2024/multi armed bandit")
 
@@ -53,11 +55,11 @@ n_core = detectCores()
 
 ### *multi armed bandit?*
 
-## _Misalkan:_ {.center}
+## *Misalkan:* {.center}
 
-Anda dipindahtugaskan ke suatu area tertentu selama __30 hari__. Karena suatu alasan, setiap malam Anda hanya bisa makan di restoran / tempat makan saja.
+Anda dipindahtugaskan ke suatu area tertentu selama **30 hari**. Karena suatu alasan, setiap malam Anda hanya bisa makan di restoran / tempat makan saja.
 
-Di area tersebut ada __tiga buah restoran / tempat makan__. Anda sama sekali __tidak punya informasi apapun terkait restoran tersebut__ (menu, harga, rasa, _ambience_, dll).
+Di area tersebut ada **tiga buah restoran / tempat makan**. Anda sama sekali **tidak punya informasi apapun terkait restoran tersebut** (menu, harga, rasa, *ambience*, dll).
 
 . . .
 
@@ -65,55 +67,51 @@ Bagaimana caranya Anda bisa menemukan tempat makan favorit?
 
 ## Beberapa Istilah Penting {.center}
 
-Tempat makan terfavorit adalah __tempat makan yang memberikan nilai__ ___happiness___ __tertinggi di makanan-makanan yang dikonsumsi oleh Anda__.
+Tempat makan terfavorit adalah **tempat makan yang memberikan nilai** ***happiness*** **tertinggi di makanan-makanan yang dikonsumsi oleh Anda**.
 
-Nilai __happiness__ merupakan simplifikasi dan gabungan dari nilai rasa dan harga dari setiap menu makanan.
+Nilai **happiness** merupakan simplifikasi dan gabungan dari nilai rasa dan harga dari setiap menu makanan.
 
-Selain itu, ada istilah _regret_ yang berarti nilai yang "hilang" (kerugian) saat kita kehilangan kesempatan untuk mengkonsumsi makanan lain yang lebih enak daripada yang kita pilih.
+Selain itu, ada istilah *regret* yang berarti nilai yang "hilang" (kerugian) saat kita kehilangan kesempatan untuk mengkonsumsi makanan lain yang lebih enak daripada yang kita pilih.
 
 ## Simulasi {.center}
 
 ::: columns
 ::: {.column width="33%"}
-
 #### Resto A
 
 ![](resto1.jpg){fig-align="center"}
 
 Restoran ini memiliki 15 buah menu.
-
 :::
-::: {.column width="33%"}
 
+::: {.column width="33%"}
 #### Resto B
 
 ![](resto2.jpg){fig-align="center"}
 
 Restoran ini memiliki 17 buah menu.
-
 :::
-::: {.column width="33%"}
 
+::: {.column width="33%"}
 #### Resto C
 
 ![](resto3.jpg){fig-align="center"}
 
 Restoran ini memiliki 13 buah menu.
-
 :::
 :::
 
-## _Key Take Points_ dari Simulasi {.center}
+## *Key Take Points* dari Simulasi {.center}
 
-Kita tidak mengetahui distribusi _happiness_ dari masing-masing restoran.
+Kita tidak mengetahui distribusi *happiness* dari masing-masing restoran.
 
 . . .
 
 Sampai kita mencoba terlebih dahulu masing-masing menu.
 
----
+------------------------------------------------------------------------
 
-Seandainya kita mengetahui distribusi nilai _hapiness_ dari masing-masing resto sebagai berikut:
+Seandainya kita mengetahui distribusi nilai *hapiness* dari masing-masing resto sebagai berikut:
 
 ```{r}
 rm(list=ls())
@@ -127,8 +125,11 @@ n_a = 15
 n_b = 17
 n_c = 13
 
-resto_a = rnorm(n_a,10,5) %>% round(2)
+resto_a = rnorm(n_a,11,5) %>% round(2)
+resto_a = ifelse(resto_a <= 8,8,resto_a)
+resto_a = ifelse(resto_a >= 12,12,resto_a)
 resto_b = rnorm(n_b,8,4) %>% round(2)
+resto_b = ifelse(resto_b >= 9,9,resto_b)
 resto_c = rnorm(n_c,5,2) %>% round(2)
 
 df = data.frame(resto = c(rep("A",n_a),
@@ -158,57 +159,54 @@ df_hasil = data.table::rbindlist(df_hasil)
 df_hasil %>%  write.csv("simulasi.csv",row.names = F)
 ```
 
-Apakah _decision making process_ kita berbeda?
+Apakah *decision making process* kita berbeda?
 
 . . .
 
-Kita bisa memilih restoran B yang memiliki nilai _happiness_ yang besar.
+::: {style="font-size: 40%;"}
+Kita bisa memilih restoran A yang memiliki nilai *happiness* yang besar.
+:::
 
-## _Key Take Points_ dari Simulasi {.center .smaller}
+## *Key Take Points* dari Simulasi {.center .smaller}
 
 Ada kalanya kita:
 
-- ___Looking for another resto___ ATAU
-- ___Stay with the best resto we had so far___
+-   ***Looking for another resto*** ATAU
+-   ***Stay with the best resto we had so far***
 
 . . .
 
-Oleh karena itu ada istilah _exploration_ dan _exploitation_.
+Oleh karena itu ada istilah *exploration* dan *exploitation*.
 
-Kedua istilah ini sering digunakan dalam hal _data science_ (termasuk dalam pengembangan __Nutrex__).
+Kedua istilah ini sering digunakan dalam hal *data science* (termasuk dalam pengembangan **Nutrex**).
 
-
-## _Key Take Points_ dari Simulasi {.center}
+## *Key Take Points* dari Simulasi {.center}
 
 ::: columns
 ::: {.column width="50%"}
+### *Exploration*
 
-### _Exploration_
-
-_Looking another option inside same resto_.
-
+*Looking another option inside same resto*.
 :::
+
 ::: {.column width="50%"}
+### *Exploitation*
 
-### _Exploitation_
-
-_Looking another option in another resto_.
-
+*Looking another option in another resto*.
 :::
 :::
 
+## Menemukan *The Best Restaurant* {.center}
 
-## Menemukan _The Best Restaurant_ {.center}
+### *Please share your strategy!*
 
-### _Please share your strategy!_
+## Menemukan *The Best Restaurant* {.center}
 
-## Menemukan _The Best Restaurant_ {.center}
+Untuk menentukan strategi mana yang lebih baik di antara yang lain, kita bisa mengukur seberapa kecil *regret* yang bisa kita raih dari strategi tersebut.
 
-Untuk menentukan strategi mana yang lebih baik di antara yang lain, kita bisa mengukur seberapa kecil _regret_ yang bisa kita raih dari strategi tersebut.
+*Regret* didefinisikan sebagai selisih antara *max total happiness* yang bisa didapatkan (*expected*) dengan *total happiness* yang didapatkan pada strategi tersebut.
 
-_Regret_ didefinisikan sebagai selisih antara _max total happiness_ yang bisa didapatkan (_expected_) dengan _total happiness_ yang didapatkan pada strategi tersebut.
-
-## Menemukan _Strategies_ {.center .smaller}
+## Menemukan *Strategies* {.center .smaller}
 
 Ingat kembali grafik berikut:
 
@@ -216,13 +214,13 @@ Ingat kembali grafik berikut:
 plt
 ```
 
-## Menemukan _Strategies_ {.center .smaller}
+## Menemukan *Strategies* {.center .smaller}
 
-### _Expected Max Happiness_
+### *Expected Max Happiness*
 
-_Expected happiness_ tertinggi didapatkan jika kita selalu memilih restoran __B__ selama 60 hari.
+*Expected happiness* tertinggi didapatkan jika kita selalu memilih restoran **A** selama 60 hari.
 
-$$\text{happiness} = 30 \times \text{median happiness}_B$$
+$$\text{happiness}_T = 30 \times \text{mean happiness}_A$$
 
 ```{r}
 mean_df = 
@@ -241,16 +239,21 @@ max_hap = max(skor) * 30
 max_hap
 ```
 
-## _Naive Strategies_ {.center .smaller}
+## Menemukan *Strategies* {.center .smaller}
 
-::: columns
-::: {.column width="50%"}
+Ada beberapa strategi yang bisa kita lakukan:
+
+1.  *Naive strategies* (*explore only* dan *exploit only*).
+2.  $\epsilon$ - *greedy strategy*.
+3.  *Zero-regret strategy*.
+
+## *Naive Strategies* {.center .smaller}
 
 ### Explore Only
 
-Selama masing-masing 20 hari, kita akan _explor_ ke masing-masing restoran.
+Selama masing-masing 10 hari, kita akan *explore* ke masing-masing restoran.
 
-$$\text{regret}_\text{total} = \sum_{i = A}^C 10 \times \text{median happiness}_i$$
+$$\text{regret}_\text{total} = \text{happiness}_T - \sum_{i = A}^C 10 \times \text{mean happiness}_i$$
 
 ```{r}
 regret = 
@@ -262,20 +265,20 @@ regret =
 max_hap - regret
 ```
 
-:::
-::: {.column width="50%"}
+## *Naive Strategies* {.center .smaller}
+
 ### Exploit Only
 
-Selama tiga hari pertama, kita akan mencoba masing-masing satu menu dari tiap restoran. Restoran yang memiliki nilai _happiness_ terbaik akan kita pilih selama sisa `r 60-3` hari ke depan.
+Selama tiga hari pertama, kita akan mencoba masing-masing satu menu dari tiap restoran. Restoran yang memiliki nilai *happiness* terbaik akan kita pilih selama sisa `r 30-3` hari ke depan.
 
-$$\text{regret}_\text{total} = \sum_{i = A}^C \text{happiness}_i + 57 \times \text{happiness}_{\text{best 3 days}}$$
+$$\text{regret}_\text{total} = \text{happiness}_T - (\sum_{i = A}^C \text{happiness}_i + 27 \times \text{happiness}_{\text{best 3 days}} )$$
 
 ```{r}
 exploit = 
   df %>% 
   mutate(pilih = runif(nrow(df),0,2)) %>% 
   group_by(resto) %>% 
-  filter(pilih == max(pilih)) %>% 
+  filter(pilih == min(pilih)) %>% 
   ungroup() %>% 
   select(-pilih)
 
@@ -286,10 +289,176 @@ regret = sum(exploit$happiness) + 27 * (exploit$happiness %>% max())
 max_hap - regret
 ```
 
+## $\epsilon$ *Greedy Strategy* {.center .smaller}
+
+::: columns
+::: {.column width="50%"}
+### Algoritma
+
+```         
+1 pilih masing-masing restoran sekali
+2 pada iterasi ke t:
+  generate epsilon [0,1]
+  if(epsilon < 0.4) do
+    pilih restoran terbaik
+    pilih menu yang ada
+  else pilih resto acak
+       pilih menu yang ada
+  simpan happiness tiap menu resto pada 
+    setiap iterasi
+```
+:::
+
+::: {.column width="50%"}
+### Definisi
+
+-   Penentuan **restoran terbaik** di setiap iterasi adalah rata-rata happiness yang didapatkan selama proses berlangsung.
+-   Angka $\epsilon$ didapatkan dari *random number generator* pada selang 0 hingga 1.
+-   Angka `0.4` sebagai batas pemilihan bisa diganti sesuai dengan selera.
 :::
 :::
 
-###
+## $\epsilon$ *Greedy Strategy* {.center .smaller}
+
+### Ilustrasi
+
+Misal, pada tiga hari pertama, kita keliling tiga restoran dan mendapatkan nilai *happiness* sebagai berikut:
+
+```{r}
+round_1 =
+  df %>% 
+  mutate(pilih = runif(nrow(df),0,2)) %>% 
+  group_by(resto) %>% 
+  filter(pilih == min(pilih)) %>% 
+  ungroup() %>% 
+  select(-pilih)
+round_1 |> t() |> as.data.frame() |> rename(hari_1 = V1,hari_2 = V2,hari_3 = V3)
+
+# untuk keperluan print ke dalam paragraf
+terbaik = round_1 |> filter(happiness == max(happiness)) |> pull(resto)
+epsilon = runif(1,0,1) |> round(2)
+
+round_t = round_1 |> mutate(hari = 1:3)
+
+pilihan_berikutnya = 
+  ifelse(epsilon < 0.4,
+         # kalau selain itu kita random resto yang lain
+         sample(round_1$resto,1),
+         # seandainya < 0.2 maka yang dipilih adalah yang terbaik
+         round_1$resto[which.max(round_1$happiness)]
+         )
+
+
+```
+
+Terlihat bahwa resto terbaik dari data di atas adalah: Resto `r terbaik`.
+
+. . .
+
+Kemudian kita *generate* angka $\epsilon$ secara *random*, misalkan $\epsilon =$ `r epsilon`. Berdasarkan nilai tersebut, maka restoran selanjutnya adalah `r pilihan_berikutnya`.
+
+## $\epsilon$ *Greedy Strategy* {.center .smaller}
+
+### Ilustrasi Iterasi Selanjutnya
+
+```{r}
+#| echo: true
+#| fig-dpi: 450
+
+for(iter in 4:30){
+  # kita lakukan iterasinya
+  df_iter       = df |> filter(resto == pilihan_berikutnya)
+  df_iter$pilih = runif(nrow(df_iter),0,1)
+  df_iter       = 
+    df_iter |> 
+    filter(pilih == max(pilih)) |> 
+    select(-pilih) |> 
+    mutate(hari = iter,
+           eps = epsilon)
+  # kita gabungin dulu
+  round_t = bind_rows(round_t,df_iter)
+  
+  # next round
+  round_1 = 
+    round_t |> 
+    group_by(resto) |> 
+    summarise(happiness = sum(happiness)) |> 
+    ungroup() 
+  
+  # pilihan berikutnya
+  epsilon = runif(1,0,1) |> round(2)
+  pilihan_berikutnya = 
+    ifelse(epsilon < 0.4,
+           # kalau selain itu kita random resto yang lain
+           sample(round_1$resto,1),
+           # seandainya < 0.8 maka yang dipilih adalah yang terbaik
+           round_1$resto[which.max(round_1$happiness)]
+           )
+}
+
+total_happiness = sum(round_t$happiness)
+
+round_t |> 
+  mutate(cum_hap = cumsum(happiness)) |> 
+  ggplot(aes(x = hari,y = cum_hap)) +
+  geom_line(group = 1,color = "gray",alpha = .4) +
+  geom_point(aes(color = resto)) +
+  scale_color_manual(values = c("green","blue","brown")) +
+  theme_minimal() +
+  labs(x = "Hari ke - ",
+       y = "Cumulative Happiness",
+       title = paste0("Total Regret: ",max_hap - total_happiness))
+```
+
+## *Zero-Regret Strategy* {.center}
+
+> *Zero regret is an ambitious goal in the multi-armed bandit problem, implying that over time, the algorithm's performance converges to that of the optimal arm. While it's theoretically possible to achieve zero regret asymptotically, practically, algorithms often aim to minimize regret rather than completely eliminate it.*
+
+# Lalu Apa Gunanya *Multi Armed Bandit* ?
+
+Masalah bisnis apa yang bisa dibantu dengan *multi armed bandit*?
+
+## *Netflix Recommendation System* {.center}
+
+::: {layout-nrow=2}
+![](Logonetflix.png){fig-align="center" width="400"}
+
+![](net2.png){fig-align="center" width="400"}
+
+![](net1.png){fig-align="center" width="900"}
+
+:::
+
+[Link artikel](https://www.datacouncil.ai/talks/a-multi-armed-bandit-framework-for-recommendations-at-netflix#:~:text=In%20this%20talk%2C%20we%20will,and%20an%20incrementality%2Dbased%20policy.).
+
+## _A/B Testing vs Multi Armed Bandit_
+
+::: {layout-nrow=1}
+![](ab1.png){fig-align="center" width="600"}
+
+![](ab2.png){fig-align="center" width="600"}
+:::
+
+[Link artikel](https://amplitude.com/explore/experiment/multi-armed-bandit).
+
+## _Uber Experimentation Platform_
+
+::: {layout-nrow=2}
+
+![](ub3.png){fig-align="center" width="450"}
+
+![](ub2.png){fig-align="center" width="450"}
+
+![](ub4.png){fig-align="center" width="450"}
+
+
+![](uber.png){fig-align="center" width="100"}
+
+![](ub1.png){fig-align="center" width="700"}
+
+
+:::
+
 
 
 # TERIMA KASIH
