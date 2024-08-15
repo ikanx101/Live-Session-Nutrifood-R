@@ -125,11 +125,8 @@ n_a = 15
 n_b = 17
 n_c = 13
 
-resto_a = rnorm(n_a,11,5) %>% round(2)
-resto_a = ifelse(resto_a <= 8,8,resto_a)
-resto_a = ifelse(resto_a >= 12,12,resto_a)
-resto_b = rnorm(n_b,8,4) %>% round(2)
-resto_b = ifelse(resto_b >= 9,9,resto_b)
+resto_a = rnorm(n_a,11,2) %>% round(2)
+resto_b = rnorm(n_b,8,2) %>% round(2)
 resto_c = rnorm(n_c,5,2) %>% round(2)
 
 df = data.frame(resto = c(rep("A",n_a),
@@ -218,7 +215,7 @@ plt
 
 ### *Expected Max Happiness*
 
-*Expected happiness* tertinggi didapatkan jika kita selalu memilih restoran **A** selama 60 hari.
+*Expected happiness* tertinggi didapatkan jika kita selalu memilih restoran **A** selama 30 hari.
 
 $$\text{happiness}_T = 30 \times \text{mean happiness}_A$$
 
@@ -230,7 +227,7 @@ mean_df =
   ungroup() %>% 
   mutate(median_ = round(median_,2))
 
-mean_df %>% t() %>% as.data.frame()
+mean_df |> rename(mean_ = median_) %>% t() %>% as.data.frame()
 ```
 
 ```{r}
@@ -299,7 +296,7 @@ max_hap - regret
 1 pilih masing-masing restoran sekali
 2 pada iterasi ke t:
   generate epsilon [0,1]
-  if(epsilon < 0.4) do
+  if(epsilon < 0.3) do
     pilih restoran terbaik
     pilih menu yang ada
   else pilih resto acak
@@ -314,7 +311,7 @@ max_hap - regret
 
 -   Penentuan **restoran terbaik** di setiap iterasi adalah rata-rata happiness yang didapatkan selama proses berlangsung.
 -   Angka $\epsilon$ didapatkan dari *random number generator* pada selang 0 hingga 1.
--   Angka `0.4` sebagai batas pemilihan bisa diganti sesuai dengan selera.
+-   Angka `0.3` sebagai batas pemilihan bisa diganti sesuai dengan selera.
 :::
 :::
 
@@ -341,7 +338,7 @@ epsilon = runif(1,0,1) |> round(2)
 round_t = round_1 |> mutate(hari = 1:3)
 
 pilihan_berikutnya = 
-  ifelse(epsilon < 0.4,
+  ifelse(epsilon < 0.3,
          # kalau selain itu kita random resto yang lain
          sample(round_1$resto,1),
          # seandainya < 0.2 maka yang dipilih adalah yang terbaik
@@ -371,7 +368,7 @@ for(iter in 4:30){
   df_iter$pilih = runif(nrow(df_iter),0,1)
   df_iter       = 
     df_iter |> 
-    filter(pilih == max(pilih)) |> 
+    filter(pilih == min(pilih)) |> 
     select(-pilih) |> 
     mutate(hari = iter,
            eps = epsilon)
@@ -397,6 +394,7 @@ for(iter in 4:30){
 }
 
 total_happiness = sum(round_t$happiness)
+total_happiness = round(total_happiness,2)
 
 round_t |> 
   mutate(cum_hap = cumsum(happiness)) |> 
@@ -407,16 +405,128 @@ round_t |>
   theme_minimal() +
   labs(x = "Hari ke - ",
        y = "Cumulative Happiness",
-       title = paste0("Total Regret: ",max_hap - total_happiness))
+       title = paste0("Total Regret: ",
+                      round(max_hap - total_happiness,2)
+                      )
+       )
 ```
 
 ## *Zero-Regret Strategy* {.center}
 
 > *Zero regret is an ambitious goal in the multi-armed bandit problem, implying that over time, the algorithm's performance converges to that of the optimal arm. While it's theoretically possible to achieve zero regret asymptotically, practically, algorithms often aim to minimize regret rather than completely eliminate it.*
 
-# Lalu Apa Gunanya *Multi Armed Bandit* ?
+## *Zero-Regret Strategy* {.center .smaller}
+
+::: columns
+::: {.column width="40%"}
+_Math expression_:
+
+For the time $t$, pick restaurant $r$ such that:
+
+$$\hat{\mu}_r + \sqrt{\frac{2 \ln{t}}{N_t(r)}}$$
+
+is maximized.
+
+Definisi:
+
+1. $\hat{\mu}_r$ adalah rata-rata _happiness we got so far_.
+1. $N_t(r)$ adalah frekuensi kita berkunjung ke restoran $r$ _so far_.
+:::
+::: {.column width="60%"}
+Proses pemilihannya mirip dengan $\epsilon$ _greedy_ dengan penambahan _upper confidence bound_. 
+
+Simpelnya seperti ini:
+
+> We've been there twice (or many times), so let's give them another chance...
+
+Prosesnya menyeimbangkan _exploration_ dan _exploitation_. 
+
+- Jika ada beberapa restoran dengan nilai $\mu$ yang sama, restoran yang dikunjungi lebih sedikit akan berpeluang lebih besar dikunjungi (_exploitation_).
+- Setelah berjalan $t$ waktu, kita akan lebih paham mengenai kondisi $\mu$ sehingga restoran terbaik akan memiliki peluang lebih besar untuk dipilih (_exploration_).
+
+:::
+:::
+
+## *Zero-Regret Strategy* {.center .smaller}
+
+### Ilustrasi
+
+Misalkan pada hari pertama hingga ketiga, kita _exploit_ ketiga restoran dan berikut adalah _happiness_ yang kita dapatkan:
+
+```{r}
+round_1 =
+  df %>% 
+  mutate(pilih = runif(nrow(df),0,2)) %>% 
+  group_by(resto) %>% 
+  filter(pilih == min(pilih)) %>% 
+  ungroup() %>% 
+  select(-pilih) |> 
+  group_by(resto) |> 
+  mutate(skor = mean(happiness) + sqrt(2*log(1)/length(resto))) |> 
+  ungroup()
+
+round_1 |> t() |> as.data.frame() |> rename(hari_1 = V1,hari_2 = V2,hari_3 = V3)
+```
+
+Baris `skor` dihitung dengan formula pada _slide_ sebelumnya dengan nilai $t=1$ dan masing-masing $N_t(r)=1$.
+
+
+## *Zero-Regret Strategy* {.center .smaller}
+
+### Ilustrasi
+
+```{r}
+round_x       = round_1 |> mutate(hari = 1:3)
+resto_pilihan = round_1$resto[which.max(round_1$skor)]
+
+iter = 2
+
+for(iter in 2:28){
+  round_t = 
+    df |> 
+    filter(resto == resto_pilihan)
+  round_t$pilih = runif(nrow(round_t),0,1)
+  round_t = 
+    round_t |> 
+    filter(pilih == max(pilih)) |> 
+    select(-pilih) |> 
+    mutate(hari = iter+2)
+  
+  round_x = bind_rows(round_x,round_t)
+  
+  round_1 =
+    round_x %>% 
+    group_by(resto) |> 
+    summarise(skor = mean(happiness) + sqrt(2*log(iter)/length(resto))) |> 
+    ungroup()
+  
+  resto_pilihan = round_1$resto[which.max(round_1$skor)]
+}
+
+total_happiness = sum(round_x$happiness)
+
+round_x |> 
+  mutate(cum_hap = cumsum(happiness)) |> 
+  ggplot(aes(x = hari,y = cum_hap)) +
+  geom_line(group = 1,color = "gray",alpha = .4) +
+  geom_point(aes(color = resto)) +
+  scale_color_manual(values = c("green","blue","brown")) +
+  theme_minimal() +
+  labs(x = "Hari ke - ",
+       y = "Cumulative Happiness",
+       title = paste0("Total Regret: ",
+                      round(max_hap - total_happiness,2)
+                      )
+       )
+```
+
+
+# WAKTUNYA DISKUSI! {.center}
+
+Lalu Apa Gunanya *Multi Armed Bandit* ?
 
 Masalah bisnis apa yang bisa dibantu dengan *multi armed bandit*?
+
 
 ## *Netflix Recommendation System* {.center}
 

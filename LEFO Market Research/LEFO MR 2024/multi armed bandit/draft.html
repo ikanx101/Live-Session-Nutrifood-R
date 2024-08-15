@@ -521,18 +521,18 @@ ikanx101.com
 <section id="menemukan-strategies-1" class="slide level2 center smaller">
 <h2>Menemukan <em>Strategies</em></h2>
 <h3 id="expected-max-happiness"><em>Expected Max Happiness</em></h3>
-<p><em>Expected happiness</em> tertinggi didapatkan jika kita selalu memilih restoran <strong>A</strong> selama 60 hari.</p>
+<p><em>Expected happiness</em> tertinggi didapatkan jika kita selalu memilih restoran <strong>A</strong> selama 30 hari.</p>
 <p><span class="math display">\[\text{happiness}_T = 30 \times \text{mean happiness}_A\]</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>           V1    V2    V3
-resto       A     B     C
-median_ 10.72  6.20  4.60</code></pre>
+<pre><code>         V1    V2    V3
+resto     A     B     C
+mean_ 10.84  7.28  4.62</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 321.6</code></pre>
+<pre><code>[1] 325.2</code></pre>
 </div>
 </div>
 </section>
@@ -552,7 +552,7 @@ median_ 10.72  6.20  4.60</code></pre>
 <p><span class="math display">\[\text{regret}_\text{total} = \text{happiness}_T - \sum_{i = A}^C 10 \times \text{mean happiness}_i\]</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 106.4</code></pre>
+<pre><code>[1] 97.8</code></pre>
 </div>
 </div>
 </section>
@@ -566,12 +566,12 @@ median_ 10.72  6.20  4.60</code></pre>
 <pre><code># A tibble: 3 × 2
   resto happiness
   &lt;chr&gt;     &lt;dbl&gt;
-1 A          9.19
-2 B          7.43
-3 C          6.58</code></pre>
+1 A          7.54
+2 B          9.56
+3 C          1.33</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 50.27</code></pre>
+<pre><code>[1] 48.65</code></pre>
 </div>
 </div>
 </section>
@@ -583,7 +583,7 @@ median_ 10.72  6.20  4.60</code></pre>
 <pre><code>1 pilih masing-masing restoran sekali
 2 pada iterasi ke t:
   generate epsilon [0,1]
-  if(epsilon &lt; 0.4) do
+  if(epsilon &lt; 0.3) do
     pilih restoran terbaik
     pilih menu yang ada
   else pilih resto acak
@@ -595,7 +595,7 @@ median_ 10.72  6.20  4.60</code></pre>
 <ul>
 <li class="fragment">Penentuan <strong>restoran terbaik</strong> di setiap iterasi adalah rata-rata happiness yang didapatkan selama proses berlangsung.</li>
 <li class="fragment">Angka <span class="math inline">\(\epsilon\)</span> didapatkan dari <em>random number generator</em> pada selang 0 hingga 1.</li>
-<li class="fragment">Angka <code>0.4</code> sebagai batas pemilihan bisa diganti sesuai dengan selera.</li>
+<li class="fragment">Angka <code>0.3</code> sebagai batas pemilihan bisa diganti sesuai dengan selera.</li>
 </ul>
 </div></div>
 </section>
@@ -607,12 +607,12 @@ median_ 10.72  6.20  4.60</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>          hari_1 hari_2 hari_3
 resto          A      B      C
-happiness  12.00   4.73   3.00</code></pre>
+happiness  10.70   6.93   1.33</code></pre>
 </div>
 </div>
 <p>Terlihat bahwa resto terbaik dari data di atas adalah: Resto A.</p>
 <p>. . .</p>
-<p>Kemudian kita <em>generate</em> angka <span class="math inline">\(\epsilon\)</span> secara <em>random</em>, misalkan <span class="math inline">\(\epsilon =\)</span> 0.4. Berdasarkan nilai tersebut, maka restoran selanjutnya adalah A.</p>
+<p>Kemudian kita <em>generate</em> angka <span class="math inline">\(\epsilon\)</span> secara <em>random</em>, misalkan <span class="math inline">\(\epsilon =\)</span> 0.04. Berdasarkan nilai tersebut, maka restoran selanjutnya adalah A.</p>
 </section>
 <section id="epsilon-greedy-strategy-2" class="slide level2 center smaller">
 <h2><span class="math inline">\(\epsilon\)</span> <em>Greedy Strategy</em></h2>
@@ -625,7 +625,7 @@ happiness  12.00   4.73   3.00</code></pre>
 <span id="cb8-4"><a href=""></a>  df_iter<span class="sc">$</span>pilih <span class="ot">=</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(df_iter),<span class="dv">0</span>,<span class="dv">1</span>)</span>
 <span id="cb8-5"><a href=""></a>  df_iter       <span class="ot">=</span> </span>
 <span id="cb8-6"><a href=""></a>    df_iter <span class="sc">|&gt;</span> </span>
-<span id="cb8-7"><a href=""></a>    <span class="fu">filter</span>(pilih <span class="sc">==</span> <span class="fu">max</span>(pilih)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href=""></a>    <span class="fu">filter</span>(pilih <span class="sc">==</span> <span class="fu">min</span>(pilih)) <span class="sc">|&gt;</span> </span>
 <span id="cb8-8"><a href=""></a>    <span class="fu">select</span>(<span class="sc">-</span>pilih) <span class="sc">|&gt;</span> </span>
 <span id="cb8-9"><a href=""></a>    <span class="fu">mutate</span>(<span class="at">hari =</span> iter,</span>
 <span id="cb8-10"><a href=""></a>           <span class="at">eps =</span> epsilon)</span>
@@ -651,17 +651,21 @@ happiness  12.00   4.73   3.00</code></pre>
 <span id="cb8-30"><a href=""></a>}</span>
 <span id="cb8-31"><a href=""></a></span>
 <span id="cb8-32"><a href=""></a>total_happiness <span class="ot">=</span> <span class="fu">sum</span>(round_t<span class="sc">$</span>happiness)</span>
-<span id="cb8-33"><a href=""></a></span>
-<span id="cb8-34"><a href=""></a>round_t <span class="sc">|&gt;</span> </span>
-<span id="cb8-35"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">cum_hap =</span> <span class="fu">cumsum</span>(happiness)) <span class="sc">|&gt;</span> </span>
-<span id="cb8-36"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hari,<span class="at">y =</span> cum_hap)) <span class="sc">+</span></span>
-<span id="cb8-37"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">group =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">"gray"</span>,<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
-<span id="cb8-38"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> resto)) <span class="sc">+</span></span>
-<span id="cb8-39"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"green"</span>,<span class="st">"blue"</span>,<span class="st">"brown"</span>)) <span class="sc">+</span></span>
-<span id="cb8-40"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb8-41"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hari ke - "</span>,</span>
-<span id="cb8-42"><a href=""></a>       <span class="at">y =</span> <span class="st">"Cumulative Happiness"</span>,</span>
-<span id="cb8-43"><a href=""></a>       <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"Total Regret: "</span>,max_hap <span class="sc">-</span> total_happiness))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-33"><a href=""></a>total_happiness <span class="ot">=</span> <span class="fu">round</span>(total_happiness,<span class="dv">2</span>)</span>
+<span id="cb8-34"><a href=""></a></span>
+<span id="cb8-35"><a href=""></a>round_t <span class="sc">|&gt;</span> </span>
+<span id="cb8-36"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">cum_hap =</span> <span class="fu">cumsum</span>(happiness)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-37"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hari,<span class="at">y =</span> cum_hap)) <span class="sc">+</span></span>
+<span id="cb8-38"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">group =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">"gray"</span>,<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-39"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> resto)) <span class="sc">+</span></span>
+<span id="cb8-40"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"green"</span>,<span class="st">"blue"</span>,<span class="st">"brown"</span>)) <span class="sc">+</span></span>
+<span id="cb8-41"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-42"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hari ke - "</span>,</span>
+<span id="cb8-43"><a href=""></a>       <span class="at">y =</span> <span class="st">"Cumulative Happiness"</span>,</span>
+<span id="cb8-44"><a href=""></a>       <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"Total Regret: "</span>,</span>
+<span id="cb8-45"><a href=""></a>                      <span class="fu">round</span>(max_hap <span class="sc">-</span> total_happiness,<span class="dv">2</span>)</span>
+<span id="cb8-46"><a href=""></a>                      )</span>
+<span id="cb8-47"><a href=""></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -677,10 +681,56 @@ happiness  12.00   4.73   3.00</code></pre>
 <blockquote>
 <p><em>Zero regret is an ambitious goal in the multi-armed bandit problem, implying that over time, the algorithm’s performance converges to that of the optimal arm. While it’s theoretically possible to achieve zero regret asymptotically, practically, algorithms often aim to minimize regret rather than completely eliminate it.</em></p>
 </blockquote>
-</section></section>
+</section>
+<section id="zero-regret-strategy-1" class="slide level2 center smaller">
+<h2><em>Zero-Regret Strategy</em></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><em>Math expression</em>:</p>
+<p>For the time <span class="math inline">\(t\)</span>, pick restaurant <span class="math inline">\(r\)</span> such that:</p>
+<p><span class="math display">\[\hat{\mu}_r + \sqrt{\frac{2 \ln{t}}{N_t(r)}}\]</span></p>
+<p>is maximized.</p>
+<p>Definisi:</p>
+<ol type="1">
+<li class="fragment"><span class="math inline">\(\hat{\mu}_r\)</span> adalah rata-rata <em>happiness we got so far</em>.</li>
+<li class="fragment"><span class="math inline">\(N_t(r)\)</span> adalah frekuensi kita berkunjung ke restoran <span class="math inline">\(r\)</span> <em>so far</em>.</li>
+</ol>
+</div><div class="column" style="width:60%;">
+<p>Proses pemilihannya mirip dengan <span class="math inline">\(\epsilon\)</span> <em>greedy</em> dengan penambahan <em>upper confidence bound</em>.</p>
+<p>Simpelnya seperti ini:</p>
+<blockquote>
+<p>We’ve been there twice (or many times), so let’s give them another chance…</p>
+</blockquote>
+<p>Prosesnya menyeimbangkan <em>exploration</em> dan <em>exploitation</em>.</p>
+<ul>
+<li class="fragment">Jika ada beberapa restoran dengan nilai <span class="math inline">\(\mu\)</span> yang sama, restoran yang dikunjungi lebih sedikit akan berpeluang lebih besar dikunjungi (<em>exploitation</em>).</li>
+<li class="fragment">Setelah berjalan <span class="math inline">\(t\)</span> waktu, kita akan lebih paham mengenai kondisi <span class="math inline">\(\mu\)</span> sehingga restoran terbaik akan memiliki peluang lebih besar untuk dipilih (<em>exploration</em>).</li>
+</ul>
+</div></div>
+</section>
+<section id="zero-regret-strategy-2" class="slide level2 center smaller">
+<h2><em>Zero-Regret Strategy</em></h2>
+<h3 id="ilustrasi-1">Ilustrasi</h3>
+<p>Misalkan pada hari pertama hingga ketiga, kita <em>exploit</em> ketiga restoran dan berikut adalah <em>happiness</em> yang kita dapatkan:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>          hari_1 hari_2 hari_3
+resto          A      B      C
+happiness   7.54   8.65   6.96
+skor        7.54   8.65   6.96</code></pre>
+</div>
+</div>
+<p>Baris <code>skor</code> dihitung dengan formula pada <em>slide</em> sebelumnya dengan nilai <span class="math inline">\(t=1\)</span> dan masing-masing <span class="math inline">\(N_t(r)=1\)</span>.</p>
+</section>
+<section id="zero-regret-strategy-3" class="slide level2 center smaller">
+<h2><em>Zero-Regret Strategy</em></h2>
+<h3 id="ilustrasi-2">Ilustrasi</h3>
+
+<img data-src="draft_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section></section>
 <section>
-<section id="lalu-apa-gunanya-multi-armed-bandit" class="title-slide slide level1 center">
-<h1>Lalu Apa Gunanya <em>Multi Armed Bandit</em> ?</h1>
+<section id="waktunya-diskusi" class="title-slide slide level1 center">
+<h1>WAKTUNYA DISKUSI!</h1>
+<p>Lalu Apa Gunanya <em>Multi Armed Bandit</em> ?</p>
 <p>Masalah bisnis apa yang bisa dibantu dengan <em>multi armed bandit</em>?</p>
 </section>
 <section id="netflix-recommendation-system" class="slide level2 center">
