@@ -29,6 +29,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
   </style>
   <link rel="stylesheet" href="draft_files/libs/revealjs/dist/theme/quarto.css">
   <link rel="stylesheet" href="logo.css">
@@ -411,7 +476,9 @@ ikanx101.com
 
 <img data-src="draft_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"><p>Apakah <em>decision making process</em> kita berbeda?</p>
 <div class="fragment">
-<p>Kita bisa memilih restoran B yang memiliki nilai <em>happiness</em> yang besar.</p>
+<div style="font-size: 40%;">
+<p>Kita bisa memilih restoran A yang memiliki nilai <em>happiness</em> yang besar.</p>
+</div>
 </div>
 </section>
 <section id="key-take-points-dari-simulasi-1" class="slide level2 center smaller">
@@ -454,52 +521,323 @@ ikanx101.com
 <section id="menemukan-strategies-1" class="slide level2 center smaller">
 <h2>Menemukan <em>Strategies</em></h2>
 <h3 id="expected-max-happiness"><em>Expected Max Happiness</em></h3>
-<p><em>Expected happiness</em> tertinggi didapatkan jika kita selalu memilih restoran <strong>B</strong> selama 60 hari.</p>
-<p><span class="math display">\[\text{happiness} = 30 \times \text{median happiness}_B\]</span></p>
+<p><em>Expected happiness</em> tertinggi didapatkan jika kita selalu memilih restoran <strong>A</strong> selama 30 hari.</p>
+<p><span class="math display">\[\text{happiness}_T = 30 \times \text{mean happiness}_A\]</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>           V1    V2    V3
-resto       A     B     C
-median_ 10.48  8.43  4.76</code></pre>
+<pre><code>         V1    V2    V3
+resto     A     B     C
+mean_ 10.84  7.28  4.62</code></pre>
 </div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 314.4</code></pre>
+<pre><code>[1] 325.2</code></pre>
 </div>
 </div>
 </section>
+<section id="menemukan-strategies-2" class="slide level2 center smaller">
+<h2>Menemukan <em>Strategies</em></h2>
+<p>Ada beberapa strategi yang bisa kita lakukan:</p>
+<ol type="1">
+<li class="fragment"><em>Naive strategies</em> (<em>explore only</em> dan <em>exploit only</em>).</li>
+<li class="fragment"><span class="math inline">\(\epsilon\)</span> - <em>greedy strategy</em>.</li>
+<li class="fragment"><em>Zero-regret strategy</em>.</li>
+</ol>
+</section>
 <section id="naive-strategies" class="slide level2 center smaller">
 <h2><em>Naive Strategies</em></h2>
-<div class="columns">
-<div class="column" style="width:50%;">
 <h3 id="explore-only">Explore Only</h3>
-<p>Selama masing-masing 20 hari, kita akan <em>explor</em> ke masing-masing restoran.</p>
-<p><span class="math display">\[\text{regret}_\text{total} = \sum_{i = A}^C 10 \times \text{median happiness}_i\]</span></p>
+<p>Selama masing-masing 10 hari, kita akan <em>explore</em> ke masing-masing restoran.</p>
+<p><span class="math display">\[\text{regret}_\text{total} = \text{happiness}_T - \sum_{i = A}^C 10 \times \text{mean happiness}_i\]</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 77.7</code></pre>
+<pre><code>[1] 97.8</code></pre>
 </div>
 </div>
-</div><div class="column" style="width:50%;">
+</section>
+<section id="naive-strategies-1" class="slide level2 center smaller">
+<h2><em>Naive Strategies</em></h2>
 <h3 id="exploit-only">Exploit Only</h3>
-<p>Selama tiga hari pertama, kita akan mencoba masing-masing satu menu dari tiap restoran. Restoran yang memiliki nilai <em>happiness</em> terbaik akan kita pilih selama sisa 57 hari ke depan.</p>
-<p><span class="math display">\[\text{regret}_\text{total} = \sum_{i = A}^C \text{happiness}_i + 57 \times \text{happiness}_{\text{best 3 days}}\]</span></p>
+<p>Selama tiga hari pertama, kita akan mencoba masing-masing satu menu dari tiap restoran. Restoran yang memiliki nilai <em>happiness</em> terbaik akan kita pilih selama sisa 27 hari ke depan.</p>
+<p><span class="math display">\[\text{regret}_\text{total} = \text{happiness}_T - (\sum_{i = A}^C \text{happiness}_i + 27 \times \text{happiness}_{\text{best 3 days}} )\]</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 3 × 2
   resto happiness
   &lt;chr&gt;     &lt;dbl&gt;
-1 A          4.12
-2 B          8.41
-3 C          2.54</code></pre>
+1 A          7.54
+2 B          9.56
+3 C          1.33</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 72.26</code></pre>
+<pre><code>[1] 48.65</code></pre>
+</div>
+</div>
+</section>
+<section id="epsilon-greedy-strategy" class="slide level2 center smaller">
+<h2><span class="math inline">\(\epsilon\)</span> <em>Greedy Strategy</em></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="algoritma">Algoritma</h3>
+<pre><code>1 pilih masing-masing restoran sekali
+2 pada iterasi ke t:
+  generate epsilon [0,1]
+  if(epsilon &lt; 0.3) do
+    pilih restoran terbaik
+    pilih menu yang ada
+  else pilih resto acak
+       pilih menu yang ada
+  simpan happiness tiap menu resto pada 
+    setiap iterasi</code></pre>
+</div><div class="column" style="width:50%;">
+<h3 id="definisi">Definisi</h3>
+<ul>
+<li class="fragment">Penentuan <strong>restoran terbaik</strong> di setiap iterasi adalah rata-rata happiness yang didapatkan selama proses berlangsung.</li>
+<li class="fragment">Angka <span class="math inline">\(\epsilon\)</span> didapatkan dari <em>random number generator</em> pada selang 0 hingga 1.</li>
+<li class="fragment">Angka <code>0.3</code> sebagai batas pemilihan bisa diganti sesuai dengan selera.</li>
+</ul>
+</div></div>
+</section>
+<section id="epsilon-greedy-strategy-1" class="slide level2 center smaller">
+<h2><span class="math inline">\(\epsilon\)</span> <em>Greedy Strategy</em></h2>
+<h3 id="ilustrasi">Ilustrasi</h3>
+<p>Misal, pada tiga hari pertama, kita keliling tiga restoran dan mendapatkan nilai <em>happiness</em> sebagai berikut:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>          hari_1 hari_2 hari_3
+resto          A      B      C
+happiness  10.70   6.93   1.33</code></pre>
+</div>
+</div>
+<p>Terlihat bahwa resto terbaik dari data di atas adalah: Resto A.</p>
+<p>. . .</p>
+<p>Kemudian kita <em>generate</em> angka <span class="math inline">\(\epsilon\)</span> secara <em>random</em>, misalkan <span class="math inline">\(\epsilon =\)</span> 0.04. Berdasarkan nilai tersebut, maka restoran selanjutnya adalah A.</p>
+</section>
+<section id="epsilon-greedy-strategy-2" class="slide level2 center smaller">
+<h2><span class="math inline">\(\epsilon\)</span> <em>Greedy Strategy</em></h2>
+<h3 id="ilustrasi-iterasi-selanjutnya">Ilustrasi Iterasi Selanjutnya</h3>
+<div class="cell columns column-output-location">
+<div class="column">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="cf">for</span>(iter <span class="cf">in</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">30</span>){</span>
+<span id="cb8-2"><a href=""></a>  <span class="co"># kita lakukan iterasinya</span></span>
+<span id="cb8-3"><a href=""></a>  df_iter       <span class="ot">=</span> df <span class="sc">|&gt;</span> <span class="fu">filter</span>(resto <span class="sc">==</span> pilihan_berikutnya)</span>
+<span id="cb8-4"><a href=""></a>  df_iter<span class="sc">$</span>pilih <span class="ot">=</span> <span class="fu">runif</span>(<span class="fu">nrow</span>(df_iter),<span class="dv">0</span>,<span class="dv">1</span>)</span>
+<span id="cb8-5"><a href=""></a>  df_iter       <span class="ot">=</span> </span>
+<span id="cb8-6"><a href=""></a>    df_iter <span class="sc">|&gt;</span> </span>
+<span id="cb8-7"><a href=""></a>    <span class="fu">filter</span>(pilih <span class="sc">==</span> <span class="fu">min</span>(pilih)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-8"><a href=""></a>    <span class="fu">select</span>(<span class="sc">-</span>pilih) <span class="sc">|&gt;</span> </span>
+<span id="cb8-9"><a href=""></a>    <span class="fu">mutate</span>(<span class="at">hari =</span> iter,</span>
+<span id="cb8-10"><a href=""></a>           <span class="at">eps =</span> epsilon)</span>
+<span id="cb8-11"><a href=""></a>  <span class="co"># kita gabungin dulu</span></span>
+<span id="cb8-12"><a href=""></a>  round_t <span class="ot">=</span> <span class="fu">bind_rows</span>(round_t,df_iter)</span>
+<span id="cb8-13"><a href=""></a>  </span>
+<span id="cb8-14"><a href=""></a>  <span class="co"># next round</span></span>
+<span id="cb8-15"><a href=""></a>  round_1 <span class="ot">=</span> </span>
+<span id="cb8-16"><a href=""></a>    round_t <span class="sc">|&gt;</span> </span>
+<span id="cb8-17"><a href=""></a>    <span class="fu">group_by</span>(resto) <span class="sc">|&gt;</span> </span>
+<span id="cb8-18"><a href=""></a>    <span class="fu">summarise</span>(<span class="at">happiness =</span> <span class="fu">sum</span>(happiness)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-19"><a href=""></a>    <span class="fu">ungroup</span>() </span>
+<span id="cb8-20"><a href=""></a>  </span>
+<span id="cb8-21"><a href=""></a>  <span class="co"># pilihan berikutnya</span></span>
+<span id="cb8-22"><a href=""></a>  epsilon <span class="ot">=</span> <span class="fu">runif</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="sc">|&gt;</span> <span class="fu">round</span>(<span class="dv">2</span>)</span>
+<span id="cb8-23"><a href=""></a>  pilihan_berikutnya <span class="ot">=</span> </span>
+<span id="cb8-24"><a href=""></a>    <span class="fu">ifelse</span>(epsilon <span class="sc">&lt;</span> <span class="fl">0.4</span>,</span>
+<span id="cb8-25"><a href=""></a>           <span class="co"># kalau selain itu kita random resto yang lain</span></span>
+<span id="cb8-26"><a href=""></a>           <span class="fu">sample</span>(round_1<span class="sc">$</span>resto,<span class="dv">1</span>),</span>
+<span id="cb8-27"><a href=""></a>           <span class="co"># seandainya &lt; 0.8 maka yang dipilih adalah yang terbaik</span></span>
+<span id="cb8-28"><a href=""></a>           round_1<span class="sc">$</span>resto[<span class="fu">which.max</span>(round_1<span class="sc">$</span>happiness)]</span>
+<span id="cb8-29"><a href=""></a>           )</span>
+<span id="cb8-30"><a href=""></a>}</span>
+<span id="cb8-31"><a href=""></a></span>
+<span id="cb8-32"><a href=""></a>total_happiness <span class="ot">=</span> <span class="fu">sum</span>(round_t<span class="sc">$</span>happiness)</span>
+<span id="cb8-33"><a href=""></a>total_happiness <span class="ot">=</span> <span class="fu">round</span>(total_happiness,<span class="dv">2</span>)</span>
+<span id="cb8-34"><a href=""></a></span>
+<span id="cb8-35"><a href=""></a>round_t <span class="sc">|&gt;</span> </span>
+<span id="cb8-36"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">cum_hap =</span> <span class="fu">cumsum</span>(happiness)) <span class="sc">|&gt;</span> </span>
+<span id="cb8-37"><a href=""></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> hari,<span class="at">y =</span> cum_hap)) <span class="sc">+</span></span>
+<span id="cb8-38"><a href=""></a>  <span class="fu">geom_line</span>(<span class="at">group =</span> <span class="dv">1</span>,<span class="at">color =</span> <span class="st">"gray"</span>,<span class="at">alpha =</span> .<span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb8-39"><a href=""></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> resto)) <span class="sc">+</span></span>
+<span id="cb8-40"><a href=""></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"green"</span>,<span class="st">"blue"</span>,<span class="st">"brown"</span>)) <span class="sc">+</span></span>
+<span id="cb8-41"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-42"><a href=""></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Hari ke - "</span>,</span>
+<span id="cb8-43"><a href=""></a>       <span class="at">y =</span> <span class="st">"Cumulative Happiness"</span>,</span>
+<span id="cb8-44"><a href=""></a>       <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"Total Regret: "</span>,</span>
+<span id="cb8-45"><a href=""></a>                      <span class="fu">round</span>(max_hap <span class="sc">-</span> total_happiness,<span class="dv">2</span>)</span>
+<span id="cb8-46"><a href=""></a>                      )</span>
+<span id="cb8-47"><a href=""></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div><div class="column">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="draft_files/figure-revealjs/unnamed-chunk-9-1.png" width="4500"></p>
+</figure>
 </div>
 </div>
 </div></div>
-<h3 id="section"></h3>
+</section>
+<section id="zero-regret-strategy" class="slide level2 center">
+<h2><em>Zero-Regret Strategy</em></h2>
+<blockquote>
+<p><em>Zero regret is an ambitious goal in the multi-armed bandit problem, implying that over time, the algorithm’s performance converges to that of the optimal arm. While it’s theoretically possible to achieve zero regret asymptotically, practically, algorithms often aim to minimize regret rather than completely eliminate it.</em></p>
+</blockquote>
+</section>
+<section id="zero-regret-strategy-1" class="slide level2 center smaller">
+<h2><em>Zero-Regret Strategy</em></h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p><em>Math expression</em>:</p>
+<p>For the time <span class="math inline">\(t\)</span>, pick restaurant <span class="math inline">\(r\)</span> such that:</p>
+<p><span class="math display">\[\hat{\mu}_r + \sqrt{\frac{2 \ln{t}}{N_t(r)}}\]</span></p>
+<p>is maximized.</p>
+<p>Definisi:</p>
+<ol type="1">
+<li class="fragment"><span class="math inline">\(\hat{\mu}_r\)</span> adalah rata-rata <em>happiness we got so far</em>.</li>
+<li class="fragment"><span class="math inline">\(N_t(r)\)</span> adalah frekuensi kita berkunjung ke restoran <span class="math inline">\(r\)</span> <em>so far</em>.</li>
+</ol>
+</div><div class="column" style="width:60%;">
+<p>Proses pemilihannya mirip dengan <span class="math inline">\(\epsilon\)</span> <em>greedy</em> dengan penambahan <em>upper confidence bound</em>.</p>
+<p>Simpelnya seperti ini:</p>
+<blockquote>
+<p>We’ve been there twice (or many times), so let’s give them another chance…</p>
+</blockquote>
+<p>Prosesnya menyeimbangkan <em>exploration</em> dan <em>exploitation</em>.</p>
+<ul>
+<li class="fragment">Jika ada beberapa restoran dengan nilai <span class="math inline">\(\mu\)</span> yang sama, restoran yang dikunjungi lebih sedikit akan berpeluang lebih besar dikunjungi (<em>exploitation</em>).</li>
+<li class="fragment">Setelah berjalan <span class="math inline">\(t\)</span> waktu, kita akan lebih paham mengenai kondisi <span class="math inline">\(\mu\)</span> sehingga restoran terbaik akan memiliki peluang lebih besar untuk dipilih (<em>exploration</em>).</li>
+</ul>
+</div></div>
+</section>
+<section id="zero-regret-strategy-2" class="slide level2 center smaller">
+<h2><em>Zero-Regret Strategy</em></h2>
+<h3 id="ilustrasi-1">Ilustrasi</h3>
+<p>Misalkan pada hari pertama hingga ketiga, kita <em>exploit</em> ketiga restoran dan berikut adalah <em>happiness</em> yang kita dapatkan:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>          hari_1 hari_2 hari_3
+resto          A      B      C
+happiness   7.54   8.65   6.96
+skor        7.54   8.65   6.96</code></pre>
+</div>
+</div>
+<p>Baris <code>skor</code> dihitung dengan formula pada <em>slide</em> sebelumnya dengan nilai <span class="math inline">\(t=1\)</span> dan masing-masing <span class="math inline">\(N_t(r)=1\)</span>.</p>
+</section>
+<section id="zero-regret-strategy-3" class="slide level2 center smaller">
+<h2><em>Zero-Regret Strategy</em></h2>
+<h3 id="ilustrasi-2">Ilustrasi</h3>
+
+<img data-src="draft_files/figure-revealjs/unnamed-chunk-11-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="waktunya-diskusi" class="title-slide slide level1 center">
+<h1>WAKTUNYA DISKUSI!</h1>
+<p>Lalu Apa Gunanya <em>Multi Armed Bandit</em> ?</p>
+<p>Masalah bisnis apa yang bisa dibantu dengan <em>multi armed bandit</em>?</p>
+</section>
+<section id="netflix-recommendation-system" class="slide level2 center">
+<h2><em>Netflix Recommendation System</em></h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-nrow="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="Logonetflix.png" class="quarto-figure quarto-figure-center" width="400"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="net2.png" class="quarto-figure quarto-figure-center" width="400"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="net1.png" class="quarto-figure quarto-figure-center" width="900"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="https://www.datacouncil.ai/talks/a-multi-armed-bandit-framework-for-recommendations-at-netflix#:~:text=In%20this%20talk%2C%20we%20will,and%20an%20incrementality%2Dbased%20policy.">Link artikel</a>.</p>
+</section>
+<section id="ab-testing-vs-multi-armed-bandit" class="slide level2">
+<h2><em>A/B Testing vs Multi Armed Bandit</em></h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-nrow="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="ab1.png" class="quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="ab2.png" class="quarto-figure quarto-figure-center" width="600"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><a href="https://amplitude.com/explore/experiment/multi-armed-bandit">Link artikel</a>.</p>
+</section>
+<section id="uber-experimentation-platform" class="slide level2">
+<h2><em>Uber Experimentation Platform</em></h2>
+<div>
+
+</div>
+<div class="quarto-layout-panel" data-layout-nrow="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="ub3.png" class="quarto-figure quarto-figure-center" width="450"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="ub2.png" class="quarto-figure quarto-figure-center" width="450"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="ub4.png" class="quarto-figure quarto-figure-center" width="450"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 11.1%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="uber.png" class="quarto-figure quarto-figure-center" width="100"></p>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 77.8%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="ub1.png" class="quarto-figure quarto-figure-center" width="700"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
 </section></section>
 <section id="terima-kasih" class="title-slide slide level1 center">
 <h1>TERIMA KASIH</h1>
