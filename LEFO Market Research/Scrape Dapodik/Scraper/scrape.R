@@ -1,7 +1,9 @@
+rm(list=ls())
 library(dplyr)
 library(rvest)
+library(parallel)
 
-rm(list=ls())
+n_core = detectCores()
 
 # bikin function buat scrape tabel sekolah
 scrape_sekolah = function(url){
@@ -12,25 +14,52 @@ scrape_sekolah = function(url){
   
   tabel = tabel[[1]] # ambil tabel dari list pertama
   tabel$sumber = url # kasih keterangan nama kecamatan
+  
+  prov = 
+    url %>% 
+    read_html() %>% 
+    html_nodes(".breadcrumb li:nth-child(3) a") %>% 
+    html_text()
+  
+  kota_kab = 
+    url %>% 
+    read_html() %>% 
+    html_nodes(".breadcrumb li:nth-child(4) a") %>% 
+    html_text()
+  
+  tabel = 
+    tabel %>% 
+    mutate(sumber = gsub("Data Peserta Didik ","",sumber),
+           sumber = gsub("- Dapodikdasmen.html","",sumber)) %>% 
+    rename(kecamatan = sumber) %>% 
+    mutate(prov     = prov,
+           kota_kab = kota_kab)
   return(tabel)
 }
 
 # set path ambil data dulu
-setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Dapodix/bogor")
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Scrape Dapodik/input")
 
 # ambil semua file html
 urls = list.files(pattern = "html")
 
-# set template dulu
-data_all = data.frame()
+# kita rapihin hanya ambil yang kec
+urls = urls[grepl("Kec.",urls)]
 
-# scraping all
-for(i in 1:length(urls)){
-  temp = scrape_sekolah(urls[i])
-  data_all = rbind(temp,data_all)
-  print(paste0("Sekolah dari: ",urls[i]," -- DONE"))
-}
+# proses web scraping
+hasil = mclapply(urls,scrape_sekolah,mc.cores = n_core)
+hasil = data.table::rbindlist(hasil) %>% as.data.frame()
+
+# kasih nama files
+nama_file = Sys.time() %>% as.character()
+nama_file = paste0(nama_file,".csv")
+
+# hapus filesnya
+urls = list.files(pattern = "html")
+unlink(urls)
 
 # set path untuk save
-setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Dapodix")
-write.csv(data_all,"bogor.csv")
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Scrape Dapodik/output")
+write.csv(hasil,nama_file)
+
+# sampai jawa tengah
