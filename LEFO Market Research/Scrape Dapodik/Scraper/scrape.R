@@ -62,4 +62,10 @@ unlink(urls)
 setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/Scrape Dapodik/output")
 write.csv(hasil,nama_file)
 
-# sampai jawa tengah
+
+
+# [1] "Prov. Papua Tengah"     "Prov. Papua Barat"     
+# [3] "Prov. Papua Barat Daya" 
+
+
+
