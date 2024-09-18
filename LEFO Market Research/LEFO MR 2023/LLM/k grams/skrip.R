@@ -2,6 +2,7 @@
 # https://cran.r-project.org/web/packages/kgrams/vignettes/kgrams.html
 
 rm(list=ls())
+gc()
 
 library(kgrams)
 library(dplyr)

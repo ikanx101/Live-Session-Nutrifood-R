@@ -4,12 +4,13 @@ library(janeaustenr)
 library(tokenizers)
 
 rm(list=ls())
+gc()
 
 # tahap 1
 # kita masukin teks feedingnya terlebih dahulu
 load("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2023/LLM/markov chain/data 1.rda")
 
-texts = much_ado[1:3]
+texts = much_ado[100:500]
 
 #texts
 
@@ -147,7 +148,11 @@ generate_phrase <- function(model, text, chars, max_length, diversity){
 # tahap 9
 model <- create_model(chars, max_length)
 
-fit_model(model, vectors,10)
+# ini adalah proses training
+fit_model(model, vectors,50)
+
+
+
 
 
 # tahap 10
@@ -158,6 +163,13 @@ chars[mana]
 
 # generate random
 generate_phrase(model,text,chars,max_length,.9)
+generate_phrase(model,text,chars,max_length,.1)
+
+
+
+
+
+
 
 
 # tahap 11
@@ -211,5 +223,7 @@ generate_input <- function(model, text, chars, max_length, diversity,input){
 }
 
 input = "anies baswedan"
-diversity = .6
+diversity = .8
 generate_input(model, text, chars, max_length, diversity,input)
+
+
