@@ -1,0 +1,344 @@
+---
+title: "Sebuah Learning Forum"
+subtitle: "Market Research"
+author: "Departemen Market Research"
+institute: Nutrifood Indonesia
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    footer: Sebuah Learning Forum Market Research
+    incremental: false
+    show-slide-number: all
+    transition: convex
+    width: 1280
+    height: 720
+    highlight-style: arrow-dark
+    output-location: column
+    code-overflow: scroll
+    scrollable: true
+    fig-dpi: 900
+    fig-format: svg
+    fig-align: center
+editor: visual
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| include: false
+setwd("~/Live-Session-Nutrifood-R/LEFO Market Research/LEFO MR 2025/Q1 Simpson")
+
+library(dplyr)
+library(ggplot2)
+library(ggpubr)
+library(tidyr)
+library(janitor)
+library(expss)
+
+load("tahap1.rda")
+source("0 grafik.R")
+```
+
+# CERITANYA
+
+Suatu waktu saya tidak sengaja membaca suatu topik.
+
+# _STUDY CASE I_
+
+Sebuah _Survey Dummy_
+
+## Perhatikan Tabel Berikut Ini {.center .smaller}
+
+::::: columns
+::: {.column width="50%"}
+
+Misalkan saya melakukan survey kepuasan pelanggan terhadap dua jenis kemasan produk:
+
+-   Kemasan A dan
+-   Kemasan B.
+
+Survey dilakukan di dua kota yang berbeda, yakni: Kota Maju dan Kota Berkembang.
+
+:::
+
+::: {.column width="50%"}
+
+![](tabel 1.png){fig-align="center" width="450"}
+
+Apa kesimpulan dari tabel di atas?
+:::
+:::::
+
+## _What If?_ {.center}
+
+Bagaimana jika kita gabung kedua tabel dari _slide_ sebelumnya?
+
+![](tabel 2.png){fig-align="center" width="300"}
+
+Kesimpulan pada _slide_ sebelumnya __sekarang berubah!__
+
+## Kesimpulan {.center}
+
+Analisa pada _all respondents_ menghasilkan kesimpulan yang berbeda dengan analisa pada subkelompok-subkelompok responden.
+
+# _STUDY CASE II_
+
+_Report_ Kualitatif: __JTBD Tropicana Slim 2025__
+
+## Demografi Responden
+
+```{r}
+#| message: false
+#| warning: false
+tabel_1 = df %>% tabyl(a2) %>% adorn_pct_formatting()
+tabel_2 = df %>% tabyl(pekerjaan) %>% adorn_pct_formatting() %>% arrange(n)
+
+plt_1 = 
+  bikin.bar.chart.gabung.tabyl(tabel_1,tabel_2,
+                               "Gender dan Pekerjaan Responden",
+                               "Base: All responden",
+                               "PERCENTAGE - n = 400") + ylim(0,300)
+  
+
+tabel_1 = df %>% tabyl(age_group) %>% adorn_pct_formatting()
+tabel_2 = df %>% tabyl(sesf) %>% adorn_pct_formatting()
+
+plt_2 = 
+  bikin.bar.chart.gabung.tabyl(tabel_1,tabel_2,
+                               "Usia dan SES Responden",
+                               "Base: All responden",
+                               "PERCENTAGE - n = 400") + ylim(0,300)
+
+plt_3 = 
+  bikinin.bar.chart.sort.dari.data.saya.donk.puter(df,df$c4,
+                                                 "Status Kesehatan Responden",
+                                                 "Base: All responden") + ylim(0,75)
+
+ggarrange(plt_1,plt_2,plt_3,ncol = 3)
+```
+
+## _User_ Produk Diabetes {.center .smaller}
+
+Persentase _user_ produk diabetes __lebih sedikit__ dibandingkan persentase _non user_ produk diabetes.
+
+```{r}
+#| message: false
+#| warning: false
+plt_2 = 
+  bikinin.pie.chart.dari.data.saya.donk(df,
+                                      df$pakai_produk_diabetes_gab,
+                                      "Pakai Produk Diabetes",
+                                      "Base: All responden")
+
+plt_2
+```
+
+## _What If?_
+
+Kita lakukan _cross_ tabulasi dengan variabel lain.
+
+```{r}
+df_1 = df |> filter(c4 == "Diabetes")
+df_2 = df |> filter(c4 == "Keturunan")
+df_3 = df |> filter(c4 == "Sehat")
+
+plt_1 = 
+  bikinin.pie.chart.dari.data.saya.donk(df_1,df_1$pakai_produk_diabetes_gab,
+                                      "Pakai Produk Diabetes",
+                                      "Base: Diabetesi")
+plt_2 = 
+  bikinin.pie.chart.dari.data.saya.donk(df_2,df_2$pakai_produk_diabetes_gab,
+                                      "Pakai Produk Diabetes",
+                                      "Base: Keturunan diabetes")
+plt_3 = 
+  bikinin.pie.chart.dari.data.saya.donk(df_3,df_3$pakai_produk_diabetes_gab,
+                                      "Pakai Produk Diabetes",
+                                      "Base: Sehat")
+
+ggarrange(plt_1,plt_2,plt_3,ncol = 3)
+```
+
+## _What If?_
+
+```{r}
+df |> 
+  tabyl(age_group,pakai_produk_diabetes_gab) |> 
+  adorn_percentages() |> 
+  reshape2::melt(id.vars = "age_group") |> 
+  mutate(label = value * 100,
+         label = round(label,2),
+         label = paste0(variable,", ",label,"%")) |> 
+  ggplot(aes(x = age_group,
+             y = value,
+             fill = variable,
+             group = variable)) +
+  geom_col(color = "black",linewidth = 1) +
+  geom_label(aes(label = label),
+             position = position_stack(vjust = .5),color = "white") +
+  scale_fill_manual(values = c("darkred","steelblue")) +
+  theme_minimal() +
+  labs(title = "Usership Across Age Group") +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_text(size = 12))
+```
+
+## _What If?_
+
+```{r}
+df |> 
+  tabyl(a2,pakai_produk_diabetes_gab) |> 
+  adorn_percentages() |> 
+  reshape2::melt(id.vars = "a2") |> 
+  mutate(label = value * 100,
+         label = round(label,2),
+         label = paste0(variable,", ",label,"%")) |> 
+  ggplot(aes(x = a2,
+             y = value,
+             fill = variable,
+             group = variable)) +
+  geom_col(color = "black",linewidth = 1) +
+  geom_label(aes(label = label),
+             position = position_stack(vjust = .5),color = "white") +
+  scale_fill_manual(values = c("darkred","steelblue")) +
+  theme_minimal() +
+  labs(title = "Usership Across Gender") +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_text(size = 12))
+```
+
+## _What If?_
+
+```{r}
+df |> 
+  tabyl(sesf,pakai_produk_diabetes_gab) |> 
+  adorn_percentages() |> 
+  reshape2::melt(id.vars = "sesf") |> 
+  mutate(label = value * 100,
+         label = round(label,2),
+         label = paste0(variable,", ",label,"%")) |> 
+  ggplot(aes(x = sesf,
+             y = value,
+             fill = variable,
+             group = variable)) +
+  geom_col(color = "black",linewidth = 1) +
+  geom_label(aes(label = label),
+             position = position_stack(vjust = .5),color = "white") +
+  scale_fill_manual(values = c("darkred","steelblue")) +
+  theme_minimal() +
+  labs(title = "Usership Across SES") +
+  theme(axis.text.y = element_blank(),
+        axis.title = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_text(size = 12))
+```
+
+## Kesimpulan {.center}
+
+Bisa jadi kita menemukan kesimpulan yang berbeda saat melakukan analisa pada subkelompok-subkelompok tertentu.
+
+---
+
+Fenomena ini disebut dengan __Simpson Paradox__.
+
+![](Simpsons+Paradox.png){fig-align="center" width="350"}
+
+
+## Deskripsi {.center}
+
+__Simpson Paradox__ adalah sebuah fenomena yang membingungkan dalam statistika dan probabilitas. 
+
+> Sederhananya, paradoks ini terjadi ketika suatu kecenderungan atau hubungan yang terlihat dalam beberapa kelompok data hilang atau bahkan bertolak belakang ketika kelompok-kelompok data tersebut digabungkan. 
+
+Paradoks ini dinamakan dari __Edward H. Simpson__, seorang statistikawan yang mendeskripsikannya pada tahun __1951__, meskipun fenomena ini sudah diketahui sebelumnya.
+
+## Mengapa ini disebut _Paradox_? {.center}
+
+Disebut _paradox_ karena bertentangan dengan intuisi kita. 
+
+> Secara logika, jika dalam setiap kelompok bagian dari keseluruhan kita melihat suatu kecenderungan, kita akan berharap kecenderungan tersebut tetap ada atau semakin kuat ketika semua kelompok digabungkan. Namun, __Simpson Paradox__ menunjukkan bahwa hal tersebut tidak selalu benar.
+
+## Mengapa _Simpson Paradox_ Terjadi? {.center}
+
+Pada dua _study cases_ yang dalam awal _slides_, _paradox_ terjadi karena adanya variabel tersembunyi atau variabel perancu (___confounding variable___) yang tidak kita sadari atau tidak kita kontrol. 
+
+## Diskusi {.center}
+
+### Apa Implikasi _Simpson Paradox_ Terhadap _Market Researcher_?
+
+::: {.notes}
+
+_Simpson Paradox_ sangat penting untuk diperhatikan oleh _market researcher_ karena dapat menyebabkan kesimpulan yang salah atau menyesatkan jika kita hanya melihat data agregat (data gabungan) tanpa mempertimbangkan subkelompok atau variabel lain yang mungkin relevan.
+
+:::
+
+## Diskusi {.center}
+
+### Bagaimana Menghindari Kesalahan Interpretasi Akibat _Simpson Paradox_?
+
+## Tips dan Trik {.center .smaller}
+
+1. Segmentasi Data
+2. Analisis Lebih Dalam
+3. Pertimbangkan Konteks
+4. Komunikasi yang Jelas
+
+::: {.notes}
+1. Langkah pertama adalah selalu melakukan segmentasi data berdasarkan variabel-variabel yang relevan.
+1. Jangan hanya berhenti pada analisis deskriptif. Lakukan analisis inferensial dan eksploratif untuk memahami hubungan antar variabel dan mengidentifikasi variabel perancu.
+1. Selalu pertimbangkan konteks riset Anda. Faktor-faktor apa saja yang mungkin mempengaruhi hasil? Apakah ada variabel tersembunyi yang perlu dipertimbangkan?
+1. Saat menyampaikan hasil riset, jelaskan secara transparan apakah Simpson Paradox mungkin terjadi dan bagaimana Anda mengatasinya dalam analisis Anda. Sajikan data per subkelompok dan data agregat jika perlu, dan jelaskan interpretasi yang tepat.
+:::
+
+
+# APAKAH ADA CARA MENDETEKSI _SIMPSON PARADOX_?
+
+Apakah kalian punya ide bagaimana cara mendeteksi _Simpson Paradox_ ? 
+
+::: {.notes}
+_Open discussion yah!_
+:::
+
+## Mendeteksi _Confounding Variables_ Menggunakan _Machine Learning_ {.center}
+
+## Prinsip Dasar {.center .smaller}
+
+1. Membuat model berbasis regresi untuk memprediksi _target variable_ tertentu dari semua _predictor variables_.
+    - Model berbasis regresi dipilih karena kemudahan interpretasi dan kemudahan pembuatan.
+    - Model regresi linear bisa dipilih jika _target variable_ berupa numerik.
+    - Model regresi binomial logistik bisa dipilih jika _target variable_ berupa kategorik.
+    - Perlu _pre-processing data_ berupa _one-hot-encoding_ pada semua _predictors_ kategorik.
+1. Semua _predictor variables_ yang memiliki koefisien regresi yang __signifikan__ merupakan _confounding variable(s)_.
+
+::: {.notes}
+Buka [_blog_](https://ikanx101.com/blog/simpson-paradox/#contoh-data-survey).
+:::
+
+
+## Contoh pada JTBD Tropicana Slim
+
+```{r}
+rm(list=ls())
+load("model.rda")
+summary(model_logistik)
+```
+
+## _Key Take Points_ {.center}
+
+Ada __dua variabel__ yang __signifikan__ terhadap _usership_, yakni:
+
+1. `genderPria`, bernilai negatif; artinya peluangnya besar untuk menemukan _non user_.
+1. `statusDiabetes`, bernilai positif; artinya peluangnya besar untuk menemukan _user_.
+
+# Terima Kasih
+
+
+
+
+
