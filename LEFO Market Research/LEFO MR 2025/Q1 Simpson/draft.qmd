@@ -46,47 +46,44 @@ source("0 grafik.R")
 
 Suatu waktu saya tidak sengaja membaca suatu topik.
 
-# _STUDY CASE I_
+# *STUDY CASE I*
 
-Sebuah _Survey Dummy_
+Sebuah *Survey Dummy*
 
 ## Perhatikan Tabel Berikut Ini {.center .smaller}
 
 ::::: columns
 ::: {.column width="50%"}
-
 Misalkan saya melakukan survey kepuasan pelanggan terhadap dua jenis kemasan produk:
 
 -   Kemasan A dan
 -   Kemasan B.
 
 Survey dilakukan di dua kota yang berbeda, yakni: Kota Maju dan Kota Berkembang.
-
 :::
 
 ::: {.column width="50%"}
-
-![](tabel 1.png){fig-align="center" width="450"}
+![](tabel%201.png){fig-align="center" width="450"}
 
 Apa kesimpulan dari tabel di atas?
 :::
 :::::
 
-## _What If?_ {.center}
+## *What If?* {.center}
 
-Bagaimana jika kita gabung kedua tabel dari _slide_ sebelumnya?
+Bagaimana jika kita gabung kedua tabel dari *slide* sebelumnya?
 
-![](tabel 2.png){fig-align="center" width="300"}
+![](tabel%202.png){fig-align="center" width="300"}
 
-Kesimpulan pada _slide_ sebelumnya __sekarang berubah!__
+Kesimpulan pada *slide* sebelumnya **sekarang berubah!**
 
 ## Kesimpulan {.center}
 
-Analisa pada _all respondents_ menghasilkan kesimpulan yang berbeda dengan analisa pada subkelompok-subkelompok responden.
+Analisa pada *all respondents* menghasilkan kesimpulan yang berbeda dengan analisa pada subkelompok-subkelompok responden.
 
-# _STUDY CASE II_
+# *STUDY CASE II*
 
-_Report_ Kualitatif: __JTBD Tropicana Slim 2025__
+*Report* Kualitatif: **JTBD Tropicana Slim 2025**
 
 ## Demografi Responden
 
@@ -120,9 +117,9 @@ plt_3 =
 ggarrange(plt_1,plt_2,plt_3,ncol = 3)
 ```
 
-## _User_ Produk Diabetes {.center .smaller}
+## *User* Produk Diabetes {.center .smaller}
 
-Persentase _user_ produk diabetes __lebih sedikit__ dibandingkan persentase _non user_ produk diabetes.
+Persentase *user* produk diabetes **lebih sedikit** dibandingkan persentase *non user* produk diabetes.
 
 ```{r}
 #| message: false
@@ -136,9 +133,9 @@ plt_2 =
 plt_2
 ```
 
-## _What If?_
+## *What If?*
 
-Kita lakukan _cross_ tabulasi dengan variabel lain.
+Kita lakukan *cross* tabulasi dengan variabel lain.
 
 ```{r}
 df_1 = df |> filter(c4 == "Diabetes")
@@ -161,7 +158,7 @@ plt_3 =
 ggarrange(plt_1,plt_2,plt_3,ncol = 3)
 ```
 
-## _What If?_
+## *What If?*
 
 ```{r}
 df |> 
@@ -187,7 +184,7 @@ df |>
         axis.text.x = element_text(size = 12))
 ```
 
-## _What If?_
+## *What If?*
 
 ```{r}
 df |> 
@@ -213,7 +210,7 @@ df |>
         axis.text.x = element_text(size = 12))
 ```
 
-## _What If?_
+## *What If?*
 
 ```{r}
 df |> 
@@ -243,83 +240,78 @@ df |>
 
 Bisa jadi kita menemukan kesimpulan yang berbeda saat melakukan analisa pada subkelompok-subkelompok tertentu.
 
----
+------------------------------------------------------------------------
 
-Fenomena ini disebut dengan __Simpson Paradox__.
+Fenomena ini disebut dengan **Simpson Paradox**.
 
 ![](Simpsons+Paradox.png){fig-align="center" width="350"}
 
-
 ## Deskripsi {.center}
 
-__Simpson Paradox__ adalah sebuah fenomena yang membingungkan dalam statistika dan probabilitas. 
+**Simpson Paradox** adalah sebuah fenomena yang membingungkan dalam statistika dan probabilitas.
 
-> Sederhananya, paradoks ini terjadi ketika suatu kecenderungan atau hubungan yang terlihat dalam beberapa kelompok data hilang atau bahkan bertolak belakang ketika kelompok-kelompok data tersebut digabungkan. 
+> Sederhananya, paradoks ini terjadi ketika suatu kecenderungan atau hubungan yang terlihat dalam beberapa kelompok data hilang atau bahkan bertolak belakang ketika kelompok-kelompok data tersebut digabungkan.
 
-Paradoks ini dinamakan dari __Edward H. Simpson__, seorang statistikawan yang mendeskripsikannya pada tahun __1951__, meskipun fenomena ini sudah diketahui sebelumnya.
+Paradoks ini dinamakan dari **Edward H. Simpson**, seorang statistikawan yang mendeskripsikannya pada tahun **1951**, meskipun fenomena ini sudah diketahui sebelumnya.
 
-## Mengapa ini disebut _Paradox_? {.center}
+## Mengapa ini disebut *Paradox*? {.center}
 
-Disebut _paradox_ karena bertentangan dengan intuisi kita. 
+Disebut *paradox* karena bertentangan dengan intuisi kita.
 
-> Secara logika, jika dalam setiap kelompok bagian dari keseluruhan kita melihat suatu kecenderungan, kita akan berharap kecenderungan tersebut tetap ada atau semakin kuat ketika semua kelompok digabungkan. Namun, __Simpson Paradox__ menunjukkan bahwa hal tersebut tidak selalu benar.
+> Secara logika, jika dalam setiap kelompok bagian dari keseluruhan kita melihat suatu kecenderungan, kita akan berharap kecenderungan tersebut tetap ada atau semakin kuat ketika semua kelompok digabungkan. Namun, **Simpson Paradox** menunjukkan bahwa hal tersebut tidak selalu benar.
 
-## Mengapa _Simpson Paradox_ Terjadi? {.center}
+## Mengapa *Simpson Paradox* Terjadi? {.center}
 
-Pada dua _study cases_ yang dalam awal _slides_, _paradox_ terjadi karena adanya variabel tersembunyi atau variabel perancu (___confounding variable___) yang tidak kita sadari atau tidak kita kontrol. 
+Pada dua *study cases* yang dalam awal *slides*, *paradox* terjadi karena adanya variabel tersembunyi atau variabel perancu (***confounding variable***) yang tidak kita sadari atau tidak kita kontrol.
 
 ## Diskusi {.center}
 
-### Apa Implikasi _Simpson Paradox_ Terhadap _Market Researcher_?
+### Apa Implikasi *Simpson Paradox* Terhadap *Market Researcher*?
 
-::: {.notes}
-
-_Simpson Paradox_ sangat penting untuk diperhatikan oleh _market researcher_ karena dapat menyebabkan kesimpulan yang salah atau menyesatkan jika kita hanya melihat data agregat (data gabungan) tanpa mempertimbangkan subkelompok atau variabel lain yang mungkin relevan.
-
+::: notes
+*Simpson Paradox* sangat penting untuk diperhatikan oleh *market researcher* karena dapat menyebabkan kesimpulan yang salah atau menyesatkan jika kita hanya melihat data agregat (data gabungan) tanpa mempertimbangkan subkelompok atau variabel lain yang mungkin relevan.
 :::
 
 ## Diskusi {.center}
 
-### Bagaimana Menghindari Kesalahan Interpretasi Akibat _Simpson Paradox_?
+### Bagaimana Menghindari Kesalahan Interpretasi Akibat *Simpson Paradox*?
 
 ## Tips dan Trik {.center .smaller}
 
-1. Segmentasi Data
-2. Analisis Lebih Dalam
-3. Pertimbangkan Konteks
-4. Komunikasi yang Jelas
+1.  Segmentasi Data
+2.  Analisis Lebih Dalam
+3.  Pertimbangkan Konteks
+4.  Komunikasi yang Jelas
 
-::: {.notes}
-1. Langkah pertama adalah selalu melakukan segmentasi data berdasarkan variabel-variabel yang relevan.
-1. Jangan hanya berhenti pada analisis deskriptif. Lakukan analisis inferensial dan eksploratif untuk memahami hubungan antar variabel dan mengidentifikasi variabel perancu.
-1. Selalu pertimbangkan konteks riset Anda. Faktor-faktor apa saja yang mungkin mempengaruhi hasil? Apakah ada variabel tersembunyi yang perlu dipertimbangkan?
-1. Saat menyampaikan hasil riset, jelaskan secara transparan apakah Simpson Paradox mungkin terjadi dan bagaimana Anda mengatasinya dalam analisis Anda. Sajikan data per subkelompok dan data agregat jika perlu, dan jelaskan interpretasi yang tepat.
+::: notes
+1.  Langkah pertama adalah selalu melakukan segmentasi data berdasarkan variabel-variabel yang relevan.
+2.  Jangan hanya berhenti pada analisis deskriptif. Lakukan analisis inferensial dan eksploratif untuk memahami hubungan antar variabel dan mengidentifikasi variabel perancu.
+3.  Selalu pertimbangkan konteks riset Anda. Faktor-faktor apa saja yang mungkin mempengaruhi hasil? Apakah ada variabel tersembunyi yang perlu dipertimbangkan?
+4.  Saat menyampaikan hasil riset, jelaskan secara transparan apakah Simpson Paradox mungkin terjadi dan bagaimana Anda mengatasinya dalam analisis Anda. Sajikan data per subkelompok dan data agregat jika perlu, dan jelaskan interpretasi yang tepat.
 :::
 
+# APAKAH ADA CARA MENDETEKSI *SIMPSON PARADOX*?
 
-# APAKAH ADA CARA MENDETEKSI _SIMPSON PARADOX_?
+Apakah kalian punya ide bagaimana cara mendeteksi *Simpson Paradox* ?
 
-Apakah kalian punya ide bagaimana cara mendeteksi _Simpson Paradox_ ? 
-
-::: {.notes}
-_Open discussion yah!_
+::: notes
+*Open discussion yah!*
 :::
 
-## Mendeteksi _Confounding Variables_ Menggunakan _Machine Learning_ {.center}
+## Mendeteksi *Confounding Variables* Menggunakan *Machine Learning* {.center}
 
 ## Prinsip Dasar {.center .smaller}
 
-1. Membuat model berbasis regresi untuk memprediksi _target variable_ tertentu dari semua _predictor variables_.
-    - Model berbasis regresi dipilih karena kemudahan interpretasi dan kemudahan pembuatan.
-    - Model regresi linear bisa dipilih jika _target variable_ berupa numerik.
-    - Model regresi binomial logistik bisa dipilih jika _target variable_ berupa kategorik.
-    - Perlu _pre-processing data_ berupa _one-hot-encoding_ pada semua _predictors_ kategorik.
-1. Semua _predictor variables_ yang memiliki koefisien regresi yang __signifikan__ merupakan _confounding variable(s)_.
+1.  Membuat model berbasis regresi untuk memprediksi *target variable* tertentu dari semua *predictor variables*.
+    -   Model berbasis regresi dipilih karena kemudahan interpretasi dan kemudahan pembuatan.
+    -   Model regresi linear bisa dipilih jika *target variable* berupa numerik.
+    -   Model regresi binomial logistik bisa dipilih jika *target variable* berupa kategorik.
+    -   Perlu *pre-processing data* berupa *one-hot-encoding* pada semua *predictors* kategorik.
+2.  Semua *predictor variables* yang memiliki koefisien regresi yang **signifikan** merupakan *confounding variable(s)*.
 
-::: {.notes}
-Buka [_blog_](https://ikanx101.com/blog/simpson-paradox/#contoh-data-survey).
+::: notes
+Buka [*blog*](https://ikanx101.com/blog/simpson-paradox/#contoh-data-survey).
 :::
-
 
 ## Contoh pada JTBD Tropicana Slim
 
@@ -329,16 +321,11 @@ load("model.rda")
 summary(model_logistik)
 ```
 
-## _Key Take Points_ {.center}
+## *Key Take Points* {.center}
 
-Ada __dua variabel__ yang __signifikan__ terhadap _usership_, yakni:
+Ada **dua variabel** yang **signifikan** terhadap *usership*, yakni:
 
-1. `genderPria`, bernilai negatif; artinya peluangnya besar untuk menemukan _non user_.
-1. `statusDiabetes`, bernilai positif; artinya peluangnya besar untuk menemukan _user_.
+1.  `genderPria`, bernilai negatif; artinya peluangnya besar untuk menemukan *non user*.
+2.  `statusDiabetes`, bernilai positif; artinya peluangnya besar untuk menemukan *user*.
 
 # Terima Kasih
-
-
-
-
-
