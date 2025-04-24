@@ -1,0 +1,97 @@
+---
+title: "Membuat Model Image Classification"
+subtitle: "Sebuah Learning Forum"
+author: "ikanx101.com"
+institute: Departemen Market Research Nutrifood Indonesia
+format: 
+  revealjs:
+    theme: simple
+    slide-number: true
+    footer: Learning Forum
+    incremental: false
+    show-slide-number: all
+    transition: convex
+    width: 1280
+    height: 720
+    highlight-style: arrow-dark
+    output-location: column
+    code-overflow: scroll
+    scrollable: true
+    fig-dpi: 900
+    fig-format: svg
+    fig-align: center
+editor: visual
+execute: 
+  echo: false
+  warning: false
+  message: false
+---
+
+## Mukadimah
+
+### *Deep Learning* vs *Machine Learning* {.center}
+
+![](IMG_0965.png){fig-align="center" width="450"}
+
+::: notes
+Kita mulai dulu dari sini ya.
+:::
+
+## Gambar apakah ini?
+
+::: {layout-ncol="2"}
+![](IMG_0967.jpeg){fig-align="center" width="350"}
+
+![](IMG_0966.webp){fig-align="center" width="350"}
+:::
+
+::: notes
+Pertanyaannya: Bagaimana kita mengenali hewan apakah ini?
+
+Saat gambar masuk ke dalam otak, otak kita secara otomatis memberikan fitur. Atau memberikan label terhadap ciri-ciri hewan tersebut. Misal: kakinya berapa, punya kuping, ada sayap, tanduk, paruh, dll.
+
+Nah, cara kerja otak manusia itulah yang ingin ditiru oleh model berbasis deep learning.
+:::
+
+## *Intermezzo* {.center .smaller}
+
+Misalkan saya punya hewan dengan ciri-ciri seperti ini:
+
+| Nomor | Sayap | Tanduk | Jumlah kaki |
+|-------|-------|--------|-------------|
+| 1     | Tdk   | Ya     | 4           |
+| 2     | Ya    | Ya     | 2           |
+
+Hewan apakah ini?
+
+------------------------------------------------------------------------
+
+::: {layout-ncol="2"}
+![Hewan_1](hewan1.jpeg){fig-align="center" width="350"}
+
+![Hewan_2](hewan_2.png){fig-align="center" width="350"}
+:::
+
+# _Image-Classifier_
+
+## _Overview_ {.center}
+
+```{mermaid}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+
+
+
+
+
+
+
+
+
+
+
