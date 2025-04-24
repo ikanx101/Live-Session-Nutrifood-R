@@ -20,6 +20,8 @@ format:
     fig-dpi: 900
     fig-format: svg
     fig-align: center
+    mermaid:
+      theme: neutral
 editor: visual
 execute: 
   echo: false
@@ -77,14 +79,17 @@ Hewan apakah ini?
 ## _Overview_ {.center}
 
 ```{mermaid}
+%%| fig-width: 6.5
 flowchart LR
-  A[Hard edge] --> B(Round edge)
-  B --> C{Decision}
-  C --> D[Result one]
-  C --> E[Result two]
+  A[Input] --> B[Proses]
+  B --> C[Output]
 ```
 
+Saya akan coba bahas mengenai bagaimana cara membuat model _image classifier_.
 
+# _INPUT_
+
+## Apa _input_ (baca data) yang diperlukan pada _image classifier_ {.center}
 
 
 
