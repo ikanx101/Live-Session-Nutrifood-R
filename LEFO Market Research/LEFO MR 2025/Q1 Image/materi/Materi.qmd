@@ -74,29 +74,194 @@ Hewan apakah ini?
 ![Hewan_2](hewan_2.png){fig-align="center" width="350"}
 :::
 
-# _Image-Classifier_
+# *Image-Classifier*
 
-## _Overview_ {.center}
+## *Overview* {.center}
 
-```{mermaid}
-%%| fig-width: 6.5
-flowchart LR
-  A[Input] --> B[Proses]
-  B --> C[Output]
+Saya akan coba bahas mengenai bagaimana cara membuat model *image classifier*.
+
+
+```{dot}
+digraph D {
+
+  input -> proses -> output
+
+}
 ```
 
-Saya akan coba bahas mengenai bagaimana cara membuat model _image classifier_.
 
-# _INPUT_
+# *INPUT*
 
-## Apa _input_ (baca data) yang diperlukan pada _image classifier_ {.center}
+## Apa *input* (baca data) yang diperlukan pada *image classifier* {.center}
 
+## _Input_ {.center}
 
+_Input_ yang diperlukan adalah _images_.
 
+Ada dua format _images_ yang mashyur:
 
+1. `.png`
+1. `.jpeg`
 
+Apa perbedaan keduanya?
 
+## Apa perbedaan `.jpeg` dengan `.png`? {.center}
 
+![](perbezaan.png){fig-align="center" width="450"}
 
+::: notes
+Ini perbedaan hasil _prompting_ dari Gemini.
+:::
+
+## Apa perbedaan `.jpeg` dengan `.png`? {.center}
+
+__Perbedaan mendasar yang perlu diketahui adalah banyaknya *layers*__.
+
+![](JPEG-vs-PNG.webp){fig-align="center" width="150"}
+
+- `.jpeg` terdiri dari 3 _layers_, yakni __Red, Green, Blue__.
+- `.png` terdiri dari 4 _layers_, yakni __Red, Green, Blue__ + ___Alpha___.
+
+::: notes
+Ada yang tau kegunakan _alpha_ apa?
+:::
+
+## Kenapa banyaknya _layers_ penting? {.center .smaller}
+
+::::::: columns
+:::: {.column width="50%"}
+Yang kita lihat:
+
+![](monalisa.jpg){fig-align="center" width="250"}
+
+::::
+
+:::: {.column width="50%"}
+Yang komputer lihat:
+
+```{r}
+#| warning: false
+#| message: false
+rm(list=ls())
+# gc()
+
+# libraries yang diperlukan
+library(dplyr)
+library(tidyr)
+library(EBImage)
+library(parallel)
+
+readImage("monalisa.jpg")
+```
+::::
+:::::::
+
+::: notes
+Ada yang mau tebak ini `jpeg` atau `png`? Dari mana bisa terlihat?
+:::
+
+## Augmentasi _images_ {.center}
+
+![](augmen.webp){fig-align="center" width="350"}
+
+Pada setiap model _image classifier_, dikenal suatu teknik bernama _image augmentation_ yang berguna __untuk memperbanyak *images* sehingga model bisa lebih pintar menebak _image_ yang diberikan__.
+
+## _Summary: input data_ {.center .smaller}
+
+1. Data yang digunakan: _images_.
+    - Agar model __semakin pintar__, kita bisa memperbanyak _images_ dengan teknik _image augmentation_.
+1. _Images_ dilihat sebagai matriks dengan sifat:
+    - Dimensi merupakan ukuran _height_ dan _width_ (_pixel size_).
+    - Banyaknya _layers_ tergantung dari format `jpeg` dan `png` yang mengakibatkan perbedaan ukuran matrix.
+1. Matriks ini kelak yang akan digunakan untuk membangun model _deep learning_.
+    - Oleh karena itu ukuran matriks harus __konsisten__ selama pembuatan model. 
+
+# Proses Pembuatan Model _Deep Learning_
+
+## _Deep Learning: Artificial Neural Network_ {.center}
+
+![](Neural-Networks-Architecture.png){fig-align="center" width="450"}
+
+::: notes
+Ini adalah arsitektur dari ANN. Cara kerjanya adalah regresi linear. _Big regression machine_.
+
+Jelasin _layers_ dan _nodes_
+:::
+
+## Apa hubungan arsitektur ANN dengan dengan ukuran matriks? {.center}
+
+> _Input layers_ harus memuat _nodes_ seukuran dengan matriks input.
+
+_Output layers_ harus memuat berapa banyak _nodes_?
+
+::: notes
+_Output layers_ tergantung dari output prediksinya apa?
+
+Kalau kita hendak memprediksi 2 kategorik, misal: ayam atau kambing, ya outputnya hanya 2.
+:::
+
+## Bagaimana Langkah Kerjanya? {.center .smaller}
+
+::: {style="font-size: 60%;"}
+1. Siapkan minimal 2 kategori _images_ yang hendak digunakan.
+    - Lakukan augmentasi.
+1. Pisahkan _images_ menjadi dua:
+    - _Train datasets_: model akan dilatih menggunakan kumpulan _images_ ini.
+    - _Test datasets_: model akan divalidasi menggunakan kumpulan _images_ ini. Analogi: __semacam ujian setelah seorang siswa belajar__.
+1. Buat arsitektur ANN.
+    - Perhatikan ukuran matriks dan _output nodes_-nya.
+1. Buat aturan (baca: definisikan) __program wajib belajar__.
+    - Berapa banyak _epochs_?
+    - Berapa _learning rate_?
+    - Berapa porsi validasi saat belajar?
+    - Berapa _batch_ yang digunakan dalam satu _epoch_ pembelajaran?
+    - _Activation function_ setiap _layer_ mau seperti apa?
+1. Suruh modelnya belajar.
+1. Validasi modelnya dan lihat seberapa akurat modelnya mengenali _images_.
+    - Jika belum pintar, __lakukan wajib belajar lagi__.
+:::
+
+::: notes
+Ini bedanya DL dengan ML. DL gak harus ngulang saat ada data baru. kalau ML kan ngulang modelnya ya.
+:::
+
+## Ilustrasi Kerja dengan TensorFlow {.center .smaller}
+
+::: {style="font-size: 60%;"}
+Salah satu _framework_ yang digunakan untuk membuat model _deep learning_ adalah [__TensorFlow__](https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.01329&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false).
+
+-   Sebuah *platform* atau *library open-source* yang dibuat oleh Google.
+-   Digunakan untuk membangun dan melatih model *Deep Learning*.
+-   Menyediakan alat, fungsi siap pakai, dan lingkungan untuk memudahkan proses pengembangan model AI.
+-   Fleksibel: Bisa dijalankan di berbagai perangkat keras (**CPU, GPU, atau TPU**).
+
+:::
+
+> ***TensorFlow bukan model AI itu sendiri, tapi alat untuk membuat model tersebut.***
+
+## **Analogi**: TensorFlow itu Seperti Dapur Profesional {.center .smaller}
+
+:::::: columns
+::: {.column width="30%"}
+![](tensorflow.png){fig-align="center" width="300"}
+:::
+
+:::: {.column width="70%"}
+::: {style="font-size: 80%;"}
+**Skenario**: Anda ingin membuat kue yang sangat kompleks (*Model Deep Learning*).
+
+-   *Deep Learning*: Adalah resep dan konsep cara membuat kue tersebut (prinsip jaringan saraf, *layers*, dll).
+-   *TensorFlow*: Adalah dapur profesional yang lengkap:
+    -   Menyediakan mangkuk, *mixer*, oven canggih (fungsi matematika, algoritma optimasi, struktur data 'Tensor').
+    -   Menyediakan alat ukur presisi (*tools debugging* dan *monitoring*).
+    -   Menyediakan tata letak dapur yang efisien (*framework* yang terstruktur).
+    -   Memungkinkan Anda fokus meracik bahan (data) dan mengikuti resep (membangun model) tanpa perlu membuat semua alat dari nol.
+:::
+::::
+::::::
+
+::: notes
+TensorFlow menyederhanakan dan mempercepat proses "memasak" (membangun dan melatih) model Deep Learning.
+:::
 
 

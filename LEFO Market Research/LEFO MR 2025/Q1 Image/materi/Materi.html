@@ -321,9 +321,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="Materi_files/libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="Materi_files/libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="Materi_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -464,22 +461,321 @@ ikanx101.com
 </section>
 <section id="overview" class="slide level2 center">
 <h2><em>Overview</em></h2>
-<div class="cell" data-reveal="true" data-layout-align="center">
+<p>Saya akan coba bahas mengenai bagaimana cara membuat model <em>image classifier</em>.</p>
+<div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Hard edge] --&gt; B(Round edge)
-  B --&gt; C{Decision}
-  C --&gt; D[Result one]
-  C --&gt; E[Result two]
-</pre>
+<svg width="960" height="480" viewbox="0.00 0.00 79.43 188.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
+<title>D</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-184 75.43,-184 75.43,4 -4,4"></polygon>
+<!-- input -->
+<g id="node1" class="node">
+<title>input</title>
+<ellipse fill="none" stroke="black" cx="35.72" cy="-162" rx="30.78" ry="18"></ellipse>
+<text text-anchor="middle" x="35.72" y="-157.8" font-family="Times,serif" font-size="14.00">input</text>
+</g>
+<!-- proses -->
+<g id="node2" class="node">
+<title>proses</title>
+<ellipse fill="none" stroke="black" cx="35.72" cy="-90" rx="35.92" ry="18"></ellipse>
+<text text-anchor="middle" x="35.72" y="-85.8" font-family="Times,serif" font-size="14.00">proses</text>
+</g>
+<!-- input&#45;&gt;proses -->
+<g id="edge1" class="edge">
+<title>input-&gt;proses</title>
+<path fill="none" stroke="black" d="M35.72,-143.7C35.72,-135.98 35.72,-126.71 35.72,-118.11"></path>
+<polygon fill="black" stroke="black" points="39.22,-118.1 35.72,-108.1 32.22,-118.1 39.22,-118.1"></polygon>
+</g>
+<!-- output -->
+<g id="node3" class="node">
+<title>output</title>
+<ellipse fill="none" stroke="black" cx="35.72" cy="-18" rx="35.93" ry="18"></ellipse>
+<text text-anchor="middle" x="35.72" y="-13.8" font-family="Times,serif" font-size="14.00">output</text>
+</g>
+<!-- proses&#45;&gt;output -->
+<g id="edge2" class="edge">
+<title>proses-&gt;output</title>
+<path fill="none" stroke="black" d="M35.72,-71.7C35.72,-63.98 35.72,-54.71 35.72,-46.11"></path>
+<polygon fill="black" stroke="black" points="39.22,-46.1 35.72,-36.1 32.22,-46.1 39.22,-46.1"></polygon>
+</g>
+</g>
+</svg>
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
+</section></section>
+<section>
+<section id="input" class="title-slide slide level1 center">
+<h1><em>INPUT</em></h1>
+
+</section>
+<section id="apa-input-baca-data-yang-diperlukan-pada-image-classifier" class="slide level2 center">
+<h2>Apa <em>input</em> (baca data) yang diperlukan pada <em>image classifier</em></h2>
+</section>
+<section id="input-1" class="slide level2 center scrollable">
+<h2><em>Input</em></h2>
+<p><em>Input</em> yang diperlukan adalah <em>images</em>.</p>
+<p>Ada dua format <em>images</em> yang mashyur:</p>
+<ol type="1">
+<li><code>.png</code></li>
+<li><code>.jpeg</code></li>
+</ol>
+<p>Apa perbedaan keduanya?</p>
+</section>
+<section id="apa-perbedaan-.jpeg-dengan-.png" class="slide level2 center">
+<h2>Apa perbedaan <code>.jpeg</code> dengan <code>.png</code>?</h2>
+
+<img data-src="perbezaan.png" class="quarto-figure quarto-figure-center r-stretch" width="450"><aside class="notes">
+<p>Ini perbedaan hasil <em>prompting</em> dari Gemini.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="apa-perbedaan-.jpeg-dengan-.png-1" class="slide level2 center">
+<h2>Apa perbedaan <code>.jpeg</code> dengan <code>.png</code>?</h2>
+<p><strong>Perbedaan mendasar yang perlu diketahui adalah banyaknya <em>layers</em></strong>.</p>
+
+<img data-src="JPEG-vs-PNG.webp" class="quarto-figure quarto-figure-center r-stretch" width="150"><ul>
+<li><code>.jpeg</code> terdiri dari 3 <em>layers</em>, yakni <strong>Red, Green, Blue</strong>.</li>
+<li><code>.png</code> terdiri dari 4 <em>layers</em>, yakni <strong>Red, Green, Blue</strong> + <strong><em>Alpha</em></strong>.</li>
+</ul>
+<aside class="notes">
+<p>Ada yang tau kegunakan <em>alpha</em> apa?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="kenapa-banyaknya-layers-penting" class="slide level2 center smaller">
+<h2>Kenapa banyaknya <em>layers</em> penting?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Yang kita lihat:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="monalisa.jpg" class="quarto-figure quarto-figure-center" width="250"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<p>Yang komputer lihat:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>Image 
+  colorMode    : Color 
+  storage.mode : double 
+  dim          : 960 1431 3 
+  frames.total : 3 
+  frames.render: 1 
+
+imageData(object)[1:5,1:6,1]
+          [,1]      [,2]      [,3]      [,4]      [,5]      [,6]
+[1,] 0.3686275 0.3960784 0.3803922 0.3568627 0.3058824 0.3568627
+[2,] 0.3333333 0.4431373 0.4431373 0.3529412 0.3725490 0.3764706
+[3,] 0.2823529 0.4039216 0.3215686 0.3372549 0.3843137 0.4784314
+[4,] 0.3254902 0.4509804 0.4862745 0.2980392 0.4117647 0.4705882
+[5,] 0.4470588 0.3490196 0.3960784 0.3921569 0.5529412 0.5215686</code></pre>
+</div>
+</div>
+</div></div>
+<aside class="notes">
+<p>Ada yang mau tebak ini <code>jpeg</code> atau <code>png</code>? Dari mana bisa terlihat?</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="augmentasi-images" class="slide level2 center">
+<h2>Augmentasi <em>images</em></h2>
+
+<img data-src="augmen.webp" class="quarto-figure quarto-figure-center r-stretch" width="350"><p>Pada setiap model <em>image classifier</em>, dikenal suatu teknik bernama <em>image augmentation</em> yang berguna <strong>untuk memperbanyak <em>images</em> sehingga model bisa lebih pintar menebak <em>image</em> yang diberikan</strong>.</p>
+</section>
+<section id="summary-input-data" class="slide level2 center smaller scrollable">
+<h2><em>Summary: input data</em></h2>
+<ol type="1">
+<li>Data yang digunakan: <em>images</em>.
+<ul>
+<li>Agar model <strong>semakin pintar</strong>, kita bisa memperbanyak <em>images</em> dengan teknik <em>image augmentation</em>.</li>
+</ul></li>
+<li><em>Images</em> dilihat sebagai matriks dengan sifat:
+<ul>
+<li>Dimensi merupakan ukuran <em>height</em> dan <em>width</em> (<em>pixel size</em>).</li>
+<li>Banyaknya <em>layers</em> tergantung dari format <code>jpeg</code> dan <code>png</code> yang mengakibatkan perbedaan ukuran matrix.</li>
+</ul></li>
+<li>Matriks ini kelak yang akan digunakan untuk membangun model <em>deep learning</em>.
+<ul>
+<li>Oleh karena itu ukuran matriks harus <strong>konsisten</strong> selama pembuatan model.</li>
+</ul></li>
+</ol>
+</section></section>
+<section>
+<section id="proses-pembuatan-model-deep-learning" class="title-slide slide level1 center">
+<h1>Proses Pembuatan Model <em>Deep Learning</em></h1>
+
+</section>
+<section id="deep-learning-artificial-neural-network" class="slide level2 center">
+<h2><em>Deep Learning: Artificial Neural Network</em></h2>
+
+<img data-src="Neural-Networks-Architecture.png" class="quarto-figure quarto-figure-center r-stretch" width="450"><aside class="notes">
+<p>Ini adalah arsitektur dari ANN. Cara kerjanya adalah regresi linear. <em>Big regression machine</em>.</p>
+<p>Jelasin <em>layers</em> dan <em>nodes</em></p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="apa-hubungan-arsitektur-ann-dengan-dengan-ukuran-matriks" class="slide level2 center">
+<h2>Apa hubungan arsitektur ANN dengan dengan ukuran matriks?</h2>
+<blockquote>
+<p><em>Input layers</em> harus memuat <em>nodes</em> seukuran dengan matriks input.</p>
+</blockquote>
+<p><em>Output layers</em> harus memuat berapa banyak <em>nodes</em>?</p>
+<aside class="notes">
+<p><em>Output layers</em> tergantung dari output prediksinya apa?</p>
+<p>Kalau kita hendak memprediksi 2 kategorik, misal: ayam atau kambing, ya outputnya hanya 2.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="bagaimana-langkah-kerjanya" class="slide level2 center smaller scrollable">
+<h2>Bagaimana Langkah Kerjanya?</h2>
+<div style="font-size: 60%;">
+<ol type="1">
+<li>Siapkan minimal 2 kategori <em>images</em> yang hendak digunakan.
+<ul>
+<li>Lakukan augmentasi.</li>
+</ul></li>
+<li>Pisahkan <em>images</em> menjadi dua:
+<ul>
+<li><em>Train datasets</em>: model akan dilatih menggunakan kumpulan <em>images</em> ini.</li>
+<li><em>Test datasets</em>: model akan divalidasi menggunakan kumpulan <em>images</em> ini. Analogi: <strong>semacam ujian setelah seorang siswa belajar</strong>.</li>
+</ul></li>
+<li>Buat arsitektur ANN.
+<ul>
+<li>Perhatikan ukuran matriks dan <em>output nodes</em>-nya.</li>
+</ul></li>
+<li>Buat aturan (baca: definisikan) <strong>program wajib belajar</strong>.
+<ul>
+<li>Berapa banyak <em>epochs</em>?</li>
+<li>Berapa <em>learning rate</em>?</li>
+<li>Berapa porsi validasi saat belajar?</li>
+<li>Berapa <em>batch</em> yang digunakan dalam satu <em>epoch</em> pembelajaran?</li>
+<li><em>Activation function</em> setiap <em>layer</em> mau seperti apa?</li>
+</ul></li>
+<li>Suruh modelnya belajar.</li>
+<li>Validasi modelnya dan lihat seberapa akurat modelnya mengenali <em>images</em>.
+<ul>
+<li>Jika belum pintar, <strong>lakukan wajib belajar lagi</strong>.</li>
+</ul></li>
+</ol>
+</div>
+<aside class="notes">
+<p>Ini bedanya DL dengan ML. DL gak harus ngulang saat ada data baru. kalau ML kan ngulang modelnya ya.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ilustrasi-kerja-dengan-tensorflow" class="slide level2 center smaller">
+<h2>Ilustrasi Kerja dengan TensorFlow</h2>
+<div style="font-size: 60%;">
+<p>Salah satu <em>framework</em> yang digunakan untuk membuat model <em>deep learning</em> adalah <a href="https://playground.tensorflow.org/#activation=tanh&amp;batchSize=10&amp;dataset=circle&amp;regDataset=reg-plane&amp;learningRate=0.03&amp;regularizationRate=0&amp;noise=0&amp;networkShape=4,2&amp;seed=0.01329&amp;showTestData=false&amp;discretize=false&amp;percTrainData=50&amp;x=true&amp;y=true&amp;xTimesY=false&amp;xSquared=false&amp;ySquared=false&amp;cosX=false&amp;sinX=false&amp;cosY=false&amp;sinY=false&amp;collectStats=false&amp;problem=classification&amp;initZero=false&amp;hideText=false"><strong>TensorFlow</strong></a>.</p>
+<ul>
+<li>Sebuah <em>platform</em> atau <em>library open-source</em> yang dibuat oleh Google.</li>
+<li>Digunakan untuk membangun dan melatih model <em>Deep Learning</em>.</li>
+<li>Menyediakan alat, fungsi siap pakai, dan lingkungan untuk memudahkan proses pengembangan model AI.</li>
+<li>Fleksibel: Bisa dijalankan di berbagai perangkat keras (<strong>CPU, GPU, atau TPU</strong>).</li>
+</ul>
+</div>
+<blockquote>
+<p><strong><em>TensorFlow bukan model AI itu sendiri, tapi alat untuk membuat model tersebut.</em></strong></p>
+</blockquote>
+</section>
+<section id="analogi-tensorflow-itu-seperti-dapur-profesional" class="slide level2 center smaller">
+<h2><strong>Analogi</strong>: TensorFlow itu Seperti Dapur Profesional</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="tensorflow.png" class="quarto-figure quarto-figure-center" width="300"></p>
+</figure>
+</div>
+</div><div class="column" style="width:70%;">
+<div style="font-size: 80%;">
+<p><strong>Skenario</strong>: Anda ingin membuat kue yang sangat kompleks (<em>Model Deep Learning</em>).</p>
+<ul>
+<li><em>Deep Learning</em>: Adalah resep dan konsep cara membuat kue tersebut (prinsip jaringan saraf, <em>layers</em>, dll).</li>
+<li><em>TensorFlow</em>: Adalah dapur profesional yang lengkap:
+<ul>
+<li>Menyediakan mangkuk, <em>mixer</em>, oven canggih (fungsi matematika, algoritma optimasi, struktur data ‘Tensor’).</li>
+<li>Menyediakan alat ukur presisi (<em>tools debugging</em> dan <em>monitoring</em>).</li>
+<li>Menyediakan tata letak dapur yang efisien (<em>framework</em> yang terstruktur).</li>
+<li>Memungkinkan Anda fokus meracik bahan (data) dan mengikuti resep (membangun model) tanpa perlu membuat semua alat dari nol.</li>
+</ul></li>
+</ul>
+</div>
+</div></div>
+<aside class="notes">
+<p>TensorFlow menyederhanakan dan mempercepat proses “memasak” (membangun dan melatih) model Deep Learning.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Learning Forum</p>
@@ -696,6 +992,44 @@ ikanx101.com
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

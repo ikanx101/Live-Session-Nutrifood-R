@@ -31,8 +31,8 @@ maia_img  = list.files(maia_folder,full.names = T)
 
 # kita akan buat function untuk melakukan pembacaan dan resize image
 # definisikan dulu width dan height
-w = 100
-h = 100
+w = 50
+h = 50
 
 bacain = function(nama_gambar){
   gambar = readImage(nama_gambar)
@@ -48,22 +48,24 @@ baca_maia  = mclapply(maia_img,bacain,mc.cores = ncore)
 
 # sekarang kita akan buat train dan test nya
 # kita buat proporsinya merata aja ya
-# ns ada 324
-# non ns ada 837
+# dhani ada 500
+# maia ada 380
 
 # kita generate dulu id untuk train nya
 n_train   = 300
-id_ns     = sample(length(baca_ns_img),n_train)
-id_non_ns = sample(length(baca_non_ns_img),n_train)
+id_dhani  = sample(length(baca_dhani),n_train)
+id_maia   = sample(length(baca_maia),n_train)
 
 # ini id utk test nya
-id_ns_t     = c(1:length(baca_ns_img))[-id_ns]
-id_non_ns_t = c(1:length(baca_non_ns_img))[-id_non_ns]
+id_dhani_t = c(1:length(baca_dhani))[-id_dhani]
+id_maia_t  = c(1:length(baca_maia))[-id_maia]
 
 # ini kita siapkan label targetnya
+# 1 utk dhani
+# 0 utk maia
 train_label_raw = c(rep(1,n_train),rep(0,n_train))
-test_label_raw  = c(rep(1,(length(baca_ns_img) - n_train)),
-                    rep(0,(length(baca_non_ns_img) - n_train)))
+test_label_raw  = c(rep(1,(length(baca_dhani) - n_train)),
+                    rep(0,(length(baca_maia) - n_train)))
 
 # nah, kedua label ini harus dibuat dalam bentuk one hot encoding
 train_label = to_categorical(train_label_raw)
@@ -71,26 +73,26 @@ test_label  = to_categorical(test_label_raw)
 
 # Nah, kita buat train datasetnya nih
 X_train = NULL
-for (i in id_ns){
-  X_train = rbind(X_train, baca_ns_img[[i]])
+for (i in id_dhani){
+  X_train = rbind(X_train, baca_dhani[[i]])
 } 
-for (i in id_non_ns){
-  X_train = rbind(X_train, baca_non_ns_img[[i]])
+for (i in id_maia){
+  X_train = rbind(X_train, baca_maia[[i]])
 } 
 
 # Nah, kita buat test datasetnya nih
 X_test = NULL
-for (i in id_ns_t){
-  X_test = rbind(X_test, baca_ns_img[[i]])
+for (i in id_dhani_t){
+  X_test = rbind(X_test, baca_dhani[[i]])
 } 
-for (i in id_non_ns_t){
-  X_test = rbind(X_test, baca_non_ns_img[[i]])
+for (i in id_maia_t){
+  X_test = rbind(X_test, baca_maia[[i]])
 } 
 
 # bismillah modelnya
 model = keras_model_sequential()
 model %>%
-  layer_dense(units = 256, activation = 'relu', input_shape = c(25600)) %>%
+  layer_dense(units = 256, activation = 'relu', input_shape = c(10000)) %>%
   layer_dense(256, activation = "relu") |>
   layer_dense(256, activation = "relu") |>
   layer_dropout(0.3) |>
@@ -115,15 +117,13 @@ fitModel =
     X_train,
     train_label,
     batch_size = 200,
-    epochs     = 400,
-    verbose    = 2,
+    epochs     = 300,
+    verbose    = 3,
     validation_split = .25
   )
 
-
 # Plot model fitting    
 plot(fitModel)
-
 
 # Evaluasi Model
 # menggunakan train dataset
@@ -139,6 +139,7 @@ pred_train =
 caret::confusionMatrix(factor(pred_train),factor(train_label_raw))
 
 # menggunakan test dataset
+model %>% evaluate(X_test, test_label)
 pred_test <- model %>% predict(X_test) %>% as.data.frame()
 pred_test = 
   pred_test %>% 
@@ -148,33 +149,10 @@ pred_test =
 # kita bikin confusion matrix
 caret::confusionMatrix(factor(pred_test),factor(test_label_raw))
 
-# sekarang kita akan pake marimas punya
-X_marimas = NULL
-for (i in 1:length(baca_marimas_baru_img)){
-  X_marimas = rbind(X_marimas, baca_marimas_baru_img[[i]])
-} 
-
-pred_marimas <- model %>% predict(X_marimas) %>% as.data.frame()
-pred_marimas = 
-  pred_marimas %>% 
-  mutate(hasil = ifelse(V1 > V2,"gak mirip","mirip NS"),
-         prob  = V2 * 100,
-         prob  = round(prob,2),
-         persen = paste0(prob,"%")) %>% 
-  select(-prob)
-
-bacain_aja = function(nama_gambar){
-  gambar = readImage(nama_gambar)
-  return(gambar)
-}
-
-marimas_baru_img_all = mclapply(marimas_baru_img,bacain_aja,mc.cores = ncore)
-
-i = 2
-display(marimas_baru_img_all[[i]])
-pred_marimas[i,]
+# model |> save_model("model_belajar_lagi_lagi_lagi.keras")
+# model <- load_model("model_belajar_lagi_lagi.keras")
 
 
-setwd("~/image-classifier/model")
-model |> save_model("model.keras")
-# loaded_model <- load_model("model.keras")
+
+
+
