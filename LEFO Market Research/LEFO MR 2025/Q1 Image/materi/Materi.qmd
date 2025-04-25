@@ -39,7 +39,7 @@ execute:
 Kita mulai dulu dari sini ya.
 :::
 
-## Gambar apakah ini?
+## Gambar apakah ini? {.center}
 
 ::: {layout-ncol="2"}
 ![](IMG_0967.jpeg){fig-align="center" width="350"}
@@ -202,6 +202,8 @@ Kalau kita hendak memprediksi 2 kategorik, misal: ayam atau kambing, ya outputny
 
 ## Bagaimana Langkah Kerjanya? {.center .smaller}
 
+::::::: columns
+:::: {.column width="70%"}
 ::: {style="font-size: 60%;"}
 1. Siapkan minimal 2 kategori _images_ yang hendak digunakan.
     - Lakukan augmentasi.
@@ -220,6 +222,13 @@ Kalau kita hendak memprediksi 2 kategorik, misal: ayam atau kambing, ya outputny
 1. Validasi modelnya dan lihat seberapa akurat modelnya mengenali _images_.
     - Jika belum pintar, __lakukan wajib belajar lagi__.
 :::
+::::
+
+:::: {.column width="30%"}
+![](nomnoml.png){fig-align="center" width="450"}
+::::
+:::::::
+
 
 ::: notes
 Ini bedanya DL dengan ML. DL gak harus ngulang saat ada data baru. kalau ML kan ngulang modelnya ya.
@@ -263,5 +272,26 @@ Salah satu _framework_ yang digunakan untuk membuat model _deep learning_ adalah
 ::: notes
 TensorFlow menyederhanakan dan mempercepat proses "memasak" (membangun dan melatih) model Deep Learning.
 :::
+
+## _Summary: proses_ {.center .smaller}
+
+1. _Deep learning_ bekerja dengan membuat jaringan syaraf tiruan (_artificial neural networks_). 
+    - Dibalik istilahnya yang __mewah__, sejatinya ANN merupakan mesin regresi raksasa yang bekerja dengan membuat dan menggabungkan sebanyak-banyaknya formula regresi.
+    - Strukturnya diserahkan kepada setiap _data scientist_ yang membuatnya. Tidak ada pakem khusus saat menentukan dan mendefinisikan struktur tersebut.
+1. _Tensorflow_ adalah salah satu _framework_ _open source_ untuk membuat model _deep learning_ berbasis _Python_ yang dibuat oleh Google. 
+    - Model yang dihasilkan bisa di-_transfer_ (pernah dengar istilah _transfer learning?_) untuk di-_fine tuning_ oleh pihak lain __dengan syarat orang tersebut mengetahui struktur ANN yang digunakan__.
+
+# *OUTPUT*
+
+## Output Tensorflow {.center}
+
+Output tensorflow adalah _probabilitas_. Misalkan probabilitas suatu gambar dikategorikan sebagai `ayam` atau `kambing`.
+
+# _CASE STUDIES_
+
+## Siapa Mirip Siapa?{.center}
+
+![](siapa.png)
+
 
 

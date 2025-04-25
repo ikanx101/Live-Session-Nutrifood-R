@@ -321,13 +321,6 @@
       margin-right: 0; 
     }
   </style>
-<<<<<<< HEAD
-  <meta name="mermaid-theme" content="neutral">
-  <script src="Materi_files/libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="Materi_files/libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="Materi_files/libs/quarto-diagram/mermaid.css" rel="stylesheet">
-=======
->>>>>>> 21dffe6f60691f356e1809aff8fcdf4f860eabc8
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -367,7 +360,7 @@ ikanx101.com
           display:block!important;
       }</style></aside>
 </section>
-<section id="gambar-apakah-ini" class="slide level2">
+<section id="gambar-apakah-ini" class="slide level2 center">
 <h2>Gambar apakah ini?</h2>
 <div>
 
@@ -468,22 +461,12 @@ ikanx101.com
 </section>
 <section id="overview" class="slide level2 center">
 <h2><em>Overview</em></h2>
-<<<<<<< HEAD
-<div class="cell" data-reveal="true" data-fig-width="6.5" data-layout-align="center">
-=======
 <p>Saya akan coba bahas mengenai bagaimana cara membuat model <em>image classifier</em>.</p>
 <div class="cell" data-layout-align="center">
->>>>>>> 21dffe6f60691f356e1809aff8fcdf4f860eabc8
 <div class="cell-output-display">
 <div>
 <p></p><figure class=""><p></p>
 <div>
-<<<<<<< HEAD
-<pre class="mermaid mermaid-js">flowchart LR
-  A[Input] --&gt; B[Proses]
-  B --&gt; C[Output]
-</pre>
-=======
 <svg width="960" height="480" viewbox="0.00 0.00 79.43 188.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none; display: block; margin: auto auto auto auto">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 184)">
 <title>D</title>
@@ -520,16 +503,11 @@ ikanx101.com
 </g>
 </g>
 </svg>
->>>>>>> 21dffe6f60691f356e1809aff8fcdf4f860eabc8
 </div>
 <p></p></figure><p></p>
 </div>
 </div>
 </div>
-<<<<<<< HEAD
-<p>Saya akan coba bahas mengenai bagaimana cara membuat model <em>image classifier</em>.</p>
-=======
->>>>>>> 21dffe6f60691f356e1809aff8fcdf4f860eabc8
 </section></section>
 <section>
 <section id="input" class="title-slide slide level1 center">
@@ -538,8 +516,6 @@ ikanx101.com
 </section>
 <section id="apa-input-baca-data-yang-diperlukan-pada-image-classifier" class="slide level2 center">
 <h2>Apa <em>input</em> (baca data) yang diperlukan pada <em>image classifier</em></h2>
-<<<<<<< HEAD
-=======
 </section>
 <section id="input-1" class="slide level2 center scrollable">
 <h2><em>Input</em></h2>
@@ -704,6 +680,8 @@ imageData(object)[1:5,1:6,1]
 </section>
 <section id="bagaimana-langkah-kerjanya" class="slide level2 center smaller scrollable">
 <h2>Bagaimana Langkah Kerjanya?</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
 <div style="font-size: 60%;">
 <ol type="1">
 <li>Siapkan minimal 2 kategori <em>images</em> yang hendak digunakan.
@@ -734,6 +712,13 @@ imageData(object)[1:5,1:6,1]
 </ul></li>
 </ol>
 </div>
+</div><div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="nomnoml.png" class="quarto-figure quarto-figure-center" width="450"></p>
+</figure>
+</div>
+</div></div>
 <aside class="notes">
 <p>Ini bedanya DL dengan ML. DL gak harus ngulang saat ada data baru. kalau ML kan ngulang modelnya ya.</p>
 <style type="text/css">
@@ -800,8 +785,39 @@ imageData(object)[1:5,1:6,1]
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
->>>>>>> 21dffe6f60691f356e1809aff8fcdf4f860eabc8
-<div class="quarto-auto-generated-content">
+</section>
+<section id="summary-proses" class="slide level2 center smaller scrollable">
+<h2><em>Summary: proses</em></h2>
+<ol type="1">
+<li><em>Deep learning</em> bekerja dengan membuat jaringan syaraf tiruan (<em>artificial neural networks</em>).
+<ul>
+<li>Dibalik istilahnya yang <strong>mewah</strong>, sejatinya ANN merupakan mesin regresi raksasa yang bekerja dengan membuat dan menggabungkan sebanyak-banyaknya formula regresi.</li>
+<li>Strukturnya diserahkan kepada setiap <em>data scientist</em> yang membuatnya. Tidak ada pakem khusus saat menentukan dan mendefinisikan struktur tersebut.</li>
+</ul></li>
+<li><em>Tensorflow</em> adalah salah satu <em>framework</em> <em>open source</em> untuk membuat model <em>deep learning</em> berbasis <em>Python</em> yang dibuat oleh Google.
+<ul>
+<li>Model yang dihasilkan bisa di-<em>transfer</em> (pernah dengar istilah <em>transfer learning?</em>) untuk di-<em>fine tuning</em> oleh pihak lain <strong>dengan syarat orang tersebut mengetahui struktur ANN yang digunakan</strong>.</li>
+</ul></li>
+</ol>
+</section></section>
+<section>
+<section id="output" class="title-slide slide level1 center">
+<h1><em>OUTPUT</em></h1>
+
+</section>
+<section id="output-tensorflow" class="slide level2 center">
+<h2>Output Tensorflow</h2>
+<p>Output tensorflow adalah <em>probabilitas</em>. Misalkan probabilitas suatu gambar dikategorikan sebagai <code>ayam</code> atau <code>kambing</code>.</p>
+</section></section>
+<section>
+<section id="case-studies" class="title-slide slide level1 center">
+<h1><em>CASE STUDIES</em></h1>
+
+</section>
+<section id="siapa-mirip-siapa" class="slide level2 center">
+<h2>Siapa Mirip Siapa?</h2>
+
+<img data-src="siapa.png" class="r-stretch"><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 <p>Learning Forum</p>
 </div>

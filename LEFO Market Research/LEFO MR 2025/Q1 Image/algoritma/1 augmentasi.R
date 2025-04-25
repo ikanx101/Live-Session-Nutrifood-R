@@ -30,7 +30,7 @@ augmentasikan = function(target_foto){
   gambar_2 = gambar + randomin
   
   # ubah lagi
-  randomin = runif(1)
+  randomin = runif(1,0,.3)
   gambar_3 = gambar ^ randomin
   
   # kita puter

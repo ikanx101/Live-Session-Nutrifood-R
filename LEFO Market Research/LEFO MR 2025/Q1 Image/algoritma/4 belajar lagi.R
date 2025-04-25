@@ -1,4 +1,3 @@
-# https://keras3.posit.co/articles/examples/index.html
 
 # Kita bersihkan hati dan pikiran dulu
 rm(list=ls())
@@ -52,7 +51,7 @@ baca_maia  = mclapply(maia_img,bacain,mc.cores = ncore)
 # maia ada 380
 
 # kita generate dulu id untuk train nya
-n_train   = 300
+n_train   = 100
 id_dhani  = sample(length(baca_dhani),n_train)
 id_maia   = sample(length(baca_maia),n_train)
 
@@ -89,27 +88,8 @@ for (i in id_maia_t){
   X_test = rbind(X_test, baca_maia[[i]])
 } 
 
-# bismillah modelnya
-model = keras_model_sequential()
-model %>%
-  layer_dense(units = 256, activation = 'relu', input_shape = c(10000)) %>%
-  layer_dense(256, activation = "relu") |>
-  layer_dense(256, activation = "relu") |>
-  layer_dropout(0.3) |>
-  layer_dense(256, activation = "relu") |>
-  layer_dropout(0.3) |>
-  layer_dense(2, activation = "sigmoid")
-
-# Summary model    
-summary(model)
-
-# Optimizer Model
-model |> compile(
-  optimizer = optimizer_adam(1e-2),
-  loss    = "binary_crossentropy",
-  metrics = c('accuracy')
-)
-
+# load modelnya
+model <- load_model("model_v9.keras")
 
 # Model fitting
 fitModel =
@@ -122,36 +102,15 @@ fitModel =
     validation_split = .25
   )
 
+# evaluasi
+model %>% evaluate(X_train, train_label)
+model %>% evaluate(X_test, test_label)
+
 # Plot model fitting    
 plot(fitModel)
 
-# Evaluasi Model
-# menggunakan train dataset
-model %>% evaluate(X_train, train_label)
-# membuat prediksi dari train dataset
-pred_train <- model %>% predict(X_train) %>% as.data.frame()
-pred_train = 
-  pred_train %>% 
-  mutate(hasil = ifelse(V1 > V2,0,1)) %>% 
-  pull(hasil)
-
-# kita bikin confusion matrix
-caret::confusionMatrix(factor(pred_train),factor(train_label_raw))
-
-# menggunakan test dataset
-model %>% evaluate(X_test, test_label)
-pred_test <- model %>% predict(X_test) %>% as.data.frame()
-pred_test = 
-  pred_test %>% 
-  mutate(hasil = ifelse(V1 > V2,0,1)) %>% 
-  pull(hasil)
-
-# kita bikin confusion matrix
-caret::confusionMatrix(factor(pred_test),factor(test_label_raw))
-
-# model |> save_model("model_belajar_lagi_lagi_lagi.keras")
-# model <- load_model("model_belajar_lagi_lagi.keras")
-
+# save model
+model |> save_model("model_v10.keras")
 
 
 
